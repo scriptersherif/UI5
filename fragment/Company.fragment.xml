@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <SelectDialog
+        noDataText="No Data Found"
+        title="Select Company Code"      
+       class="cl_frag"
+        confirm="fn_confirmCompany"
+        cancel="fn_confirmCompany"
+        icon="sap-icon://building"
+        liveChange="fn_CompanySearch"
+        search="fn_CompanySearch"
+        items="{jsCompany>/}" >
+        <StandardListItem
+            title="{jsCompany>Bukrs}"
+            description="{jsCompany>Butxt}"
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active" />
+            <!--icon="sap-icon://building"-->
+    </SelectDialog>
+</core:FragmentDefinition>

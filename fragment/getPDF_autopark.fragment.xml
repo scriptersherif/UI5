@@ -1,0 +1,44 @@
+<core:FragmentDefinition 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:u="sap.ui.unified">
+
+    <Dialog 
+        id="PDFDialog1" 
+        showHeader="false" 
+        contentWidth="402px"  
+        class="cl_frag_rightslidesum cl_frag_rightslide_view" 
+        resizable="true"
+        draggable="false"  
+        contentHeight="auto" 
+        afterOpen="fn_AfterGetPDFOpen">
+
+        <HBox 
+            justifyContent="SpaceBetween" 
+            alignItems="Center" 
+            class="cl_pdf_dialog_header cl_pdfComments_header">
+
+            <Text 
+                text="{i18n>invoicePreviewTitle}" 
+                class="sapUiTinyMargin sapMTitle cl_dialog_text"/>
+
+            <Button 
+                icon="Images/cancel.svg" 
+                type="Transparent" 
+                class="sapUiSizeCompact cl_btn_rest cl_btn_rej cl_pdf_close" 
+                press="fnfragPDFClose" 
+                tooltip="{i18n>closeButtonTooltip}"/>
+        </HBox>
+
+        <VBox class="cl_leftPanelltrans">
+            <ScrollContainer 
+                id="id_scrll" 
+                width="100%" 
+                class="sapUiTinyMargin" 
+                visible="false" 
+                focusable="true" 
+                horizontal="true" 
+                vertical="true"/>
+        </VBox>
+    </Dialog>
+</core:FragmentDefinition>

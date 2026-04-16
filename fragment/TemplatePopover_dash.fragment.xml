@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Popover showHeader="false" placement="Bottom" id="idTemplatePopover" class="clcustomizetemppop">
+    <VBox>
+      <!--<List id="idTemplateList" items="{viewModel>/templates}">-->
+      	<List id="idTemplateList" items="{viewModel>/templates}" 
+      itemPress="fn_onTemplateListItemPress" mode="SingleSelectMaster" selectionChange="fn_onTemplateSelectionChange">
+        <CustomListItem>
+          <HBox justifyContent="SpaceBetween" width="100%" class="templateListItemBox">
+            <Text text="{viewModel>name}" />
+            <Button icon="Images/trash-can-outline.svg" press="fn_onDeleteTemplate" type="Transparent"/>
+          </HBox>
+        </CustomListItem>
+      </List>
+      <!--<Button icon="sap-icon://add" text="Create Template" type="Transparent" press="onOpenCreateTemplateDialog"  class="fullWidthTemplateButton"/>-->
+   <HBox justifyContent="SpaceBetween" width="100%" class="templateListItemBox">
+            <Text text="Create Template" />
+            <Button icon="Images/plu_fragment.svg" press="fn_onOpenCreateTemplateDialog" type="Transparent"/>
+          </HBox>
+    </VBox>
+  </Popover>
+</core:FragmentDefinition>

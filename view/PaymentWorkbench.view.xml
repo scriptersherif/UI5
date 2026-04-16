@@ -1,0 +1,618 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.PaymentWorkbench"
+	xmlns:u="sap.ui.unified" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:uitable="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="Payment Workbench">
+				<!-- HEADER -->
+				<customHeader>
+					<Toolbar class="header_bar1 sapUiSmallMarginEnd">
+						<Image id="id_fnback" src="Images/arrow-left.svg" class="cl_back_btn sapUiSmallMarginBegin" visible="false" press="fn_back"/>
+						<Text text="{i18n>Payment Workbench}" class="cl_bold cl_black_txt cl_heading cl_font sapUiSmallMarginBegin"/>
+						<RadioButtonGroup id="idViewSelector" class="cl_RadiotxtBtn" columns="3" select="onRadioNav">
+							<buttons>
+								<RadioButton text="Initiator" class="cl_RadiotxtBtn"/>
+								<RadioButton text="Approver" class="cl_RadiotxtBtn"/>
+								<RadioButton text="Bank Approver" class="cl_RadiotxtBtn"/>
+							</buttons>
+						</RadioButtonGroup>
+						<ToolbarSpacer/>
+						<Button icon="Images/refreshbtn.png" tooltip="Refresh" class="refresh_btn" press="fn_appr"/>
+						<Button icon="Images/bellbtn.png" tooltip="Notification" class="notifi_btn" press="fn_final"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<Text text="" id="id_uname" class="cl_username cl_font team_text"/>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<HBox width="100%" class="cl_payment_overall">
+						<VBox class="cl_search_section" visible="false" id="id_full_search" width="27%" justifyContent="SpaceBetween">
+							<VBox>
+								<!-- Header -->
+								<VBox class="cl_search_header">
+									<Label text="Search" class="cl_search_header_text"/>
+								</VBox>
+								<!-- Search Content -->
+								<VBox class="cl_search_content">
+									<VBox class=" formFieldbarcode comboboxcont">
+										<Text text="{i18n>Company Code}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar" width="100%">
+											<ComboBox id="id_compcode2" items="{MCompanyCode>/}" change="fnChange" selectionFinish="handleSelectionFinish" width="100%"
+												class="cl_combo_transBar cl_combo_transBarbarcode" editable="{path: 'JSKey>/0/Key'}" tooltip="{i18n>companycode}">
+												<core:Item text="{= ${MCompanyCode>Bukrs} + '-' + ${MCompanyCode>Butxt} }" key="{MCompanyCode>Bukrs}"/>
+											</ComboBox>
+										</HBox>
+									</VBox>
+									<VBox class=" formFieldbarcode comboboxcont">
+										<Text text="{i18n>ProfitCentre}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar" width="100%">
+											<ComboBox id="id_profit2" items="{MProfitCenter>/}" change="fnChange" selectionFinish="handleSelectionFinish" width="100%"
+												class="cl_combo_transBar cl_combo_transBarbarcode" editable="{path: 'JSKey>/0/Key'}" tooltip="{i18n>Profitcenter}">
+												<core:Item text="{MProfitCenter>ProfitCtr}" key="{MProfitCenter>ProfitCtr}"/>
+											</ComboBox>
+										</HBox>
+									</VBox>
+									<!-- Vendor -->
+									<VBox class="formFieldbarcode comboboxcont cl_combobox_payment">
+										<Text text="Vendor" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar forminputiconrecall" width="100%">
+											<MultiInput id="id_vendor" showValueHelp="false" valueHelpRequest="onValueHelpRequestedVendor" tooltip="{/vendorTooltip}"
+												submit="onSubmitFilter" class="cl_inputbox cl_inputbox1 cl_multi cl_multi2 cl_multi3 sapUiSizeCompact" showSuggestion="true"
+												suggest="handleSuggestVendor" suggestionItems="{MVendor>/}">
+												<suggestionItems>
+													<core:ListItem key="{MVendor>Lifnr}" text="{MVendor>Lifnr}" additionalText="{MVendor>Name1}"/>
+												</suggestionItems>
+												<layoutData>
+													<FlexItemData growFactor="1"/>
+													<!-- Force to expand full width -->
+												</layoutData>
+											</MultiInput>
+											<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon" press="onValueHelpRequestedVendor"/>
+										</HBox>
+									</VBox>
+									<!-- Age -->
+									<VBox class="formFieldbarcode comboboxcont" width="100%">
+										<Text text="Age" class="cl_textbarcode cl_textdeviation"/>
+										<HBox alignItems="Center" class="formInputWithIconbar forminputiconrecall" width="100%">
+											<!-- ComboBox -->
+											<!--<HBox class="formInputWithIconbar " alignItems="Center">-->
+											<ComboBox id="id_combo" selectionChange="select_combo" width="100%"
+												class="cl_combo_transBar cl_combo_age_first cl_combo_transtat cl_tat_status_combobox_inp " tooltip="{i18n>Age}">
+												<core:Item text="Over"/>
+												<core:Item text="Under"/>
+												<core:Item text="AsOnDue"/>
+												<layoutData>
+													<FlexItemData growFactor="1" minWidth="0" maxWidth="50%"/>
+												</layoutData>
+											</ComboBox>
+											<!--</HBox>-->
+											<!-- Input -->
+											<HBox class="formInputWithIconbar" alignItems="Center">
+												<Input id="id_filterage"
+													class="formInputB1 forminputtat forminputlasttat forminputlastrecall forminputlastdeviation deviationdate deviationdatelast" editable="true"/>
+											</HBox>
+										</HBox>
+									</VBox>
+									<!-- Invoice Number -->
+									<VBox class="formFieldbarcode comboboxcont cl_combobox_payment" width="100%">
+										<Text text="Invoice Number" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar forminputiconrecall" width="100%">
+											<!-- MultiInput 50% -->
+											<!--<MultiInput id="id_invno" showValueHelp="false" width="100%"-->
+											<!--	class="cl_inputbox cl_multi cl_multi2 cl_multi3 sapUiSizeCompact " tokens="{JMInvoice>/items}">-->
+											<!--	<tokens>-->
+											<!--		<Token text="{JMInvoice>text}"/>-->
+											<!--	</tokens>-->
+											<!--	<layoutData>-->
+											<!--		<FlexItemData growFactor="1"/>-->
+											<!--	</layoutData>-->
+											<!--</MultiInput>-->
+											<MultiInput id="id_invno" width="100%" showValueHelp="false" showClearIcon="true"
+												class="cl_inputbox cl_multi cl_multi2 cl_multi3 sapUiSizeCompact cl_payworkbnch" enableMultiLineMode="true"
+												tokens="{ path: 'JMInvoice>/items' }" suggestionItems="{ path: 'JMInvoice>/items', sorter: { path: 'text' } }">
+												<tokens>
+													<Token text="{JMInvoice>text}" key="{JMInvoice>text}"/>
+												</tokens>
+												<core:Item key="{JMInvoice>text}" text="{JMInvoice>text}"/>
+											</MultiInput>
+											<!-- DatePicker 50% -->
+											<DatePicker id="id_inv_year" change="handleInvChange" value="{ }" valueFormat="yyyy" displayFormat="yyyy"
+												class="formInputB1 forminputtat forminputlasttat forminputlastrecall forminputlastdeviation deviationdate deviationdatelast">
+												<layoutData>
+													<FlexItemData growFactor="1" minWidth="0" maxWidth="50%"/>
+												</layoutData>
+											</DatePicker>
+										</HBox>
+									</VBox>
+									<!-- Document Number -->
+									<VBox class="formFieldbarcode comboboxcont cl_combobox_payment">
+										<Text text="Document Number" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar " width="100%">
+											<MultiInput showValueHelp="false" enableMultiLineMode="true" id="id_docno" class="cl_inputbox cl_multi cl_multi2 cl_multi3 sapUiSizeCompact cl_payworkbnch" tokens="{JMDoc>/items}">
+												<tokens>
+													<Token text="{JMDoc>text}"/>
+												</tokens>
+												<layoutData>
+													<FlexItemData growFactor="1"/>
+												</layoutData>
+											</MultiInput>
+											<HBox class="formInputWithIconbar" alignItems="Center">
+												<DatePicker id="id_doc_year" change="handleDocChange" value="{ }" valueFormat="yyyy" displayFormat="yyyy"
+													class="formInputB1 forminputtat forminputlasttat forminputlastrecall forminputlastdeviation deviationdate deviationdatelast"/>
+												<layoutData>
+													<FlexItemData growFactor="1" minWidth="0" maxWidth="50%"/>
+												</layoutData>
+											</HBox>
+											<!--<core:Icon src="sap-icon://overflow" color="#72CCAF" press="fn_open_doc"/>-->
+										</HBox>
+									</VBox>
+									<!-- Due Date -->
+									<!-- Due Date -->
+									<VBox class="formFieldbarcode comboboxcont" width="100%">
+										<Text text="Due Date" class="cl_textbarcode cl_textdeviation"/>
+										<HBox alignItems="Center" class="formInputWithIconbar forminputiconrecall" width="100%">
+											<!-- From Date -->
+											<HBox class="formInputWithIconbar" alignItems="Center">
+												<DatePicker id="DP1" valueFormat="dd.MM.yyyy" displayFormat="dd/MM/yyyy" readonly="true" icon="sap-icon://calendar" placeholder="From"
+													class="formInputB1 forminputtat forminputfirsttat tatdatepick deviationdate deviationdatefirst" change="fn_datevalidation"/>
+											</HBox>
+											<!-- To Date -->
+											<HBox class="formInputWithIconbar" alignItems="Center">
+												<DatePicker id="DP2" valueFormat="dd.MM.yyyy" displayFormat="dd/MM/yyyy" readonly="true" placeholder="To"
+													class="formInputB1 forminputtat forminputlasttat forminputlastrecall forminputlastdeviation deviationdate deviationdatelast"
+													change="fn_datevalidation"/>
+												<layoutData>
+													<FlexItemData growFactor="1" minWidth="0" maxWidth="50%"/>
+												</layoutData>
+											</HBox>
+										</HBox>
+									</VBox>
+									<!-- Posting Date -->
+									<VBox class="formFieldbarcode comboboxcont" width="100%">
+										<Text text="Posting Date" class="cl_textbarcode cl_textdeviation"/>
+										<HBox alignItems="Center" class="formInputWithIconbar forminputiconrecall" width="100%">
+											<!-- From Date -->
+											<HBox class="formInputWithIconbar" alignItems="Center">
+												<DatePicker id="DP3" valueFormat="dd.MM.yyyy" displayFormat="dd/MM/yyyy" readonly="true" icon="sap-icon://calendar" placeholder="From"
+													class="formInputB1 forminputtat forminputfirsttat tatdatepick deviationdate deviationdatefirst" change="fn_datevalidation"/>
+											</HBox>
+											<!-- To Date -->
+											<HBox class="formInputWithIconbar" alignItems="Center">
+												<DatePicker id="DP4" valueFormat="dd.MM.yyyy" displayFormat="dd/MM/yyyy" readonly="true" placeholder="To"
+													class="formInputB1 forminputtat forminputlasttat forminputlastrecall forminputlastdeviation deviationdate deviationdatelast"
+													change="fn_datevalidation"/>
+												<layoutData>
+													<FlexItemData growFactor="1" minWidth="0" maxWidth="50%"/>
+												</layoutData>
+											</HBox>
+										</HBox>
+									</VBox>
+									<!-- MSME -->
+									<HBox class="sapUiTinyMarginTop">
+										<!--class added by Sakthi C on 27.06.2022-->
+										<CheckBox class="cl_selectAllBox " id="id_msmecheck" textAlign="Left" select="onselect"></CheckBox>
+										<Text text="MSME" class=" sapUiSmallMarginBegin cl_text_cred_deb"></Text>
+									</HBox>
+									<!--<VBox class="formFieldbarcode comboboxcont">-->
+									<!--	<Text text="MSME" class="cl_textbarcode"/>-->
+									<!--	<CheckBox id="id_msmecheck"/>-->
+									<!--</VBox>-->
+								</VBox>
+							</VBox>
+							<HBox class="cl_buttons_section" alignItems="Start" justifyContent="SpaceBetween">
+								<Button text="More Filters" icon="Images/chevron-up.svg" class="whitebtn cl_btn_filter_payment" press="fn_less_filters"/>
+								<Button text="{i18n>Clear}" icon="Images/restore_black.svg" type="Transparent" press="onClickClroncompplace"
+									class="blackbtn sapUiTinyMarginEnd"/>
+								<Button text="{i18n>Search}" icon="Images/searchab.svg" type="Transparent" press="onPressSearch" class="bluebtn"/>
+							</HBox>
+							<!-- Buttons Section -->
+						</VBox>
+						<VBox id="id_non_filter_content" width="100%">
+							<HBox width="100%" alignItems="Start" justifyContent="SpaceBetween" class="cl_search_cards_section">
+								<!-- Search Section -->
+								<VBox class="cl_search_section" id="id_half_search" width="27%">
+									<VBox class="cl_search_header">
+										<Label text="Search" class="cl_search_header_text"/>
+									</VBox>
+									<VBox class="cl_search_content">
+										<VBox class=" formFieldbarcode comboboxcont">
+											<Text text="{i18n>Company Code}" class="cl_textbarcode"/>
+											<HBox class="formInputWithIconbar" width="100%">
+												<ComboBox id="id_compcode" items="{MCompanyCode>/}" change="fnChange" selectionFinish="handleSelectionFinish" width="100%"
+													class="cl_combo_transBar cl_combo_transBarbarcode" editable="{path: 'JSKey>/0/Key'}" tooltip="{i18n>companycode}">
+													<core:Item text="{= ${MCompanyCode>Bukrs} + '-' + ${MCompanyCode>Butxt} }" key="{MCompanyCode>Bukrs}"/>
+												</ComboBox>
+											</HBox>
+										</VBox>
+										<VBox class=" formFieldbarcode comboboxcont">
+											<Text text="{i18n>ProfitCentre}" class="cl_textbarcode"/>
+											<HBox class="formInputWithIconbar" width="100%">
+												<ComboBox id="id_profit" items="{MProfitCenter>/}" change="fnChange" selectionFinish="handleSelectionFinish" width="100%"
+													class="cl_combo_transBar cl_combo_transBarbarcode" editable="{path: 'JSKey>/0/Key'}" tooltip="{i18n>Profitcenter}">
+													<core:Item text="{MProfitCenter>ProfitCtr}" key="{MProfitCenter>ProfitCtr}"/>
+												</ComboBox>
+											</HBox>
+										</VBox>
+									</VBox>
+									<HBox id="id_half_section_buttons" class="cl_buttons_section" alignItems="Start" justifyContent="SpaceBetween">
+										<Button text="More Filters" icon="Images/tune.svg" class="whitebtn cl_btn_filter_payment" press="fn_more_filters"/>
+										<Button id="id_clear" text="{i18n>Clear}" icon="Images/restore_black.svg" type="Transparent" press="onClickClroncompplace"
+											class="blackbtn sapUiTinyMarginEnd"/>
+										<Button id="id_search" text="{i18n>Search}" icon="Images/searchab.svg" type="Transparent" press="onPressSearch" class="bluebtn"/>
+									</HBox>
+								</VBox>
+								<VBox id="idCardContainer" class="cl_payment_cards" width="73%" height="100%">
+									<HBox class="cl_card_cont_head_d cl_card_head_payment" width="100%">
+										<HBox class="cl_container_pay card5 ontime1" width="33%">
+											<HBox class="cl_cont_right">
+												<HBox class="cl_card_texts_gap">
+													<Text text="Selected Credit Amount" class="cl_card_info"/>
+												</HBox>
+												<HBox>
+													<Text text="" id="id_credit_amt" class="cl_card_number"/>
+													<Text text="Lakhs" class="cl_card_number_short"/>
+												</HBox>
+											</HBox>
+											<VBox class="iconBackgroundgreen1">
+												<Image src="Images/invoice-clock-outline.svg" class="icon" width="18px" height="18px"/>
+											</VBox>
+											<!--<Button icon="Images/park.svg" tooltip="On Time" class="list_btn"/>-->
+										</HBox>
+										<HBox class="cl_container_pay total_card" width="33%">
+											<HBox class="cl_cont_right" width="100%">
+												<HBox class="cl_card_texts_gap" justifyContent="SpaceBetween" width="100%">
+													<Text text="Total Amount" class="cl_card_info"/>
+													<Text text="Amount in Lakhs" class="cl_card_info cl_short_gap"/>
+												</HBox>
+												<HBox justifyContent="SpaceBetween">
+													<HBox>
+														<Text text="" id="id_totamount" class="cl_card_number"/>
+														<Text text="Lakhs" class="cl_card_number_short"/>
+													</HBox>
+													<Text text="" id="id_actamount" class="cl_card_number cl_short_gap"/>
+												</HBox>
+											</HBox>
+											<!--<HBox class="cl_cont_right">-->
+											<!--	<HBox class="cl_card_texts_gap">-->
+											<!--		<Text text="Amount in Lakhs" class="cl_card_info"/>-->
+											<!--	</HBox>-->
+											<!--	<HBox>-->
+											<!--		<Text text="₹ 10" class="cl_card_number"/>-->
+											<!--	</HBox>-->
+											<!--</HBox>-->
+											<!--<Button icon="Images/inprocess.svg" tooltip="List" class="list_btn" press="fn_all"/>-->
+										</HBox>
+										<HBox class="cl_container_pay cl_red_card" width="33%">
+											<HBox class="cl_cont_right">
+												<HBox class="cl_card_texts_gap">
+													<Text text="Over Due Items" class="cl_card_info"/>
+												</HBox>
+												<HBox>
+													<Text text="" id="id_overcount" class="cl_card_number"/>
+												</HBox>
+											</HBox>
+											<VBox class="iconBackgroundRed">
+												<Image src="Images/overdue_card.svg" class="icon" width="18px" height="18px"/>
+											</VBox>
+											<!--<Button icon="Images/inprocess.svg" tooltip="List" class="list_btn" press="fn_all"/>-->
+										</HBox>
+									</HBox>
+									<HBox class="cl_card_cont_head_d1 cl_card_head_payment_second" width="100%">
+										<HBox class="cl_container_pay card4 unassign1" width="33%">
+											<HBox class="cl_cont_right">
+												<HBox class="cl_card_texts_gap">
+													<Text text="Selected Debit Amount" class="cl_card_info"/>
+												</HBox>
+												<HBox>
+													<Text text="" id="id_debit_amt" class="cl_card_number"/>
+												</HBox>
+											</HBox>
+											<VBox class="iconBackgroundorange1">
+												<Image src="Images/invoice-clock-orange.svg" class="icon" width="18px" height="18px"/>
+											</VBox>
+											<!--<Button icon="Images/pendap.svg" tooltip="" class="list_btn"/>-->
+										</HBox>
+										<HBox class="cl_container_pay card2 with_you" width="33%" id="idCardWithYou">
+											<HBox class="cl_cont_right">
+												<HBox class="cl_card_texts_gap">
+													<Text text="Total MSME Amount" class="cl_card_info"/>
+												</HBox>
+												<HBox>
+													<!--<Text text="" id="id_pendingScan" class="cl_card_number"/>-->
+													<Text text="" id="id_msme" class="cl_card_number"/>
+													<Text text="Lakhs" id="id_amo1" class="cl_card_number_short"/>
+												</HBox>
+											</HBox>
+											<VBox class="iconBackgroundpink">
+												<Image src="Images/file-document-check-outline.svg" class="icon" width="18px" height="18px"/>
+											</VBox>
+											<!--<Button icon="Images/pendscan.svg" class="list_btn"/>-->
+										</HBox>
+										<HBox class="cl_container_pay total_card" width="33%">
+											<HBox class="cl_cont_right">
+												<HBox class="cl_card_texts_gap">
+													<Text text="Total Budget" class="cl_card_info"/>
+												</HBox>
+												<HBox>
+													<Text text="" id="id_budget_text" class="cl_card_number"/>
+													<Text text="Lakhs" class="cl_card_number_short"/>
+												</HBox>
+											</HBox>
+											<VBox class="iconBackgroundBlue">
+												<Image src="Images/total_budget_img.svg" class="icon" width="18px" height="18px"/>
+											</VBox>
+											<!--<Button icon="Images/inprocess.svg" tooltip="List" class="list_btn" press="fn_all"/>-->
+										</HBox>
+									</HBox>
+								</VBox>
+								<!-- Summary Section -->
+								<!--<VBox class="cl_summary" width="70%">-->
+								<!--	<VBox class="cl_card" width="200px">-->
+								<!--		<Text text="Selected Credit Amount"/>-->
+								<!--		<Text text="₹ 10,065 Lakhs"/>-->
+								<!--	</VBox>-->
+								<!--	<VBox class="cl_card" width="200px">-->
+								<!--		<Text text="Total Amount"/>-->
+								<!--		<Text text="₹ 1000000"/>-->
+								<!--	</VBox>-->
+								<!--</VBox>-->
+							</HBox>
+							<VBox id="id_pdf_slide" class="cl_full_box cl_tab_box_payment" height="">
+								<Toolbar class="cl_tbr_1 ">
+									<Text text="Open Item" id="idCardTitle" class="cl_Tltxt sapUiSmallMarginBegin"/>
+									<HBox class="cl_badge_counter_2">
+										<Text text="" id="id_selected" class="cl_badge_counter_item"></Text>
+										<Text text="/" class="cl_badge_counter_item"></Text>
+										<Text text="" id="id_opencount" class="cl_badge_counter_item"/>
+									</HBox>
+									<!--<HBox class="cl_backwhite " alignItems="Center" justifyContent="Center">-->
+									<!--	<Text text="Selected" class="cl_text"></Text>-->
+									<!--	<Text text="(" class="cl_text "></Text>-->
+									<!--<Text text="" class="cl_text" id="id_selected"></Text>-->
+									<!--	<Text text=")" class="cl_text "></Text>-->
+									<!--</HBox>-->
+									<ToolbarSpacer/>
+									<HBox class="sapUiTinyMarginTop">
+										<!--class added by Sakthi C on 27.06.2022-->
+										<CheckBox class="selectAllBox" id="id_debit" textAlign="Left" selected="true" select="onselect"></CheckBox>
+										<Text text="Credit" class=" sapUiSmallMarginBegin cl_text_cred_deb"></Text>
+										<!--</HBox>-->
+										<!--<HBox class="sapUiTinyMarginTop ">-->
+										<!--class added by Sakthi C on 27.06.2022-->
+										<CheckBox class="selectAllBox" id="id_credit" textAlign="Left" select="onselect"></CheckBox>
+										<Text text="Debit" class=" sapUiSmallMarginBegin cl_text_cred_deb"></Text>
+									</HBox>
+									<HBox class="cl_hbx_sf cl_hbx_sf1 ">
+										<Button icon="sap-icon://navigation-down-arrow" class="cl_arrow sapUiSizeCompact sapUiTinyMarginBegin" press="fnSearchPop"></Button>
+										<SearchField placeholder="Search " id="id_search_field" class="cl_search_pay_appr sapUiTinyMarginTop sapUiSizeCompact "
+											liveChange="fnSearchField" search="fnSearchField"></SearchField>
+										<!--<Button text="{i18n>Save}" class="whitebtn" press="onPressSave"></Button>-->
+										<Button icon="Images/post_btn.svg" text="Preview and Proceed" id="id_btnredy" press="onClickReady" class="bluebtn sapUiTinyMarginBegin"
+											type="Transparent"/>
+									</HBox>
+								</Toolbar>
+								<VBox class="scrollContainer" id="id_vbox_table" width="100%">
+									<uitable:Table id="id_table" rows="{MProfit>/}" visibleRowCount="8" visibleRowCountMode="Fixed" fixedColumnRightCount="1"
+										rowSelectionChange="onSelectOpenItems" fixedColumnCount="1" navigationMode="Paginator" enableColumnReordering="true"
+										columnHeaderVisible="true" class="cl_payment_table cl_paymentWB_table cl_custom_table cl_custom_tableapk " selectionMode="MultiToggle"
+										enableCellFilter="false" ariaLabelledBy="title" width="100%" onAfterRendering="onAfterRendering">
+										<uitable:columns>
+											<!-- Profit Center -->
+											<uitable:Column width="120px" hAlign="Center" class="cl_column_header">
+												<HBox >
+													<Text text="Profit Center" class="cl_Tltxt"/>
+													<!--<Image src="Images/arrow-down.svg" id="qidSortIcon" width="14px" height="14px" class="cl_header_icon" press="fn_sortByQueid"/>-->
+												</HBox>
+												<uitable:template class="cl_column_cell">
+													<Link text="{MProfit>Prctr}" press="fn_nav_to_wb" class="cl_qid_sel " wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+											<!-- Doc. No. -->
+											<uitable:Column width="130px" hAlign="Center" class="cl_column_header">
+												<Text text="Doc. No." class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{MProfit>Belnr}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<!-- Doc. Type -->
+											<uitable:Column width="120px" hAlign="Center" class="cl_column_header">
+												<Text text="Doc. Type" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{MProfit>Blart}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<!-- Posting Date -->
+											<uitable:Column width="120px" hAlign="Center" class="cl_column_header">
+												<Text text="Posting Date" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{path:'MProfit>Reindat' , formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<!-- Vendor Code -->
+											<uitable:Column width="120px" hAlign="Center" class="cl_column_header">
+												<Text text="Vendor Code" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{MProfit>Lifnr}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<!-- Vendor Name -->
+											<uitable:Column width="150px" hAlign="Center" class="cl_column_header">
+												<Text text="Vendor Name" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{MProfit>Name1}" class="cl_table_det_text"/>
+													<!--		<Image src="{path:'MProfit>Mindk' , formatter:'FSC360NEW.model.Formatter.MSME'}"-->
+													<!--visible="{path:'MProfit>Mindk' , formatter:'FSC360NEW.model.Formatter.fnVisible'}" height="15px" width="30px"-->
+													<!--class="sapUiMediumMarginBegin"></Image>-->
+												</uitable:template>
+											</uitable:Column>
+											<!-- Invoice No. -->
+											<uitable:Column width="130px" hAlign="Center" class="cl_column_header">
+												<Text text="Invoice No." class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{MProfit>Xblnr}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<!-- Invoice Date -->
+											<uitable:Column width="160px" hAlign="Center" class="cl_column_header">
+												<Text text="Invoice Date" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{path:'MProfit>Bldat' , formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<!-- Amount -->
+											<uitable:Column width="120px" hAlign="Center" class="cl_column_header">
+												<Text text="Amount" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{MProfit>Dmbtr}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<!-- Due Date -->
+											<uitable:Column width="100px" hAlign="Center" class="cl_column_header">
+												<Text text="Due Date" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{path:'MProfit>Netdt' , formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<!-- Pay Amount -->
+											<uitable:Column width="130px" hAlign="Center" class=" cl_column_header ">
+												<Text text="Pay Amount" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Input value="{MProfit>PayAmount}" class="cl_textin " id="id_payamount"
+														enabled="{path:'MProfit>Shkzg' , formatter :'FSC360NEW.model.formatter.fnEditable'}"
+														editable="{= ${MProfit>/edit_amount} === 'true' ? true : false}"  submit="onPayAmountchange"></Input>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="120px" hAlign="Center" class="cl_column_header">
+												<Text text="Partial Paid" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{MProfit>PartialPaid}" class="cl_table_det_text" tooltip="Partial paid"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="80px" hAlign="Center" class="cl_column_header">
+												<Text text="Currency" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{MProfit>Waers}" class="cl_table_det_text" tooltip="Currency"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="150px" hAlign="Center" class="cl_column_header">
+												<Text text="Ageing" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<HBox alignContent="Center" alignItems="Center" justifyContent="Center" class="cl_toolheight">
+														<Text text="{MProfit>Ageing}" class="cl_table_det_text" tooltip="Age"/>
+														<!--<Image src="{path:'MProfit>Indi', formatter :'FSC360NEW.model.Formatter.Age'}" height="15px" width="15px" class="cl_agetextAlign"/>-->
+													</HBox>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="100px" hAlign="Center" class="cl_column_header">
+												<Text text="Credit/Debit" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<HBox alignItems="Center" width="90px">
+														<Button id="statusBtn" text="{path:'MProfit>Shkzg', formatter:'FSC360NEW.model.formatter.CD'}" icon="sap-icon://circle-task-2"
+															iconFirst="true" type="Transparent" class="cl_status">
+															<customData>
+																<core:CustomData key="status" value="{MProfit>Shkzg}" writeToDom="true"/>
+															</customData>
+														</Button>
+													</HBox>
+												</uitable:template>
+											</uitable:Column>
+										</uitable:columns>
+									</uitable:Table>
+								</VBox>
+								<!--<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer cl_pagination_footer1">-->
+								<!-- Left Slot: Previous Button -->
+								<!--	<HBox width="100px" justifyContent="Start">-->
+								<!--		<Button icon="Images/arrow-left.svg" text="Previous" id="previous" class="cl_prev_button" press="onPreviousPage" visible="true"/>-->
+								<!--	</HBox>-->
+								<!-- Center Slot: Page Numbers (Always Centered) -->
+								<!--	<HBox width="calc(100% - 200px)" id="idPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers">-->
+								<!-- Page buttons dynamically inserted here -->
+								<!--	</HBox>-->
+								<!-- Right Slot: Next Button -->
+								<!--	<HBox width="100px" justifyContent="End">-->
+								<!--		<Button text="Next" icon="Images/arrow-right.svg" id="next" iconFirst="false" class="cl_next_button" press="onNextPage" visible="true"/>-->
+								<!--	</HBox>-->
+								<!--</HBox>-->
+							</VBox>
+						</VBox>
+					</HBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
+<!--<VBox id="idCardContainer" width="{= ${appState>/sidebarCollapsed} ? '42%' : '52%'}" height="100%">-->
+<!--						<HBox class="cl_card_cont_head_d" width="100%">-->
+<!--							<HBox class="cl_container_d total_card" width="50%" id="idCardTotal">-->
+<!--								<HBox class="cl_cont_right">-->
+<!--									<HBox>-->
+<!--										<Text text="In Progress" class="cl_card_info"/>-->
+<!--									</HBox>-->
+<!--									<HBox>-->
+<!--										<Text text="" id="id_inProgress" class="cl_card_number"/>-->
+<!--									</HBox>-->
+<!--									<HBox>-->
+<!--										<Text text="" id="id_inProgressAmt" class="cl_card_invamt"/>-->
+<!--									</HBox>-->
+<!--								</HBox>-->
+<!--								<VBox class="iconBackgroundBlue">-->
+<!--									<Image src="Images/inprog.svg" class="icon" width="18px" height="18px"/>-->
+<!--								</VBox>-->
+<!--<Button icon="Images/inprocess.svg" tooltip="List" class="list_btn" press="fn_all"/>-->
+<!--							</HBox>-->
+<!--							<HBox class="cl_container_d card4 unassign1" width="50%" id="idCardUnassign">-->
+<!--								<HBox class="cl_cont_right">-->
+<!--									<HBox>-->
+<!--										<Text text="Pending With Approvers" class="cl_card_info"/>-->
+<!--									</HBox>-->
+<!--									<HBox>-->
+<!--										<Text text="" id="id_pendingApprover" class="cl_card_number"/>-->
+<!--									</HBox>-->
+<!--									<HBox>-->
+<!--										<Text text="" id="id_pendingApproverAmt" class="cl_card_pendingamt"/>-->
+<!--									</HBox>-->
+<!--								</HBox>-->
+<!--								<VBox class="iconBackgroundorange1">-->
+<!--									<Image src="Images/pendapp.svg" class="icon" width="18px" height="18px"/>-->
+<!--								</VBox>-->
+<!--<Button icon="Images/pendap.svg" tooltip="" class="list_btn"/>-->
+<!--							</HBox>-->
+<!--						</HBox>-->
+<!--						<HBox class="cl_card_cont_head_d1" width="100%">-->
+<!--							<HBox class="cl_container_d card5 ontime1" width="50%" id="idCardOntime">-->
+<!--								<HBox class="cl_cont_right">-->
+<!--									<HBox>-->
+<!--										<Text text="Parked" class="cl_card_info"/>-->
+<!--									</HBox>-->
+<!--									<HBox>-->
+<!--										<Text text="" id="id_parked" class="cl_card_number"/>-->
+<!--									</HBox>-->
+<!--									<HBox>-->
+<!--										<Text text="" id="id_parkedAmt" class="cl_card_tdypostamt"/>-->
+<!--									</HBox>-->
+<!--								</HBox>-->
+<!--								<VBox class="iconBackgroundgreen1">-->
+<!--									<Image src="Images/parkg.svg" class="icon" width="18px" height="18px"/>-->
+<!--								</VBox>-->
+<!--<Button icon="Images/park.svg" tooltip="On Time" class="list_btn"/>-->
+<!--							</HBox>-->
+<!--							<HBox class="cl_container_d card2 with_you" width="50%" id="idCardWithYou">-->
+<!--								<HBox class="cl_cont_right">-->
+<!--									<HBox>-->
+<!--										<Text text="Pending for Scanning" class="cl_card_info"/>-->
+<!--									</HBox>-->
+<!--									<HBox>-->
+<!--<Text text="" id="id_pendingScan" class="cl_card_number"/>-->
+<!--										<Text text="" id="id_pendingScan" class="cl_card_number"/>-->
+<!--									</HBox>-->
+<!--									<HBox>-->
+<!--										<Text text="" id="id_pendingScanAmt" class="cl_card_postscanamt"/>-->
+<!--									</HBox>-->
+<!--								</HBox>-->
+<!--								<VBox class="iconBackgroundpink">-->
+<!--									<Image src="Images/pendscanpink1.svg" class="icon" width="18px" height="18px"/>-->
+<!--								</VBox>-->
+<!--<Button icon="Images/pendscan.svg" class="list_btn"/>-->
+<!--							</HBox>-->
+<!--						</HBox>-->
+<!--					</VBox>-->

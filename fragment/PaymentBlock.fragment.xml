@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		title="Select Payment Block"
+		items="{JSPayBlock>/}"
+		confirm="fn_PaymentBlock_Confirm"
+		liveChange="fn_PaymentBlock_LiveChange"
+		search="fn_PaymentBlock_LiveChange"
+		class="cl_frag">
+		<!--<StandardListItem title="{JSPayBlock>Zahls}" description="{JSPayBlock>Textl}" />-->
+		   <StandardListItem
+      title="{ parts: ['JSPayBlock>Zahls', 'JSPayBlock>Textl'], formatter: '.formatPaymentBlock' }"
+      description="" />
+	</SelectDialog>
+</core:FragmentDefinition>

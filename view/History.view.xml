@@ -1,0 +1,164 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.History"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Title" showHeader="false">
+				<content>
+					<VBox class="cl_histoolvbox">
+						<HBox class="cl_gradient_bg" justifyContent="SpaceBetween" alignItems="Center">
+							<HBox class="leftIcons" alignItems="Center" width="30%">
+								<Image src="Images/Menu.svg" class="cl_arrima"/>
+							</HBox>
+							<HBox class="centerLogo" alignItems="Center" width="40%" justifyContent="Center">
+								<Image src="Images/FSCNXT_logo.svg" class="cl_logo"/>
+							</HBox>
+							<HBox class="rightIcons" alignItems="Center" width="30%" justifyContent="End">
+								<Image src="Images/input1.svg" class="team_image1"/>
+							</HBox>
+						</HBox>
+							<IconTabBar id="idIconTabBarInlineMode" class="cl_tabBar cl_tabBar1 cl_tabBar1a">
+					
+							<items>
+									<IconTabFilter text="{i18n>Approved}"  press="fn_icontabPress">
+									<!--<List items="{JMApproved>/oAprList}" class="cl_list">-->
+									<!--	<CustomListItem class="custom">-->
+									<!--		<VBox>-->
+									<!--			<VBox class="cl_historyvbox sapUiTinyMarginTop">-->
+									<!--				<Toolbar class="cl_histool sapUiTinyMarginTop sapUiSmallMarginEnd">-->
+									<!--					<Text text="{JMApproved>Name1}" class="cl_listtxt cl_stotxt sapUiSmallMarginBegin "></Text>-->
+									<!--					<ToolbarSpacer></ToolbarSpacer>-->
+									<!--					<VBox class="cl_400vbox sapUiSmallMarginBegin" alignContent="Center" alignItems="Center" justifyContent="Center">-->
+									<!--						<Text text="{JMApproved>Ntamt} {JMApproved>Waers}" class="cl_listtxt cl_stotxt "></Text>-->
+									<!--					</VBox>-->
+									<!--				</Toolbar>-->
+									<!--				<Toolbar class="cl_histool sapUiTinyMarginTop sapUiSmallMarginEnd">-->
+									<!--					<Text text="#INV-{JMApproved>Invno}" class="cl_dashtxt sapUiSmallMarginBegin "></Text>-->
+									<!--					<ToolbarSpacer></ToolbarSpacer>-->
+									<!--					<HBox>-->
+									<!--						<Image src="Images/Calender.png" class="cl_calenima1"></Image>-->
+									<!--						<Text text="{path: 'JMApproved>Scandate',formatter : 'Invoice_Approval.model.Formatter.fnDate'}" class="cl_dashtxt sapUiSmallMarginBegin"></Text>-->
+									<!--					</HBox>-->
+									<!--				</Toolbar>-->
+									<!--				<VBox alignContent="Center" alignItems="Center" justifyContent="Center">-->
+									<!--					<Link text="{i18n>view}" press="fn_onviewpress"-->
+									<!--						class="cl_listtxt3 sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginTop sapUiTinyMarginBottom"></Link>-->
+									<!--				</VBox>-->
+									<!--			</VBox>-->
+									<!--		</VBox>-->
+									<!--	</CustomListItem>-->
+									<!--</List>-->
+									<ScrollContainer vertical="true" class="scrollContainerFixedHeight">
+										<VBox class="list_box">
+											<List items="{JMApproved>/oAprList}" id="id_approvedList" class="customList1">
+												<CustomListItem press="fn_onviewpress" type="Active">
+													<!-- Top Section: Name1 -->
+													<HBox alignItems="Center" class="name1_box">
+														<Image src="Images/account-circle.svg" class="name1_icon"/>
+														<Text text="{JMApproved>Name1}" class="name1_text"/>
+													</HBox>
+													<!-- Bottom Section: Invoice + Date + Amount -->
+													<HBox class="listItemBox1" width="100%">
+														<!-- Left Column: Invoice & Date -->
+														<VBox width="60%">
+															<HBox alignItems="Center" class="dateBox">
+																<Image src="Images/invoice-ses.svg" class="iconImage"/>
+																<Text text="{JMApproved>Invno}" class="invoiceText"/>
+															</HBox>
+															<HBox alignItems="Center" class="dateBox">
+																<Image src="Images/calendar-ses.svg" class="iconImage"/>
+																<Text text="{path: 'JMApproved>Scandate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="dateText"/>
+															</HBox>
+														</VBox>
+														<!-- Right Column: Amount -->
+														<VBox width="40%">
+															<HBox alignItems="Center">
+																<!-- Optional Extra Info -->
+																<Text text="" class=""/>
+															</HBox>
+															<HBox justifyContent="End">
+																<Text text="{JMApproved>Ntamt} {JMApproved>Waers}" class="clamtap"/>
+															</HBox>
+														</VBox>
+													</HBox>
+												</CustomListItem>
+											</List>
+										</VBox>
+									</ScrollContainer>
+								</IconTabFilter>
+								<IconTabFilter text="Rejected" press="fn_icontabPress" class="cltb" >
+									<ScrollContainer vertical="true" class="scrollContainerFixedHeight">
+										<VBox class="list_box">
+											<List items="{JMRejected>/oRejList}" id="id_rejList" class="customList1">
+												<CustomListItem press="fn_onviewpress" type="Active">
+													<!-- Top Row: Name -->
+													<HBox alignItems="Center" class="name1_box">
+														<Image src="Images/account-circle.svg" class="name1_icon"/>
+														<Text text="{JMRejected>Name1}" class="name1_text"/>
+													</HBox>
+													<!-- Middle: Invoice & Date & Amount -->
+													<HBox class="listItemBox1" width="100%">
+														<!-- Left Column -->
+														<VBox width="60%">
+															<HBox alignItems="Center" class="dateBox">
+																<Image src="Images/invoice-ses.svg" class="iconImage"/>
+																<Text text="{JMRejected>Invno}" class="invoiceText"/>
+															</HBox>
+															<HBox alignItems="Center" class="dateBox">
+																<Image src="Images/calendar-ses.svg" class="iconImage"/>
+																<Text text="{path: 'JMRejected>Scandate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="dateText"/>
+															</HBox>
+														</VBox>
+														<!-- Right Column -->
+														<VBox width="40%">
+															<HBox alignItems="Center">
+																<Text text="" class=""/>
+															</HBox>
+															<HBox justifyContent="End">
+																<Text text="{JMRejected>Ntamt} {JMRejected>Waers}" class="clamtap"/>
+															</HBox>
+														</VBox>
+													</HBox>
+												</CustomListItem>
+											</List>
+										</VBox>
+									</ScrollContainer>
+								</IconTabFilter>
+								<IconTabFilter text="{i18n>captured}" visible="false" press="fn_icontabPress">
+									<List items="{JMCaptured>/oCapList}" class="cl_list">
+										<CustomListItem class="custom">
+											<VBox>
+												<VBox class="cl_historyvbox sapUiTinyMarginTop">
+													<Toolbar class="cl_histool sapUiTinyMarginTop sapUiSmallMarginEnd">
+														<Text text="{JMCaptured>Name1}" class="cl_listtxt cl_stotxt sapUiSmallMarginBegin "></Text>
+														<ToolbarSpacer></ToolbarSpacer>
+														<VBox class="cl_400vbox sapUiSmallMarginBegin" alignContent="Center" alignItems="Center" justifyContent="Center">
+															<Text text="{JMCaptured>Ntamt} {JMApproved>Waers}" class="cl_listtxt cl_stotxt "></Text>
+														</VBox>
+													</Toolbar>
+													<Toolbar class="cl_histool sapUiTinyMarginTop sapUiSmallMarginEnd">
+														<Text text="#INV-{JMCaptured>Invno}" class="cl_dashtxt sapUiSmallMarginBegin "></Text>
+														<ToolbarSpacer></ToolbarSpacer>
+														<HBox>
+															<Image src="Images/Calender.png" class="cl_calenima1"></Image>
+															<Text text="{path: 'JMCaptured>Scandate',formatter : 'Invoice_Approval.model.Formatter.fnDate'}" class="cl_dashtxt sapUiSmallMarginBegin"></Text>
+														</HBox>
+													</Toolbar>
+													<VBox alignContent="Center" alignItems="Center" justifyContent="Center">
+														<Link text="{i18n>view}" press="fn_onviewpress"
+															class="cl_listtxt3 sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginTop sapUiTinyMarginBottom"></Link>
+													</VBox>
+												</VBox>
+											</VBox>
+										</CustomListItem>
+									</List>
+								</IconTabFilter>
+							</items>
+						</IconTabBar>
+						<!--	</VBox>-->
+					</VBox>
+					
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

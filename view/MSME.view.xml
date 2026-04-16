@@ -1,0 +1,329 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.MSME"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:uitable="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="MSME Update" class="cl_page">
+				<customHeader>
+					<Toolbar class="header_bar_d">
+						<Title text="MSME Update" class="cl_ses_txt"/>
+						<ToolbarSpacer/>
+						<Button icon="Images/refreshbtn.png" tooltip="Refresh" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbtn.png" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<!--<Text text="AP Team" class="team_text"/>-->
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="team_text cl_font"></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<VBox class="cl_full_boxB cl_full_box_tat">
+						<HBox id="id_potype" class="cl_radio_head">
+							<RadioButtonGroup columns="2" class="cl_RadiotxtBtn" select="onRadioChange">
+								<RadioButton text="Update" class="cl_RadiotxtBtn"/>
+								<RadioButton text="Report" class="cl_RadiotxtBtn "/>
+							</RadioButtonGroup>
+						</HBox>
+						<VBox id="idVBoxUpdate" visible="{JSView>/showUpdate}">
+							<VBox class="cl_statusflow_input_cont sapUiTinyMarginTop " id="id_cl_statusflow_input_cont">
+								<HBox class="cl_barcode_input_row sapUiTinyMarginBegin sapUiSmallMarginEnd topbox" justifyContent="SpaceBetween" alignItems="End">
+									<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+										<Text text="{i18n>Company Code}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<ComboBox id="idCCode" filterSecondaryValues="true" showSecondaryValues="true" placeholder="{i18n>companyCode}"
+												class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" selectionChange="onCompanyChange" tooltip="{i18n>companyCode}">
+												<core:Item key="{JSCCode>Bukrs}" text="{JSCCode>Bukrs}" tooltip="Company code"/>
+											</ComboBox>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode cltatapplication" width="">
+										<HBox >
+											<Text text="Vendor" class="cl_textbarcode"/>
+											<Image src="Images/multi.svg" width="12px" height="11px" class="cl_selection" press="fn_LoadCC"/>
+										</HBox>
+										<HBox alignItems="Center" class="formInputWithIconbar ">
+											<!-- From Input -->
+											<!--<HBox class="formInputWithIconbar" alignItems="Center">-->
+											<!--	<ComboBox id="idvendorFrom" class="cl_combo_transBar cl_combo_transBarbarcode" width="100%"-->
+											<!--			items="{ path: 'JSVendor>/', templateShareable: true }" selectionChange="fn_Lifnr_Confrm" placeholder="From" forceSelection="false">-->
+											<!--		<core:Item key="{JSVendor>Lifnr}" text="{parts: ['JSVendor>Mcod1', 'JSVendor>Lifnr'], formatter: '.formatVendor'}"/>-->
+											<!--	</ComboBox>-->
+											<!--</HBox>-->
+											<HBox class="formInputWithIconbar" alignItems="Center">
+												<!--<Input  width="" placeholder="From" class="formInputB1 forminputtat forminputfirsttat"/>-->
+												<ComboBox id="idvendorFrom" class="cl_combo_transBar cl_combo_transBarbarcode" width="100%"
+													items="{ path: 'JSVendor>/', templateShareable: true }" selectionChange="fn_Lifnr_Confrm" placeholder="From" forceSelection="false">
+													<core:Item key="{JSVendor>Lifnr}" text="{parts: ['JSVendor>Lifnr', 'JSVendor>Mcod1'], formatter: '.formatVendor'}"/>
+												</ComboBox>
+											</HBox>
+											<HBox class="formInputWithIconbar sapUiTinyMarginBegin" alignItems="Center">
+												<ComboBox id="idvendorTo" class="cl_combo_transBar cl_combo_transBarbarcode " width="100%"
+													items="{ path: 'JSVendor>/', templateShareable: true }" selectionChange="fn_Lifnr_Confrm" placeholder="To" forceSelection="false">
+													<core:Item key="{JSVendor>Lifnr}" text="{parts: ['JSVendor>Lifnr', 'JSVendor>Mcod1'], formatter: '.formatVendor'}"/>
+												</ComboBox>
+											</HBox>
+							
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode cltatapplication" width="">
+										<HBox>
+											<Text text="Account group" class="cl_textbarcode"/>
+											<Image src="Images/multi.svg" width="12px" height="11px" class="cl_selection" press="fn_LoadCC"/>
+										</HBox>
+										<HBox alignItems="Center" class="formInputWithIconbar ">
+											<!-- From Input -->
+											<HBox class="formInputWithIconbar" alignItems="Center">
+												<Input id="idCompcodeFrom" width="" placeholder="From" class="formInputB1 forminputtat forminputfirsttat"/>
+												<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat" press="fn_LoadCC"/>-->
+											</HBox>
+											<HBox class="formInputWithIconbar" alignItems="Center">
+												<Input id="idCompCodeTo" width="" placeholder="To" class="formInputB1 forminputtat forminputlasttat forminputlasttat_comp_input"/>
+												<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat input_icon_tat_last" press="fn_LoadCC"/>-->
+											</HBox>
+										</HBox>
+									</VBox>
+									<HBox class="cl_button_cont_show">
+										<Button id="id_clear" text="{i18n>Clear}" icon="Images/clearab.svg" type="Transparent" press="fnclearbutt"
+											class="sapUiSizeCompact cl_btn_cleara "/>
+										<Button id="id_search" text="{i18n>Search}" icon="Images/searchab.svg" type="Transparent" press="fn_search"
+											class="sapUiSizeCompact cl_btn_searcha "/>
+										<Button id="id_submit" icon="Images/approve_image.svg" text="{i18n>Submit}" type="Transparent" press="fn_Submit"
+											class="sapUiSizeCompact cl_btn_searcha " visible="false"/>
+									</HBox>
+								</HBox>
+							</VBox>
+							<Toolbar class="cl_tbr_1 cl_tbr_2">
+								<Text text="All List" id="idCardTitle" class="cl_Tltxt cl_Tltxtms"/>
+								<Text text="0" class="cl_badge_counter" id="LabTabSFRTitle"/>
+								<ToolbarSpacer/>
+							</Toolbar>
+							<uitable:Table id="id_MsmeTable" rows="{MsmeModel>/}"  selectionMode="MultiToggle" enableSelectAll="true"  visibleRowCount="7" width="100%"
+								class="cl_custom_table cl_custom_tableapk cl_tatreport_table cl_msme_report_table" fixedColumnCount="2"
+								rowSelectionChange="onSelectionChange">
+								<uitable:Column width="1rem" hAlign="Center" class="cl_column_header">
+									<HBox alignItems="Center" justifyContent="Center" class="cl_filter_icon_status_cont" tooltip="{i18n>filter}">
+										<Image src="" press="fn_FilterPop" class="sapUiSizeCompact cl_filter_btn"/>
+									</HBox>
+									<uitable:template>
+										<Text text=""/>
+									</uitable:template>
+								</uitable:Column>
+								<uitable:Column hAlign="Center" class="cl_column_header">
+									<Text text="Vendor Code" class="cl_Tltxt"/>
+									<uitable:template>
+										<Text text="{MsmeModel>Lifnr}" class="cl_column_cell"/>
+									</uitable:template>
+								</uitable:Column>
+								<uitable:Column hAlign="Center" class="cl_column_header">
+									<Text text="Vendor Name" class="cl_Tltxt"/>
+									<uitable:template>
+										<Text text="{MsmeModel>Name1}" class="cl_column_cell"/>
+									</uitable:template>
+								</uitable:Column>
+								<uitable:Column hAlign="Center" class="cl_column_header">
+									<Text text="Email Id" class="cl_Tltxt"/>
+									<uitable:template>
+										<Text text="{MsmeModel>Email}" class="cl_column_cell"/>
+									</uitable:template>
+								</uitable:Column>
+								<uitable:Column hAlign="" class="cl_column_header">
+									<Text text="Status" class="cl_Tltxt"/>
+									<uitable:template>
+										<!--<Text text="{MsmeModel>Message}" class="cl_column_cell"/>-->
+										<HBox alignItems="Center" width="90px">
+											<Button text="{MsmeModel>Message}" iconFirst="true" type="Transparent" class="cl_status" icon="sap-icon://circle-task-2">
+												<customData>
+													<core:CustomData key="status" value="{MsmeModel>Type}" writeToDom="true"/>
+												</customData>
+											</Button>
+										</HBox>
+									</uitable:template>
+								</uitable:Column>
+								<uitable:Column hAlign="" class="cl_column_header" visible="false">
+									<Text text="Status_type" class="cl_Tltxt"/>
+									<uitable:template>
+										<Text text="{MsmeModel>Type}" class="cl_column_cell"/>
+									</uitable:template>
+								</uitable:Column>
+							</uitable:Table>
+							<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer cl_pagination_footer1">
+									<!-- Left Slot: Previous Button -->
+									<HBox width="100px" justifyContent="Start">
+										<Button icon="Images/arrow-left.svg" text="Previous" id="previous" class="cl_prev_button" press="onPreviousPage" visible="true"/>
+									</HBox>
+									<!-- Center Slot: Page Numbers (Always Centered) -->
+									<HBox width="calc(100% - 200px)" id="idPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers">
+										<!-- Page buttons dynamically inserted here -->
+									</HBox>
+									<!-- Right Slot: Next Button -->
+									<HBox width="100px" justifyContent="End">
+										<Button text="Next" icon="Images/arrow-right.svg" id="next" iconFirst="false" class="cl_next_button" press="onNextPage" visible="true"/>
+									</HBox>
+								</HBox>
+						</VBox>
+						<VBox id="idVBoxReport" visible="{JSView>/showReport}">
+							<VBox class="cl_statusflow_input_cont sapUiTinyMarginTop" id="id_cl_report">
+								<HBox class="cl_barcode_input_row sapUiTinyMarginBegin sapUiSmallMarginEnd topbox " justifyContent="SpaceBetween" alignItems="End">
+									<VBox class="columnbarcode formFieldbarcode cltatapplication" width="">
+										<HBox >
+											<Text text="Vendor" class="cl_textbarcode"/>
+											<Image src="Images/multi.svg" width="12px" height="11px" class="cl_selection" press="fn_vendor"/>
+										</HBox>
+										<HBox alignItems="Center" class="formInputWithIconbar ">
+											<!-- From Input -->
+											<HBox class="formInputWithIconbar" alignItems="Center">
+												<ComboBox id="id_Vendor" class="cl_combo_transBar cl_combo_transBarbarcode" width="100%"
+													items="{ path: 'JSVendor>/', templateShareable: true }" selectionChange="fn_Lifnr_Confrm" placeholder="From" forceSelection="false">
+													<core:Item key="{JSVendor>Lifnr}" text="{parts: ['JSVendor>Mcod1', 'JSVendor>Lifnr'], formatter: '.formatVendor'}"/>
+												</ComboBox>
+											</HBox>
+											<HBox class="formInputWithIconbar sapUiTinyMarginBegin" alignItems="Center">
+												<!--<Input  width="" placeholder="To" class="formInputB1 forminputtat forminputlasttat forminputlasttat_comp_inputms"/>-->
+												<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat input_icon_tat_last" press="fn_vendor"/>-->
+												<ComboBox id="id_Vendorto" class="cl_combo_transBar cl_combo_transBarbarcode " width="100%"
+													items="{ path: 'JSVendor>/', templateShareable: true }" selectionChange="fn_Lifnr_Confrm" placeholder="To" forceSelection="false">
+													<core:Item key="{JSVendor>Lifnr}" text="{parts: ['JSVendor>Lifnr', 'JSVendor>Mcod1'], formatter: '.formatVendor'}"/>
+												</ComboBox>
+											</HBox>
+										</HBox>
+									</VBox>
+									<VBox class="cl_date_recall clphysicalapplication cl_date_deviation cl_date_unblock" width="">
+										<Text text="Date" class="cl_textbarcode cl_textdeviation"/>
+										<HBox alignItems="Center" class="formInputWithIconbar forminputiconrecall">
+											<!-- From Input -->
+											<HBox class="formInputWithIconbar" alignItems="Center">
+												<DatePicker valueFormat="YYYY-MM-dd" readonly="true" icon="sap-icon://calendar" displayFormat="dd/MM/YYYY" placeholder="From"
+													class="formInputB1 forminputtat forminputfirsttat tatdatepick deviationdate deviationdatefirst unblockdatefirst" change="fn_date"
+													tooltip="{i18n>FromDateTooltip}" id="id_fromdate"/>
+											</HBox>
+											<HBox class="formInputWithIconbar" alignItems="Center">
+												<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder="To"
+													class="formInputB1 forminputtat forminputlasttat forminputlastrecall forminputlastdeviation deviationdate deviationdatelast unblockdatelast"
+													change="fn_date" tooltip="{i18n>ToDateTooltip}" id="id_todate"/>
+											</HBox>
+										</HBox>
+									</VBox>
+									<HBox class="cl_button_cont_show">
+										<Button id="id_clear_re" text="{i18n>Clear}" icon="Images/clearab.svg" type="Transparent" press="fnre_clearbutt"
+											class="sapUiSizeCompact cl_btn_cleara "/>
+										<Button id="id_search_re" text="{i18n>Search}" icon="Images/searchab.svg" type="Transparent" press="fnre_search"
+											class="sapUiSizeCompact cl_btn_searcha "/>
+									</HBox>
+									<VBox class="columnbarcode formFieldbarcode cltatapplication" width=""></VBox>
+								</HBox>
+							</VBox>
+							<Toolbar class="cl_tbr_1 cl_tbr_2">
+								<Text text="All List" class="cl_Tltxt cl_Tltxtms"/>
+								<Text text="0" class="cl_badge_counter" id="id_badge_counter"/>
+								<ToolbarSpacer/>
+							</Toolbar>
+							<uitable:Table id="id_re_Table" rows="{JSReport>/}" selectionMode="None" enableSelectAll="true" visibleRowCount="7" width="100%"
+								class="cl_custom_table cl_custom_tableapk cl_tatreport_table cl_msme_report_table" fixedColumnCount="1">
+								<uitable:Column width="1rem" hAlign="Center" class="cl_column_header">
+									<HBox alignItems="Center" justifyContent="Center" class="cl_filter_icon_status_cont" tooltip="{i18n>filter}">
+										<Image src="" press="fn_FilterPop" class="sapUiSizeCompact cl_filter_btn"/>
+									</HBox>
+									<uitable:template>
+										<Text text=""/>
+									</uitable:template>
+								</uitable:Column>
+								<!-- Sequence No -->
+								<uitable:Column width="7rem" hAlign="Center" class="cl_column_header">
+									<HBox alignItems="">
+										<Text text="Sequence No" class="cl_Tltxt"/>
+										<Image src="Images/arrow-down.svg" width="14px" height="14px" class="cl_header_icon"/>
+									</HBox>
+									<uitable:template>
+										<Text text="{path: 'JSReport>SequenceId', formatter: '.removeLeadingZeros'}" class="cl_column_cell"/>
+									</uitable:template>
+								</uitable:Column>
+								<!-- Vendor Code -->
+								<uitable:Column width="7rem" hAlign="Center" class="cl_column_header">
+									<Text text="Vendor Code" class="cl_Tltxt"/>
+									<uitable:template>
+										<Text text="{JSReport>Lifnr}" class="cl_column_cell"/>
+									</uitable:template>
+								</uitable:Column>
+								<!-- Vendor Name -->
+								<uitable:Column width="10rem" hAlign="Center" class="cl_column_header">
+									<Text text="Vendor Name" class="cl_Tltxt"/>
+									<uitable:template>
+										<Text text="{JSReport>Name1}" class="cl_column_cell"/>
+									</uitable:template>
+								</uitable:Column>
+								<!-- Created Date -->
+								<uitable:Column width="7rem" hAlign="Center" class="cl_column_header">
+									<Text text="Created Date" class="cl_Tltxt"/>
+									<uitable:template>
+										<Text text="{path:'JSReport>Erdat', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+									</uitable:template>
+								</uitable:Column>
+								<uitable:Column width="5rem" hAlign="Center" class="cl_column_header">
+									<Text text="Old MSME" class="cl_Tltxt"/>
+									<uitable:template>
+										<Text text="{JSReport>OldMsme}" class="cl_column_cell"/>
+									</uitable:template>
+								</uitable:Column>
+								<!-- New MSME -->
+								<uitable:Column width="5rem" hAlign="Center" class="cl_column_header">
+									<Text text="New MSME" class="cl_Tltxt"/>
+									<uitable:template>
+										<Text text="{JSReport>NewMsme}" class="cl_column_cell"/>
+									</uitable:template>
+								</uitable:Column>
+							
+								<uitable:Column width="7rem" hAlign="Center" class="cl_column_header">
+									<Text text="Changed Date" class="cl_Tltxt"/>
+									<uitable:template>
+										<Text text="{path:'JSReport>Aedat', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+									</uitable:template>
+								</uitable:Column>
+								<!-- Changed By -->
+								<uitable:Column width="7rem" hAlign="Center" class="cl_column_header">
+									<Text text="Changed By" class="cl_Tltxt"/>
+									<uitable:template>
+										<Text text="{JSReport>Aenam}" class="cl_column_cell"/>
+									</uitable:template>
+								</uitable:Column>
+								<uitable:Column width="100px" hAlign="Center" class="cl_column_header">
+									<Text text="Status" class="cl_Tltxt"/>
+									<uitable:template>
+										<HBox alignItems="Center" width="90px">
+											<Button text="{path:'JSReport>Response', formatter:'FSC360NEW.model.formatter.fnStatus'}" iconFirst="true" type="Transparent"
+												class="cl_status" icon="sap-icon://circle-task-2">
+												<customData>
+													<core:CustomData key="msme" value="{JSReport>Response}" writeToDom="true"/>
+												</customData>
+											</Button>
+										</HBox>
+									</uitable:template>
+								</uitable:Column>
+								<!-- Mail Id -->
+								<uitable:Column width="12rem" hAlign="Center" class="cl_column_header">
+									<Text text="Mail Id" class="cl_Tltxt"/>
+									<uitable:template>
+										<Text text="{JSReport>Mail}" class="cl_column_cell"/>
+									</uitable:template>
+								</uitable:Column>
+							</uitable:Table>
+							<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer cl_pagination_footer1">
+									<!-- Left Slot: Previous Button -->
+									<HBox width="100px" justifyContent="Start">
+										<Button icon="Images/arrow-left.svg" text="Previous" id="previousre" class="cl_prev_button" press="onPreviousPage" visible="true"/>
+									</HBox>
+									<!-- Center Slot: Page Numbers (Always Centered) -->
+									<HBox width="calc(100% - 200px)" id="idPageNumbersBoxre" justifyContent="Center" alignItems="Center" class="cl_page_numbers">
+										<!-- Page buttons dynamically inserted here -->
+									</HBox>
+									<!-- Right Slot: Next Button -->
+									<HBox width="100px" justifyContent="End">
+										<Button text="Next" icon="Images/arrow-right.svg" id="nextre" iconFirst="false" class="cl_next_button" press="onNextPage" visible="true"/>
+									</HBox>
+								</HBox>
+						</VBox>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

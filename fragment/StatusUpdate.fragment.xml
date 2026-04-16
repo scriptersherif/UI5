@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc">
+	<Dialog title="Details For Reversal Posting" class="cl_agentDialog cl_autopark_dialog">
+
+		<VBox>
+		<VBox class="column formField">
+			<Text text="{i18n>Status}" class="cl_dialogLabel"></Text>
+			<HBox class="">
+				<ComboBox id="id_status" 
+					showSecondaryValues= "true"
+          items="{JSstatus>/status}" 
+          class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp cl_autopark_reversal_dropdwn cl_statusupdate" 
+          tooltip="">
+    <!--<core:Item key="{JSstatus>key}" text="{JSstatus>text}"/>-->
+    <core:ListItem key="{JSstatus>key}" text="{JSstatus>text}" additionalText="{JSstatus>key}"/>
+</ComboBox>
+
+				
+			</HBox>
+		</VBox>
+		
+		</VBox>
+		<beginButton>
+			<Button text="{i18n>Cancel}"  icon="Images/cancel.svg" class="cl_btn_deletec" press="fn_Assign_cancel"></Button>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>Submit}" icon="Images/sub.svg" class=" gl_subbtn " press="fn_agent_submit"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

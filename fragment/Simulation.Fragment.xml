@@ -1,0 +1,195 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table">
+  <Dialog showHeader="false" title="{i18n>SimulatePayment}">
+  		<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_simulate_dialog cl_comments_dialog_header">
+			<Text text="Simulate Payment" class="sapUiTinyMargin sapMTitle cl_dialog_text"/>
+			<Button icon="Images/cancel.svg" type="Transparent" class="sapUiSizeCompact cl_btn_rest_blue cl_btn_rej cl_pdf_close_blue" press="onBack"
+				tooltip="{i18n>closeButtonTooltip}"/>
+		</HBox>
+    <!--<content>-->
+    <VBox class="sapUiSmallMarginTop sapUiSmallMarginEnd sapUiSmallMarginBegin sapUiSmallMarginBottom">
+    	 <t:Table
+  id="id_tablesimulate"
+  rows="{JMMessage>/}"
+  horizontalScroll="true"
+  selectionMode="None"
+  visibleRowCount="5"
+  class="cl_payment_table cl_custom_table cl_custom_tableapk "
+  ariaLabelledBy="title">
+ <t:Column width="2rem" hAlign="Begin" class="cl_coloumncolor">
+    <HBox alignItems="Center">
+      <Label text=" " class="cl_Tltxt"/>
+    </HBox>
+    <t:template>
+      <Text text="{JMMessage>Empty}" class="cl_table_det_text"/>
+    </t:template>
+  </t:Column>
+  <!-- Status -->
+ <t:Column width="6rem" hAlign="Begin" class="cl_coloumncolor">
+    <!-- Column Header -->
+    <HBox alignItems="Center">
+        <Label text="{i18n>Status}" class="cl_Tltxt"/>
+        
+    </HBox>
+
+    <!-- Column Cell Template -->
+    <t:template class="cl_column_cell">
+        <HBox alignItems="Center" width="90px">
+            <Button 
+                id="statusBtn" 
+                text="{JMMessage>Status}" 
+                icon="sap-icon://circle-task-2" 
+                iconFirst="true" 
+                type="Transparent" 
+                class="cl_status">
+                <customData>
+                    <core:CustomData 
+                        key="status" 
+                        value="{JMMessage>Status}" 
+                        writeToDom="true"/>
+                </customData>
+            </Button>
+        </HBox>
+    </t:template>
+</t:Column>
+
+
+  <!-- Remarks -->
+  <t:Column width="12rem" hAlign="Begin" class="cl_coloumncolor">
+    <HBox alignItems="Center">
+      <Label text="{i18n>Remarks}" class="cl_Tltxt"/>
+    </HBox>
+    <t:template>
+      <Text text="{JMMessage>Remarks}" class="cl_table_det_text" textAlign="Begin"/>
+    </t:template>
+  </t:Column>
+
+  <!-- Document Number -->
+  <t:Column width="5rem" hAlign="Begin" class="cl_coloumncolor">
+    <Label text="{i18n>DocNo}" class="cl_Tltxt"/>
+    <t:template>
+      <Text text="{JMMessage>Belnr}" class="cl_table_det_text"/>
+    </t:template>
+  </t:Column>
+
+  <!-- Year -->
+  <t:Column width="4rem" hAlign="Begin" class="cl_coloumncolor">
+    <Label text="{i18n>Year}" class="cl_Tltxt"/>
+    <t:template>
+      <Text text="{JMMessage>FisYr}" class="cl_table_det_text"/>
+    </t:template>
+  </t:Column>
+
+  <!-- Vendor Name -->
+  <t:Column width="12rem" hAlign="Begin" class="cl_coloumncolor">
+    <Label text="{i18n>VendorName}" class="cl_Tltxt"/>
+    <t:template>
+      <Text text="{JMMessage>VendName}" class="cl_table_det_text"/>
+    </t:template>
+  </t:Column>
+
+  <!-- Value Date -->
+  <t:Column width="6rem" hAlign="Begin" class="cl_coloumncolor">
+    <Label text="{i18n>ValueDate}" class="cl_Tltxt"/>
+    <t:template>
+      <Text text="{JMMessage>Valut}" class="cl_table_det_text"/>
+    </t:template>
+  </t:Column>
+
+  <!-- No of Invoices -->
+  <t:Column width="5rem" hAlign="Begin" class="cl_coloumncolor">
+    <Label text="{i18n>Invoices}" class="cl_Tltxt"/>
+    <t:template>
+      <Text text="{JMMessage>NoOfInvoices}" class="cl_table_det_text"/>
+    </t:template>
+  </t:Column>
+
+  <!-- Amount -->
+  <t:Column width="4rem" hAlign="Right" class="cl_coloumncolor">
+    <Label text="{i18n>Amount}" class="cl_Tltxt"/>
+    <t:template>
+      <Text text="{ path: 'JMMessage>Rwbtr', type: 'sap.ui.model.type.Float', formatOptions: { maxFractionDigits: 0 } }"
+            class="cl_table_det_text"/>
+    </t:template>
+  </t:Column>
+
+  <!-- Payment Method -->
+  <t:Column width="7rem" hAlign="Begin" class="cl_coloumncolor">
+    <Label text="{i18n>PaymentMethod}" class="cl_Tltxt"/>
+    <t:template>
+      <Text text="{JMMessage>PayType}" class="cl_table_det_text"/>
+    </t:template>
+  </t:Column>
+
+  <!-- Account No -->
+  <t:Column width="7rem" hAlign="Begin" class="cl_coloumncolor">
+    <Label text="{i18n>AccountNo}" class="cl_Tltxt"/>
+    <t:template>
+      <Text text="{JMMessage>BankAcc}" class="cl_table_det_text"/>
+    </t:template>
+  </t:Column>
+
+  <!-- IFSC Code -->
+  <t:Column width="6rem" hAlign="Right" class="cl_coloumncolor">
+    <Label text="{i18n>IFSCCode}" class="cl_Tltxt"/>
+    <t:template>
+      <Text text="{JMMessage>BankIfsc}" class="cl_table_det_text"/>
+    </t:template>
+  </t:Column>
+
+  <!-- Bank Name -->
+  <t:Column width="5rem" hAlign="Begin" class="cl_coloumncolor">
+    <Label text="{i18n>BankName}" class="cl_Tltxt"/>
+    <t:template>
+      <Text text="{JMMessage>BankName}" class="cl_table_det_text"/>
+    </t:template>
+  </t:Column>
+
+  <!-- Print Location -->
+  <t:Column width="7rem" hAlign="Begin" class="cl_coloumncolor">
+    <Label text="{i18n>PrintLocation}" class="cl_Tltxt"/>
+    <t:template>
+      <Text text="{JMMessage>PrintLoc}" class="cl_table_det_text"/>
+    </t:template>
+  </t:Column>
+
+  <!-- DD Pay Location -->
+  <t:Column width="7rem" hAlign="Begin" class="cl_coloumncolor">
+    <Label text="{i18n>DDpayloc}" class="cl_Tltxt"/>
+    <t:template>
+      <Text text="{JMMessage>DdPayLoc}" class="cl_table_det_text"/>
+    </t:template>
+  </t:Column>
+
+  <!-- Cheque No -->
+  <t:Column width="7rem" hAlign="Begin" class="cl_coloumncolor">
+    <Label text="{i18n>ChequeNo}" class="cl_Tltxt"/>
+    <t:template>
+      <Text text="{JMMessage>ChqNo}" class="cl_table_det_text"/>
+    </t:template>
+  </t:Column>
+
+  <!-- Run Date -->
+  <t:Column width="7rem" hAlign="Begin" class="cl_coloumncolor">
+    <Label text="{i18n>RunDate}" class="cl_Tltxt"/>
+    <t:template>
+      <Text text="{JMMessage>RunDat}" class="cl_table_det_text"/>
+    </t:template>
+  </t:Column>
+
+</t:Table>
+    </VBox>
+   <VBox class="cl_msg_box sapUiSmallMarginEnd sapUiSmallMarginBegin sapUiSmallMarginBottom">
+   	   <Text text="Message" class="cl_msg_hdr sapUiSmallMarginBegin sapUiTinyMarginTop"></Text>
+   	     <Text id="id_MsgTxt" class="cl_msg_txts sapUiSizeCompact sapUiSmallMarginBeginEnd"></Text>
+  </VBox>
+     
+      
+   <OverflowToolbar class="cl_customToolbar">
+    <ToolbarSpacer/>
+    <Button icon="Images/print_pos.svg" text="Print as PDF" class="bluebtn sapUiSmallMarginBeginEnd" press="onPressPDF" enabled="true" id="id_pdf" />
+    <Button text="Download Excel" visible="false" class="cl_btnyesno_change sapUiSmallMarginEnd" press="onExcelDowload" />
+</OverflowToolbar>
+
+    <!--</content>-->
+  </Dialog>
+</core:FragmentDefinition>

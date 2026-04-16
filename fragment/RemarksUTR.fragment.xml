@@ -1,0 +1,64 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog showHeader="true" title="Confirmation" class="cl_utr_dialog" id="id_dialog" contentWidth="400px">
+
+		<VBox width="355px" class="sapUiTinyMargin">
+
+			<!-- Posting Date Section -->
+		<VBox class="  sapUiTinyMarginTop">
+				<Label text="Posting Date:" class="sapUiSmallMarginBegin" />
+				<DatePicker id="id_InBuDat"
+					change="fnChangeReqDateValidate"
+					class="formInputBw inputhelpw sapUiSmallMarginBegin"
+					placeholder="DD/MM/YYYY"
+					valueFormat="dd.MM.YYYY"
+					displayFormat="dd/MM/yyyy" />
+			</VBox>
+
+			<!-- Info Text -->
+			<VBox class="">
+				<Text text="Are you sure you want to save the document?" class="sapUiSmallMarginBegin" />
+			</VBox>
+
+			<!-- Comments Section -->
+			<VBox class="">
+				<Text text="Comments:" class="sapUiSmallMarginBegin" />
+				<TextArea id="id_textbackend" width="100%" maxLength="50" 
+					class="cl_textbox sapUiSizeCompact sapUiSmallMarginBeginEnd" />
+			</VBox>
+
+			<!-- Item Text Section -->
+			<VBox class="">
+				<Text text="Item Text:" class="sapUiSmallMarginBegin" />
+				<TextArea id="id_textbackend_gl" width="100%" maxLength="50" 
+					class="cl_textbox sapUiSizeCompact sapUiSmallMarginBeginEnd" />
+			</VBox>
+
+			<!-- UTR Number Section -->
+			<VBox class="">
+				<Text text="UTR Number:" class="sapUiSmallMarginBegin" />
+				<TextArea id="id_textbackend_utr" width="100%" maxLength="18" 
+					class="cl_textbox sapUiSizeCompact sapUiSmallMarginBeginEnd" />
+			</VBox>
+
+		</VBox>
+
+		<!-- Dialog Footer Buttons -->
+		<beginButton>
+			<Button
+				text="Cancel"
+				icon="Images/cancel.svg"
+				press="onCloseSuccess"
+				class="cl_canbtn gl_canbtn gl_canbtn1"
+				id="id_cancel_btn" />
+		</beginButton>
+
+		<endButton>
+			<Button
+				text="Submit"
+				icon="Images/approve_image.svg"
+				press="onSaveConform"
+				class="gl_subbtn gl_subbtn1"
+				id="id_submit_btn" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

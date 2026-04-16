@@ -1,0 +1,489 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.Barcode"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:uitable="sap.ui.table" xmlns:u="sap.ui.unified">
+	<App>
+		<pages>
+			<Page title="Barcode">
+				<customHeader>
+					<Toolbar class="header_bar1 sapUiSmallMarginEnd">
+						<Image id="id_fnback" src="Images/Left.svg" class="cl_back_btn sapUiSmallMarginBegin" visible="false" press="fn_back"></Image>
+						<Text text="{i18n>Freight Invoice Management}" class="cl_bold cl_black_txt cl_heading cl_font sapUiSmallMarginBegin"></Text>
+						<ToolbarSpacer/>
+						<Button icon="Images/refresh.svg" tooltip="Refresh" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbutton.svg" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<!--<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="cl_username cl_font sapUiMediumMarginEnd"></Text>-->
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="cl_username cl_font team_text "></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<VBox class="cl_full_boxB" width="97%">
+						<Hbox class="clradio">
+							<RadioButtonGroup columns="2" id="id_posel" class="cl_RadiotxtBtna" select="onRadioSelectionChange" visible="false">
+								<RadioButton text="Planned Delivery Cost" class="cl_RadiotxtBtna" id="id_Planradiobtn"/>
+								<!--<RadioButton text="Other Menu" class="cl_RadiotxtBtna " id="rd2"/>-->
+							</RadioButtonGroup>
+							<Text text="Planned Delivery Cost" class="cl_RadiotxtBtna sapUiSmallMargin"/>
+						</Hbox>
+						<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd topbox" justifyContent="SpaceBetween" alignItems="End">
+							<VBox class="columnbarcode formFieldbarcode" width="">
+								<Text text="Plant" class="cl_textbarcode"/>
+								<HBox class="formInputWithIconbar">
+									<!--<Input editable="{path: 'JSKey>/0/Key'}" class="formInputB1" value=" " width="100%" layoutData="sap.ui.layout.FlexItemData" id="id_plantr" placeholder="Select Plant"/>-->
+									<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_getPlant"/>-->
+									<ComboBox id="id_plantr" class="cl_combo_transBar cl_combo_transBarbarcode" width="100%"
+										items="{ path: 'JSPlant>/', templateShareable: true }" change="fn_Plant_Confrm" placeholder="Select Plant" filterSuggests="true">
+										<core:Item key="{JSPlant>Wekrs}" text="{parts: ['JSPlant>Wekrs','JSPlant>Name1']}"/>
+									</ComboBox>
+								</HBox>
+							</VBox>
+							<VBox class="columnbarcode formFieldbarcode" width="" id="id_vendor_cont">
+								<Text text="Vendor" class="cl_textbarcode"/>
+								<HBox class="formInputWithIconbar">
+									<ComboBox id="id_Vendor" items="{JSVendor>/}" placeholder="Select Vendor" width="100%" tooltip="{i18n>vendor}"
+										selectionChange="fn_VendorChange" filterSecondaryValues="true" showSecondaryValues="true" class="cl_combo_transBar cl_combo_transBarbarcode">
+										<core:Item key="{JSVendor>Lifnr}" text="{JSVendor>Mcod1}"/>
+									</ComboBox>
+								</HBox>
+							</VBox>
+							<VBox id="id_stpo" class="columnbarcode formFieldbarcode" width="" visible="false">
+								<Text text="Supplying Plant" class="cl_textbarcode"/>
+								<HBox class="formInputWithIconbar">
+									<ComboBox id="id_supplierPlant" items="{ path: 'JSPlant>/', templateShareable: true }" placeholder="Select Plant Supplier"
+										filterSuggests="true" width="100%" showSecondaryValues="true" class="cl_combo_transBar cl_combo_transBarbarcode"
+										selectionChange="fn_SupplierPlant_Confrm">
+										<core:Item key="{JSPlant>Wekrs}" text="{parts: ['JSPlant>Wekrs','JSPlant>Name1']}"/>
+									</ComboBox>
+								</HBox>
+							</VBox>
+							<VBox class="columnbarcode formFieldbarcode" width="">
+								<Text text="PO Date" class="cl_textbarcode"/>
+								<HBox class="formInputWithIconbar ">
+									<!--<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder=" " class="formInputB1 inputhelp"/>-->
+									<DateRangeSelection placeholder="DD.MM.YYYY -TO- DD.MM.YYYY" delimiter=" -TO- " valueFormat="yyyy-MM-dd" displayFormat="dd/MM/YYY"
+										change="onDateRangeChanged" class="formInputB1 inputhelp" id="id_DateRangePO"/>
+									<DatePicker id="id_frompoDate" visible="false" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" change="handleDateChange1"/>
+									<DatePicker id="id_EndpoDate" visible="false" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" change="handleDateChange2"/>
+								</HBox>
+							</VBox>
+							<VBox class="columnbarcode formFieldbarcode" width="">
+								<Text text="GRN Number" class="cl_textbarcode"/>
+								<HBox class="formInputWithIconbar">
+									<Input editable="{path: 'JSKey>/0/Key'}" class="formInputB1" value=" " width="100%" layoutData="sap.ui.layout.FlexItemData" id="id_GRNNo"
+										placeholder="Enter GRN No."/>
+								</HBox>
+							</VBox>
+						</HBox>
+						<HBox class="cl_barcode_input_row1 sapUiSmallMarginBegin sapUiSmallMarginEnd" justifyContent="SpaceBetween" alignItems="End">
+							<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+								<Text text="Purchase Order" class="cl_textbarcode"/>
+								<HBox class="formInputWithIconbar">
+									<MultiComboBox id="id_PO" change="fnPOChange" selectionFinish="handleSelectionFinish" maxWidth="100%"
+										class="cl_combo_transBar cl_combo_transBar_cr" editable="{path: 'JSKey>/0/Key'}" placeholder="" tooltip="{JSPO_Tooltip>/tooltipPO}">
+										<core:Item key="{JSPO>Ebeln}" text="{JSPO>Ebeln}"/>
+									</MultiComboBox>
+								</HBox>
+							</VBox>
+							<VBox class="columnbarcode3 formFieldbarcode comboboxcont">
+								<HBox >
+									<VBox class="columnbarcode2 formFieldbarcode">
+										<Text text="Bill Entry Number" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<Input editable="{path: 'JSKey>/0/Key'}" class="formInputB01 formInputB01l cl_combo_transBar1" value=" "
+												layoutData="sap.ui.layout.FlexItemData" id="id_BillentryNo" placeholder="Enter Bill No."/>
+											<!--<Image src="" width="12px" height="15px" class="inputIcon3" press=""/>-->
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode2 formFieldbarcode">
+										<Text text="Bill Date" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder="DD.MM.YYYY"
+												class="formInputB01 formInputB01r inputhelp cl_combo_transBar1 cl_billdateinp_barcode" id="id_BillEntryDate" change="fn_datevalidation"/>
+										</HBox>
+									</VBox>
+								</HBox>
+							</VBox>
+							<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+								<Text text="Condition" class="cl_textbarcode"/>
+								<HBox class="formInputWithIconbar">
+									<MultiComboBox id="id_Condition" items="{path: 'JSCondition>/'}" change="fnCondChange" selectionFinish="handleInvoiceSelectionFinish"
+										maxWidth="100%" class="cl_combo_transBar cl_combo_transBar_cr" editable="{path: 'JSKey>/0/Key'}" tooltip="{JSPO_Tooltip>/tooltipCondition}">
+										<core:Item text="{JSCondition>Kschl}-{JSCondition>Vtext}" key="{JSCondition>Kschl}"/>
+									</MultiComboBox>
+								</HBox>
+							</VBox>
+							<VBox class="columnbarcode3 formFieldbarcode comboboxcont">
+								<HBox >
+									<VBox class="columnbarcode2 formFieldbarcode">
+										<Text text="Total Allocat. Amt" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<Input editable="false" class="formInputB01 formInputB01l" value="0.00" layoutData="sap.ui.layout.FlexItemData" id="id_TotalAllocatedAmnt"/>
+											<!--<Image src="" width="12px" height="15px" class="inputIcon3" press=""/>-->
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode2 formFieldbarcode">
+										<Text text="Difference" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<Input editable="false" class="formInputB01 formInputB01r cl_billdateinp_barcode" value="0.00" layoutData="sap.ui.layout.FlexItemData"
+												id="id_TotalAllocatedDiff"/>
+											<!--<Image src="" width="12px" height="15px" class="inputIcon3" press=""/>-->
+										</HBox>
+									</VBox>
+								</HBox>
+							</VBox>
+						</HBox>
+						<HBox class="cl_barcode_input_row1 sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom lastbocab" justifyContent="SpaceBetween"
+							alignItems="End">
+							<VBox class="columnbarcode01 formFieldbarcode" width="">
+								<Text text="Tax Code" class="cl_textbarcode"/>
+								<HBox class="formInputWithIconbar">
+									<!--<Input editable="{path: 'JSKey>/0/Key'}" class="formInputB1" value=" " placeholder="Select Tax Code" width="100%" layoutData="sap.ui.layout.FlexItemData" id="id_taxcode"/>-->
+									<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_getTaxCode"/>-->
+									<ComboBox id="id_taxcode" class="cl_combo_transBar cl_combo_transBarbarcode" width="100%" placeholder="Select Tax Code"
+										editable="{path: 'JSKey>/0/Key'}" selectionChange="fn_TaxConfrm" filterSuggests="true"
+										items="{ path: 'JSTaxCode>/', templateShareable: true }" liveChange="fn_TaxCode_LC">
+										<core:Item key="{JSTaxCode>Mwskz}" text="{parts: ['JSTaxCode>Mwskz', 'JSTaxCode>Text1']}"/>
+									</ComboBox>
+								</HBox>
+							</VBox>
+							<VBox class="columnbarcode01 formFieldbarcode" width="">
+								<Text text="Group Id" class="cl_textbarcode" id="id_groupid_txt"/>
+								<HBox class="formInputWithIconbar">
+									<Input editable="{path: 'JSKey>/0/Key'}" class="formInputB1" value=" " width="100%" layoutData="sap.ui.layout.FlexItemData" id="id_groupid"
+										placeholder="Enter Group Id"/>
+									<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getPlant"/>-->
+								</HBox>
+							</VBox>
+							<VBox class="column formField" width="25%"></VBox>
+							<VBox class="column formField" width="25%">
+								<HBox class="btnab" justifyContent="End">
+									<HBox class="selectAllBox cl_custom_box">
+										<CheckBox id="id_Custom" text="Custom" selected="" select="fnSelectCustom"/>
+									</HBox>
+									<HBox class="selectAllBox cl_custom_box">
+										<CheckBox id="id_STO" text="STO" selected="" select="fnSelectCustom"/>
+									</HBox>
+									<Button id="id_clear" text="Clear" icon="Images/clearab.svg" type="Transparent" press="fnClear" class="sapUiSizeCompact cl_btn_cleara "/>
+									<Button id="id_search" text="Search" icon="Images/searchab.svg" type="Transparent" press="fn_search"
+										class="sapUiSizeCompact cl_btn_searcha "/>
+								</HBox>
+							</VBox>
+						</HBox>
+					</VBox>
+					<VBox class="cl_table_wrapper" width="97%">
+						<HBox>
+							<uitable:Table id="id_table" selectionMode="true" enableSelectAll='true' rows="{JSBCTable>/}" enableCellFilter="true" width="97.2%"
+								visibleRowCount="5" class="FSC_Table cl_barcode_table cl_barcode_tableborder FSC_Table_cr cl_header_icon1 cl_barcode_table_main_normal"
+								fixedColumnCount="1" rowSelectionChange="action" ariaLabelledBy="title" sort="sortDeliveryDate">
+								<!--cl_tble cl_custom_table cl_custom_table1 cl_tblewp cl_barcode_table-->
+								<uitable:columns >
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" width="8rem" showSortMenuEntry="false">
+										<HBox alignItems="Center">
+											<Text text="Purchase Order" class="cl_Tltxt"/>
+											<Image src="Images/arrow-down.svg" id="qidSortIcon" width="14px" height="14px" class="cl_header_icon1" press="fn_sortByPO"/>
+										</HBox>
+										<uitable:template>
+											<Link text="{JSBCTable>Ebeln}" press="fn_nav_to_wb" class="cl_table_det_text pofield cl_table_det_text1" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+										<Text text="{i18n>Item}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>Ebelp}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+										<Text text="{i18n>Condition}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>Kschl}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+										<Text text="{i18n>GRNNo}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>Mblnr}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+										<Text text="{i18n>DeliveryNote}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>Delnote}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+										<Text text="{i18n>BillofLading}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>Frbnr}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+										<Text text="{i18n>HeaderText}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>Bktxt}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center " width="5.5rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+										<Text text="{i18n>Liability}" class="cl_Tltxt"/>
+										<uitable:template >
+											<Input value="{JSBCTable>Wrbtr}" class="cl_table_det_text cl_table_det_text1 sapUiSizeCompact" wrapping="false" editable="true"></Input>
+											<!--<Text text="{JSBCTable>Wrbtr}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>-->
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+										<Text text="{i18n>Currency}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>Waers}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="9rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+										<Text text="{i18n>AllocatedAmount}" class="cl_Tltxt "/>
+										<uitable:template >
+											<Input value="{JSBCTable>AllocatedAmt}" class="cl_table_det_text cl_table_det_text1 sapUiSizeCompact" wrapping="false" editable="false"></Input>
+											<!--<Text text="{JSBCTable>AllocatedAmt}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>-->
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+										<Text text="{i18n>Deviation}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>Difference}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+										<Text text="{i18n>POAmount}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>KawrtPo}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+										<Text text="{i18n>POCurrency}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>WaersPo}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+										<Text text="{i18n>POExchRate}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>Wkurs}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+										<Text text="{i18n>GRNExchRate}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>GrnexchRate}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<!--<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">-->
+									<!--	<Text text="{i18n>Invoice Number}" class="cl_Tltxt"/>-->
+									<!--	<uitable:template>-->
+									<!--		<Input value="{JSBCTable>InvNo}" id="id_InvNo" change=".onInvoiceFieldChange"-->
+									<!--			class="sapUiSizeCompact cl_table_det_text cl_table_det_text1 tabin" width="100%"/>-->
+									<!--	</uitable:template>-->
+									<!--</uitable:Column>-->
+									<!--<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">-->
+									<!--	<Text text="{i18n>Invoice Date}" class="cl_Tltxt"/>-->
+									<!--	<uitable:template>-->
+									<!--		<DatePicker value="{JSBCTable>InvDate}" id="id_InvDate" change=".onInvoiceFieldChange" width="100%" displayFormat="dd.MM.yyyy"-->
+									<!--			valueFormat="yyyy-MM-dd" class="tabin cl_table_det_text cl_table_det_text1 sapUiSizeCompact"/>-->
+									<!--	</uitable:template>-->
+									<!--</uitable:Column>-->
+									<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+										<Text text="{i18n>Current rate}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Input value="{JSBCTable>CurrentRate}" id="id_CurrentRate" change=".onInvoiceFieldChange"
+												class="sapUiSizeCompact cl_table_det_text cl_table_det_text1 tabin" width="100%"/>
+										</uitable:template>
+									</uitable:Column>
+								</uitable:columns>
+							</uitable:Table>
+							<!--line added by yasin on 22-10-2025 start-->
+							<uitable:Table id="id_InvoiceTable_normal" rows="{JSBCTable>/}" selectionMode="None" enableCellFilter="false" width="100%"
+								visibleRowCount="5" class="FSC_Table cl_barcode_table cl_barcode_tableborder FSC_Table_cr cl_header_icon1 cl_barcode_table_secondary_normal">
+								<uitable:columns>
+									<uitable:Column hAlign="Center" width="50%">
+										<Text text="{i18n>InvoiceNumber}" class="cl_Tltxt cl_text_table_barcode_invno"/>
+										<uitable:template>
+											<Input value="{JSBCTable>InvNo}" id="id_InvNo" change=".onInvoiceFieldChange"
+												class="tabin cl_table_det_text cl_table_det_text1 sapUiSizeCompact " width="100%"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="50%">
+										<Text text="{i18n>InvoiceDate}" class="cl_Tltxt"/>
+										<uitable:template>
+											<DatePicker value="{JSBCTable>InvDate}" id="id_InvDate" change=".onInvoiceFieldChange" width="100%" displayFormat="dd.MM.yyyy"
+												valueFormat="yyyy-MM-dd" class="tabin cl_table_det_text cl_table_det_text1 sapUiSizeCompact"/>
+										</uitable:template>
+									</uitable:Column>
+								</uitable:columns>
+							</uitable:Table>
+							<!--line added by yasin on 22-10-2025 end-->
+						</HBox>
+						<HBox>
+							<uitable:Table id="id_table_width" selectionMode="true" visibleRowCount="5" enableSelectAll='true' rows="{JSBCTable>/}"
+								enableCellFilter="true" width="98%" height="50%"
+								class="FSC_Table cl_barcode_table cl_barcode_tableborder FSC_Table_cr cl_header_icon1 cl_barcode_table_main_normal"
+								rowSelectionChange="action" ariaLabelledBy="title" sort="sortDeliveryDate">
+								<uitable:columns >
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" width="7rem" showSortMenuEntry="false">
+										<Text text="{i18n>PurchaseOrder}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Link text="{JSBCTable>Ebeln}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" showSortMenuEntry="false" width="3rem">
+										<Text text="{i18n>Item}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>Ebelp}" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" showSortMenuEntry="false" width="5rem">
+										<Text text="{i18n>Condition}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>Kschl}" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center " showFilterMenuEntry="false" showSortMenuEntry="false" width="5rem">
+										<Text text="{i18n>Liability}" class="cl_Tltxt"/>
+										<uitable:template >
+											<Input value="{JSBCTable>Wrbtr}" class="sapUiSizeCompact" wrapping="false" editable="false"></Input>
+											<!--<Text text="{JSBCTable>Wrbtr}" class="cl_table_det_text" wrapping="false"/>-->
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" showSortMenuEntry="false" width="5rem">
+										<Text text="{i18n>InterestPaid}" class="cl_Tltxt "/>
+										<uitable:template >
+											<Text text="{JSBCTable>Wrbtr}" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" showSortMenuEntry="false" width="7rem">
+										<Text text="{i18n>AccesibleValue}" class="cl_Tltxt" wrapping="true"/>
+										<uitable:template>
+											<Input class="sapUiSizeCompact" value="{JSBCTable>AccessValue}" wrapping="false" change="fnaccesiblechange"></Input>
+											<!--<Text class="cl_table_det_text" text="{JSBCTable>AccessValue}" wrapping="false"/>-->
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" showSortMenuEntry="false" width="5rem">
+										<Text text="{i18n>Currency}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>Waers}" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" showSortMenuEntry="false" width="5rem">
+										<Text text="{i18n>POAmount}" class="cl_Tltxt"/>
+										<uitable:template>
+											<!--<Text text="{JSBCTable>WaersPo}" class="cl_table_det_text" wrapping="false"/>-->
+											<Text text="{JSBCTable>KawrtPo}" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" showSortMenuEntry="false" width="5rem">
+										<Text text="{i18n>POCurrency}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>WaersPo}" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<!--line added by yasin -->
+									<!--<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">-->
+									<!--	<Text text="{i18n>Invoice Number}" class="cl_Tltxt"/>-->
+									<!--	<uitable:template>-->
+									<!--		<Input value="{JSBCTable>InvNo}" id="id_InvNo_custom" change="onInvoiceFieldChange" class="sapUiSizeCompact" width="100%"/>-->
+									<!--	</uitable:template>-->
+									<!--</uitable:Column>-->
+									<!--<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">-->
+									<!--	<Text text="{i18n>Invoice Date}" class="cl_Tltxt"/>-->
+									<!--	<uitable:template>-->
+									<!--		<DatePicker value="{JSBCTable>InvDate}" id="id_InvDate_custom" change="onInvoiceFieldChange" width="100%" displayFormat="dd.MM.yyyy"-->
+									<!--			valueFormat="yyyy-MM-dd" class="sapUiSizeCompact"/>-->
+									<!--	</uitable:template>-->
+									<!--</uitable:Column>-->
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" showSortMenuEntry="false" width="6rem">
+										<Text text="{i18n>POExchRate}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSBCTable>ExchRate}" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+								</uitable:columns>
+							</uitable:Table>
+							<!--line added by yasin on 22-10-2025 start-->
+							<uitable:Table id="id_InvoiceTable_custom" rows="{JSBCTable>/}" selectionMode="None" enableCellFilter="false" width="100%"
+								visibleRowCount="5" class="FSC_Table cl_barcode_table cl_barcode_tableborder FSC_Table_cr cl_header_icon1 cl_barcode_table_secondary_normal">
+								<uitable:columns>
+									<uitable:Column hAlign="Center" width="50%">
+										<Text text="{i18n>InvoiceNumber}" class="cl_Tltxt cl_text_table_barcode_invno"/>
+										<uitable:template>
+											<Input value="{JSBCTable>InvNo}" id="id_InvNo_custom" change=".onInvoiceFieldChange"
+												class="tabin cl_table_det_text cl_table_det_text1 sapUiSizeCompact" width="100%"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="50%">
+										<Text text="{i18n>InvoiceDate}" class="cl_Tltxt"/>
+										<uitable:template>
+											<DatePicker value="{JSBCTable>InvDate}" id="id_InvDate_custom" change=".onInvoiceFieldChange" width="100%" displayFormat="dd.MM.yyyy"
+												valueFormat="yyyy-MM-dd" class="tabin cl_table_det_text cl_table_det_text1 sapUiSizeCompact"/>
+										</uitable:template>
+									</uitable:Column>
+								</uitable:columns>
+							</uitable:Table>
+						</HBox>
+						<!--line added by yasin on 22-10-2025 end-->
+						<!--<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer cl_pagination_footer1 cl_pagination_footerapk1"-->
+						<!--	id="idPaginationFooter">-->
+						<!--	<Button icon="Images/arrow-left.svg" text="Previous" class="cl_prev_button" press="onPreviousJSBCPage" id="idPrevButton"/>-->
+							<!--<HBox class="cl_page_numbers" id="idPageNumbersBox" alignItems="Center">-->
+						<!--	<HBox width="calc(100% - 200px)" id="idPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers">-->
+								<!-- Page number buttons inserted dynamically -->
+						<!--	</HBox>-->
+								<!-- You can dynamically generate page buttons if needed -->
+							<!--</HBox>-->
+						<!--	<Button text="Next" icon="Images/arrow-right.svg" iconFirst="false" class="cl_next_button" press="onNextPageJSBCPage" id="idNextButton"/>-->
+						<!--</HBox>-->
+							<HBox id="idPaginationFooter">
+							<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer cl_pagination_footer1 cl_pagination_footerapk1" width="100%" id="fultab">
+								<!-- Previous Button -->
+								<HBox width="100px" justifyContent="Start">
+									<Button icon="Images/arrow-left.svg" text="{i18n>Previous}" tooltip="{i18n>Previous}" id="idPrevButton" class="cl_prev_button"
+										press="onPreviousJSBCPage" visible="true"/>
+								</HBox>
+								<!-- Dynamic Page Numbers -->
+								<HBox width="calc(100% - 200px)" id="idPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers">
+									<!-- Page number buttons inserted dynamically -->
+								</HBox>
+								<!-- Next Button -->
+								<HBox width="100px" justifyContent="End">
+									<Button text="{i18n>Next}" tooltip="{i18n>Next}" icon="Images/arrow-right.svg" id="idNextButton" iconFirst="false" class="cl_next_button"
+										press="onNextJSBCPage" visible="true"/>
+								</HBox>
+							</HBox>
+							<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer cl_pagination_footer1 cl_pagination_footerapk1" width="100%" id="fultabPick" visible="false">
+								<!-- Previous Button -->
+								<HBox width="100px" justifyContent="Start">
+									<Button icon="Images/arrow-left.svg" text="{i18n>Previous}" tooltip="{i18n>Previous}" id="idPrevPickButton" class="cl_prev_button"
+										press="onPreviousJSBCPage"/>
+								</HBox>
+								<!-- Dynamic Page Numbers -->
+								<HBox width="calc(100% - 200px)" id="idPickPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers">
+									<!-- Page number buttons will be created dynamically in controller -->
+								</HBox>
+								<!-- Next Button -->
+								<HBox width="100px" justifyContent="End">
+									<Button text="{i18n>Next}" tooltip="{i18n>Next}" icon="Images/arrow-right.svg" id="idNextPickButton" iconFirst="false"
+										class="cl_next_button" press="onNextJSBCPage"/>
+								</HBox>
+							</HBox>
+							</HBox>
+					</VBox>
+				</content>
+				<footer class="cl_Footer">
+					<OverflowToolbar id="id_FooterTool" class="cl_Footer">
+						<ToolbarSpacer/>
+						<Button id="id_Summary" text="Summary" icon="Images/summaryab.svg" type="transparent" press="fnSummary"
+							class="sapUiSizeCompact cl_btn_clear btnsumm"/>
+						<Button id="id_ClearAll" text="Image" icon="Images/imageab.svg" type="transparent" press="fnviewImagefrag"
+							class="sapUiSizeCompact cl_btn_clear btnimg "/>
+						<Button id="id_Assign" text="Assign Barcode" icon="Images/barcode.svg" type="transparent" press="fnAssignBarcode"
+							class="sapUiSizeCompact cl_btn_save classbar"/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

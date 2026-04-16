@@ -1,0 +1,268 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:u="sap.ui.unified"
+	controllerName="FSC360NEW.controller.CaptureCenter" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout">
+	<App>
+		<pages>
+			<Page title="Capture">
+				<customHeader>
+					<Toolbar class="header_bar1 sapUiSmallMarginEnd">
+						<Image id="id_fnback" src="Images/arrow-left.svg" class="cl_back_btn sapUiSmallMarginBegin" visible="false" press="fn_back"></Image>
+						<Text text="{i18n>Capture Center}" class="cl_bold cl_black_txt cl_heading cl_font sapUiSmallMarginBegin"></Text>
+						<ToolbarSpacer/>
+						<Button icon="Images/refresh.svg" tooltip="Refresh" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbutton.svg" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="cl_username cl_font team_text "></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<VBox class="cl_full_boxC ">
+						<HBox id="id_potype" class="cl_radio_head">
+							<RadioButtonGroup columns="2" id="id_posel" class="cl_RadiotxtBtn" select="onRadioSelectionChange">
+								<RadioButton text="Purchase Order (PO)" class="cl_RadiotxtBtn" id="rd1"/>
+								<RadioButton text="Non Purchase Order (Non - PO)" class="cl_RadiotxtBtn " id="rd2"/>
+							</RadioButtonGroup>
+						</HBox>
+						<HBox width="100%" fitContainer="true" class="formSectionfull">
+							<VBox class="formSection1" width="100%" height="50%">
+								<HBox class="row2" justifyContent="SpaceBetween" alignItems="End">
+									<VBox class="columnbarcode formFieldbarcode">
+										<Text text="Vendor Code" class="cl_text cl_cc_texts"/>
+										<HBox class="formInputWithIconbar">
+											<ComboBox id="id_vendor" items="{JSVendor>/}" placeholder="Select Vendor" width="100%" tooltip="{i18n>vendor}"
+												selectionChange="fn_VendorChange" filterSecondaryValues="true" showSecondaryValues="true"
+												class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp">
+												<core:Item key="{JSVendor>Lifnr}" text="{JSVendor>Mcod1}"/>
+											</ComboBox>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode">
+										<Text text="Barcode Number" class="cl_text cl_cc_texts"/>
+										<HBox class="formInputWithIconbar">
+											<Input id="id_barcode" liveChange="fnchange_barcode1" submit="fn_barcode_check" class="formInputB1" value=" " width="100%"
+												layoutData="sap.ui.layout.FlexItemData" type="Text" maxLength="14"/>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode">
+										<Text text="Invoice Number" class="cl_text cl_cc_texts" maxLength="16"/>
+										<HBox class="formInputWithIconbar">
+											<Input id="id_invon" class="formInputB1" width="100%" layoutData="sap.ui.layout.FlexItemData" value=" "/>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode">
+										<Text text="Invoice Date" class="cl_text cl_cc_texts"/>
+										<HBox class="formInputWithIconbar">
+											<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" id="id_invoDate" placeholder=" "
+												class="formInputB1 datepicker " width="100%" layoutData="sap.ui.layout.FlexItemData"/>
+										</HBox>
+									</VBox>
+								</HBox>
+								<HBox class="row2" justifyContent="SpaceBetween" alignItems="End">
+									<VBox class="columnbarcode formFieldbarcode">
+										<Text text="Invoice Amount" class="cl_btext cl_cc_texts"/>
+										<HBox class="cl_saleAmountBox1" alignItems="Center" justifyContent="SpaceBetween" width="100%" layoutData="sap.ui.layout.FlexItemData"
+											height="26px">
+											<Text text="{path: 'JSSelectedCurrency>/Waers', formatter: 'FSC360NEW.model.formatter.fnCurrencySymbol'}" id="id_currency_symb"
+												class="cl_currencySymbol"/>
+											<Input id="id_amount" class="cl_amountInput" width="auto" submit="fnamount"/>
+											<HBox alignItems="Center" class="cl_currencyWrapper">
+												<ComboBox id="id_currency" width="5.5rem" selectedKey="{JSSelectedCurrency>/Waers}" items="{JSCurrency>/CurrencyList}"
+													class="cl_currencyDropdown sapUiSizeCompact" editable="{path: 'JSKey>/0/Key'}" showSecondaryValues="true" placeholder="Currency">
+													<core:ListItem key="{JSCurrency>Waers}" text="{JSCurrency>Waers}"/>
+												</ComboBox>
+											</HBox>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode" visible="{= ${Mymodel>/potype} === 'true' ? true : false}">
+										<Text text="PO Date" class="cl_text cl_cc_texts"/>
+										<HBox class="formInputWithIconbar">
+											<DateRangeSelection id="id_PODateRange" placeholder="DD.MM.YYYY -TO- DD.MM.YYYY" delimiter=" -TO- " displayFormat="dd / MM / yyyy"
+												valueFormat="yyyy-MM-DD" change="fn_Invoicedate_change" editable="{path: 'JSKey>/0/Key'}" class="formInputB1 datepicker" width="100%"
+												layoutData="sap.ui.layout.FlexItemData"/>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode" visible="{= ${Mymodel>/nonpotype} === 'true' ? true : false}">
+										<Text text="GL Account" class="cl_text cl_cc_texts"/>
+										<HBox class="formInputWithIconbar">
+										
+											<ComboBox id="id_GL"  placeholder="Select GL account" width="100%" tooltip="{i18n>GLaccount}"
+											 filterSecondaryValues="true" showSecondaryValues="true"
+												class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp">
+												<core:Item key="{JSGLAccount>Saknr}" text="{JSGLAccount>Txt50}"/>
+											</ComboBox>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode" visible="{= ${Mymodel>/potype} === 'true' ? true : false}">
+										<Text text="Purchase Order" editable="{path: 'JSKey>/0/Key'}" class="cl_text cl_cc_texts"/>
+										<!--<DatePicker value="2025-05-16" class="formInput"/>-->
+										<HBox class="formInputWithIconbar">
+											<MultiComboBox id="id_PO" items="{fn_PO_LC>/}" change="fnPOChange" selectionFinish="handleSelectionFinish" maxWidth="100%"
+												class="cl_combo_transBar cl_combo_transBar_cr" editable="{path: 'JSKey>/0/Key'}" placeholder="" tooltip="{JSPO_Tooltip>/tooltipPO}">
+												<core:Item text="{fn_PO_LC>Ebeln}" key="{fn_PO_LC>Ebeln}"/>
+											</MultiComboBox>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode" visible="{= ${Mymodel>/nonpotype} === 'true' ? true : false}">
+										<Text text="Cost Center" editable="{path: 'JSKey>/0/Key'}" class="cl_text cl_cc_texts"/>
+										<HBox class="formInputWithIconbar">
+											<!--<Input id="id_cc" class="formInputB1" value="Enter Po Number" width="100%" layoutData="sap.ui.layout.FlexItemData"/>-->
+											<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon" press="fn_getcc"/>-->
+												<ComboBox id="id_cc"  placeholder="Select Cost Center" width="100%" tooltip="{i18n>CostCenter}"
+											 filterSecondaryValues="true" showSecondaryValues="true"
+												class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp">
+												<core:Item key="{JSCostCenter>Kostl}" text="{JSCostCenter>Ktext}"/>
+											</ComboBox>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode">
+										<Text text="Comments" class="cl_text cl_cc_texts"/>
+										<HBox class="formInputWithIconbar">
+											<Input id="id_comment" class="formInputB1" value="Enter Comments" width="100%" layoutData="sap.ui.layout.FlexItemData"/>
+										</HBox>
+									</VBox>
+								</HBox>
+								<HBox class="row2" justifyContent="SpaceBetween" alignItems="End" visible="{= ${Mymodel>/nonpotype} === 'true' ? false : true}">
+									<VBox class="columnbarcode formFieldbarcode" width="">
+										<Text text="{i18n>Transaction Type}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<ComboBox id="id_transactiontyp" items="{JSTransType>/}" placeholder="{i18n>transtype}" width="23.4%"
+												class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp cl_transtyp_captcent" tooltip="{i18n>transtype}">
+												<core:Item key="{JSTransType>DomvalueL}" text="{JSTransType>Ddtext}"/>
+											</ComboBox>
+										</HBox>
+									</VBox>
+								</HBox>
+								<HBox class="row2" justifyContent="SpaceBetween" alignItems="End" visible="{= ${Mymodel>/nonpotype} === 'true' ? true : false}">
+									<VBox class="columnbarcode formFieldbarcode" visible="{= ${Mymodel>/nonpotype} === 'true' ? true : false}">
+										<Text text="Expense Type" class="cl_text cl_cc_texts"/>
+										<HBox class="formInputWithIconbar">
+											<ComboBox id="id_exty" items="{JSExpense>/}" placeholder="Select Expense Type" width="100%" tooltip="{i18n>Expense}" selectionChange=""
+												filterSecondaryValues="true" showSecondaryValues="true" class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp">
+												<core:Item key="{JSVendor>Expty}" text="{JSVendor>Expty}"/>
+											</ComboBox>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode" visible="{= ${Mymodel>/nonpotype} === 'true' ? true : false}">
+										<HBox class="formInputWithIconbar">
+											<Input class="formInputB1 formInputB1_no" width="100%" layoutData="sap.ui.layout.FlexItemData"/>
+										
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode" visible="{= ${Mymodel>/nonpotype} === 'true' ? true : false}">
+										<HBox class="formInputWithIconbar">
+											<Input class="formInputB1 formInputB1_no" width="100%" layoutData="sap.ui.layout.FlexItemData"/>
+										
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode" visible="{= ${Mymodel>/nonpotype} === 'true' ? true : false}">
+										<HBox class="formInputWithIconbar">
+											<Input class="formInputB1 formInputB1_no" width="100%" layoutData="sap.ui.layout.FlexItemData"/>
+										</HBox>
+									</VBox>
+								</HBox>
+							</VBox>
+						</HBox>
+						<VBox id="fullbox_before" class="cl_full_box1" height="50%">
+							<Label text="Attach Invoice" required="true" class="cl_attach_lbl"/>
+							<VBox id="idDragDropBox" width="100%" height="97%" alignItems="Center" dragEnter="onDragEnter" dragOver="onDragOver" drop="onFileDrop"
+								class="cl_dragdrop">
+								<VBox id="idFileBox" height="97%" justifyContent="Center" alignItems="Center" dragEnter="onDragEnter" dragOver="onDragOver"
+									drop="onFileDrop" class="cl_file_upload" width="97%">
+									<Image src="Images/fileUpload.svg" class="cl_upload_btn"/>
+									<HBox class="uploadTextBox" justifyContent="Center">
+										<Text text="Click to upload" class="uploadText"/>
+										<Text text=" or drag and drop" class="uploadSubText"/>
+									</HBox>
+									<Text text="PDF, PNG, JPG (max. 800x400px)" class="hintText"/>
+									<u:FileUploader width="0.1%" typeMissmatch="handleTypeMissmatch" fileType="pdf,png" change="onFileChange" uploadOnChange="false"
+										id="fileuploader" class="hiddenUploader" buttonText=" "></u:FileUploader>
+								</VBox>
+			
+							</VBox>
+						
+						</VBox>
+						<VBox id="fullbox_after" visible="false" class="cl_full_box1" width="97%" height="50%">
+							<HBox justifyContent="SpaceBetween">
+								<Label text="Attach Invoice" required="true" class="cl_attach_lbl"/>
+								<HBox >
+									<Button id="id_delete_upload" text="Delete" icon="Images/deleteC.svg" type="Transparent" press="onClearAll"
+										class="sapUiSizeCompact cl_btn_delete "/>
+									<Button id="id_re_upload" text="Re-Upload" icon="Images/saveC.svg" type="Transparent" press="fn_reupload"
+										class="sapUiSizeCompact cl_btn_reupload "/>
+								</HBox>
+							</HBox>
+							<VBox class="cl_preview_cover">
+								<VBox id="idPreviewContainer" width="100%" height="97%" class="cl_preview_box cl_preview_boxcc" direction="Row"></VBox>
+							</VBox>
+						</VBox>
+						<HBox id="id_header" class="sapUiTinyMarginTop" visible="false">
+							<HBox width="100%" class="cl_spacer sapUiSizeCompact sapUiSmallMarginBegin">
+								<VBox alignContent="End" alignItems="End" justifyContent="Start" class="sapUiSmallMarginBegin sapUiSmallMarginTop">
+									<Text text="{i18n>VendorCode}" class="cl_txtfont_bar sapUiSmallMarginTop"></Text>
+									<Text text="{i18n>BarCodeNo}" class="cl_txtfont_bar sapUiMediumMarginTop"></Text>
+									<Text text="{i18n>InvoiceNumber}" class="cl_txtfont_bar sapUiMediumMarginTop"></Text>
+									<Text text="{i18n>InvoDate}" class="cl_txtfont_bar sapUiMediumMarginTop"></Text>
+									<Text text="{i18n>InVoice Amount}" class="cl_txtfont_bar sapUiMediumMarginTop"></Text>
+									<Text text="{i18n>PODate}" class="cl_txtfont_bar sapUiMediumMarginTop" visible="{= ${Mymodel>/potype} === 'true' ? true : false}"></Text>
+									<Text text="{i18n>Purchase Order}" class="cl_txtfont_bar sapUiMediumMarginTop" visible="{= ${Mymodel>/potype} === 'true' ? true : false}"></Text>
+									<Text text="{i18n>GL Account}" class="cl_txtfont_bar sapUiMediumMarginTop" visible="{= ${Mymodel>/nonpotype} === 'true' ? true : false}"></Text>
+									<Text text="{i18n>Cost Center}" class="cl_txtfont_bar sapUiMediumMarginTop" visible="{= ${Mymodel>/nonpotype} === 'true' ? true : false}"></Text>
+									<Text text="{i18n>Expense Type}" class="cl_txtfont_bar sapUiMediumMarginTop" visible="{= ${Mymodel>/nonpotype} === 'true' ? true : false}"></Text>
+									<Text text="{i18n>Comments}" class="cl_txtfont_bar sapUiMediumMarginTop"></Text>
+									<Text text="{i18n>AttachInvoice}" class="cl_txtfont_bar sapUiLargeMarginTop"></Text>
+								</VBox>
+								<VBox class="sapUiTinyMarginTop" alignContent="Start">
+									<Input class="sapUiSizeCompact sapUiSmallMarginBegin sapUiSmallMarginTop cl_inp_border cl_inp_bar" width="70%" showValueHelp="true"
+										valueHelpRequest="fn_getvendorcode"></Input>
+									<Input class="sapUiSizeCompact sapUiSmallMarginBegin sapUiSmallMarginTop cl_inp_border cl_inp_bar" width="70%"
+										liveChange="fnchange_barcode1" submit="fn_barcode_check" maxLength="14"></Input>
+									<Input class="sapUiSizeCompact sapUiSmallMarginBegin sapUiSmallMarginTop cl_inp_border cl_inp_bar" width="70%" maxLength="16"></Input>
+									<DatePicker width="70%" valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder=" "
+										class="cl_inp_bar cl_datepicolor cl_inp_border sapUiSizeCompact sapUiSmallMarginTop sapUiSmallMarginBegin"></DatePicker>
+									<Toolbar class="cl_toolbr sapUiSmallMarginTop sapUiTinyMarginBottom">
+										<Input class="sapUiSizeCompact sapUiSmallMarginBegin cl_inp_border cl_inp_bar " submit="fnamount" width="40%"></Input>
+										<Input class="sapUiSizeCompact cl_inp_border cl_inp_bar " width="28%" showValueHelp="true" valueHelpRequest="fn_Currency_frag"></Input>
+									</Toolbar>
+									<Toolbar class="cl_toolbr sapUiTinyMarginTop" visible="{= ${Mymodel>/potype} === 'true' ? true : false}">
+										<DatePicker width="34%" valueFormat="yyyy-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" id="id_frompoDate1" placeholder=" "
+											change="handleDateChange1" class="cl_inp_bar cl_datepicolor cl_inp_border sapUiSizeCompact sapUiSmallMarginBegin"></DatePicker>
+										<DatePicker width="34%" valueFormat="yyyy-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" id="id_EndpoDate1" placeholder=" "
+											change="handleDateChange1" class="cl_inp_bar cl_datepicolor cl_inp_border sapUiSizeCompact "></DatePicker>
+									</Toolbar>
+									<Input class="sapUiSizeCompact sapUiSmallMarginBegin sapUiSmallMarginTop cl_inp_border cl_inp_bar" width="70%" showValueHelp="true"
+										valueHelpRequest="fn_getPO" visible="{= ${Mymodel>/potype} === 'true' ? true : false}"></Input>
+									<Input class="sapUiSizeCompact sapUiSmallMarginBegin sapUiSmallMarginTop cl_inp_border cl_inp_bar " width="70%" showValueHelp="true"
+										valueHelpRequest="fn_GL_frag" visible="{= ${Mymodel>/nonpotype} === 'true' ? true : false}"></Input>
+									<Input class="sapUiSizeCompact sapUiSmallMarginBegin sapUiSmallMarginTop cl_inp_border cl_inp_bar" width="70%" showValueHelp="true"
+										valueHelpRequest="fn_getcc" visible="{= ${Mymodel>/nonpotype} === 'true' ? true : false}"></Input>
+									<Input class="sapUiSizeCompact sapUiSmallMarginBegin sapUiSmallMarginTop cl_inp_border cl_inp_bar" width="70%"
+										visible="{= ${Mymodel>/nonpotype} === 'true' ? true : false}"></Input>
+									<HBox width="100%">
+										<TextArea class=" sapUiSmallMarginBegin sapUiSmallMarginTop" width="70%"></TextArea>
+									</HBox>
+									<HBox >
+										<u:FileUploader width="70%" placeholder="Choose a file for Upload.." typeMissmatch="handleTypeMissmatch" fileType="pdf,png"
+											uploadOnChange="true" class="sapUiSmallMarginBegin sapUiTinyMarginTop cl_browse" buttonText="Upload"></u:FileUploader>
+									</HBox >
+								</VBox>
+							</HBox>
+							<HBox height="100%" width="56%" alignContent="Start" alignItems="Start" justifyContent="Start">
+								<Text id="Tx_vendor" text="{path: 'JSVendor>/VendorDesc'}"
+									class=" cl_vendordescfont sapUiTinyMarginBegin sapUiSmallMarginEnd sapUiMediumMarginTop sapUiTinyMarginBottom"></Text>
+							</HBox>
+						</HBox>
+					</VBox>
+				</content>
+				<footer class="cl_Footer">
+					<OverflowToolbar id="id_FooterTool" class="cl_Footer">
+						<ToolbarSpacer/>
+						<Button id="id_ClearAll" text="Clear All" icon="Images/clearC.svg" type="transparent" press="fnclear"
+							class="sapUiSizeCompact cl_btn_clear btnsumm"/>
+						<Button id="id_Saveinvoice" text="Save" icon="Images/saveC.svg" type="transparent" press="fnSave" class="sapUiSizeCompact cl_btn_save"/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

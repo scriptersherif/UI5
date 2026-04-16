@@ -1,0 +1,500 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.Approval"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:uitable="sap.ui.table" xmlns:u="sap.ui.unified">
+	<App>
+		<pages>
+			<Page title="Barcode">
+				<customHeader>
+					<Toolbar class="header_bar1 sapUiSmallMarginEnd">
+						<Image id="id_fnback" src="Images/Left.svg" class="cl_back_btn sapUiSmallMarginBegin" visible="false" press="fn_back"></Image>
+						<Text text="{i18n>Approver}" class="cl_bold cl_black_txt cl_heading cl_font sapUiSmallMarginBegin"></Text>
+						<ToolbarSpacer/>
+						<Button icon="Images/refresh.svg" tooltip="Refresh" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbutton.svg" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="cl_username cl_font team_text "></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<HBox class="cl_app_whole">
+						<VBox width="330px" class="cl_ses_left" id="id_left_panel">
+							<HBox justifyContent="SpaceBetween" class="cl_ses_left_head" width="100%">
+								<HBox id="idCustomSegmentGroup" class="cl_segmentGroupNewap cl_segmentGroupNewapproval">
+									<Button text="My List" id="btnMyList" icon="Images/mylistwhite.svg" press="onSegmentPress" class="cl_segmentBtnSelectedap list">
+										<layoutData>
+											<FlexItemData growFactor="0"/>
+										</layoutData>
+										<customData>
+											<core:CustomData key="value" value="L"/>
+										</customData>
+									</Button>
+									<Button text="History" id="btnHistory" icon="Images/histblack.svg" press="onSegmentPress" class="cl_segmentBtnUnselectedap history">
+										<layoutData>
+											<FlexItemData growFactor="0"/>
+										</layoutData>
+										<customData>
+											<core:CustomData key="value" value="H"/>
+										</customData>
+									</Button>
+									<Button text="Summary" id="btnSummary" icon="Images/summaryblack1.svg" press="onSegmentPress" class="cl_segmentBtnUnselectedap summary">
+										<layoutData>
+											<FlexItemData growFactor="0"/>
+										</layoutData>
+										<customData>
+											<core:CustomData key="value" value="S"/>
+										</customData>
+									</Button>
+								</HBox>
+							</HBox>
+							<VBox id="idMyListVBox" class="mylist" visible="true">
+								<HBox >
+									<HBox visible="{view>/showSelectAll}" class="selectAllBox">
+										<CheckBox id="idSelectAll" text="Select All" selected="{view>/selectAllChecked}" visible="{view>/showSelectAll}" select="onSelectAllChange"/>
+										<Text text="0" id="id_selected" class="cl_badge_counter_appr sapUiSmallMarginEnd sapUiTinyMarginTop"></Text>
+									</HBox>
+									<!--<Text text="Select All" class="cl_vendorTitle cl_vendortitle1"/>-->
+									<VBox class="cl_search_container cl_search_approval ">
+										<HBox class="customSearchBox" alignItems="Center">
+											<Image src="Images/magnify.svg" class="searchIcon"/>
+									
+											<Input placeholder="Search" class="searchInput" showValueHelp="false" type="Text" liveChange="onSearchList"/>
+											<Text text="⌘ K" class="shortcutHint"/>
+										</HBox>
+									</VBox>
+								</HBox>
+								<VBox class="cl_scrollContainer">
+									<List items="{JMQidlist>/}" id="id_qidList" class="customList_approval" templateShareable="false">
+										<CustomListItem press="fn_viewdet" type="Active">
+											<VBox>
+												<HBox alignItems="Center" justifyContent="Start" class="selectSingleBox" fitContainer="true">
+													<CheckBox selected="{JMQidlist>selected}" select="onItemSelect"/>
+													<Text text="{JMQidlist>Name1}" class="queueId_ValText_approval"/>
+												</HBox>
+												<HBox class="listItemBox" width="95%">
+													<VBox width="60%">
+														<HBox alignItems="Center" class="dateBox">
+															<Image src="Images/invoice-ses.svg" class="iconImage"/>
+															<Text text="{JMQidlist>Invno}" class="invoiceText"/>
+														</HBox>
+														<HBox alignItems="Center" class="dateBox">
+															<Image src="Images/calendar-ses.svg" class="iconImage"/>
+															<Text text="{path: 'JMQidlist>Scandate',formatter :'FSC360NEW.model.formatter.fnDate'}" class="dateText"/>
+														</HBox>
+													</VBox>
+													<VBox width="40%">
+														<!--<HBox alignItems="Center">-->
+														<!--	<Text text="" class=""/>-->
+														<!--</HBox>-->
+														<HBox alignItems="Center">
+															<Text text="" class=""/>
+														</HBox>
+														<HBox justifyContent="End">
+															<Text text="{JMQidlist>Ntamt} {JMQidlist>Waers}" class="clamtap"/>
+														</HBox>
+													</VBox>
+												</HBox>
+											</VBox>
+										</CustomListItem>
+									</List>
+								</VBox >
+							</VBox >
+							<VBox id="idHistoryVBox" class="history" visible="false">
+								<IconTabBar id="idIconTabBarInlineMode" select="onIconTabSelect" class="cl_tabBar cl_tabBar1 cl_tabBar1a cl_tabBar1_approval">
+									<items>
+										<IconTabFilter id="tabApproved" key="approved" text="{i18n>Approved}" icon="Images/approved_white.svg" press="fn_icontabPress">
+											<VBox class="cl_search_container clsearchapp">
+												<HBox class="customSearchBox" alignItems="Center">
+													<Image src="Images/magnify.svg" class="searchIcon"/>
+													<Input placeholder="Search" class="searchInput" showValueHelp="false" type="Text" liveChange="onSearchApproved"/>
+													<Text text="⌘ K" class="shortcutHint"/>
+												</HBox>
+											</VBox>
+											<VBox class="cl_scrollContainer">
+												<List id="id_approved_list" items="{JMApproved>/oAprList}" class="customList customListap" templateShareable="false">
+													<CustomListItem press="fn_onviewpress" type="Active">
+														<VBox>
+															<HBox alignItems="Center">
+																<Text text="{JMApproved>Name1}" class="queueId_ValText"/>
+															</HBox>
+															<HBox class="listItemBox" width="100%">
+																<VBox width="60%">
+																	<HBox alignItems="Center" class="dateBox">
+																		<Image src="Images/invoice-ses.svg" class="iconImage"/>
+																		<Text text="{JMApproved>Invno}" class="invoiceText"/>
+																	</HBox>
+																	<HBox alignItems="Center" class="dateBox">
+																		<Image src="Images/calendar-ses.svg" class="iconImage"/>
+																		<Text text="{path: 'JMApproved>Scandate',formatter :'FSC360NEW.model.formatter.fnDate'}" class="dateText"/>
+																	</HBox>
+																</VBox>
+																<VBox width="40%">
+																	<!--<HBox alignItems="Center">-->
+																	<!--	<Text text="" class=""/>-->
+																	<!--</HBox>-->
+																	<HBox alignItems="Center">
+																		<Text text="" class=""/>
+																	</HBox>
+																	<HBox justifyContent="End">
+																		<Text text="{JMApproved>Ntamt} {JMApproved>Waers}" class="clamtap"/>
+																	</HBox>
+																</VBox>
+															</HBox>
+														</VBox>
+													</CustomListItem>
+												</List>
+											</VBox>
+										</IconTabFilter>
+										<IconTabFilter id="tabRejected" key="rejected" text="Rejected" press="fn_icontabPress" class="cltb" icon="Images/rejblack.svg">
+											<VBox class="cl_search_container clsearchapp">
+												<HBox class="customSearchBox" alignItems="Center">
+													<Image src="Images/magnify.svg" class="searchIcon"/>
+													<Input placeholder="Search" class="searchInput" showValueHelp="false" type="Text" liveChange="onSearchRejected"/>
+													<Text text="⌘ K" class="shortcutHint"/>
+												</HBox>
+											</VBox>
+											<VBox class="cl_scrollContainer">
+												<List id="id_rejected_list" items="{JMRejected>/oRejList}" class="customList customListap" templateShareable="false">
+													<CustomListItem press="fn_onviewpress" type="Active">
+														<VBox>
+															<HBox alignItems="Center">
+																<Text text="{JMRejected>Name1}" class="queueId_ValText"/>
+															</HBox>
+															<HBox class="listItemBox" width="100%">
+																<VBox width="60%">
+																	<HBox alignItems="Center" class="dateBox">
+																		<Image src="Images/invoice-ses.svg" class="iconImage"/>
+																		<Text text="{JMRejected>Invno}" class="invoiceText"/>
+																	</HBox>
+																	<HBox alignItems="Center" class="dateBox">
+																		<Image src="Images/calendar-ses.svg" class="iconImage"/>
+																		<Text text="{path: 'JMRejected>Scandate',formatter :'FSC360NEW.model.formatter.fnDate'}" class="dateText"/>
+																	</HBox>
+																</VBox>
+																<VBox width="40%">
+																	<!--<HBox alignItems="Center">-->
+																	<!--	<Text text="" class=""/>-->
+																	<!--</HBox>-->
+																	<HBox alignItems="Center">
+																		<Text text="" class=""/>
+																	</HBox>
+																	<HBox justifyContent="End">
+																		<Text text="{JMRejected>Ntamt} {JMRejected>Waers}" class="clamtap"/>
+																	</HBox>
+																</VBox>
+															</HBox>
+														</VBox>
+													</CustomListItem>
+												</List>
+											</VBox>
+										</IconTabFilter>
+									</items>
+								</IconTabBar>
+							</VBox>
+							<VBox id="idSummaryVBox" class="mylist" visible="false">
+								<HBox>
+							
+									<VBox class="cl_search_container clsearchapp">
+										<HBox class="customSearchBox" alignItems="Center">
+											<Image src="Images/magnify.svg" class="searchIcon"/>
+											<Input placeholder="Search" class="searchInput" showValueHelp="false" type="Text" liveChange="onSearchSummary"/>
+											<Text text="⌘ K" class="shortcutHint"/>
+										</HBox>
+									</VBox>
+								</HBox>
+								<VBox class="cl_scrollContainer">
+									<List items="{Sumary>/}" id="id_summaryList" class="customList_approval" templateShareable="false" itemPress="fnitempress">
+										<CustomListItem type="Active">
+											<VBox>
+												<!-- First Row: Checkbox + Name -->
+												<HBox alignItems="Center" justifyContent="Start" class="selectSingleBox" fitContainer="true">
+													
+													<Text text="{Sumary>DueWithId}" class="queueId_ValText_approval"/>
+												</HBox>
+												<!-- Second Row: Invoice Icon + Invoice Count -->
+												<HBox class="listItemBox" width="95%">
+													<VBox width="75%">
+														<HBox alignItems="Center" class="dateBox">
+															<Image src="Images/invoice-ses.svg" class="iconImage"/>
+															<Text text="{Sumary>QidPending} Invoices" class="invoiceText"/>
+														</HBox>
+														<!-- Status Icon/Text -->
+														<HBox alignItems="Center" class="dateBox">
+															<Image src="Images/cash.svg" class="iconImage"/>
+															<Text text="{Sumary>Amount}" class="invoiceText"/>
+														
+														</HBox>
+													</VBox>
+													<VBox width="25%">
+														<HBox alignItems="Center" width="90px">
+															<Button id="statusBtn" text="{Sumary>Status}" icon="sap-icon://circle-task-2" iconFirst="true" type="Transparent" class="cl_status">
+																<customData>
+																	<core:CustomData key="status" value="{Sumary>Status}" writeToDom="true"/>
+																</customData>
+															</Button>
+														</HBox>
+													
+													</VBox>
+												</HBox>
+											</VBox>
+										</CustomListItem>
+									</List>
+								</VBox>
+							</VBox>
+							<HBox justifyContent="End" id="web_app_footer" visible="false" class="cl_post_btn_box1">
+							
+								<Button icon="Images/cancel.svg" text="Reject" press="fn_acceptrejpressmass" id="id_reject1" class="sapUiSizeCompact cl_btn_rest cl_btn_rej"
+									type="Emphasized">
+									<customData>
+										<core:CustomData key="action" value="Reject"/>
+									</customData>
+								</Button>
+								<Button icon="Images/check-circle-outline.svg" text="Mass Approve" press="fn_acceptrejpressmass" id="id_accept1"
+									class="sapUiSizeCompact cl_btn_req " type="Emphasized">
+									<customData>
+										<core:CustomData key="action" value="Accept"/>
+									</customData>
+								</Button>
+							</HBox>
+						</VBox>
+						<HBox class="cl_ses_input_cont" visible="false" width="75%" id="idinvoicesummary">
+							<VBox>
+								<HBox>
+									<Text text="Invoice Summary" class="clamtap"></Text>
+								</HBox>
+							</VBox>
+							<uitable:Table id="id_table_1" rows="{Sumary_Det>/results}" selectionMode="None" fixedLayout="false" fixedColumnCount="1"
+								enableCellFilter="true" class="cl_approval_table cl_tble cl_custom_table" ariaLabelledBy="title" sort="sortDeliveryDate"
+								layoutData="sap.ui.layout.GridData">
+								<uitable:columns>
+									<!-- Vendor Name: 35% -->
+									<uitable:Column hAlign="Center" width="20%">
+										<HBox alignItems="Center">
+											<Text text="Vendor Name" class="cl_Tltxt"/>
+											<!--<Image src="Images/arrow-down.svg" width="14px" height="14px" class="cl_header_icon" press="fn_sortByQueid"/>-->
+										</HBox>
+										<uitable:template>
+											<Text text="{Sumary_Det>Name1}" tooltip="{Sumary_Det>Name1}" wrapping="false" class="cl_table_det_text"/>
+										</uitable:template>
+									</uitable:Column>
+									<!-- Invoice Status: 15% -->
+									<uitable:Column hAlign="Center" width="15%">
+										<Text text="Invoice Status" class="cl_Tltxt"/>
+										<uitable:template>
+											<HBox alignItems="Center" width="100%">
+												<Button id="statusBtn1" text="{Sumary_Det>Status}" icon="sap-icon://circle-task-2" iconFirst="true" type="Transparent" class="cl_status">
+													<customData>
+														<core:CustomData key="status" value="{Sumary_Det>Status}" writeToDom="true"/>
+													</customData>
+												</Button>
+											</HBox>
+										</uitable:template>
+									</uitable:Column>
+									<!-- Invoice Number: 15% -->
+									<uitable:Column hAlign="Center" width="15%">
+										<Text text="Invoice Number" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{Sumary_Det>Invno}" tooltip="{Sumary_Det>Invno}" class="cl_table_det_text"/>
+										</uitable:template>
+									</uitable:Column>
+									<!-- Amount: 20% -->
+									<uitable:Column hAlign="Center" width="20%">
+										<Text text="Amount" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{ path: 'Sumary_Det>Ntamt', type: 'sap.ui.model.type.Float', formatOptions: { maxFractionDigits: 0 } }"
+												tooltip="{Sumary_Det>Ntamt}" class="cl_table_det_text"/>
+										</uitable:template>
+									</uitable:Column>
+									<!-- Ageing: 15% -->
+									<uitable:Column hAlign="Center" width="15%">
+										<Text text="Ageing" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{Sumary_Det>AgeingDet}" tooltip="{Sumary_Det>AgeingDet}" class="cl_table_det_text"/>
+										</uitable:template>
+									</uitable:Column>
+								</uitable:columns>
+							</uitable:Table>
+						</HBox>
+						<HBox class="cl_ses_input_cont1" visible="false" width="75%" id="idHiddenBox">
+							<Image src="Images/Section.svg" class="cl_hidden_img"/>
+						</HBox>
+						<HBox class="cl_ses_input_cont" width="75%" id="idActionBox">
+							<Text text="Queue Id Details " class="clamtap"/>
+							<VBox class="cl_approv_invoice_cont" id="idFormCompact" visible="true">
+								<VBox class="ApprovercontainerBox" width="100%">
+									<!-- Header Row -->
+									<HBox class="headerBox2" width="100%" justifyContent="space-between" alignItems="Center">
+										<HBox alignItems="Center" width="90%">
+											<Image src="Images/account-circle-outline.svg" width="" class="cl_appr_account"/>
+											<Text text="" class="clamtap sapUiTinyMarginBegin" id="idvendorname"/>
+										</HBox>
+										<Button id="id_statusBtn_app" icon="sap-icon://circle-task-2" type="Transparent" class="cl_status"></Button>
+									</HBox>
+									<!-- Invoice  -->
+									<VBox class="detailBox2">
+										<HBox justifyContent="space-between" class="">
+											<HBox class="cl_invoice_section1" justifyContent="space-between">
+												<Image src="Images/invoice-text-outline.svg" class="cl_appr_icon"/>
+												<Text text="" class="invoiceText" id="idinvoiceno"/>
+											</HBox>
+											<HBox class="cl_invoice_section1 cl_invoicedate_approval">
+												<Image src="Images/calendar-today-outline.svg" width="" class="cl_appr_icon"/>
+												<Text text="" class="invoiceText" id="idDateText"/>
+											</HBox>
+										</HBox>
+									</VBox>
+									<!--vendor address-->
+									<HBox alignItems="end" class="vendoraddress2">
+										<Image src="Images/map-marker-outline.svg" width="" class="cl_appr_icon"/>
+										<Text class="invoiceText" id="idvendaddress"/>
+									</HBox>
+									<!-- Attachment Box -->
+									<HBox class="attachmentBox3" alignItems="Center" justifyContent="SpaceBetween">
+										<HBox class="">
+											<HBox justifyContent="Center">
+												<Image src="Images/Fileuploadicon.svg" class="cl_appr_pdf"/>
+											</HBox>
+											<HBox alignItems="" class="cl_approval_pdf">
+												<HBox>
+													<Text text="Attachments" class="fileText"/>
+												</HBox>
+											</HBox>
+										</HBox>
+										<HBox>
+											<Image src="Images/open-in-new.svg" press="fn_pdf" class="cl_appr_view"/>
+										</HBox>
+									</HBox>
+								</VBox>
+							</VBox>
+							<uitable:Table id="id_polist" selectionMode="None" visible="false" rows="{JMItemdetPO>/}" enableCellFilter="true" height=""
+								fixedLayout="false" fixedColumnCount="0" class="cl_approval_table cl_tble cl_custom_table" rowSelectionChange="action"
+								ariaLabelledBy="title" sort="sortDeliveryDate" layoutData="sap.ui.layout.GridData">
+								<uitable:columns>
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" width="16%" showSortMenuEntry="false">
+										<HBox alignItems="Center">
+											<Text text="Purchase Order" class="cl_Tltxt"/>
+											<Image src="Images/arrow-down.svg" id="qidSortIcon" width="14px" height="14px" class="cl_header_icon2" press="fn_sortByQueid"/>
+										</HBox>
+										<uitable:template>
+											<core:HTML content="{path: 'JMItemdetPO>Purchaseorder', formatter: 'FSC360NEW.model.formatter.formatPONumber'}"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="10%">
+										<Text text="Item" tooltip="{i18n>ItemNo}." class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JMItemdetPO>Ebelp}" tooltip="{path: 'JSSesDet>Ebelp', formatter :'FSC_WB_AP.model.formatter.fnLeadingZero'}"
+												press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="16%">
+										<Text text="Material Number" tooltip="Material" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JMItemdetPO>Material}" tooltip="{JSSesDet>Ktext1}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="22%">
+										<Text text="Material Description" tooltip="Material" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JMItemdetPO>Potext} " tooltip="{JSSesDet>Ktext1}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="16%">
+										<Text text="Taxcode" tooltip="{Taxcode}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JMItemdetPO>Taxcode}" tooltip="{JSSesDet>Menge}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="16%">
+										<Text text="{i18n>Amount}" tooltip="{i18n>Amount}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{path:'JMItemdetPO>Amount', formatter :'FSC360NEW.model.formatter.fnAmount'} {JMItemdetPO>Currency}" tooltip="{JSSesDet>Netwr}"
+												press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+								</uitable:columns>
+							</uitable:Table>
+							<uitable:Table id="id_nonpolist" selectionMode="None" visible="false" rows="{JMItemdet>/}" enableCellFilter="true" height=""
+								fixedLayout="false" fixedColumnCount="0" class="cl_approval_table cl_tble cl_custom_table" rowSelectionChange="action"
+								ariaLabelledBy="title" sort="sortDeliveryDate" layoutData="sap.ui.layout.GridData">
+								<uitable:columns>
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" width="5rem" showSortMenuEntry="false">
+										<HBox alignItems="Center">
+											<Text text="G/L Account" class="cl_Tltxt"/>
+											<Image src="Images/arrow-down.svg" width="14px" height="14px" class="cl_header_icon2" press="fn_sortByQueid"/>
+										</HBox>
+										<uitable:template>
+											<core:HTML content="{path: 'JMItemdet>Saknr', formatter: 'FSC360NEW.model.formatter.formatGLNumber'}"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="4rem">
+										<Text text="Item" tooltip="{i18n>ItemNo}." class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{path: 'JMItemdet>Item', formatter :'FSC360NEW.model.formatter.fnLeadingZero'}"
+												tooltip="{path: 'JMItemdet>Item', formatter :'FSC360NEW.model.formatter.fnLeadingZero'}" press="fn_nav_to_wb" class="cl_table_det_text"
+												wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="4rem">
+										<Text text="Profit Center" tooltip="Profit Center" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JMItemdet>Prctr}" tooltip="{JMItemdet>Prctr}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="4rem">
+										<Text text="Cost Center" tooltip="Cost Center" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JMItemdet>Kostl}" tooltip="{JMItemdet>Kostl}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="4rem">
+										<Text text="Taxcode" tooltip="Taxcode" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JMItemdet>Mwskz}" tooltip="{JMItemdet>Mwskz}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="15%">
+										<Text text="{i18n>Amount}" tooltip="{i18n>Amount}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JMItemdet>Netpr} {JMItemdet>Currency}" tooltip="{JMItemdet>Netpr}" press="fn_nav_to_wb" class="cl_table_det_text"
+												wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+								</uitable:columns>
+							</uitable:Table>
+							<VBox class="cl_approv_invoice_cont sapUiSmallMarginTop" width="100%">
+								<HBox class="headerBox2" justifyContent="" alignItems="Center">
+									<Image src="Images/comment_black.svg" width="" class="cl_appr_account"/>
+									<Text text="Comments and Approval Timeline" class="clamtap sapUiTinyMarginBegin"/>
+								</HBox>
+								<VBox class="comment_box">
+									<List width="95%" items="{JMInvComment>/}" id="id_list" showSeparators="None">
+										<CustomListItem>
+											<HBox class="timelineItem1">
+												<VBox class="timelineIconBox">
+													<Image src="Images/commented.svg" class="lineitemsimgCss1_appr"/>
+													<VBox class="cl_Vline_clr" visible="{JMInvComment>VBoxClr}"/>
+													<VBox class="cl_Vline_white" visible="{JMInvComment>VBoxWhite}"/>
+												</VBox>
+												<VBox>
+													<Text text="Commented" class="timelineTitle"/>
+													<Text text="{JMInvComment>From}" class="cl_comment_txt"/>
+													<Text text="{JMInvComment>Comment}" class="cl_comment_txt"/>
+												</VBox>
+											</HBox>
+										</CustomListItem>
+									</List>
+								</VBox>
+							</VBox>
+							<HBox justifyContent="End" class="cl_post_btn_box">
+								<Button icon="Images/cancel_black.svg" text="Reject" visible="false" press="fn_acceptrejpress" id="id_accept" class="blackbtn cl_approv_rej"
+									type="Transparent"/>
+								<Button icon="Images/approved_white.svg" text="Accept" visible="false" press="fn_acceptrejpress" id="id_reject" class="bluebtn"
+									type="Transparent"/>
+							</HBox>
+						</HBox>
+					</HBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

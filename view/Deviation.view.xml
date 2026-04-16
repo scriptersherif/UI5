@@ -1,0 +1,296 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.Deviation"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:uitable="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="{i18n>Deviationreport}" class="cl_page">
+				<customHeader>
+					<Toolbar class="header_bar_d">
+						<Title text="{i18n>Deviation Report}" class="cl_ses_txt"/>
+						<ToolbarSpacer/>
+						<Button icon="Images/refreshbtn.png" tooltip="Refresh" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbtn.png" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+					
+							<Text text="{path: 'JSusername1>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="team_text cl_font"></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<VBox class="cl_full_boxB cl_full_boxstatus cl_full_box_phy_trac1 ">
+						<VBox class="cl_statusflow_input_cont" id="id_cl_statusflow_input_cont">
+							<HBox class="cl_barcode_input_row cl_deviation_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd" justifyContent="SpaceBetween"
+								alignItems="End">
+								<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+									<Text text="Company" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_companycode" items="{JSCCode>/Company}" selectedKey="{JSSelected>/Company}" placeholder="{i18n>companyCode}"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" selectionChange="fn_onCompanyChange" tooltip="{i18n>companyCode}">
+											<core:Item key="{JSCCode>Bukrs}" text="{JSCCode>Bukrs}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+									<Text text="Agent" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+									
+										<ComboBox id="id_Agent" items="{jsUserName>/}" placeholder="Agent" class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp"
+											showSecondaryValues="true"  selectionChange="onAgentChange" tooltip="{i18n>agenttt}"  >
+											<core:ListItem key="{jsUserName>Bname}" text="{jsUserName>NameLast}" additionalText="{jsUserName>NameLast}" />
+										</ComboBox>
+									</HBox>
+								</VBox>
+								
+								<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+									<Text text="{i18n>filterby}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<MultiComboBox id="idCCode" items="{MCB>/}" change="fnPOChange" selectionFinish="fn_handleSelectionFinish" maxWidth="100%"
+											class="cl_combo_transBar cl_deviation_combobox" editable="{path: 'JSKey>/0/Key'}" tooltip="{i18n>addfiltertt}">
+											<core:Item key="{MCB>id}" text="{MCB>name}" />
+										</MultiComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="cl_date_recall clphysicalapplication cl_date_deviation" width="">
+									<Text text="Date" class="cl_textbarcode cl_textdeviation"/>
+									<HBox alignItems="Center" class="formInputWithIconbar forminputiconrecall">
+										<!-- From Input -->
+										<HBox class="formInputWithIconbar" alignItems="Center">
+											<DatePicker valueFormat="YYYY-MM-dd" readonly="true" icon="sap-icon://calendar" displayFormat="dd/MM/YYYY" placeholder="From"
+												class="formInputB1 forminputtat forminputfirsttat tatdatepick deviationdate deviationdatefirst" id="id_creationdatefrm" change="fn_datevalidation"/>
+										</HBox>
+									
+										<HBox class="formInputWithIconbar" alignItems="Center">
+											<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder="To"
+												class="formInputB1 forminputtat forminputlasttat forminputlastrecall forminputlastdeviation deviationdate deviationdatelast" id="id_creationdateend"
+												change="fn_datevalidation"/>
+										</HBox>
+									</HBox>
+								</VBox>
+							
+								<HBox class="cl_button_cont_physicaltrack">
+									<Button id="id_clear" text="{i18n>Clear}" icon="Images/clearab.svg" type="Transparent" press="fnclearbutt"
+										class="sapUiSizeCompact cl_btn_cleara"  tooltip="{i18n>clearTooltip}"/>
+									<Button id="id_search" text="{i18n>Search}" icon="Images/searchab.svg" type="Transparent" press="fnSearch"
+										class="sapUiSizeCompact cl_btn_searcha " tooltip="{i18n>searchTooltip}"/>
+								</HBox>
+							</HBox>
+						</VBox>
+					</VBox>
+					<VBox class="cl_full_boxB cl_tab_boxstatus cl_full_box_phy_trac cl_full_boxstatus_min">
+						<Toolbar class="cl_tbr_1 cl_tbr_2 cl_tbr_deviation">
+								<HBox alignItems="Center" justifyContent="Center" class="filter_icon_recall_cont">
+								<Image src="Images/Filter.svg" press="fnFilterPop" class="sapUiSizeCompact cl_filter_btn cl_filter_btn1" tooltip="{i18n>filter}"/>
+							</HBox>
+							<Text text="Invoice Details" id="idCardTitle" class="cl_Tltxt sapUiSmallMarginBegin"/>
+							<Text text="0" class="cl_badge_counter" id="id_LabTabSFRTitle"/>
+							<ToolbarSpacer/>
+								<Button id="id_BtnExcel" icon="Images/download_phy.svg" type="Transparent" press="fn_onDownPress"
+									class="cl_btn_Physical_mail cl_btn_deviation_mail" tooltip="{i18n>DownloadExcel}"/>
+								<Button id="id_sendmail" tooltip="{i18n>Mail}" icon="Images/download_mail.svg" type="Transparent" press="fnemail" class="cl_btn_Physical_mail cl_btn_deviation_mail"/>
+		
+						</Toolbar>
+						<uitable:Table id="idTable" rows="{DeviationModel>/}" selectionMode="MultiToggle" visibleRowCount="11" width="100%"
+							class="cl_custom_table cl_custom_tableapk cl_tatreport_table cl_recall_table cl_deviationtable" fixedColumnCount="2"  rowSelectionChange=".fn__onRowSelectionChange">
+						
+							<!-- Queue Id -->
+							<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/0/visible}">
+								<Text text="{FilterTableModel>/0/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{DeviationModel>Qid}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- Creation Date -->
+							<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/1/visible}">
+								<Text text="{FilterTableModel>/1/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<!--<Text text="{DeviationModel>Erdat}" class="cl_column_cell"/>-->
+									<Text text="{path:'DeviationModel>Erdat', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- Company Code -->
+							<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/2/visible}">
+								<Text text="{FilterTableModel>/2/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{DeviationModel>Bukrs}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- Document Number -->
+							<uitable:Column width="5.5rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/3/visible}">
+								<Text text="{FilterTableModel>/3/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{DeviationModel>Documentnumber}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- Fiscal Year -->
+							<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/4/visible}">
+								<Text text="{FilterTableModel>/4/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{DeviationModel>Gjahr}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- Accounting Document -->
+							<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/5/visible}">
+								<Text text="{FilterTableModel>/5/label}" class="cl_Tltxt"/>
+								
+								<uitable:template class="cl_column_cell">
+									<HBox alignItems="Center" width="90px">
+										<Button text="{DeviationModel>Belnr}" icon="{DeviationModel>BelnrIcon}" iconFirst="true" type="Transparent"
+											class="cl_status cl_status_deviation">
+											<customData>
+												<core:CustomData key="status" value="{DeviationModel>Belnr}" writeToDom="true"/>
+											</customData>
+										</Button>
+									</HBox>
+								</uitable:template>
+							</uitable:Column>
+							<!-- Payment Terms -->
+							<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/6/visible}">
+								<Text text="{FilterTableModel>/6/label}" class="cl_Tltxt"/>
+								
+								<uitable:template class="cl_column_cell">
+									<HBox alignItems="Center" width="90px">
+										<Button text="{DeviationModel>Zterm}" icon="{DeviationModel>ZtermIcon}" iconFirst="true" type="Transparent"
+											class="cl_status cl_status_deviation">
+											<customData>
+												<core:CustomData key="status" value="{DeviationModel>Zterm}" writeToDom="true"/>
+											</customData>
+										</Button>
+									</HBox>
+								</uitable:template>
+							</uitable:Column>
+							<!-- Vendor -->
+							<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/7/visible}">
+								<Text text="{FilterTableModel>/7/label}" class="cl_Tltxt"/>
+							
+								<uitable:template class="cl_column_cell">
+									<HBox alignItems="Center" width="90px">
+										<Button text="{DeviationModel>Lifnr}" icon="{DeviationModel>LifnrIcon}" iconFirst="true" type="Transparent"
+											class="cl_status cl_status_deviation">
+											<customData>
+												<core:CustomData key="status" value="{DeviationModel>Lifnr}" writeToDom="true"/>
+											</customData>
+										</Button>
+									</HBox>
+								</uitable:template>
+							</uitable:Column>
+							<!-- GL Account -->
+							<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/8/visible}">
+								<Text text="{FilterTableModel>/8/label}" class="cl_Tltxt"/>
+						
+								<uitable:template class="cl_column_cell">
+									<HBox alignItems="Center" width="90px">
+										<Button text="{DeviationModel>Hkont}" icon="{DeviationModel>HkontIcon}" iconFirst="true" type="Transparent"
+											class="cl_status cl_status_deviation">
+											<customData>
+												<core:CustomData key="status" value="{DeviationModel>Hkont}" writeToDom="true"/>
+											</customData>
+										</Button>
+									</HBox>
+								</uitable:template>
+							</uitable:Column>
+							<!-- Material -->
+							<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/9/visible}">
+								<Text text="{FilterTableModel>/9/label}" class="cl_Tltxt"/>
+							
+								<uitable:template class="cl_column_cell">
+									<HBox alignItems="Center" width="90px">
+										<Button id="statusBtn" text="{DeviationModel>Matnr}" icon="{DeviationModel>MatnrIcon}" iconFirst="true" type="Transparent"
+											class="cl_status cl_status_deviation">
+											<customData>
+												<core:CustomData key="status" value="{DeviationModel>Matnr}" writeToDom="true"/>
+											</customData>
+										</Button>
+									</HBox>
+								</uitable:template>
+							</uitable:Column>
+							<!-- Agent -->
+							<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/10/visible}">
+								<Text text="{FilterTableModel>/10/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{DeviationModel>Agent}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+						
+							<!--</uitable:Column>-->
+							<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/11/visible}">
+								<Text text="{FilterTableModel>/11/label}" class="cl_Tltxt"/>
+							
+								<uitable:template class="cl_column_cell">
+									<HBox alignItems="Center" width="90px">
+										<Button id="statusBtns" text="{DeviationModel>Unplanned}" icon="{DeviationModel>UnplannedIcon}" iconFirst="true" type="Transparent"
+											class="cl_status cl_status_deviation">
+											<customData>
+												<core:CustomData key="status" value="{DeviationModel>Unplanned}" writeToDom="true"/>
+											</customData>
+										</Button>
+									</HBox>
+								</uitable:template>
+							</uitable:Column>
+							<!-- Discount -->
+							<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/12/visible}">
+								<Text text="{FilterTableModel>/12/label}" class="cl_Tltxt"/>
+								<uitable:template class="cl_column_cell">
+									<HBox alignItems="Center" width="90px">
+										<Button text="{DeviationModel>Discount}" icon="{DeviationModel>DiscountIcon}" iconFirst="true" type="Transparent"
+											class="cl_status cl_status_deviation">
+											<customData>
+												<core:CustomData key="status" value="{DeviationModel>Discount}" writeToDom="true"/>
+											</customData>
+										</Button>
+									</HBox>
+								</uitable:template>
+							</uitable:Column>
+							<!-- Amount -->
+							<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/13/visible}">
+								<Text text="{FilterTableModel>/13/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'DeviationModel>Beznk', formatter :'FSC360NEW.model.formatter.fnAmount'}" class="cl_column_cell"/>
+									<!--<Text text="{path:'DeviationModel>Beznk', formatter :'FSC360NEW.model.formatter.fnAmount'}" class="cl_column_cell"/>-->
+								</uitable:template>
+							</uitable:Column>
+							<!-- Posting Date -->
+							<uitable:Column width="100%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/14/visible}">
+								<Text text="{FilterTableModel>/14/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{DeviationModel>Budat}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- Baseline Date -->
+							<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/15/visible}">
+								<Text text="{FilterTableModel>/15/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'DeviationModel>Zfbdt', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- Cash Discount Amount -->
+							<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/16/visible}">
+								<Text text="{FilterTableModel>/16/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{DeviationModel>Wskto}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- Assigned To -->
+							<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/17/visible}">
+								<Text text="{FilterTableModel>/17/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{DeviationModel>Assignedto}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+						</uitable:Table>
+						<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer cl_pagination_footer1 cl_pagination_min_height" id="id_paginationfooter">
+							<HBox width="100px" justifyContent="Start">
+								<Button icon="Images/arrow-left.svg" text="Previous" width="100px" class="cl_prev_button" press="fn_onPreviousPage" id="idPrevBtn"/>
+							</HBox>
+							<HBox width="calc(100% - 200px)" id="idPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers">
+								<!-- Page buttons dynamically inserted here -->
+							</HBox>
+							<HBox width="100px" justifyContent="End">
+								<Button text="Next" icon="Images/arrow-right.svg" iconFirst="false" class="cl_next_button" press="fn_onNextPage" id="idNextBtn"/>
+							</HBox>
+						</HBox>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

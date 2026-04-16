@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <SelectDialog
+        noDataText="No Data Found"
+        title="{i18n>SelectAccoutGroup}"      
+       class="sapUiPopupWithPadding sapUiSizeCompact cl_plantFrag"
+        confirm="fn_confirmAccGroup"
+        cancel="fn_confirmAccGroup"
+        liveChange="fn_AccGrpSearch"
+        serach="fn_AccGrpSearch"
+        items="{JSAccGrp>/}" >
+        <StandardListItem
+            title="{JSAccGrp>Ktokk}"
+            description="{JSAccGrp>Txt30}"
+          icon="sap-icon://account"
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active" />
+    </SelectDialog>
+</core:FragmentDefinition>

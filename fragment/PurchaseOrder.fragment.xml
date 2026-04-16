@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="{i18n>Select Purchase Order}"  items="{fn_PO_LC>/}"  class="APW_DilogClass cl_frag"  
+		confirm="fnPOConfrm_"  >
+		<StandardListItem  title="{fn_PO_LC>Ebeln}" />
+	</SelectDialog>
+</core:FragmentDefinition>

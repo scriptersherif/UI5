@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <SelectDialog
+        title="Select GRN Number"
+        items="{JSGrnList>/}"
+        liveChange="fn_GRNList_LC"
+        confirm="fn_GRNList_Confirm"
+        class="cl_frag">
+
+        <StandardListItem
+            title="{JSGrnList>Mblnr}"
+            description="{JSGrnList>Mjahr}" />
+    </SelectDialog>
+</core:FragmentDefinition>

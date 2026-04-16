@@ -1,0 +1,50 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Popover title="Customize Columns"
+           placement="Bottom"
+           class="sapUiContentPadding clcustomizepop">
+
+    <!-- Main Content -->
+    <VBox class="customcol_padding">
+      <Label text="Choose Template" class="popup_subheading"/>
+
+      <HBox class="templateSelectWrapper" alignItems="Center">
+        <Input id="idTemplateInput_dash"
+               value="{viewModel>/selectedTemplate}"
+               placeholder="Select Template"
+               showValueHelp="false"
+               class="templateInputDropdown"/>
+        <Button icon="Images/chevron-down.svg"
+                type="Transparent"
+                class="templateDropdownArrow"
+                press="fn_onOpenTemplatePopover"/>
+      </HBox>
+
+      <List
+        id="idFieldList"
+        items="{ path: 'FilterTableModel>/', templateShareable: false }"
+        showSeparators="None"
+        mode="None">
+        <CustomListItem>
+          <HBox alignItems="Center" class="clListItemStyled customCheckWrapper">
+            <Image src="Images/dots-drag.svg" class="dots-drag"/>
+            <CheckBox selected="{FilterTableModel>visible}" width="100%"/>
+            <Text text="{FilterTableModel>label}" class="sapUiTinyMarginEnd popuptext" />
+          </HBox>
+        </CustomListItem>
+      </List>
+    </VBox>
+
+    <!-- Footer Section -->
+    <footer class="footerpadright">
+      <Bar design="Footer" class="grey_background">
+        <contentRight>
+          <Button text="Apply"
+                  type="Emphasized"
+                  class="bluebtn bluebtnfragment"
+                  press="fn_onApplyTemplate" />
+        </contentRight>
+      </Bar>
+    </footer>
+
+  </Popover>
+</core:FragmentDefinition>

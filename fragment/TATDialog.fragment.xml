@@ -1,0 +1,54 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<!--<Dialog id="tatDialog" title="TAT Analysis" draggable="true" resizable="true" contentWidth="70rem" showHeader="false">-->
+ <Dialog
+        id="tatDialog"
+        draggable="true"
+        resizable="true"
+        showHeader="false"
+        contentWidth="50rem"
+        contentHeight="400px"       
+        verticalScrolling="true"
+        class="cl_agentDialog">
+		 <customHeader>
+            <Toolbar class="cl_dialog" width="100%">
+                <ToolbarSpacer/>
+                	<Text class="cl_dialoghd" text="TAT Analysis"/>
+                <ToolbarSpacer/>
+                <Image src="Images/xmark.svg" width="20px" class="sapUiSmallMargin" press="onCloseTatDialog"/>
+            </Toolbar>
+        </customHeader>
+		<content>
+			<VBox class="sapUiSmallMargin">
+				<Table items="{tatModel>/data}" width="100%" class="sapUiSizeCompact cl_table1" growing="true" fixedLayout="false"
+					growingScrollToLoad="true" growingThreshold="100">
+					<columns>
+						<Column><Text text="Qid" class="cl_table-text1 cl_bold"/></Column>
+						<Column><Text text="Date" class="cl_table-text1 cl_bold"/></Column>
+						<Column><Text text="Time" class="cl_table-text1 cl_bold"/></Column>
+						<Column><Text text="Document No" class="cl_table-text1 cl_bold"/></Column>
+						<Column><Text text="Ageing" class="cl_table-text1 cl_bold"/></Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text text="{tatModel>Qid}"/>
+								<Text text="{path:'tatModel>Qiddate', formatter:'FSC360NEW.model.formatter.fnDate'}"/>
+								<Text text="{path:'tatModel>Qiddate', formatter:'FSC360NEW.model.formatter.fnTime'}"/>
+								<Text text="{tatModel>Documentnumber}"/>
+								<Text text="{tatModel>Ageing}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</VBox>
+		</content>
+		<!--<VBox class="sapUiSizeCompact sapUiSmallMargin" alignItems="Center" justifyContent="Center">-->
+		<!--	<Button type="Emphasized" text="Download" icon="sap-icon://excel-attachment" press="onDownloadTATExcel"-->
+		<!--		class="cl_iconbt sapUiSizeCompact cl_button"/>-->
+		<!--</VBox>-->
+			<endButton>
+			<Button text="{i18n>Download As Excel}"  press="onDownloadTATExcel" 
+			class=" gl_subbtn sapUiSmallMarginBottom rignt "></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

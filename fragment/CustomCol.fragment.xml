@@ -1,0 +1,38 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Popover title="Customize Columns" placement="Bottom" class="sapUiContentPadding clcustomizepop">
+    <VBox class="sapUiSmallMargin">
+      <Label text="Choose Template"/>
+      <HBox>
+        <Input id="idTemplateInput" value="{viewModel>/selectedTemplate}" placeholder="Select Template" showValueHelp="true" valueHelpRequest="onOpenTemplatePopover"/>
+        <Button icon="sap-icon://slim-arrow-down" press="onOpenTemplatePopover"/>
+      </HBox>
+
+
+     <List
+  id="idFieldList"
+  items="{
+    path: 'ColumnMetadataModel>/',
+    templateShareable: false
+  }"
+  showSeparators="None"
+  mode="None">
+  <CustomListItem>
+    <HBox alignItems="Center" class="clListItemStyled customCheckWrapper">
+    		<Image src="Images/dots-drag.svg" class=""/>
+      <!--<Icon src="Images/popup.svg" size="1rem" class="sapUiTinyMarginEnd"/>-->
+            <CheckBox
+        selected="{ColumnMetadataModel>visible}"
+       
+        width="100%" class=""/>
+      <Text text="{ColumnMetadataModel>label}" class="sapUiTinyMarginEnd popuptext" />
+      
+    </HBox>
+  </CustomListItem>
+</List>
+      <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginTop">
+        <!--<Button text="Create Template" press="onOpenCreateTemplateDialog" />-->
+        <Button text="Apply" type="Emphasized" press="onApplyTemplate" />
+      </HBox>
+    </VBox>
+  </Popover>
+</core:FragmentDefinition>

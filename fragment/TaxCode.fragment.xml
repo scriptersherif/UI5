@@ -1,0 +1,10 @@
+<core:FragmentDefinition xmlns="sap.m"  xmlns:core="sap.ui.core">
+	<SelectDialog  title="{i18n>Select Tax Code}" class="cl_frag" liveChange="fn_TaxCode_LC"  items="{JSTaxCode>/}" 
+		confirm="fn_TaxConfrm" >
+		<!--<StandardListItem  title="{JSTaxCode>Mwskz}" description="{JSTaxCode>Text1}"/>-->
+ <StandardListItem  
+            title="{parts: ['JSTaxCode>Mwskz', 'JSTaxCode>Text1'], formatter: '.formatTaxCode'}"
+            description=""
+        />
+	</SelectDialog>
+</core:FragmentDefinition>

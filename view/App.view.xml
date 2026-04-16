@@ -1,0 +1,159 @@
+<mvc:View controllerName="FSC360NEW.controller.App" xmlns:u="sap.ui.unified" xmlns:l="sap.ui.layout"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core">
+	<u:SplitContainer id="id_split" showSecondaryContent="true" secondaryContentWidth="175px" class="cl_split_container">
+		<!-- Sidebar Content -->
+		<u:secondaryContent>
+			<!--id="idMainSidebar"-->
+			<VBox class="FSC_VBBackUS" justifyContent="Start" width="100%" id="idMainSidebar">
+				<VBox class="sapUiContentPadding FSC_VLBack" id="id_sidebarVBox">
+					<HBox class="clfsclogo cl_fsnxt_logo">
+						<HBox class="clfsclogoimg">
+							<Image src="Images/FSC.png" class="cl_fsc_flogo"/>
+							<Image src="Images/360.png" class="cl_fsc_flogo"/>
+							<Image src="Images/arrow.png" class="cl_fsc_flogo"/>
+						</HBox>
+						<!-- Only visible in expanded state -->
+						<HBox class="cl_toggle_btn1">
+							<Button icon="Images/arrowin.svg" press="onToggleSidebar" class="cl_toggle_btn"/>
+						</HBox>
+					</HBox>
+					<VBox class="cl_toggle_btn2" width="100%" height="100%" justifyContent="SpaceBetween">
+						<!-- Centered Image -->
+						<HBox justifyContent="Center" alignItems="Center" height="auto">
+							<Image src="Images/arrow.png" class="cl_fsc_flogo1 cl_toggle_btn_collapsed"/>
+						</HBox>
+						<HBox class="cl_sidebar_divider"/>
+						<!-- Bottom-right Toggle Button -->
+						<HBox justifyContent="End" alignItems="End" height="auto">
+							<Button icon="Images/togglearrow.png" press="onToggleSidebar" class="cl_toggle_btn_collapsed"/>
+						</HBox>
+					</VBox>
+				</VBox>
+				<VBox class="cl_middle_buttons">
+					<HBox class="FSC_VLBackBtn cl_sidebar_button" id="hboxDashboard" alignItems="Center">
+						<Image src="Images/dashboard.svg" class="cl_dash_icon cl_dashboard_nav" press="onDashboardPress"/>
+						<Button text="Dashboard" id="btnDashboard" class="FSC_USBtn cl_dashbrdmargin sapUiSizeCompact" width="100%" press="onDashboardPress"/>
+					</HBox>
+					<HBox class="FSC_VLBackBtn cl_sidebar_button" id="hboxFulfillment" alignItems="Center">
+						<Image src="Images/fulfillment.svg" class="cl_dash_icon cl_fullfillment_nav" press="onFulfilmentPress"/>
+						<Button text="Fulfilment" id="btnFulfilment" class="FSC_USBtn sapUiSizeCompact" width="100%" press="onFulfilmentPress"/>
+					</HBox>
+					<!--<HBox class="FSC_VLBackBtn cl_sidebar_button" id="hboxStatusflow" alignItems="Center">-->
+					<!--  <Image src="Images/status.svg" class="cl_dash_icon" press="onStatusFlowPress"/>-->
+					<!--  <Button text="Status Flow" id="btnStatusflow" class="FSC_USBtn sapUiSizeCompact" width="100%" press="onStatusFlowPress"/>-->
+					<!--</HBox>-->
+					<HBox class="FSC_VLBackBtn cl_sidebar_button" id="hboxAssignbarcode" alignItems="Center">
+						<Image src="Images/barcode.svg" class="cl_dash_icon" press="onAssignBarcodePress"/>
+						<Button text="Freight Management" id="btnAssignbarcode" class="FSC_USBtn sapUiSizeCompact" width="100%" press="onAssignBarcodePress"/>
+					</HBox>
+					<HBox class="FSC_VLBackBtn cl_sidebar_button" id="hboxAssigngrn" alignItems="Center">
+						<Image src="Images/barcode.svg" class="cl_dash_icon" press="onAssignGrnPress"/>
+						<Button text="Assign GRN" id="btnAssigngrn" class="FSC_USBtn sapUiSizeCompact" width="100%" press="onAssignGrnPress"/>
+					</HBox>
+					<HBox class="FSC_VLBackBtn cl_sidebar_button" id="hboxCapture" alignItems="Center">
+						<Image src="Images/capture.svg" class="cl_dash_icon cl_fullfillment_nav" press="onCaptureCenterPress"/>
+						<Button text="Capture Center" id="btnCapture" class="FSC_USBtn sapUiSizeCompact" width="100%" press="onCaptureCenterPress"/>
+					</HBox>
+					<HBox class="FSC_VLBackBtn cl_sidebar_button" id="hboxSpend" alignItems="Center">
+						<Image src="Images/file-document-outline.svg" class="cl_dash_icon" press="onSESPress"/>
+						<Button text="SES Desk" id="btnSpend" class="FSC_USBtn sapUiSizeCompact" width="100%" press="onSESPress"/>
+					</HBox>
+					<HBox class="FSC_VLBackBtn cl_sidebar_button" id="hboxAdvance" alignItems="Center">
+						<Image src="Images/advanceapp.svg" class="cl_dash_icon" press="onAdvanceAppPress"/>
+						<Button text="Advance App" id="btnAdvance" class="FSC_USBtn sapUiSizeCompact" width="100%" press="onAdvanceAppPress"/>
+					</HBox>
+					<HBox class="FSC_VLBackBtn cl_sidebar_button" id="hboxApproval" alignItems="Center">
+						<Image src="Images/approval.svg" class="cl_dash_icon" press="onApprovalPress"/>
+						<Button text="Approval" id="btnApproval" class="FSC_USBtn sapUiSizeCompact" width="100%" press="onApprovalPress"/>
+					</HBox>
+					<HBox class="FSC_VLBackBtn cl_sidebar_button" id="hboxVendorOnboard" alignItems="Center">
+						<Image src="Images/vendoron.svg" class="cl_dash_icon" press="onVendorOnboardPress"/>
+						<Button text="Vendor Onboard" id="btnVendorOnboard" class="FSC_USBtn sapUiSizeCompact" width="100%" press="onVendorOnboardPress"/>
+					</HBox>
+					<HBox class="FSC_VLBackBtn cl_sidebar_button" id="hboxAutopark" alignItems="Center">
+						<Image src="Images/autopark.svg" class="cl_dash_icon" press="onAutoparkPress"/>
+						<Button text="MSME Update" id="btnAutopark" class="FSC_USBtn sapUiSizeCompact" width="100%" press="onAutoparkPress"/>
+					</HBox>
+					<HBox class="FSC_VLBackBtn cl_sidebar_button" id="hboxPayWork" alignItems="Center">
+						<Image src="Images/cash_sidebar.svg" class="cl_dash_icon" press="fn_PayworkbenchPress"/>
+						<Button text="Pay. Workbench" id="btnPayWork" class="FSC_USBtn sapUiSizeCompact" width="100%" press="fn_PayworkbenchPress"/>
+					</HBox>
+					<HBox class="FSC_VLBackBtn cl_sidebar_button" id="hboxRecurringbill" alignItems="Center">
+						<Image src="Images/Recurringbill.svg" class="cl_dash_icon" press="fn_recurringbill" tooltip="{i18n>recurringbill}"/>
+						<Button text="{i18n>recurringbill}" id="id_recurringnbill" tooltip="{i18n>recurringbill}" class="FSC_USBtn sapUiSizeCompact" width="100%"
+							press="fn_recurringbill"/>
+					</HBox>
+					<HBox class="FSC_VLBackBtn cl_sidebar_button" id="hboxcreditnote" alignItems="Center">
+						<Image src="Images/Recurringbill.svg" class="cl_dash_icon" press="fn_creditnote" tooltip="{i18n>Adjustment Posting}"/>
+						<Button text="{i18n>Adjustment Posting}" id="id_creditnote" tooltip="{i18n>Adjustment Posting}" class="FSC_USBtn sapUiSizeCompact" width="100%"
+							press="fn_creditnote"/>
+					</HBox>
+					<!-- Analytics Section -->
+					<VBox id="vboxAnalytics" class="FSC_VLBackBtn cl_sidebar_button ">
+						<HBox alignItems="Center">
+							<Image src="Images/analytics_image.svg" class="cl_dash_icon2"/>
+							<Button text="Analytics" id="btnAnalytics" type="Transparent" class="FSC_USBtn sapUiSizeCompact" width="100%" press="onAnalyticsToggle"/>
+							<Image src="Images/down_arrow.svg" id="imgAnalyticsArrow" class="cl_dash_icon2" press="onAnalyticsToggle"/>
+						</HBox>
+						<VBox id="vboxAnalyticsSub" visible="false" class="cl_submenu_vbox">
+							<HBox class="cl_submenu_item" alignItems="Center">
+								<Text text="•" class="cl_bullet"/>
+								<Button text="Scan App Report" class="FSC_USBtn sapUiSizeCompact cl_submenu_btn" width="100%" press="onScanAppReportPress"/>
+							</HBox>
+							<HBox class="cl_submenu_item" alignItems="Center">
+								<Text text="•" class="cl_bullet"/>
+								<Button text="TAT" class="FSC_USBtn sapUiSizeCompact cl_submenu_btn" width="100%" press="onTATPress"/>
+							</HBox>
+							<HBox class="cl_submenu_item" alignItems="Center">
+								<Text text="•" class="cl_bullet"/>
+								<Button text="Deviation" class="FSC_USBtn sapUiSizeCompact cl_submenu_btn" width="100%" press="onDeviationPress"/>
+							</HBox>
+							<HBox class="cl_submenu_item" alignItems="Center">
+								<Text text="•" class="cl_bullet"/>
+								<Button text="Physical Tracking" class="FSC_USBtn sapUiSizeCompact cl_submenu_btn" width="100%" press="onPhysicalTrackingPress"/>
+							</HBox>
+							<HBox class="cl_submenu_item" alignItems="Center">
+								<Text text="•" class="cl_bullet"/>
+								<Button text="Re-call" class="FSC_USBtn sapUiSizeCompact cl_submenu_btn" width="100%" press="onRecallPress"/>
+							</HBox>
+							<HBox class="cl_submenu_item" alignItems="Center">
+								<Text text="•" class="cl_bullet"/>
+								<Button text="Invoice Unblock" class="FSC_USBtn sapUiSizeCompact cl_submenu_btn" width="100%" press="onInvoiceUnblockPress"/>
+							</HBox>
+							<HBox class="cl_submenu_item" alignItems="Center">
+								<Text text="•" class="cl_bullet"/>
+								<Button text="Agent Reassign" class="FSC_USBtn sapUiSizeCompact cl_submenu_btn" width="100%" press="fnAgentReassignPress"/>
+							</HBox>
+							<HBox class="cl_submenu_item" alignItems="Center">
+								<Text text="•" class="cl_bullet"/>
+								<Button text="Status Update" class="FSC_USBtn sapUiSizeCompact cl_submenu_btn" width="100%" press="fnStatusUpdate"/>
+							</HBox>
+						</VBox>
+					</VBox>
+				</VBox>
+				<VBox class="cl_bottom_section">
+					<!--<HBox class="FSC_VLBackBtn sapUiSmallMarginBegin cl_sidebar_button" id="btnPagetipHBox" alignItems="Center">-->
+					<!--  <Image src="Images/pagetip.svg" class="cl_dash_icon" press="onPageTipsPress"/>-->
+					<!--  <Button text="Page Tips" id="btnPagetip" class="FSC_USBtn sapUiSizeCompact" width="100%" press="onPageTipsPress"/>-->
+					<!--</HBox>-->
+					<!--<HBox class="FSC_VLBackBtn sapUiSmallMarginBegin cl_sidebar_button" id="btnSettingHBox" alignItems="Center">-->
+					<!--  <Image src="Images/setting.svg" class="cl_dash_icon" press="onSettingsPress"/>-->
+					<!--  <Button text="Settings" id="btnSetting" class="FSC_USBtn sapUiSizeCompact" width="100%" press="onSettingsPress"/>-->
+					<!--</HBox>-->
+					<HBox class="FSC_VLBackBtn sapUiSmallMarginBegin cl_sidebar_button" id="btnLogoutHBox" alignItems="Center">
+						<Image src="Images/logout.svg" class="cl_dash_icon" press="onLogoutPress"/>
+						<Button text="Log Out" id="btnLogout" class="FSC_USBtn sapUiSizeCompact" width="100%" press="onLogoutPress"/>
+					</HBox>
+					<HBox class="cl_sidebarbot_divider"/>
+					<VBox class="cl_brand_box sapUiTinyMarginTop sapUiSmallMarginBegin sapUiTinyMarginBottom" alignItems="Center">
+						<Image src="Images/Exalcalogo1.svg" class="cl_exalca_logo" width="75px" height="auto"/>
+					</VBox>
+				</VBox>
+			</VBox>
+		</u:secondaryContent>
+		<!-- Main App Content -->
+		<u:content>
+			<App id="id_app"/>
+		</u:content>
+	</u:SplitContainer>
+</mvc:View>

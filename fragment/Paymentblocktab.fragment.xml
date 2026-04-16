@@ -1,0 +1,153 @@
+<!--<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">-->
+<!--  <Dialog id="id_payblock_dialog" title="Payment Blocked Invoices" class="cl_tble cl_custom_table cl_custom_table1" showHeader="true">-->
+<!--    <VBox>-->
+<!--      <Table items="{payBlockModel>/items}" inset="false" mode="None">-->
+<!--        <columns>-->
+<!--          <Column><Text text="QID" /></Column>-->
+<!--          <Column><Text text="Document No" /></Column>-->
+<!--          <Column><Text text="BELNR" /></Column>-->
+<!--          <Column><Text text="GJAHR" /></Column>-->
+<!--          <Column><Text text="ZTERM" /></Column>-->
+<!--          <Column><Text text="LIFNR" /></Column>-->
+<!--          <Column><Text text="Status" /></Column>-->
+<!--        </columns>-->
+<!--        <items>-->
+<!--          <ColumnListItem>-->
+<!--            <cells>-->
+<!--              <Text text="{payBlockModel>Qid}" />-->
+<!--              <Text text="{payBlockModel>Documentnumber}" />-->
+<!--              <Text text="{payBlockModel>Belnr}" />-->
+<!--              <Text text="{payBlockModel>Gjahr}" />-->
+<!--              <Text text="{payBlockModel>Zterm}" />-->
+<!--              <Text text="{payBlockModel>Lifnr}" />-->
+<!--              <Text text="{payBlockModel>StatusText}" />-->
+<!--            </cells>-->
+<!--          </ColumnListItem>-->
+<!--        </items>-->
+<!--      </Table>-->
+<!--    </VBox>-->
+<!--  </Dialog>-->
+<!--</core:FragmentDefinition>-->
+<core:FragmentDefinition xmlns="sap.m"
+                         xmlns:ui="sap.ui.table"
+                         xmlns:core="sap.ui.core"
+                         xmlns:l="sap.ui.layout">
+
+  <!--<Dialog id="id_payblock_dialog"-->
+  <!--      class="sapUiSizeCompact sapUiSmallMarginBegin cl_fragpay"-->
+  <!--      resizable="true"-->
+  <!--      draggable="true"-->
+  <!--      contentHeight="60%"-->
+  <!--      afterOpen="onAfterPayBlockOpen"-->
+  <!--      stretchOnPhone="true">-->
+
+  
+  <!--<customHeader>-->
+  <!--  <Bar design="Header">-->
+  <!--    <contentMiddle>-->
+  <!--      <Text text="Payment Blocked Invoices" class="sapUiSmallMargin" />-->
+  <!--    </contentMiddle>-->
+  <!--    <contentRight>-->
+  <!--      <Button icon="sap-icon://decline"-->
+  <!--              type="Transparent"-->
+  <!--              press="onClosePayBlockDialog"-->
+  <!--              tooltip="Close" />-->
+  <!--    </contentRight>-->
+  <!--  </Bar>-->
+  <!--</customHeader>-->
+  		<Dialog id="id_payblock_dialog" title="Payment Blocked Invoices" draggable="true" resizable="true" contentWidth="50rem" showHeader="false">
+		<Toolbar class="cl_dialog" width="100%">
+			<ToolbarSpacer/>
+			<Text class="cl_dialoghd" text="Payment Blocked Invoices"/>
+			<ToolbarSpacer/>
+			<Image src="Images/xmark.svg" width="20px" class="sapUiSmallMargin" press="onClosePayBlockDialog"/>
+		</Toolbar> 
+
+    <content>
+      <Panel class="cl_panel">
+     <ui:Table id="idUiPayBlockTable"
+          rows="{payBlockModel>/items}"
+          selectionMode="None"
+          visibleRowCount="4"
+          visibleRowCountMode="Fixed"
+          width="100%"
+          class="cl_payblocktab cl_tble cl_custom_table cl_tblepay"
+          columnHeaderVisible="true">
+
+  <ui:columns>
+    <!-- 1. Queue Id -->
+    <ui:Column width="6.3rem">
+      <Label text="Queue Id" />
+      <ui:template>
+        <Text text="{payBlockModel>Qid}" class="cl_paytabtext" />
+      </ui:template>
+    </ui:Column>
+
+    <!-- 2. Document No (Invoice Document) -->
+    <ui:Column width="6rem">
+      <Label text="Document No" />
+      <ui:template>
+        <Text text="{payBlockModel>Documentnumber}" class="cl_paytabtext" />
+      </ui:template>
+    </ui:Column>
+
+    <!-- 3. Year -->
+    <ui:Column width="3.5rem">
+      <Label text="Year" />
+      <ui:template>
+        <Text text="{payBlockModel>Gjahr}" class="cl_paytabtext"/>
+      </ui:template>
+    </ui:Column>
+
+    <!-- 4. BELNR (Accounting Document) -->
+    <ui:Column width="6rem">
+      <Label text="Acc Doc.no" />
+      <ui:template>
+        <Text text="{payBlockModel>Belnr}" class="cl_paytabtext"/>
+      </ui:template>
+    </ui:Column>
+
+    <!-- 5. Vendor -->
+    <ui:Column width="10rem">
+      <Label text="Vendor" />
+      <ui:template>
+        <Text text="{payBlockModel>Name}" class="cl_paytabtext"/>
+      </ui:template>
+    </ui:Column>
+
+    <!-- 6. Payment Term -->
+    <ui:Column width="7rem">
+      <Label text="Payment Term" />
+      <ui:template>
+        <Text text="{payBlockModel>Zterm}" class="cl_paytabtext"/>
+      </ui:template>
+    </ui:Column>
+
+    <!-- 7. Status -->
+    <ui:Column width="10rem">
+      <Label text="Status" />
+      <ui:template>
+        <Text text="{payBlockModel>StatusText}" class="cl_paytabtext" />
+      </ui:template>
+    </ui:Column>
+  </ui:columns>
+</ui:Table>
+         <HBox justifyContent="End" class="sapUiSmallMarginTop sapUiSmallMarginEnd">
+    <Button text="Download Excel"
+           
+            icon="sap-icon://excel-attachment"
+            press="onDownloadPayBlockExcel"
+           class=" gl_subbtn sapUiSmallMarginBottom rignt "/>
+  </HBox>
+      </Panel>
+    </content>
+
+    <!--<endButton>-->
+    <!--  <Button text="Close"-->
+    <!--          type="Reject"-->
+    <!--          icon="sap-icon://decline"-->
+    <!--          press="onClosePayBlockDialog" />-->
+    <!--</endButton>-->
+
+  </Dialog>
+</core:FragmentDefinition>

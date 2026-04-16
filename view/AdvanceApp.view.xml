@@ -1,0 +1,142 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.AdvanceApp"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:uitable="sap.ui.table" xmlns:u="sap.ui.unified">
+	<App>
+		<pages>
+			<Page title="Advance Application">
+				<customHeader>
+					<Toolbar class="header_bar1 sapUiSmallMarginEnd">
+						<Image id="id_fnback" src="Images/Left.svg" class="cl_back_btn sapUiSmallMarginBegin" visible="false" press="fn_back"></Image>
+						<Text text="{i18n>Advance Application}" class="cl_bold cl_black_txt cl_heading cl_font sapUiSmallMarginBegin"></Text>
+						<ToolbarSpacer/>
+						<Button icon="Images/refreshbtn.png" tooltip="Refresh" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbtn.png" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="cl_username cl_font team_text "></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<HBox class="cl_barcode_input_row topbox sapUiSmallMarginBegin" justifyContent="SpaceBetween" alignItems="End">
+						<VBox class="columnbarcode formFieldbarcode" width="">
+							<Text text="Vendor" class="cl_textbarcode"/>
+								<HBox class="formInputWithIconbar">
+								<ComboBox id="In_Vendor" items="{JSVendor>/}" placeholder="Select Vendor" width="100%" tooltip="{i18n>vendor}"
+									selectionChange="fn_VendorChange" filterSecondaryValues="true" showSecondaryValues="true"
+									class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp">
+									<core:Item key="{JSVendor>Lifnr}" text="{JSVendor>Mcod1}"/>
+								</ComboBox>
+							</HBox>
+						</VBox>
+						<VBox class="cl_non_po_btn_box " width="">
+							<Button icon="Images/simulate.svg" text="Non Po" press="fnvendorval" class="greenbtn " type="Transparent"/>
+						</VBox>
+						<VBox class="columnbarcode formFieldbarcode" width="">
+							<Text text="Purchase Order" class="cl_textbarcode"/>
+							<HBox class="formInputWithIconbar">
+								<ComboBox id="In_PoFrom" items="{P>/Podet/results}"  placeholder="Purchase Order From" width="100%" tooltip="{i18n>purchaseorder}"
+									 filterSecondaryValues="true" showSecondaryValues="true"
+									class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp"  open="fnOnPoOpen">
+									<core:Item key="{P>Ebeln}" text="{P>Ebeln}"/>
+								</ComboBox>
+							</HBox>
+						</VBox>
+						<VBox class="columnbarcode formFieldbarcode" width="">
+							<Text text="Purchase Order To " class="cl_textbarcode"/>
+							<HBox class="formInputWithIconbar">
+								<ComboBox id="In_PoTo" items="{P>/Podet/results}"  placeholder="Purchase Order To" width="100%" tooltip="{i18n>purchaseorder}"
+									 filterSecondaryValues="true" showSecondaryValues="true"
+									class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp"  open="fnOnPoOpen">
+									<core:Item key="{P>Ebeln}" text="{P>Ebeln}"/>
+								</ComboBox>
+							</HBox>
+						</VBox>
+						<HBox class="btnab">
+							<Button text="Clear" icon="Images/clearab.svg" type="Transparent" press="fnClear" class="sapUiSizeCompact cl_btn_cleara cl_btn_clearad"/>
+							<Button id="id_search" text="Search" icon="Images/searchab.svg" type="Transparent" press="search" class="sapUiSizeCompact cl_btn_searchad "/>
+						</HBox>
+					</HBox>
+					<VBox id="id_pdf_slide" class="cl_full_box cl_full_box21ad" height="">
+						<Toolbar class="cl_tbr_1 ">
+							<Text text="Purchase Order Details" id="idCardTitle" class="cl_Tltxt sapUiSmallMarginBegin"/>
+							<Text text="0" class="cl_badge_counter" id="id_total_1"/>
+							<ToolbarSpacer/>
+							<HBox class="cl_hbx_sf cl_hbx_sf1">
+								<Button id="id_delete_upload" text="Request Approval" icon="Images/post_btn.svg" type="Transparent" press="fn_reqPo_frag"
+									class="sapUiSizeCompact cl_btn_req "/>
+							</HBox>
+						</Toolbar>
+						<VBox class="scrollContainer" id="id_vbox_table" width="100%">
+							<uitable:Table id="id_tab" rows="{VendorAdv>/results}" selectionMode="MultiToggle" enableSelectAll="true" visibleRowCount="15"
+								visibleRowCountMode="Fixed" navigationMode="Paginator" enableColumnReordering="true" columnHeaderVisible="true"
+								class="cl_tble cl_custom_table cl_custom_table1" rowSelectionChange="fn_action" enableCellFilter="false" ariaLabelledBy="title" width="100%">
+								<uitable:columns>
+									<!-- PO Number -->
+									<uitable:Column width="15%" hAlign="Center" class="cl_column_header">
+										<HBox alignItems="Center">
+											<Text text="PO Number" class="cl_Tltxt"/>
+											<Image src="Images/arrow-down.svg" width="14px" height="14px" class="cl_header_icon" press="fn_sortByPo"/>
+										</HBox>
+										<uitable:template class="cl_column_cell">
+											<Link text="{VendorAdv>Ebeln}" press="fn_nav_to_wb" class="cl_qid_sel cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<!-- Item -->
+									<uitable:Column width="10%" hAlign="Center" class="cl_column_header">
+										<Text text="Item" class="cl_Tltxt cl_Tltxtd"/>
+										<uitable:template class="cl_column_cell">
+											<Text text="{path:'VendorAdv>PoItem', formatter :'FSC360NEW.model.formatter.fnZero'}" class="cl_table_det_text"
+												wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<!-- Doc Date -->
+									<uitable:Column width="16%" hAlign="Center" class="cl_column_header">
+										<Text text="Doc Date" class="cl_Tltxt cl_Tltxtd"/>
+										<uitable:template class="cl_column_cell">
+											<Text text="{path: 'VendorAdv>Aedat', formatter :'FSC360NEW.model.formatter.Date'}" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<!-- Material -->
+									<uitable:Column width="18%" hAlign="Center" class="cl_column_header">
+										<Text text="Material" class="cl_Tltxt cl_Tltxtd"/>
+										<uitable:template class="cl_column_cell">
+											<Text text="{VendorAdv>Material}" class="cl_table_det_text"/>
+										</uitable:template>
+									</uitable:Column>
+									<!-- Description -->
+									<uitable:Column width="18%" hAlign="Center" class="cl_column_header">
+										<Text text="Description" class="cl_Tltxt cl_Tltxtd"/>
+										<uitable:template class="cl_column_cell">
+											<Text text="{VendorAdv>Txz01}" class="cl_table_det_text"/>
+										</uitable:template>
+									</uitable:Column>
+									<!-- Net Amount -->
+									<uitable:Column width="16%" hAlign="Center" class="cl_column_header">
+										<Text text="Net Amount" class="cl_Tltxt cl_Tltxtd"/>
+										<uitable:template class="cl_column_cell">
+											<Text text="{path:'VendorAdv>NetPrice', formatter:'com.exalca.iv.view.VAP.util.Formatter.dectwo'}" class="cl_table_det_text"/>
+										</uitable:template>
+									</uitable:Column>
+									<!-- Currency -->
+									<uitable:Column width="10%" hAlign="Center" class="cl_column_header">
+										<Text text="Currency" class="cl_Tltxt cl_Tltxtd"/>
+										<uitable:template class="cl_column_cell">
+											<Text text="{VendorAdv>Waers}" class="cl_table_det_text"/>
+										</uitable:template>
+									</uitable:Column>
+								</uitable:columns>
+							</uitable:Table>
+						</VBox>
+						<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer cl_pagination_footer1">
+							<Button icon="Images/arrow-left.svg" text="Previous" class="cl_prev_button" press="onPreviousPage"/>
+							<HBox class="cl_page_numbers" id="idPageNumbersBox" alignItems="Center">
+								<!-- You can dynamically generate page buttons if needed -->
+							</HBox>
+							<Button text="Next" icon="Images/arrow-right.svg" iconFirst="false" class="cl_next_button" press="onNextPage"/>
+						</HBox>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

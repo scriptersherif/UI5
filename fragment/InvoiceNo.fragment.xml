@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" id="id_invFrag">
+	<Dialog id="id_dialog" title="Enter Invoice No" class="cl_dialogtitle">
+		<VBox width="400px">
+			<Toolbar class="cl_tool">
+				<Text text="Invoice No" class="sapUiTinyMargin"/>
+				<ToolbarSpacer></ToolbarSpacer>
+			<MultiInput showValueHelp="false" id="id_invnofrag"
+				class="cl_inputbox cl_multi cl_multi2 cl_multi3 sapUiSizeCompact sapUiTinyMarginTop sapUiTinyMarginEnd sapUiTinyMarginBegin"
+				showSuggestion="false" width="96%" tokens="{JMInvoice>/items}">
+				<tokens>
+					<Token text="{JMInvoice>text}"/>
+				</tokens>
+			</MultiInput>
+			</Toolbar>
+			<Toolbar class="cl_tool">
+				<Text text="Fiscal Year" class="sapUiTinyMargin"/>
+				<ToolbarSpacer></ToolbarSpacer>
+				<DatePicker id="id_inv_year" change="handleChange" class="cl_inputbox_doc cl_icon sapUiSizeCompact sapUiTinyMarginEnd sapUiTinyMarginTop" width="18.5rem"
+					value="{ 'path': '/valueDP11', 'type': 'sap.ui.model.type.Date', 'formatOptions': { 'pattern': 'yyyy' } }" valueFormat="yyyy" displayFormat="yyyy"/>
+			</Toolbar>
+			<HBox alignContent="Center" alignItems="Center" justifyContent="Center">
+				<Label text="Invoice No Entered" class="sapUiTinyMarginBegin" labelFor="id_invnofrag"/>
+			</HBox>
+			<List width="100%" items="{JMInvoice>/items}">
+				<StandardListItem title="{JMInvoice>text}"/>
+			</List>
+		</VBox>
+		<HBox alignContent="Center" alignItems="Center" justifyContent="Center">
+			<Button text="Ok" press="fn_close_inv" class="cl_btnsubmit3"></Button>
+			<Button text="Cancel" press="fn_clear_inv" class="sapUiMediumMarginBegin cl_btnsubmit3"></Button>
+		</HBox>
+	</Dialog>
+</core:FragmentDefinition>

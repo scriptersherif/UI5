@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <SelectDialog id="id_FinalKey" noDataText="No Key Found" title="Banking Key" liveChange="handleSearchBankDet" confirm="onDialogClose"
+    cancel="onCloseDialog" items="{MKey>/}">
+    <StandardListItem title="{MKey>Key}" description="{MKey>Account}" info="{MKey>Name}" icon="sap-icon://key" type="Active" press="OnKeySelect"/>
+  </SelectDialog>
+</core:FragmentDefinition>

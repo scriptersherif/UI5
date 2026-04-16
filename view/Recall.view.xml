@@ -1,0 +1,277 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.Recall"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:uitable="sap.ui.table" xmlns:unified="sap.ui.unified" xmlns:u="sap.ui.unified">
+	<App>
+		<pages>
+			<Page title="{i18n>Re-call}" class="cl_page">
+				<customHeader>
+					<Toolbar class="header_bar_d">
+						<Title text="{i18n>Re-call}" class="cl_ses_txt"/>
+						<ToolbarSpacer/>
+						<Button icon="Images/refreshbtn.png" tooltip="Refresh" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbtn.png" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="team_text cl_font"></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<VBox class="cl_full_boxB cl_full_boxstatus cl_full_box_phy_trac1">
+						<VBox class="cl_statusflow_input_cont" id="id_cl_statusflow_input_cont">
+							<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd topbox" justifyContent="SpaceBetween" alignItems="End">
+								<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+									<Text text="{i18n>Transaction Type}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_transactiontyp" items="{JSTransList>/}" placeholder="{i18n>transtype}"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" tooltip="{i18n>transtype}">
+											<core:Item key="{JSTransList>StatKey}" text="{JSTransList>StatText}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clscanapplication">
+									<Text text="{i18n>Vendor}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="idvendor" placeholder="Select Vendor" width="100%" tooltip="{i18n>vendor}" selectionChange="fn_VendorChange"
+											class="formInputB1 cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" filterSecondaryValues="true" showSecondaryValues="true">
+												<core:Item key="{JSVendor>Lifnr}" text="{JSVendor>Mcod1}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clscanapplication" width="">
+									<Text text="Company" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_companycode" items="{JSCCode>/Company}" selectedKey="{JSSelected>/Company}" placeholder="{i18n>companyCode}"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" filterSecondaryValues="true" showSecondaryValues="true" selectionChange="fn_onCompanyChange" tooltip="{i18n>companyCode}">
+											<core:Item key="{JSCCode>Bukrs}" text="{JSCCode>Bukrs}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clscanapplication" width="">
+									<Text text="{i18n>Queue id}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_Qid" placeholder="Enter Queue Id" width="100%" tooltip="{i18n>Qidtt}" selectionChange="fn_QidChange"
+											class="formInputB1 cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp"></ComboBox>
+									</HBox>
+								</VBox>
+							</HBox>
+							<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd" justifyContent="SpaceBetween" alignItems="End">
+								<!--<VBox class="cl_date_recall" width="">-->
+								<!--	<Text text="Date" class="cl_textbarcode"/>-->
+								<!--	<HBox alignItems="Center" class="formInputWithIconbar forminputiconrecall">-->
+								<!-- From Input -->
+								<!--		<HBox class="formInputWithIconbar" alignItems="Center">-->
+								<!--			<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder="From Date"-->
+								<!--				class="formInputB1 forminputtat forminputfirsttat tatdatepick" id="id_creationdatefrm" change="fn_datevalidation" 	tooltip="{i18n>FromDateTooltip}"/>-->
+								<!--		</HBox>-->
+								<!-- TO Label -->
+								<!--		<HBox class="cl_to_cont">-->
+								<!--			<Text text="TO" class="cl_toLabel" wrapping="False"/>-->
+								<!--		</HBox>-->
+								<!-- To Input -->
+								<!--		<HBox class="formInputWithIconbar" alignItems="Center">-->
+								<!--			<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder="To Date"-->
+								<!--				class="formInputB1 forminputtat forminputlasttat forminputlastrecall" id="id_creationdateend" change="fn_datevalidation" tooltip="{i18n>ToDateTooltip}"/>-->
+								<!--		</HBox>-->
+								<!--	</HBox>-->
+								<!--</VBox>-->
+								<VBox class="cl_date_recall" width="">
+									<Text text="Date" class="cl_textbarcode cl_textdeviation"/>
+									<HBox alignItems="Center" class="formInputWithIconbar forminputiconrecall">
+										<!-- From Input -->
+										<HBox class="formInputWithIconbar" alignItems="Center">
+											<DatePicker valueFormat="YYYY-MM-dd" readonly="true" icon="sap-icon://calendar" displayFormat="dd/MM/YYYY" placeholder="From"
+												class="formInputB1 forminputtat forminputfirsttat tatdatepick deviationdate deviationdatefirst" id="id_creationdatefrm"
+												change="fn_datevalidation"/>
+										</HBox>
+										<HBox class="formInputWithIconbar" alignItems="Center">
+											<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder="To"
+												class="formInputB1 forminputtat forminputlasttat forminputlastrecall forminputlastdeviation deviationdate deviationdatelast cl_recalldatelast"
+												id="id_creationdateend" change="fn_datevalidation"/>
+										</HBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clscanapplication1" width="">
+									<Text text="{i18n>InvoiceNumber}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<Input id="idinvno" class="formInputB1" width="100%" layoutData="sap.ui.layout.FlexItemData" placeholder="{i18n>InvoiceNumber}"
+											tooltip="{i18n>invoiceNumberTT}"/>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode3 formFieldbarcode comboboxcont cl_status_multibox" width="">
+									<Text text="{i18n>Status}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_Statuss" items="{JSStatusList>/}" placeholder="Select Status" change=".fn_onStatusChange" tooltip="{i18n>Status}"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp">
+											<core:Item key="{JSStatusList>StatKey}" text="{JSStatusList>StatText}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<HBox class="cl_button_cont_recall">
+									<Button id="id_clear" text="{i18n>Clear}" icon="Images/clearab.svg" type="Transparent" press="fnclearbutt"
+										class="sapUiSizeCompact cl_btn_cleara " tooltip="{i18n>clearTooltip}"/>
+									<Button id="id_search" text="{i18n>Search}" icon="Images/searchab.svg" type="Transparent" press="fn_search"
+										class="sapUiSizeCompact cl_btn_searcha " tooltip="{i18n>searchTooltip}"/>
+								</HBox>
+							</HBox>
+						</VBox>
+					</VBox>
+					<VBox class="cl_full_boxB cl_tab_boxstatus cl_full_box_recall_table_cont cl_full_boxstatus_min">
+						<Toolbar class="cl_tbr_1 cl_tbr_4 cl_tbr_recall">
+							<HBox alignItems="Center" justifyContent="Center" class="filter_icon_recall_cont">
+								<Image src="Images/Filter.svg" press="fnFilterPop" class="sapUiSizeCompact cl_filter_btn cl_filter_btn1" tooltip="{i18n>filter}"/>
+							</HBox>
+							<Text text="Rejected In Workflow List" id="idCardTitle" class="cl_Tltxt cl_Tltxt_recall"/>
+							<ToolbarSpacer/>
+						
+							<Text text="0" class="cl_badge_counter" id="LabTabSFRTitle"/>
+							<HBox class="cl_button_cont_hideshow">
+								<Button id="id_unblock" text="{i18n>Recall}" icon="Images/restore_recall.svg" type="Transparent" press="fn_onRecallPress"
+									class="sapUiSizeCompact cl_btn_Recall "/>
+							<!--press=""-->
+							</HBox>
+						</Toolbar>
+						<uitable:Table id="idTable" rows="{RecallModel>/}" selectionMode="MultiToggle" enableSelectAll="true" visibleRowCount="10" width="100%"
+							class="cl_custom_table cl_custom_tableapk cl_tatreport_table cl_recall_table" rowSelectionChange="fn_action" fixedColumnCount="1"
+							selectionChange="onSelectionChange">
+							<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/0/visible}">
+								<Text text="{FilterTableModel>/0/label}" tooltip="{FilterTableModel>/0/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{RecallModel>Qid}" tooltip="{RecallModel>Qid}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/1/visible}">
+								<Text text="{FilterTableModel>/1/label}" tooltip="{FilterTableModel>/1/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{RecallModel>Bukrs}" tooltip="{RecallModel>Bukrs}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/2/visible}">
+								<Text text="{FilterTableModel>/2/label}" tooltip="{FilterTableModel>/2/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{RecallModel>Gjahr}" tooltip="{RecallModel>Gjahr}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/3/visible}">
+								<Text text="{FilterTableModel>/3/label}" tooltip="{FilterTableModel>/3/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{RecallModel>Transtype}" tooltip="{RecallModel>Transtype}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/4/visible}">
+								<Text text="{FilterTableModel>/4/label}" tooltip="{FilterTableModel>/4/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{RecallModel>Trntx}" tooltip="{RecallModel>Trntx}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5.5rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/5/visible}">
+								<Text text="{FilterTableModel>/5/label}" tooltip="{FilterTableModel>/5/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'RecallModel>Scandate', formatter :'FSC360NEW.model.formatter.fnDate'}"
+										tooltip="{path:'RecallModel>Scandate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/6/visible}">
+								<Text text="{FilterTableModel>/6/label}" tooltip="{FilterTableModel>/6/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{RecallModel>Lifnr}" tooltip="{RecallModel>Lifnr}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/8/visible}">
+								<Text text="{FilterTableModel>/8/label}" tooltip="{FilterTableModel>/8/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{RecallModel>Wfage}" tooltip="{RecallModel>Wfage}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/9/visible}">
+								<Text text="{FilterTableModel>/9/label}" tooltip="{FilterTableModel>/9/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{RecallModel>Invno}" tooltip="{RecallModel>Invno}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/10/visible}">
+								<Text text="{FilterTableModel>/10/label}" tooltip="{FilterTableModel>/10/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'RecallModel>Invdt', formatter :'FSC360NEW.model.formatter.fnDate'}"
+										tooltip="{path:'RecallModel>Invdt', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/11/visible}">
+								<Text text="{FilterTableModel>/11/label}" tooltip="{FilterTableModel>/11/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'RecallModel>Ntamt', formatter :'FSC360NEW.model.formatter.fnAmount'}"
+										tooltip="{path:'RecallModel>Ntamt', formatter :'FSC360NEW.model.formatter.fnAmount'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/12/visible}">
+								<Text text="{FilterTableModel>/12/label}" tooltip="{FilterTableModel>/12/label}" class="cl_Tltxt"/>
+								<uitable:template class="cl_column_cell">
+									<HBox alignItems="Center" width="90px">
+										<Button text="{RecallModel>Sttxt}" icon="sap-icon://circle-task-2" iconFirst="true" type="Transparent" class="cl_status"
+											tooltip="{RecallModel>Sttxt}">
+											<customData>
+												<core:CustomData key="status" value="{RecallModel>Sttxt}" writeToDom="true"/>
+											</customData>
+										</Button>
+									</HBox>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="100%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/7/visible}">
+								<Text text="{FilterTableModel>/7/label}" tooltip="{FilterTableModel>/7/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'RecallModel>Assignedto', formatter :'FSC360NEW.model.formatter.fnCapitalizeFirst'}" tooltip="{RecallModel>Assignedto}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/14/visible}">
+								<Text text="{FilterTableModel>/14/label}" tooltip="{FilterTableModel>/14/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{RecallModel>Substs}" tooltip="{RecallModel>Substs}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/15/visible}">
+								<Text text="{FilterTableModel>/15/label}" tooltip="{FilterTableModel>/15/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{RecallModel>Sstxt}" tooltip="{RecallModel>Sstxt}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!--<uitable:Column width="10rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/16/visible}">-->
+							<!--	<Text text="{FilterTableModel>/16/label}" tooltip="{FilterTableModel>/16/label}" class="cl_Tltxt"/>-->
+							<!--	<uitable:template>-->
+							<!--		<Text text="{RecallModel>Commt}" tooltip="{RecallModel>Commt}" class="cl_column_cell"/>-->
+							<!--	</uitable:template>-->
+							<!--</uitable:Column>-->
+							<uitable:Column width="10rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/16/visible}" >
+								<Text text="{FilterTableModel>/16/label}" tooltip="{FilterTableModel>/16/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<HBox>
+										<Button text="{i18n>Attach}" icon="Images/upload_recall.svg" type="Transparent" press=".fn_openFileDialog"
+											visible="{= ${RecallModel>AttachmentIndicator} === 'N'}" class="sapUiSizeCompact cl_btn_Recall cl_btn_recall_attach"/>
+									
+										<HBox class="cl_attached_recall_cont" visible="{= ${RecallModel>AttachmentIndicator} === 'Y'}" id="id_cancel_pdf">
+											<Image src="Images/pdficon_recall.svg" class="cl_recall_pdf_icon" tooltip="{i18n>Attachment}"/>
+											<Text text="Attached" class="cl_attach_recall"  />
+											<Image src="Images/cancel.svg" press=".fn_onRemoveFile" class="cl_recall_pdf_icon cl_cancel_recall" tooltip="{i18n>Cancel}"/>
+										</HBox>
+									</HBox>
+								</uitable:template>
+							</uitable:Column>
+						</uitable:Table>
+						<u:FileUploader id="idHiddenFileUploader" width="0.1%" change=".onFileUploadChange" uploadOnChange="false" class="cl_hiddenUploader"
+							fileType="pdf,png"/>
+						<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer cl_pagination_footer_recall cl_pagination_min_height"
+							id="idPaginationFooter">
+							<HBox width="100px" justifyContent="Start">
+								<Button icon="Images/arrow-left.svg" text="Previous" width="100px" class="cl_prev_button" press="fn_onPreviousPage" id="idPrevBtn"/>
+							</HBox>
+							<HBox width="calc(100% - 200px)" id="idPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers">
+								<!-- Page buttons dynamically inserted here -->
+							</HBox>
+							<HBox width="100px" justifyContent="End">
+								<Button text="Next" icon="Images/arrow-right.svg" iconFirst="false" class="cl_next_button" press="fn_onNextPage" id="idNextBtn"/>
+							</HBox>
+						</HBox>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

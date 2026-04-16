@@ -1,0 +1,10 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="{i18n>Select Payment Term}"  items="{JSPayTerm>/}" liveChange="fn_PaymentTerm_LC" class="cl_frag" 
+		confirm="fn_Payment_Term" > 
+		<!--<StandardListItem  title="{JSPayTerm>Zterm}" description="{JSPayTerm>Vtext}"/>-->
+		    
+    <StandardListItem
+      title="{ parts: ['JSPayTerm>Zterm', 'JSPayTerm>Vtext'], formatter: '.formatPaymentTerm' }"
+      description="" />
+	</SelectDialog>
+</core:FragmentDefinition>

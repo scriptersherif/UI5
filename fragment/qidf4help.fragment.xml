@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+<SelectDialog 
+	id="qidDialog"
+	title="Select QID"
+	items="{QidVHModel>/results}"
+	search="fn_onQidSearch"
+	confirm="fn_onQidConfirm"
+	cancel="fn_onQidCancel"
+	 class="cl_frag">
+ 
+		<StandardListItem 
+			title="{QidVHModel>Qid}" />
+</SelectDialog>
+</core:FragmentDefinition>

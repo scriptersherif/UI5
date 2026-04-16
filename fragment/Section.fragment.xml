@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="{i18n>Section}" items="{JSSectionCode>/}" class="cl_frag"  liveChange="fn_Section_LC" 
+		confirm="fn_Section_Confirm" cancel="fnSectnConfrm">
+		<StandardListItem icon="sap-icon://building" title="{JSSectionCode>Seccode}" description="{JSSectionCode>Name}" />
+	</SelectDialog>
+</core:FragmentDefinition>

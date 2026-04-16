@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="{i18n>SelectPaymentMethod}"  items="{JSPaymentMethod>/}" liveChange="fn_PaymentMethod_LC" class="cl_frag" 
+		confirm="fn_PaymentMethod_Confrm" > 
+		<!--<StandardListItem title="{JSPaymentMethod>Zlsch}" description="{JSPaymentMethod>Text2}"/>-->
+	   <StandardListItem
+      title="{ parts: ['JSPaymentMethod>Zlsch', 'JSPaymentMethod>Text2'], formatter: '.formatPaymentMethod' }"
+      description="" />
+	</SelectDialog>
+</core:FragmentDefinition>

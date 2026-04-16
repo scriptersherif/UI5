@@ -1,0 +1,37 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  >
+
+  <Dialog
+    id="id_nonpocommentrej"
+    title="Workflow Comments"
+    icon="sap-icon://message"
+    type="Message"
+    class="cl_agentDialog"
+    afterClose=".onRemarkDialogClose">
+
+ 	<Text text="{i18n>Remarks}" class="cl_dialogLabelnpon"></Text>
+      <TextArea
+        id="id_rejComments"
+        placeholder="Enter here..."
+        maxLength="255"
+        width="98%"
+        rows="3"
+        class="cl_remarksInput customTextArea"
+        liveChange="fnLiveRemark" />
+      
+    
+      <beginButton>
+            <Button
+                text="Cancel"    id="id_rejectrej" icon="Images/cancel.svg"
+                 press="fn_rejcancel"  class="gl_canbtn gl_canbtn1" />
+        </beginButton>
+
+        <endButton>
+            <Button
+                text="Submit"  id="id_approverej" icon="Images/approve_image.svg"
+               press="fn_rejsubmit" class=" gl_subbtn gl_subbtn1 " />
+        </endButton>
+  </Dialog>
+</core:FragmentDefinition>

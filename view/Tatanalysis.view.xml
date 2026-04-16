@@ -1,0 +1,557 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.Tatanalysis"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:uitable="sap.ui.table">
+	<App>
+		<pages>
+			<Page class="cl_page">
+				<customHeader>
+					<Toolbar class="header_bar_d">
+						<Title text="{i18n>Tatreport}" class="cl_ses_txt" tooltip="{i18n>scanapplication}"/>
+						<ToolbarSpacer/>
+						<Button icon="Images/refreshbtn.png" tooltip="{i18n>refresh}" class="cl_refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbtn.png" tooltip="{i18n>notification}" class="cl_notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<!--<Text text="AP Team" class="team_text"/>-->
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="team_text cl_font"></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<VBox class="cl_full_boxB cl_full_boxstatus cl_full_box_tat cl_full_boxstatus_min">
+						<VBox class="cl_statusflow_input_cont" id="id_cl_statusflow_input_cont">
+							<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd topbox" justifyContent="SpaceBetween" alignItems="End">
+								<VBox class="columnbarcode formFieldbarcode cltatapplication" width="">
+									<Text text="Queue Id" class="cl_textbarcode"/>
+									<HBox alignItems="Center" class="formInputWithIconbar">
+										<HBox class="formInputWithIconbar" alignItems="Center">
+											<Input id="idQueueFrom" width="" placeholder="Queid From" class="formInputB1 forminputtat forminputfirsttat" tooltip="{i18n>queid}"/>
+											<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat" press="fn_onFromIconPress"/>
+										</HBox>
+										<HBox class="cl_to_cont">
+											<Text text="{i18n>to}" class="cl_toLabel" wrapping="False"/>
+										</HBox>
+										<HBox class="formInputWithIconbar" alignItems="Center">
+											<Input id="idQueueTo" width="" placeholder="Queid To" class="formInputB1 forminputtat forminputlasttat" tooltip="{i18n>queid}"/>
+											<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat input_icon_tat_last" press="fn_onFromIconPress"/>
+										</HBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode cltatapplication" width="">
+									<Text text="{i18n>createdDate}" tooltip="{i18n>createdDateTooltip}" class="cl_textbarcode"/>
+									<HBox alignItems="Center" class="formInputWithIconbar">
+										<!-- From Input -->
+										<HBox class="formInputWithIconbar" alignItems="Center">
+											<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder="{i18n>dateFrom}"
+												class="formInputB1 forminputtat forminputfirsttat tatdatepick" id="id_creationdatefrm" change="fn_datevalidation"
+												tooltip="{i18n>dateFromTooltip}"/>
+										</HBox>
+										<!-- TO Label -->
+										<HBox class="cl_to_cont">
+											<Text text="{i18n>to}" tooltip="{i18n>toTooltip}" class="cl_toLabel" wrapping="False"/>
+										</HBox>
+										<!-- To Input -->
+										<HBox class="formInputWithIconbar" alignItems="Center">
+											<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder="{i18n>dateTo}"
+												class="formInputB1 forminputtat forminputlasttat" id="id_creationdateend" change="fn_datevalidation" tooltip="{i18n>dateToTooltip}"/>
+										</HBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode cltatapplication" width="">
+									<Text text="{i18n>companyCode}" tooltip="{i18n>companyCodeTooltip}" class="cl_textbarcode"/>
+											<HBox class="formInputWithIconbar">
+									
+										<MultiComboBox
+										    id="idCCode"
+										    items="{path: 'CompanyModel>/Company'}"
+										    selectionFinish="handleSelectionFinish"
+										    maxWidth="100%"
+										     tooltip="{i18n>companycode}"
+										    class="cl_combo_transBar cl_companycode_scan" 
+										    selectedKeys="{CompanyModel>/SelectedBukrs}">
+										
+										    <core:Item 
+										        text="{= ${CompanyModel>Bukrs} + ' - ' + ${CompanyModel>Butxt} }"
+										        key="{CompanyModel>Bukrs}" />
+										</MultiComboBox>
+
+									</HBox>
+									<!--<HBox alignItems="Center" class="formInputWithIconbar ">-->
+										<!-- From Input -->
+									<!--	<HBox class="formInputWithIconbar" alignItems="Center">-->
+									<!--		<Input id="idCompcodeFrom" placeholder="{i18n>compFrom}" class="formInputB1 forminputtat forminputfirsttat" tooltip="{i18n>compFromTooltip}"/>-->
+									<!--		<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat" tooltip="{i18n>compFromSelect}" press="fn_LoadCC"/>-->
+									<!--	</HBox>-->
+										<!-- TO Label -->
+									<!--	<HBox class="cl_to_cont">-->
+									<!--		<Text text="{i18n>to}" tooltip="{i18n>toTooltip}" class="cl_toLabel" wrapping="False"/>-->
+									<!--	</HBox>-->
+										<!-- To Input -->
+									<!--	<HBox class="formInputWithIconbar" alignItems="Center">-->
+									<!--		<Input id="idCompCodeTo" placeholder="{i18n>compTo}" class="formInputB1 forminputtat forminputlasttat forminputlasttat_comp_input"-->
+									<!--			tooltip="{i18n>compToTooltip}"/>-->
+									<!--		<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat input_icon_tat_last" tooltip="{i18n>compToSelect}"-->
+									<!--			press="fn_LoadCC"/>-->
+									<!--	</HBox>-->
+									<!--</HBox>-->
+								</VBox>
+								<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+									<Text text="{i18n>status}" tooltip="{i18n>statusTooltip}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_Status" items="{JSStatusList>/}" selectedKey="{viewModel>/selectedTemplate}" placeholder="{i18n>statusPlaceholder}"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" tooltip="{i18n>statusTooltip}">
+											<core:Item key="{JSStatusList>StatKey}" text="{JSStatusList>StatText}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+							</HBox>
+						</VBox>
+						<Toolbar class="cl_tbr_1 cl_tbr_2">
+							<Text text="{i18n>allList}" tooltip="{i18n>allListTooltip}" id="idCardTitle" class="cl_Tltxt sapUiSmallMarginBegin"/>
+							<Text text="0" class="cl_badge_counter" id="id_LabTabSFRTitle"/>
+							<ToolbarSpacer/>
+							<HBox class="cl_hide_show_search_cont" id="id_show_hide_search">
+								<Image src="Images/toggleicontat.svg" id="qidSortIcon" width="14px" height="12px" class="cl_header_icon cl_status_hidetoggle"
+									tooltip="{i18n>viewAdvanceSearchTooltip}" press="fn_sortByQueid"/>
+								<Text text="{i18n>viewAdvanceSearch}" tooltip="{i18n>viewAdvanceSearchTooltip}" class="cl_Tltxt cl_Tltxt1" id="hiddenshowtxt"/>
+							</HBox>
+							<HBox class="cl_button_cont_hideshow">
+								<Button id="id_clear" text="{i18n>clear}" icon="Images/clearab.svg" type="Transparent" press="fnclearbutt" tooltip="{i18n>clearTooltip}"
+									class="sapUiSizeCompact cl_btn_cleara"/>
+								<Button id="id_search" text="{i18n>search}" icon="Images/searchab.svg" type="Transparent" press="fn_search" tooltip="{i18n>searchTooltip}"
+									class="sapUiSizeCompact cl_btn_searcha"/>
+							</HBox>
+						</Toolbar>
+						<uitable:Table id="idTable" rows="{AutoParkModel>/}" selectionMode="None" visibleRowCount="12" width="100%"
+							class="cl_custom_table cl_custom_tableapk cl_tatreport_table" fixedColumnCount="2">
+							<uitable:Column width="3rem" hAlign="Center" class="cl_column_header">
+								<HBox alignItems="Center" justifyContent="Center">
+									<Image src="Images/Filter.svg" press="fnFilterPop" class="sapUiSizeCompact cl_filter_btn cl_filter_btn1" tooltip="{i18n>filter}"/>
+								</HBox>
+								<uitable:template>
+									<Text text=""/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/0/visible}">
+								<Text text="Queue Id" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Queid}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- creation time -->
+							<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/1/visible}">
+								<Text text="Creation date" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'AutoParkModel>Erdat', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- Company Code -->
+							<uitable:Column width="7rem" hAlign="" class="cl_column_header" visible="{FilterTableModel>/2/visible}">
+								<Text text="Company Code" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Bukrs}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="4rem" hAlign="Center" visible="{FilterTableModel>/3/visible}">
+								<Text text="Plant" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Werks}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/4/visible}">
+								<Text text="Purchase grp" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Ekgrp}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/5/visible}">
+								<Text text="Purchase order" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Ebeln}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/6/visible}">
+								<Text text="Invoice no" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Veninvno}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/7/visible}">
+								<Text text="Invoice Date" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'AutoParkModel>Invdt', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/8/visible}">
+								<Text text="Document no" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Invrfno}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!--<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/9/visible}">-->
+							<!--	<Text text="Invoice Status" class="cl_Tltxt"/>-->
+							<!--	<uitable:template>-->
+							<!--		<Text text="{AutoParkModel>Invstats}" class="cl_column_cell"/>-->
+							<!--	</uitable:template>-->
+							<!--</uitable:Column>-->
+							<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/9/visible}">
+								<Text text="Agent" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Agent}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/10/visible}">
+								<Text text="IndAgnt" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>IndAgnt}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/11/visible}">
+								<Text text="Wbdate" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'AutoParkModel>Wbdate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/12/visible}">
+								<Text text="Wfagnt" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Wfagnt}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/13/visible}">
+								<Text text="Workitem Id" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Topid}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="100%" hAlign="Center" visible="{FilterTableModel>/14/visible}">
+								<Text text="Vendor" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Vendor}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 16 -->
+							<uitable:Column width="12rem" hAlign="Center" visible="{FilterTableModel>/15/visible}">
+								<Text text="Vendor Name" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>VenName}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 17 -->
+							<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/16/visible}">
+								<Text text="Fiscal year" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Gjahr}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 18 -->
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/17/visible}">
+								<Text text="Profit Center" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Prctr}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 19 -->
+							<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/18/visible}">
+								<Text text="Sub Status" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Substs}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 20 -->
+							<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/19/visible}">
+								<Text text="Reject Reason" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>RejReson}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 21 -->
+							<uitable:Column width="6rem" hAlign="Center" visible="{FilterTableModel>/20/visible}">
+								<Text text="Post Date" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'AutoParkModel>PostDate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 22 -->
+							<uitable:Column width="10rem" hAlign="Center" visible="{FilterTableModel>/21/visible}">
+								<Text text="GRN Apprv Date" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'AutoParkModel>GrnaprDt', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 23 -->
+							<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/22/visible}">
+								<Text text="Currency" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Waers}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 24 -->
+							<uitable:Column width="7rem" hAlign="Center" visible="{FilterTableModel>/23/visible}">
+								<Text text="Amount" class="cl_Tltxt"/>
+								<uitable:template>
+								
+									<Text text="{path:'AutoParkModel>Amnt', formatter :'FSC360NEW.model.formatter.fnAmount'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 25 -->
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/24/visible}">
+								<Text text="Withhold Amount" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text 	text="{path:'AutoParkModel>Whtamnt', formatter :'FSC360NEW.model.formatter.fnAmount'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 26 -->
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/25/visible}">
+								<Text text="Payable Amount" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text 	text="{path:'AutoParkModel>Pablamnt', formatter :'FSC360NEW.model.formatter.fnAmount'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 27 -->
+							<!-- 28 -->
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/26/visible}">
+								<Text text="Document Date" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{{path:'AutoParkModel>Bldat', formatter :'FSC360NEW.model.formatter.fnDate'}}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 29 -->
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/27/visible}">
+								<Text text="Payment terms" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Zterm}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 30 -->
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/28/visible}">
+								<Text text="Account Doc No" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Augbl}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 31 -->
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/29/visible}">
+								<Text text="Clearing Data" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'AutoParkModel>Cdate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 32 -->
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/30/visible}">
+								<Text text="Age" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Age}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 33 -->
+							<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/31/visible}">
+								<Text text="Gtt" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Gtt}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 34 -->
+							<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/32/visible}">
+								<Text text="Ntt" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Ntt}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!-- 35 -->
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/33/visible}">
+								<Text text="Goods Reciept" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Xabln}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="6rem" hAlign="Center" visible="{FilterTableModel>/34/visible}" sortProperty="Budat">
+								<Text text="Posting Date" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'AutoParkModel>Budat', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="6rem" hAlign="Center" visible="{FilterTableModel>/35/visible}" sortProperty="ZsrlDate">
+								<Text text="ZSRL_Date" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'AutoParkModel>ZsrlDate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="6rem" hAlign="Center" visible="{FilterTableModel>/36/visible}" sortProperty="Store">
+								<Text text="Store" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Store}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/37/visible}" sortProperty="ScanDate">
+								<Text text="Scan Date" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'AutoParkModel>ScanDate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" visible="{FilterTableModel>/38/visible}" sortProperty="ScanTime">
+								<Text text="Scan Time" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path: 'AutoParkModel>ScanTime', formatter :'FSC360NEW.model.formatter.fnTime'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/39/visible}" sortProperty="Email">
+								<Text text="Email" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Email}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/40/visible}" sortProperty="EmailDate">
+								<Text text="Email Date" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path: 'AutoParkModel>EmailDate', formatter: '.formatter.formatDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" visible="{FilterTableModel>/41/visible}" sortProperty="EmailTime">
+								<Text text="Email Time" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path: 'AutoParkModel>EmailTime', formatter :'FSC360NEW.model.formatter.fnTime'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/42/visible}" sortProperty="Gdate">
+								<Text text="Gate Date" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'AutoParkModel>Gdate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/43/visible}" sortProperty="Srvdate">
+								<Text text="Service Date" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'AutoParkModel>Srvdate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" visible="{FilterTableModel>/44/visible}" sortProperty="Wbtime">
+								<Text text="Weighbridge Time" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path: 'AutoParkModel>Wbtime', formatter :'FSC360NEW.model.formatter.fnTime'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/45/visible}" sortProperty="Inddate">
+								<Text text="Inddate" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'AutoParkModel>Inddate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" visible="{FilterTableModel>/46/visible}" sortProperty="Indtime">
+								<Text text="Invoice Time" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path: 'AutoParkModel>Indtime',formatter :'FSC360NEW.model.formatter.fnTime'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/47/visible}" sortProperty="Rejdate">
+								<Text text="Reject Date" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'AutoParkModel>Rejdate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" visible="{FilterTableModel>/48/visible}" sortProperty="Rejtime">
+								<Text text="Reject Time" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path: 'AutoParkModel>Rejtime', formatter :'FSC360NEW.model.formatter.fnTime'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" visible="{FilterTableModel>/49/visible}" sortProperty="Rejagnt">
+								<Text text="Reject Agent" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Rejagnt}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/50/visible}" sortProperty="Aprdate">
+								<Text text="Approval Date" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'AutoParkModel>Aprdate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" visible="{FilterTableModel>/51/visible}" sortProperty="Aprtime">
+								<Text text="Approval Time" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path: 'AutoParkModel>Aprtime', formatter :'FSC360NEW.model.formatter.fnTime'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" visible="{FilterTableModel>/52/visible}" sortProperty="PostTime">
+								<Text text="Post Time" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path: 'AutoParkModel>PostTime', formatter :'FSC360NEW.model.formatter.fnTime'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" visible="{FilterTableModel>/53/visible}" sortProperty="Apragnt">
+								<Text text="Approval Agent" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Apragnt}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" visible="{FilterTableModel>/54/visible}" sortProperty="QueAge">
+								<Text text="Queue Age" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>QueAge}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" visible="{FilterTableModel>/55/visible}" sortProperty="WbAge">
+								<Text text="WB Age" class="cl_Tltxt"/>
+								<uitable:template>
+									
+									<Text text="{path: 'AutoParkModel>WbAge', formatter :'FSC360NEW.model.formatter.fn_durationReadable'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" visible="{FilterTableModel>/56/visible}" sortProperty="AprAge">
+								<Text text="Approval Age" class="cl_Tltxt"/>
+								<uitable:template>
+								
+									<Text text="{path: 'AutoParkModel>AprAge', formatter :'FSC360NEW.model.formatter.fn_durationReadable'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" visible="{FilterTableModel>/57/visible}" sortProperty="TatAge">
+								<Text text="TAT Age" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path: 'AutoParkModel>TatAge', formatter :'FSC360NEW.model.formatter.fn_durationReadable'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!--visible="{FilterTableModel>/61/visible}"-->
+							<uitable:Column width="7rem" hAlign="Center" sortProperty="QueAged" visible="{FilterTableModel>/58/visible}">
+								<Text text="Queue Age" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="	{path: 'AutoParkModel>QueAged', formatter :'FSC360NEW.model.formatter.fn_durationReadable'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="14rem" hAlign="Center" visible="{FilterTableModel>/59/visible}" sortProperty="Vtext">
+								<Text text="Payment Terms" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{AutoParkModel>Vtext}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+						
+							<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/60/visible}">
+							
+								<Text text="Status" class="cl_Tltxt"/>
+								<uitable:template class="cl_column_cell">
+									<HBox alignItems="Center" width="90px">
+										<Button id="statusBtn" text="{AutoParkModel>Stats}" icon="sap-icon://circle-task-2" iconFirst="true" type="Transparent" class="cl_status">
+											<customData>
+												<core:CustomData key="status" value="{AutoParkModel>Stats}" writeToDom="true"/>
+											</customData>
+										</Button>
+									</HBox>
+								</uitable:template>
+							</uitable:Column>
+						</uitable:Table>
+						<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer cl_pagination_footer1 cl_pagination_min_height"
+							id="id_paginationfooter">
+							<HBox width="100px" justifyContent="Start">
+								<Button icon="Images/arrow-left.svg" text="Previous" width="100px" class="cl_prev_button" tooltip="{i18n>prvbtn}" press="fn_onPreviousPage"
+									id="idPrevBtn"/>
+							</HBox>
+							<HBox width="calc(100% - 200px)" id="idPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers "></HBox>
+							<HBox width="100px" justifyContent="End">
+								<Button text="Next" icon="Images/arrow-right.svg" iconFirst="false" class="cl_next_button" press="fn_onNextPage" id="idNextBtn"/>
+							</HBox>
+						</HBox>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

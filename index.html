@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8">
+
+		<title>FSC360NEW</title>
+
+		<script id="sap-ui-bootstrap"
+  src="resources/sap-ui-core.js"
+  data-sap-ui-libs="sap.m,sap.ui.layout"
+  data-sap-ui-theme="sap_belize"
+  data-sap-ui-compatVersion="edge"
+  data-sap-ui-appCacheBuster="./"
+  data-sap-ui-resourceroots='{"FSC360NEW": ""}'>
+</script>
+
+  <!--data-sap-ui-app-cache-buster="./"-->
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  </script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.0/jszip.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.0/xlsx.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<!-- Kendo UI CSS -->
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2025.1.119/styles/kendo.default-v2.min.css" />
+
+<!-- Kendo UI JS -->
+<script src="https://kendo.cdn.telerik.com/2025.1.119/js/jquery.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2025.1.119/js/kendo.all.min.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+		<script>
+			sap.ui.getCore().attachInit(function() {
+				// new sap.m.Shell({
+					app: new sap.ui.core.ComponentContainer({
+						height : "100%",
+						name : "FSC360NEW"
+					// })
+				}).placeAt("content");
+			});
+		</script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+	</head>
+
+	<body class="sapUiBody" id="content">
+	</body>
+
+</html>

@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:ui="sap.ui.table" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Dialog title="{i18n>Po Adopt}" class="sapUiSizeCompact APW_SimulatHeader clfrag cl_agentDialog cl_agentDialogadopt" resizable="true" draggable="true">
+		<content>
+			<l:Grid defaultSpan="L12 M6 S6" class="">
+				<l:content>
+					<Panel class=" sapUiSizeCompact">
+					
+						<ui:Table id="Id_TbPO" visible="true" rows="{JSSesDet>/}" class="sapUTinyMarginTop adopsestab FSC_Table_workbench FSC_Table cl_custom_table cl_custom_tableapk cl_tatreport_table cl_recall_table" selectionMode="MultiToggle" visibleRowCount="1"
+							paste="onPaste">
+							<ui:extension>
+								<OverflowToolbar class="clsbtnbrd" >
+									<ToolbarSpacer></ToolbarSpacer>
+									<Button  class="sapUiSizeCompact clbtn sesadd" icon="Images/addadopt.svg" press="fnPressAddPO" id="id_addPO"></Button>
+									<Button class="sapUiSizeCompact clbtn" icon="Images/remadopt.svg" press="fnPressDeletePO" id="id_deletePO"></Button>
+								</OverflowToolbar>
+							</ui:extension>
+							<ui:columns >
+								<ui:Column width="10%">
+									<Label text="{i18n>Purchase Order}" tooltip="{i18n>Purchase Order}"/>
+									<ui:template>
+										<Input value="{JSSesDet>Ebeln}" class=""></Input>
+									</ui:template>
+								</ui:Column>
+								<ui:Column width="10%">
+									<Label text="{i18n>Item No.}" tooltip="{i18n>Item No}"/>
+									<ui:template>
+										<Input value="{JSSesDet>Ebelp}" class=""></Input>
+									</ui:template>
+								</ui:Column>
+							</ui:columns>
+						</ui:Table>
+						
+						<layoutData>
+							<l:GridData span="L12 M12 S12"/>
+						</layoutData>
+					</Panel>
+				</l:content>
+			</l:Grid>
+		</content>
+			<beginButton>
+			<Button text="Cancel"  icon="Images/adoptcan.svg" press="fnGrnClose" class="cl_canbtn gl_canbtn gl_canbtn1 cl_canbtnadop "/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>Adopt}"  icon="Images/adoptsub.svg" press="fnSubmitGRN" class=" gl_subbtn gl_subbtn1 cl_adopsubmit "/>
+		</endButton>
+	
+	</Dialog>
+</core:FragmentDefinition>

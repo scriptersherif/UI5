@@ -1,0 +1,29 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    core:controllerName="FSC360NEW.controller.Approval">
+
+    <Dialog
+        id="confirmDialog"
+        title="Confirmation"
+        icon="sap-icon://question-mark"
+        type="Message"
+       class="cl_agentDialog"
+        afterClose="onConfirmDialogClose">
+
+        <Text id="confirmText" />
+
+        <beginButton>
+        	<Button  icon="Images/closecnfrm.svg" 
+                text="No"
+                press="onConfirmNoPress"  class=" gl_canbtn gl_canbtn1 gl_canbtn1cnf " />
+           
+        </beginButton>
+
+        <endButton>
+             <Button  icon="Images/checkcnfm.svg" 
+                text="Yes"
+                press="onConfirmYesPress"  class="gl_subbtn gl_subbtn1 gl_subbtn1cnf"  />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

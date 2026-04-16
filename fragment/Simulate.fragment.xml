@@ -1,0 +1,288 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:ui="sap.ui.table" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Dialog title="{i18n>Simulate Document}" class="sapUiSizeCompact sapUiSmallMarginBegin cl_frag cl_frag_rightslide" resizable="true"
+		draggable="false" contentHeight="auto" afterOpen="onAfterSimulateDialogOpen">
+		<content>
+			<Panel class="simpanel">
+				<ui:Table rows="{JMSimulate>/}" class="sapUTinyMarginTop simtable" selectionMode="None" visibleRowCountMode="Fixed" visibleRowCount="1"
+					id="idsimtable" paste="onPaste">
+					<ui:columns >
+						<ui:Column width="4rem">
+							<Label text="{i18n>Position}" tooltip="{i18n>Position}"/>
+							<ui:template>
+								<Text text="{path:'JMSimulate>Posnr',formatter:'FSC360NEW.model.formatter.fnLeadingZero'}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="5rem">
+							<Label text="{i18n>Account type}" tooltip="{i18n>Account type}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Koart}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="7rem">
+							<Label text="{i18n>G/L Account}" tooltip="{i18n>G/L Account}"/>
+							<ui:template>
+								<Text text="{path:'JMSimulate>Hkont',formatter:'FSC360NEW.model.formatter.fnLeadingZero'}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="10rem">
+							<Label textAlign="Center" text="{i18n>Act/Mat/Ast/Vndr}" tooltip="{i18n>Act/Mat/Ast/Vndr}"/>
+							<ui:template >
+								<Text text="{JMSimulate>Maktx}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="10rem" hAlign="left">
+							<Label text="{i18n>Amount}" tooltip="{i18n>Amount}"/>
+							<ui:template>
+								<Text text="{path:'JMSimulate>Ntamt',formatter:'FSC360NEW.model.formatter.fnAmount'}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="4rem">
+							<Label textAlign="Center" text="{i18n>Curr.}" tooltip="{i18n>Currency}"/>
+							<ui:template >
+								<Text text="{JMSimulate>Waers}" class="lblAlignRes2" textAlign="Center" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="6rem">
+							<Label text="{i18n>PO No.}" tooltip="{i18n>PO No.}"/>
+							<ui:template>
+								<Text text="{path:'JMSimulate>Ebeln',formatter:'FSC360NEW.model.formatter.fnLeadingZero'}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="5rem">
+							<Label text="{i18n>Item}" tooltip="{i18n>Item}"/>
+							<ui:template>
+								<Text text="{path:'JMSimulate>Ebelp',formatter:'FSC360NEW.model.formatter.fnLeadingZero'}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="5rem">
+							<Label text="{i18n>Tax Code}" tooltip="{i18n>Tax Code}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Mwskz}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="7rem">
+							<Label text="{i18n>Jurisd. tax}" tooltip="{i18n>Jurisd. tax}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Txjcd}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="7rem">
+							<Label text="{i18n>Tax Date}" tooltip="{i18n>Tax Date}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Txdat}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="7rem">
+							<Label text="{i18n>Bus. Area}" tooltip="{i18n>Bus. Area}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Gsber}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="7rem">
+							<Label text="{i18n>Cost Center}" tooltip="{i18n>Cost Center}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Kostl}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="5rem">
+							<Label text="{i18n>Company code}" tooltip="{i18n>Company code}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Bukrs}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="7rem">
+							<Label text="{i18n>Order}" tooltip="{i18n>Order}"/>
+							<ui:template>
+								<Text text="{path:'JMSimulate>Aufnr',formatter:'FSC360NEW.model.formatter.fnLeadingZero'}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="7rem">
+							<Label text="{i18n>Asset}" tooltip="{i18n>Asset}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Anln1}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="7rem">
+							<Label text="{i18n>Sub Number}" tooltip="{i18n>Sub Number}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Anln2}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="9rem">
+							<Label text="{i18n>Asset Val. Date}" tooltip="{i18n>Asset Val. Date}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Bzdat}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="10rem">
+							<Label text="{i18n>Material}" tooltip="{i18n>Material}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Matnr}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="10rem" hAlign="Right">
+							<Label text="{i18n>Quantity}" tooltip="{i18n>Quantity}"/>
+							<ui:template>
+								<Text text="{path:'JMSimulate>Menge',formatter:'FSC360NEW.model.formatter.fnAmount'}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="4rem">
+							<Label text="{i18n>Base Unit}" tooltip="{i18n>Base Unit}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Meins}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="6rem">
+							<Label text="{i18n>Plant}" tooltip="{i18n>Plant}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Werks}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="10rem">
+							<Label text="{i18n>PartBusArea}" tooltip="{i18n>PartBusArea}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Pargb}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="9rem">
+							<Label text="{i18n>Profit.Seg.}" tooltip="{i18n>Profit.Seg.}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Paobjnr}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="10rem">
+							<Label text="{i18n>Profit Center}" tooltip="{i18n>Profit Center}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Prctr}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="10rem">
+							<Label text="{i18n>Partner Proft Ctr}" tooltip="{i18n>Partner Proft Ctr}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Pprctr}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="13rem">
+							<Label text="{i18n>WBS Element}" tooltip="{i18n>WBS Element}"/>
+							<ui:template>
+								<Text text="{JMSimulate>PsPspPnr}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="10rem">
+							<Label text="{i18n>Network}" tooltip="{i18n>Network}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Nplnr}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="10rem">
+							<Label text="{i18n>Sales Order}" tooltip="{i18n>Sales Order}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Kdauf}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="6rem">
+							<Label text="{i18n>Sles.Ord.Itm}" tooltip="{i18n>Sles.Ord.Itm}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Kdpos}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="10rem">
+							<Label text="{i18n>Vendor}" tooltip="{i18n>Vendor}"/>
+							<ui:template>
+								<Text text="{path:'JMSimulate>Lifnr',formatter:'FSC360NEW.model.formatter.fnLeadingZero'}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="6rem">
+							<Label text="{i18n>Posting Key}" tooltip="{i18n>Posting Key}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Bschl}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="10rem">
+							<Label text="{i18n>Pstg.LineID}" tooltip="{i18n>Pstg.LineID}"/>
+							<ui:template>
+								<Text text="{JMSimulate>Buzid}" class="lblAlignRes2" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="10rem">
+							<Label text="{i18n>Created Auto}" tooltip="{i18n>Created Auto}"/>
+							<ui:template>
+								<CheckBox text="{JMSimulate>Xauto}" enabled="false"></CheckBox>
+							</ui:template>
+						</ui:Column>
+					</ui:columns>
+				</ui:Table>
+			</Panel>
+			<Panel class="simpanel">
+				<ui:Table rows="{JMChecklist>/}" class="sapUSmallMarginTop cl_checktable validtab" id="id_ChkList" selectionMode="MultiSelect" width="100%"
+					visibleRowCount="4" enableSelectAll="true" selectionBehavior="Row">
+					<ui:columns >
+						<ui:Column >
+							<Label text="{i18n>Self acknowledgment}"
+								tooltip="{i18n>Self acknowledgment}" class="checklistHeaderLabel"/>
+							<ui:template>
+								<Text text="{JMChecklist>Descp}" class="valtabrow" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+					</ui:columns>
+				</ui:Table>
+			</Panel>
+		</content>
+		<!--<Toolbar class="barClass sapUiSmallMarginTop">-->
+		<!--	<Text text="{i18n>Debit}:" class="APW_BalenceClass sapUiSmallMarginBegin"></Text>-->
+		<!--	<Text class="sapUiTinyMarginBegin APW_BalenceClass1" id="id_Debit"></Text>-->
+		<!--	<ToolbarSpacer/>-->
+		<!--	<Text text="{i18n>Credit}:" class="APW_BalenceClass"></Text>-->
+		<!--	<Text class="sapUiTinyMarginBegin APW_BalenceClass1" id="id_Credit"></Text>-->
+		<!--	<ToolbarSpacer/>-->
+		<!--	<Text text="{i18n>Balance}:" class="APW_BalenceClass"></Text>-->
+		<!--	<Text class="sapUiTinyMarginBegin sapUiSmallMarginEnd APW_BalenceClass1" id="id_Balance"></Text>-->
+		<!--</Toolbar>-->
+		<Toolbar class="barClass sapUiSmallMarginTop sapUiSmallMarginBegin apwBalanceToolbar">
+			<HBox class="apwSummaryContainer">
+				<HBox class="apwBalanceBoxd apwDebitBox">
+					<Image src="Images/debit.svg" class="balanceImg"/>
+					<Text text="{i18n>Debit} :" class="APW_BalenceClass"/>
+					<Text id="id_Debit" class="APW_BalenceClass1"/>
+				</HBox>
+				<HBox class="apwBalanceBoxc apwCreditBox">
+					<Image src="Images/credit.svg" class="balanceImg"/>
+					<Text text="{i18n>Credit} :" class="APW_BalenceClass"/>
+					<Text id="id_Credit" class="APW_BalenceClass1"/>
+				</HBox>
+				<HBox class="apwBalanceBoxb apwTotalBox">
+					<Image src="Images/bal.svg" class="balanceImg"/>
+					<Text text="{i18n>Balance} :" class="APW_BalenceClass"/>
+					<Text id="id_Balance" class="APW_BalenceClass1"/>
+				</HBox>
+			</HBox>
+		</Toolbar>
+		<Link id="id_ErrorLink" text="{i18n> 0 Errors}" press="fn_Error_frag" class="sapUiTinyMarginTop sapUiTinyMarginBegin "></Link>
+		<!--<HBox class="sapUiSizeCompact sapUiSmallMargin" alignContent="Cneter" alignItems="Center" justifyContent="Center">-->
+		<!--	<Button text="{i18n>Close}" press="fn_Simulate_frag_close" class="sapUiTinyMarginEnd  cl_fragcancelbtn" tooltip="{i18n>Close}"/>-->
+		<!--	<Button text="{i18n>Post}" id="id_post_btn" tooltip="{i18n>Post}" class="sapUiTinyMarginBegin  cl_fragfinalbtn" press="fn_Post_Simulate"/>-->
+		<!--</HBox>-->
+	<buttons>
+    <Button text="{i18n>Cancel}" 
+            tooltip="{i18n>Close}" 
+            icon="Images/cancel.svg" 
+            class="gl_canbtn simcan" 
+            press="fn_Simulate_frag_close" />
+    <Button text="{i18n>Park}" 
+            tooltip="{i18n>Park}" 
+            icon="Images/postsim.svg" 
+            class="gl_subbtn simpost" 
+            press="fn_Park_Simulate" />
+    <Button text="{i18n>Post}" 
+            tooltip="{i18n>Post}" 
+            icon="Images/postsim.svg" 
+            class="gl_subbtn simpost" 
+            press="fn_Post_Simulate" />
+</buttons>
+
+		<!--<HBox class="sapUiSizeCompact sapUiSmallMargin" justifyContent="End" alignItems="Center">-->
+		<!--	<Button text="{i18n>Close}" press="fn_Simulate_frag_close" class="sapUiTinyMarginEnd cl_fragcancelbtn" tooltip="{i18n>Close}"/>-->
+		<!--	<Button text="{i18n>Post}" id="id_post_btn" tooltip="{i18n>Post}" class="sapUiTinyMarginBegin cl_fragfinalbtn" press="fn_Post_Simulate"/>-->
+		<!--</HBox>-->
+	</Dialog>
+</core:FragmentDefinition>

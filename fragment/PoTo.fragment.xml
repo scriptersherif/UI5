@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">	
+		 <SelectDialog
+		    title="Purchase Order"
+		    contentWidth="3rem"
+		    class="sapUiPopupWithPadding"
+		    search="fnFilterPoTo"
+		    liveChange="fnFilterPoTo"
+		    confirm="fnValueHelpClosePoTo"
+		    cancel="fnValueHelpClosePoTo"
+		    items="{P>/Podet/results}">
+            <StandardListItem
+		      iconDensityAware="false"
+		      iconInset="false"
+		      title="{P>Ebeln}"/>
+  </SelectDialog>		
+</core:FragmentDefinition>

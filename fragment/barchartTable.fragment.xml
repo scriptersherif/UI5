@@ -1,0 +1,191 @@
+<!--<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" displayBlock="true" xmlns:T="sap.ui.table" xmlns:ui="sap.ui.table.Table"-->
+<!--	xmlns:u="sap.ui.unified">-->
+<!--	<Dialog id="barChartDialog" title="Invoice Table" draggable="true" resizable="true" showHeader="false">-->
+<!--		<Toolbar class="cl_dialog" width="100%">-->
+<!--			<Image src="Images/xmark.svg" width="20px" class="sapUiSmallMargin" visible="false"/>-->
+<!--			<ToolbarSpacer/>-->
+<!--			<Text class="cl_dialoghd" text="Manual Postal Invoice Report"></Text>-->
+<!--			<Text class="cl_dialoghd" text=" "></Text>-->
+<!--			<ToolbarSpacer/>-->
+			<!--<core:Icon class="cl_toolicon sapUiSmallMargin" src="sap-icon://decline" press="fncloseview"></core:Icon>-->
+<!--			<Image src="Images/xmark.svg" width="20px" class="sapUiSmallMargin" press="fnCloseManualInvInfo"/>-->
+<!--		</Toolbar>-->
+<!--		<content>-->
+<!--			<VBox>-->
+<!--				<Table items="{barModel>/}" width="70rem" class="sapUiSizeCompact cl_table1"  growing="true" fixedLayout="false" growingScrollToLoad="true" growingThreshold="700">-->
+<!--					<columns>-->
+<!--						<Column><Text text="Invoice Document" class="cl_table-text1 cl_bold"/></Column>-->
+<!--						<Column><Text text="Year" class="cl_table-text1 cl_bold"/></Column>-->
+<!--						<Column><Text text="Account Document" class="cl_table-text1 cl_bold"/></Column>-->
+<!--							<Column><Text text="Vendor" class="cl_table-text1 cl_bold"/></Column>-->
+<!--						<Column><Text text="Invoice Type" class="cl_table-text1 cl_bold"/></Column>-->
+<!--					</columns>-->
+<!--					<items>-->
+<!--						<ColumnListItem>-->
+<!--							<cells>-->
+<!--								<Text text="{barModel>MIRO_DOC}"/>-->
+<!--									<Text text="{barModel>GJAHR}"/>-->
+<!--								<Text text="{barModel>ACCT_DOC}"/>-->
+<!--								<Text text="{barModel>NAME1}"/>-->
+<!--								<Text text="{barModel>INV_TYPE}"/>-->
+<!--							</cells>-->
+<!--						</ColumnListItem>-->
+<!--					</items>-->
+<!--				</Table>-->
+<!--			</VBox>-->
+<!--		</content>-->
+<!--		<VBox class="sapUiSizeCompact sapUiSmallMargin" alignContent="Cneter" alignItems="Center" justifyContent="Center">-->
+<!--			<Button type="Attention" text="Download As Excel" icon="FSC_Images/Downloadexcal.svg" press="onDownload_ManualInvInfo"-->
+<!--				class="cl_iconbt sapUiSizeCompact cl_button"/>-->
+			<!--<endButton>-->
+<!--		</VBox>-->
+<!--	</Dialog>-->
+<!--</core:FragmentDefinition>-->
+
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    
+    xmlns:T="sap.ui.table" xmlns:ui="sap.ui.table.Table"
+ >
+
+    <Dialog
+        id="barChartDialog"
+        draggable="true"
+        resizable="true"
+        showHeader="false"
+        contentWidth="50rem"
+        contentHeight="400px"       
+        verticalScrolling="true"
+        class="cl_agentDialog">
+
+        <!-- Fixed top header -->
+        <customHeader>
+            <Toolbar class="cl_dialog" width="100%">
+                <ToolbarSpacer/>
+                <Text class="cl_dialoghd" text="Manual Postal Invoice Report"/>
+                <ToolbarSpacer/>
+                <Image
+                    src="Images/xmark.svg"
+                    width="20px"
+                    class="sapUiSmallMargin"
+                    press="fnCloseManualInvInfo"/>
+            </Toolbar>
+        </customHeader>
+
+        <!-- Scrollable content (only table scrolls) -->
+        <content>
+            <VBox height="100%" justifyContent="Start">
+                <ScrollContainer
+                    height="100%"
+                    vertical="true"
+                    horizontal="false">
+
+                    <Table
+                        items="{barModel>/}"
+                        width="100%"
+                        class="sapUiSizeCompact cl_table1"
+                        growing="true"
+                        growingScrollToLoad="true"
+                        growingThreshold="700"
+                        fixedLayout="false">
+
+                        <columns>
+                            <Column>
+                                <Text text="Invoice Document" class="cl_table-text1 cl_bold"/>
+                            </Column>
+                            <Column>
+                                <Text text="Year" class="cl_table-text1 cl_bold"/>
+                            </Column>
+                            <Column>
+                                <Text text="Account Document" class="cl_table-text1 cl_bold"/>
+                            </Column>
+                            <Column>
+                                <Text text="Vendor" class="cl_table-text1 cl_bold"/>
+                            </Column>
+                            <Column>
+                                <Text text="Invoice Type" class="cl_table-text1 cl_bold"/>
+                            </Column>
+                        </columns>
+
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="{barModel>MIRO_DOC}"/>
+                                    <Text text="{barModel>GJAHR}"/>
+                                    <Text text="{barModel>ACCT_DOC}"/>
+                                    <Text text="{barModel>NAME1}"/>
+                                    <Text text="{barModel>INV_TYPE}"/>
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+<!--<ui:Table-->
+<!--    id="idManualInvUiTable"-->
+<!--    rows="{barModel>/}"-->
+<!--    selectionMode="None"-->
+<!--    visibleRowCount="14"-->
+<!--    visibleRowCountMode="Auto"-->
+<!--    width="100rem"-->
+<!--    class="sapUiSizeCompact cl_table1"-->
+<!--    columnHeaderVisible="true">-->
+
+<!--    <ui:columns>-->
+
+        <!-- 1. Invoice Document -->
+<!--        <ui:Column width="10rem">-->
+<!--            <Label text="Invoice Document" class="cl_table-text1 cl_bold"/>-->
+<!--            <ui:template>-->
+<!--                <Text text="{barModel>MIRO_DOC}" />-->
+<!--            </ui:template>-->
+<!--        </ui:Column>-->
+
+        <!-- 2. Year -->
+<!--        <ui:Column width="4rem">-->
+<!--            <Label text="Year" class="cl_table-text1 cl_bold"/>-->
+<!--            <ui:template>-->
+<!--                <Text text="{barModel>GJAHR}" />-->
+<!--            </ui:template>-->
+<!--        </ui:Column>-->
+
+        <!-- 3. Account Document -->
+<!--        <ui:Column width="10rem">-->
+<!--            <Label text="Account Document" class="cl_table-text1 cl_bold"/>-->
+<!--            <ui:template>-->
+<!--                <Text text="{barModel>ACCT_DOC}" />-->
+<!--            </ui:template>-->
+<!--        </ui:Column>-->
+
+        <!-- 4. Vendor -->
+<!--        <ui:Column width="14rem">-->
+<!--            <Label text="Vendor" class="cl_table-text1 cl_bold"/>-->
+<!--            <ui:template>-->
+<!--                <Text text="{barModel>NAME1}" />-->
+<!--            </ui:template>-->
+<!--        </ui:Column>-->
+
+        <!-- 5. Invoice Type -->
+<!--        <ui:Column width="12rem">-->
+<!--            <Label text="Invoice Type" class="cl_table-text1 cl_bold"/>-->
+<!--            <ui:template>-->
+<!--                <Text text="{barModel>INV_TYPE}" />-->
+<!--            </ui:template>-->
+<!--        </ui:Column>-->
+
+<!--    </ui:columns>-->
+
+<!--</ui:Table>-->
+
+                </ScrollContainer>
+            </VBox>
+        </content>
+
+ 
+	<endButton>
+			<Button text="{i18n>Download As Excel}"   press="onDownload_ManualInvInfo" 
+			class=" gl_subbtn sapUiSmallMarginBottom rignt "></Button>
+		</endButton>
+        <!-- If you prefer left-aligned button, use beginButton instead -->
+
+    </Dialog>
+</core:FragmentDefinition>

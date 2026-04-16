@@ -1,0 +1,81 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table" id="id_DP_Clearing">
+	<Dialog showHeader="true" title="{i18n>Down Payment Clearing}">
+		<content>
+			<t:Table  rows="{JDPClear>/}" horizontalScroll="true" selectionMode="None" selection="false" visibleRowCount="5">
+				<t:Column width="8rem" hAlign="Begin" class="cl_coloumncolor">
+					<Label text="{i18n>Document No}" class="cl_tabletxt" textDirection="LTR"/>
+					<t:template>
+						<Text text="{JDPClear>Belnr}" class="cl_text1" textDirection="LTR"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="4rem" hAlign="Begin" class="cl_coloumncolor">
+					<Label text="{i18n>Company code}" class="cl_tabletxt" textDirection="LTR"/>
+					<t:template >
+						<Text text="{JDPClear>Bukrs}" class="cl_text1" textDirection="LTR" textAlign="Begin"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="4rem" hAlign="Begin" class="cl_coloumncolor">
+					<Label text="{i18n>Year}" class="cl_tabletxt" textDirection="LTR"/>
+					<t:template>
+						<Text text="{JDPClear>Gjahr}" class="cl_text1"></Text>
+					</t:template>
+				</t:Column>
+				<t:Column width="4rem" hAlign="Begin" class="cl_coloumncolor">
+					<Label text="{i18n>Item}" class="cl_tabletxt" textDirection="LTR"/>
+					<t:template>
+						<Text text="{JDPClear>Buzei}" class="cl_text1" textDirection="LTR"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="12rem" hAlign="Begin" class="cl_coloumncolor">
+					<Label text="{i18n>Po Number}" class="cl_tabletxt" textDirection="LTR"/>
+					<t:template>
+						<Text text="{JDPClear>Ebeln}" class="cl_text1" textDirection="LTR"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="6rem" hAlign="Begin" class="cl_coloumncolor">
+					<Label text="{i18n>PO Item}" class="cl_tabletxt" textDirection="LTR"/>
+					<t:template>
+						<Text text="{JDPClear>Ebelp}" class="cl_text1" textDirection="LTR"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="5rem" hAlign="Begin" class="cl_coloumncolor">
+					<Label text="{i18n>Sequence Num}" class="cl_tabletxt" textDirection="LTR"/>
+					<t:template>
+						<Text text="{JDPClear>Zekkn}" class="cl_text1"></Text>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Begin" class="cl_coloumncolor">
+					<Label text="{i18n>Line Item Amt}" class="cl_tabletxt" textDirection="LTR"/>
+					<t:template>
+						<Text text="{JDPClear>LineAmount}" class="cl_text1"></Text>
+					</t:template>
+				</t:Column>
+				<t:Column width="6rem" hAlign="Right" class="cl_coloumncolor">
+					<Label text="{i18n>Available Amount}" class="cl_tabletxt" textDirection="Inherit"/>
+					<t:template>
+						<Text text="{JDPClear>OpenAmount}" class="cl_text1" textDirection="LTR"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="7rem" hAlign="Begin" class="cl_coloumncolor">
+					<Label text="{i18n>Clearing Amount}" class="cl_text1" textDirection="LTR"/>
+					<t:template>
+						<!--<Input value="{JDPClear>ClearingAmount}"   editable="false" class="cl_text1 sapUiSizeCompact sapUiTinyMargin formInputBw" textDirection="LTR"></Input>-->
+						<Text text="{JDPClear>ClearingAmount}" class="cl_text1" textDirection="LTR"></Text>
+					</t:template>
+				</t:Column>
+				<t:Column width="6rem" hAlign="Right" class="cl_coloumncolor">
+					<Label text="{i18n>Currency}" class="cl_tabletxt" textDirection="Inherit"/>
+					<t:template>
+						<Text text="{JDPClear>Waers}" class="cl_text1" textDirection="LTR"/>
+					</t:template>
+				</t:Column>
+			</t:Table>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button  text="{i18n>Cancel}" visible="true" class="gl_canbtn gl_canbtn1" press="fn_closedp"></Button>
+				<!--<Button id="id_submitbtn" text="{i18n>Submit Change}" visible="true" press="fn_submitdpclear" class=" gl_subbtn gl_subbtn1 "></Button>-->
+				<!--<Button id="id_postdpbtn" text="{i18n>Post Downpayment}" visible="false" press="fn_postdpclear" class=" gl_subbtn gl_subbtn1 "></Button>-->
+			</OverflowToolbar>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

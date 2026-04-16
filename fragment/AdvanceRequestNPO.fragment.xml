@@ -1,0 +1,267 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:ui="sap.ui.table" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified"
+	xmlns:f="sap.ui.layout.form" xmlns:tnt="sap.tnt">
+	<Dialog title="Vendor Advance Request Process"
+		class="sapUiSizeCompact sapUiSmallMarginBegin cl_frag cl_frag_rightslide cl_frag_rightslide_advnpo" resizable="true" draggable="false"
+		contentHeight="100%" contentWidth="40%" afterOpen="onAfterSimulateDialogOpen">
+		<content>
+			<VBox class="cl_barcode_input_cont cl_advance_npo" id="idFormFull">
+				<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="Vendor" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<Input editable="{path: 'JSKey>/0/Key'}" class="formInputB1 forminputfragpo" value="" width="100%" layoutData="sap.ui.layout.FlexItemData"
+								id="In_Vendor_NonPo"/>
+							<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+						</HBox>
+					</VBox>
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="Country" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<Input editable="{path: 'JSKey>/0/Key'}" id="In_NonPo_Country" class="formInputB1 forminputfragpo" value="" width="100%"
+								layoutData="sap.ui.layout.FlexItemData"/>
+							<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+						</HBox>
+					</VBox>
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="City" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<Input editable="{path: 'JSKey>/0/Key'}" class="formInputB1 forminputfragpo" value=" " width="100%" layoutData="sap.ui.layout.FlexItemData"
+								id="In_NonPo_City"/>
+							<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+						</HBox>
+					</VBox>
+				</HBox>
+				<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+					<VBox class="formFieldbarcode" width="">
+						<Text text="Region" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<Input id="In_NonPo_Region" editable="{path: 'JSKey>/0/Key'}" class="formInputB1 forminputfragpo" value="" width="100%"
+								layoutData="sap.ui.layout.FlexItemData"/>
+						</HBox>
+					</VBox>
+					<VBox class="formFieldbarcode" width="">
+						<Text text="Vendor advance" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<Input id="In_NonPo_Vadv" editable="{path: 'JSKey>/0/Key'}" class="formInputB1 forminputfragpo" value="" liveChange="fnLiveBuspnon"
+								width="100%" layoutData="sap.ui.layout.FlexItemData"/>
+							<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_getVendor"/>-->
+						</HBox>
+					</VBox>
+					<VBox class="formFieldbarcode" width=""></VBox>
+				</HBox>
+				<VBox id="fullbox_before" class="cl_full_box1 cl_full_box2 cl_full_box22" width="100%" height="200px">
+					<Label text="Upload Invoice" required="true" class="cl_attach_lbl cl_attach_lbl2"/>
+					<VBox id="idDragDropBox" width="100%" height="97%" alignItems="Center" dragEnter="onDragEnter" dragOver="onDragOver" drop="onFileDrop"
+						class="cl_dragdrop cl_dragdrop1">
+						<VBox id="idFileBox" width="100%" height="97%" justifyContent="Center" alignItems="Center" dragEnter="onDragEnter" dragOver="onDragOver"
+							drop="onFileDrop" class="cl_file_upload cl_file_upload2">
+							<HBox class="file_upload_content_adv">
+								<u:FileUploader id="id_image_non" name="myFileUpload" iconOnly="true" icon="" uploadUrl="" class="hiddenUploader" width="2px" height="2px"
+									tooltip="{i18n>Uploadyourfiletothelocalserver}" uploadComplete="save" fileType="pdf" typeMissmatch="fnTypeMismatch"
+									change="fnInputAllLiveChange"/>
+								<Image src="Images/fileUpload.svg" class="cl_upload_btn cl_upload_btn1"/>
+								<VBox width="230px">
+									<HBox class="uploadTextBox" justifyContent="Center">
+										<Text text="Click to upload" class="uploadText"/>
+										<Text text=" or drag and drop" class="uploadSubText"/>
+									</HBox>
+									<Text text="PDF, PNG, JPG (max. 800x400px)" class="hintText hintText1"/>
+								</VBox>
+								<!--	<u:FileUploader width="0.1%" typeMissmatch="handleTypeMissmatch" fileType="pdf,png" change="onFileChange" uploadOnChange="false"-->
+								<!--id="fileuploader" class="hiddenUploader" buttonText=" "></u:FileUploader>-->
+							</HBox>
+						</VBox>
+					</VBox>
+				</VBox>
+				<HBox id="idAttachmentBox" visible="false" class="attachmentBox_nonpo" alignItems="Center" justifyContent="SpaceBetween">
+					<HBox>
+						<HBox justifyContent="Center">
+							<Image src="Images/Fileuploadicon.svg" class="cl_appr_pdf"/>
+						</HBox>
+						<HBox class="cl_approval_pdf">
+							<HBox>
+								<Text id="idFileNameText" text="Attachments" class="fileText"/>
+							</HBox>
+						</HBox>
+					</HBox>
+					<HBox>
+						<Image src="Images/open-in-new.svg" press="fn_pdf" class="cl_appr_view"/>
+					</HBox>
+				</HBox>
+				<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="Company Code" class="cl_textbarcode cl_mandatory_label"/>
+						<HBox class="formInputWithIconbar">
+						<ComboBox id="In_Non_CompCode" items="{JSCCode>/Company}" width="100%" tooltip="" liveChange="fnliveCompanynon" 
+							class="cl_combo_transBar cl_combo_transtat cl_combo_adv_frag">
+								<core:Item key="{JSCCode>Bukrs}" text="{JSCCode>Bukrs}" additionalText= "{JSCCode>Butxt}" tooltip="Company code"/>
+							</ComboBox>
+							<!--<Input   editable="{path: 'JSKey>/0/Key'}" id="In_Non_CompCode" liveChange="fnliveCompanynon" class="formInputB1 forminputfragpo" value="" width="100%" layoutData="sap.ui.layout.FlexItemData"/>-->
+							<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fnCompValueHelpNon"/>-->
+						</HBox>
+					</VBox>
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="Reference Number" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<Input editable="{path: 'JSKey>/0/Key'}" id="In_ReffNPo" class="formInputB1 forminputfragpo" value=" " width="100%"
+								layoutData="sap.ui.layout.FlexItemData"/>
+							<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+						</HBox>
+					</VBox>
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="G/L Account" class="cl_textbarcode cl_mandatory_label"/>
+						<HBox class="formInputWithIconbar">
+							<ComboBox id="In_NonPo_GL" items="{GL>/GL/results}" width="100%" tooltip="{i18n>vendor}" liveChange="fnPoNonGlChange"
+							 class="cl_combo_transBar cl_combo_transtat cl_combo_adv_frag">
+								<core:Item key="{GL>Saknr}" text="{GL>Saknr}"/>
+							</ComboBox>
+							<!--<Input  editable="{path: 'JSKey>/0/Key'}" id="In_NonPo_GL" class="formInputB1 forminputfragpo" liveChange="fnPoNonGlChange"  value="" width="100%" layoutData="sap.ui.layout.FlexItemData"/>-->
+							<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_getVendor"/>-->
+						</HBox>
+					</VBox>
+				</HBox>
+				<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="Posting Date" class="cl_textbarcode cl_mandatory_label"/>
+						<HBox class="formInputWithIconbar fragpodate">
+							<DatePicker valueFormat="yyyy-MM-dd" id="id_postDatenon" change="fnPostingDateChangenon" displayFormat="dd/MM/yyyy" placeholder=" "
+								class="formInputB1 forminputfragpo" readonly="true" dateValue="{path: 'JSDate>Invdt'}"/>
+						</HBox>
+					</VBox>
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="Special G/L Ind" class="cl_textbarcode cl_mandatory_label"/>
+						<HBox class="formInputWithIconbar">
+							<ComboBox id="In_Specialnon" items="{SPG>/SpGl/results}" width="100%" tooltip="{i18n>Special G/L Ind}" liveChange="fnSpecialGlChangenon"
+							 class="cl_combo_transBar cl_combo_transtat cl_combo_adv_frag">
+								<core:Item key="{SPG>Shbkz}" text="{SPG>Shbkz}"/>
+							</ComboBox>
+							<!--<Input  id="In_Specialnon" editable="{path: 'JSKey>/0/Key'}" liveChange="fnSpecialGlChangenon"  class="formInputB1 forminputfragpo" value="" width="100%" layoutData="sap.ui.layout.FlexItemData"/>-->
+							<!--<Image src="Images/popup.svg" change="fnSpecialglchangeNon" width="12px" height="15px" class="inputIcon3" press="fn_getVendor"/>-->
+						</HBox>
+					</VBox>
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="Due On" class="cl_textbarcode cl_mandatory_label"/>
+						<HBox class="formInputWithIconbar fragpodate">
+							<DatePicker id="id_DueOnDatenon" change="fnDueOnDateChangenon" valueFormat="YYYY-MM-ddT00:00:00" displayFormat="dd/MM/yyyy" placeholder=" "
+								class="formInputB1 forminputfragpo" readonly="true"/>
+						</HBox>
+					</VBox>
+				</HBox>
+				<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="Period" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<Input editable="{path: 'JSKey>/0/Key'}" id="In_Periodnon" class="formInputB1 forminputfragpo" value="" width="100%"
+								layoutData="sap.ui.layout.FlexItemData"/>
+							<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+						</HBox>
+					</VBox>
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="Document Type" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<ComboBox id="In_Po_DocTypenon" items="{DTN>/DocType/results}" width="100%" tooltip="{i18n>Document Type}" liveChange="fnLiveDocNonPo"
+							class="cl_combo_transBar cl_combo_transtat cl_combo_adv_frag">
+								<core:Item key="{DTN>Blart}" text="{DTN>Blart}"/>
+							</ComboBox>
+							<!--<Input  editable="{path: 'JSKey>/0/Key'}" id="In_Po_DocTypenon" liveChange="fnLiveDocNonPo" class="formInputB1 forminputfragpo" value="" width="100%" layoutData="sap.ui.layout.FlexItemData"/>-->
+							<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_getVendor"/>-->
+						</HBox>
+					</VBox>
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="Profit Center" class="cl_textbarcode cl_mandatory_label"/>
+						<HBox class="formInputWithIconbar">
+								<ComboBox id="In_ProfitCe_nont" items="{MProfitCenter>/}" placeholder="{i18n>ProfitCenter}"
+											class="cl_combo_transBar cl_combo_transtat cl_combo_adv_frag"  
+											 tooltip="{i18n>ProfitCenter}">
+											<core:Item text="{MProfitCenter>ProfitCtr}" key="{MProfitCenter>ProfitCtr}"/>
+										</ComboBox>
+							<!--<Input editable="{path: 'JSKey>/0/Key'}" id="In_ProfitCe_nont" liveChange="fnProfitNonChange" class="formInputB1 forminputfragpo" value=" "-->
+							<!--	width="100%" layoutData="sap.ui.layout.FlexItemData"/>-->
+							<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+						</HBox>
+					</VBox>
+				</HBox>
+				<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="Tax Code" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<Input editable="{path: 'JSKey>/0/Key'}" id="In_TaxCodeNon" liveChange="fnChangeTaxcodenon" class="formInputB1 forminputfragpo" value=""
+								width="100%" layoutData="sap.ui.layout.FlexItemData"/>
+							<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+						</HBox>
+					</VBox>
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="Business Place" class="cl_textbarcode cl_mandatory_label"/>
+						<HBox class="formInputWithIconbar">
+								<ComboBox id="In_BlPlacenon"  items="{BP>/BUSP/results}" placeholder="" liveChange="fnLiveBuspnon" 
+											class="cl_combo_transBar cl_combo_transtat cl_combo_adv_frag"  
+											 tooltip="{i18n>ProfitCenter}">
+											<core:Item text="{BP>Branch}" key="{BP>Branch}"/>
+										</ComboBox>
+							<!--<Input editable="{path: 'JSKey>/0/Key'}" liveChange="fnLiveBuspnon" id="In_BlPlacenon" class="formInputB1 forminputfragpo" value=" "-->
+							<!--	width="100%" layoutData="sap.ui.layout.FlexItemData"/>-->
+							<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+						</HBox>
+					</VBox>
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="Required Advance" class="cl_textbarcode cl_mandatory_label"/>
+						<HBox class="formInputWithIconbar">
+							<Input editable="{path: 'JSKey>/0/Key'}" id="In_NonPo_ReqAdv" liveChange="fnReqAdvChangeNonPo" class="formInputB1 forminputfragpo" value=" "
+								width="100%" layoutData="sap.ui.layout.FlexItemData"/>
+							<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+						</HBox>
+					</VBox>
+				</HBox>
+				<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="Assignment" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<Input editable="{path: 'JSKey>/0/Key'}" id="In_Assign_non" class="formInputB1 forminputfragpo" value="" width="100%"
+								layoutData="sap.ui.layout.FlexItemData"/>
+							<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+						</HBox>
+					</VBox>
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="Section Code" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<ComboBox id="In_SectionCodenon"  items="{SCC>/Section/results}" placeholder="" liveChange="fnSectionnPoLive"
+											class="cl_combo_transBar cl_combo_transtat cl_combo_adv_frag" suggestionItemSelected="fnSelect"  
+										 tooltip="{i18n>SectionCode}">
+											<core:Item text="{SCC>Seccode}" key="{SCC>Seccode}"/>
+										</ComboBox>
+					<!--		<Input class="formInputB1 forminputfragpo" id="In_SectionCodenon" enabled="true" liveChange="fnSectionPoLive"-->
+					<!--	showValueHelp="true" valueHelpRequest="fnSectionPlaceValueHelp" showSuggestion="true" suggestionItems="{SCC>/Section/results}"-->
+					<!--	suggestionItemSelected="fnSelect">-->
+					<!--	<suggestionItems>-->
+					<!--		<core:Item text="{SCC>Seccode}"/>-->
+					<!--	</suggestionItems>-->
+					<!--</Input>-->
+							<!--<Input editable="{path: 'JSKey>/0/Key'}" id="In_Assign_non" class="formInputB1 forminputfragpo" value="" width="100%"-->
+							<!--	layoutData="sap.ui.layout.FlexItemData"/>-->
+							<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+						</HBox>
+					</VBox>
+						<VBox class="columnbarcode formFieldbarcode" width="">
+						
+					</VBox>
+				</HBox>
+				<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+					<VBox class="columnbarcode formFieldbarcode" width="">
+						<Text text="Comments" class="cl_textbarcode cl_mandatory_label"/>
+						<HBox class="formInputWithIconbar">
+							<Input editable="{path: 'JSKey>/0/Key'}" id="In_NonPo_Coment" liveChange="fnCmmtChangeNpo" class="cl_commentBox" value="" width="588px"
+								layoutData="sap.ui.layout.FlexItemData"/>
+							<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+						</HBox>
+					</VBox>
+				</HBox>
+			</VBox>
+		</content>
+		<beginButton>
+			<Button text="{i18n>Cancel}" tooltip="{i18n>Close}" icon="Images/cancel.svg" class="gl_canbtn simcan " press="fn_npo_frag_close"></Button>
+		</beginButton>
+		<endButton>
+			<Button text="Submit" tooltip="{i18n>Post}" icon="Images/postsim.svg" class=" gl_subbtn simpost " press="SubmitNonPOPress"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

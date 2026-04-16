@@ -1,0 +1,43 @@
+<core:FragmentDefinition 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:u="sap.ui.unified">
+
+    <Dialog 
+        id="CommentsDialog" 
+        showHeader="false" 
+        contentWidth="402px"  
+        class="cl_frag_rightslidesum cl_frag_rightslide_view" 
+        resizable="true"
+        draggable="false"  
+        contentHeight="auto" 
+        afterOpen="fn_AfterGetCommentsOpen">
+
+        <HBox 
+            justifyContent="SpaceBetween" 
+            alignItems="Center" 
+            class="cl_pdf_dialog_header cl_comments_dialog_header">
+
+            <Text 
+                text="{i18n>transactionHistoryTitle}" 
+                class="sapUiTinyMargin sapMTitle cl_dialog_text"/>
+
+            <Button 
+                icon="Images/cancel.svg" 
+                type="Transparent" 
+                class="sapUiSizeCompact cl_btn_rest cl_btn_rej cl_pdf_close" 
+                press="fnfragCommentsClose" 
+                tooltip="{i18n>closeButtonTooltip}"/>
+        </HBox>
+
+        <List 
+            items="{ofragComment>/}" 
+            width="100%" class="cltranslist">
+            <StandardListItem 
+                title="{ofragComment>Tdline}" 
+                info="{ofragComment>Tdformat}" 
+                />
+        </List>
+                        
+    </Dialog>
+</core:FragmentDefinition>

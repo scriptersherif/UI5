@@ -1,0 +1,2289 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.Workbench"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:uitable="sap.ui.table" xmlns:ui="sap.ui.table" xmlns:u="sap.ui.unified"
+	xmlns:co="sap.suite.ui.commons" xmlns:l="sap.ui.layout" xmlns:m="sap.m">
+	<App>
+		<pages>
+			<Page>
+				<customHeader>
+					<Toolbar class="header_bar1 sapUiSmallMarginEnd">
+						<Button icon="sap-icon://slim-arrow-left" text="Back" class="cl_back" tooltip="{i18n>Back}" press="fn_nav_to_fulfil"/>
+						<Text text="QID -" class="qid_label"/>
+						<Text id="id_quid" text="{qidModel>/Qid}" class="qid_number"/>
+						<Text text=", " class="qid_label"/>
+						<Text text="{JScan>/0/Scancenter}" class="qid_number"/>
+						<Text text=", " class="qid_label"/>
+						<!--<Text text="{JScan>/0/Scandate}" class="qid_number"/>-->
+						<Text text="{path: 'JScan>/0/Scandate', formatter: '.formatDateTime'}" class="qid_number"/>
+						<ToolbarSpacer/>
+						<Button icon="Images/refreshbtn.png" tooltip="Refresh" class="refresh_btn" press="onRefreshPage"/>
+						<Button icon="Images/bellbtn.png" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<!--<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="cl_username cl_font sapUiMediumMarginEnd"></Text>-->
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="cl_username cl_font team_text "></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<!-- Main Vertical Layout -->
+					<VBox width="100%" height="100%">
+						<!-- Split into left and right -->
+						<HBox width="100%" height="100%" fitContainer="true" class="cl_mainContent">
+							<!-- Left: PDF View or Sidebar -->
+							<VBox width="30%" class="cl_leftPanel1" height="100%" id="pdfPanel">
+								<HBox alignItems="Center" justifyContent="SpaceBetween" class="cl_pdfHeader1">
+									<HBox alignItems="Center" gap="0.5rem">
+										<Text text="View Invoice" class="cl_pdfTitle1"/>
+										<!--<Button icon="Images/plus.svg" tooltip="Zoom In" press="fn_onZoomIn" type="Transparent"-->
+										<!--	class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn " width="12px" height="12px"/>-->
+										<!--<Button icon="Images/minus.svg" tooltip="Zoom Out" press="fn_onZoomOut" type="Transparent"-->
+										<!--	class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn"/>-->
+										<Button icon="Images/print.svg" tooltip="Print" press="fn_onPrint" type="Transparent"
+											class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn"/>
+										<Button icon="Images/downloadin.svg" tooltip="Download PDF" press="fn_onDownload" type="Transparent"
+											class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn"/>
+									</HBox>
+									<Image src="Images/closepdf.svg" class="cl_pdfIconBtn1" press="onHidePdfPanel" tooltip="close pdf"/>
+								</HBox>
+								<VBox class="cl_leftPanel">
+									<ScrollContainer id="id_scrll" width="100%" class="cl_pdfScroll" focusable="true" horizontal="true" vertical="true"></ScrollContainer>
+								</VBox>
+								<!-- You can embed PDF viewer or anything else here -->
+							</VBox>
+							<Image src="Images/openpdf.svg" class="cl_pdfExpandBtn" press="onShowPdfPanel" id="btnShowPdf" visible="false" tooltip="open pdf"/>
+							<!-- Right: Content Area -->
+							<VBox width="70%" class="cl_rightPanel sapUiSmallMarginEnd" height="100%" id="rightPanel">
+								<!-- Top Header Section of Main Content -->
+								<HBox class="cl_mainHeader" alignItems="Center" justifyContent="SpaceBetween" width="100%">
+									<!-- Left: Vendor Name and Address -->
+									<HBox class="cl_vendorInfoRow" alignItems="Center" justifyContent="Start" wrap="Wrap">
+										<Text text="Vendor Name" id="id_vendor" change="fn_vendorchanges" class="cl_vendorTitle"/>
+										<Image src="Images/vendor.svg" class="cl_editBtn" press="fn_Vendor_frag" tooltip="change vendor"/>
+										
+											<HBox alignItems="Center" class="cl_vendorAddressInline">
+    <Image src="Images/map.svg" class="cl_addressIcon"/>
+    <Text text="{= ${JSVendorDet>/Ort01} + '- ' + ${JSVendorDet>/Pstlz} }" class="cl_addressText"/>
+</HBox>
+	<Text text="{i18n>PAN -}" class="cl_panTitle" visible="false"/>
+<HBox alignItems="Center" class="cl_vendorAddressInline">
+    
+    <Text text="{JSVendorDet>/J1ipanno}" class="cl_addressText"/>
+</HBox>
+									</HBox>
+									<!-- Right: Balance and Team Info -->
+									<HBox alignItems="Center" class="cl_balanceSection">
+										<Text text="Balance :" class="cl_balanceText"/>
+										<Text id="id_balance" textDirection="LTR" class="cl_balance_val cl_balanceText sapUiTinyMarginBegin"></Text>
+										<Image src="Images/balance.svg" class="cl_balanceicon"/>
+									</HBox>
+								</HBox>
+								<VBox>
+									<!--<IconTabBar expandable="false" class="cl_tabBar cl_tabBar1 " headerMode="Inline" id="functionalLocationTab">-->
+									<IconTabBar expandable="false" class="cl_tabBar cl_tabBar1 " headerMode="Inline" id="functionalLocationTab"
+										selectedKey="{JSState>/selectedKey}" select="onTabSelect" tooltip="Tab">
+										<items>
+											<!--<IconTabFilter text="Basic Data" key="functionalLocation" icon="Images/basic.svg">-->
+											<!--<IconTabFilter text="Basic Data" key="functionalLocation"-->
+											<!--	icon="{= ${JSState>/selectedKey} === 'functionalLocation' ? 'Images/basic.svg' : 'Images/basicblack.svg' }">-->
+													<IconTabFilter text="Basic Data" key="functionalLocation"
+												icon="{= ${JSState>/selectedKey} === 'functionalLocation' ? 'Images/basic.svg' : 'Images/basicblack.svg' }">
+											
+												<VBox class="formSection" id="id_formSection">
+													<List id="id_list_invdethead" items="{JSInvdethead>/}" class="myInvoiceListClass">
+														<CustomListItem>
+															<VBox id="id_transaction_section">
+																<HBox class="cl_barcode_input_row cl_margin4 sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom" justifyContent="SpaceBetween" alignItems="End">
+																	<!-- Transtype -->
+																	<VBox class="columnbarcode formFieldbarcode">
+																		<Text text="{i18n>trans}" class="cl_textw"/>
+																		<!--<Input class="formInput" value="Logistic Invoice" />-->
+																		<HBox class="formInputWithIconbar">
+																			<ComboBox id="id_SelTrans" class="cl_combo_transBarw" items="{ path: 'JSTransType>/' }" selectionChange="fnTrnsidselect"
+																				change="fnTrnsidselect" enabled="{path: 'JSKey>/0/Key'}" tooltip="{i18n>trans}" placeholder="Choose transaction type">
+																				<core:Item key="{JSTransType>DomvalueL}" text="{JSTransType>Ddtext}"/>
+																			</ComboBox>
+																		</HBox>
+																	</VBox>
+																	<!-- Invoice Number -->
+																	<VBox class="columnbarcode formFieldbarcode">
+																		<Text text="{i18n>InvNo}" class="cl_textw"/>
+																		<!--<Input class="formInput" value="714/24-25"/>-->
+																		<HBox class="formInputWithIconbar">
+																			<!--<Input class="formInput" value="714/24-25" width="100%"/>-->
+																			<Input id="id_InvNumb" value="{JSInvdethead>Invno}" change="fnValidateChange" valueState="{JSValidation>/InvnoState}"
+																				class="formInputBw sapUiSizeCompact inpvali" valueStateText="{JSValidation>/InvnoText}" editable="{path: 'JSKey>/0/Key'}"
+																				placeholder="Enter Invoice no" tooltip="{ path: 'JSValidate>/Invno', formatter: '.fnFormatOCRInvNoTooltip' }"/>
+																			<Image src="Images/invoiceno.svg" width="11px" height="12px" class="inputIconwi"/>
+																		</HBox>
+																	</VBox>
+																	<!-- Header Text -->
+																	<VBox class="columnbarcode formFieldbarcode">
+																		<Text text="{i18n>HdText}" class="cl_textw"/>
+																		<HBox class="formInputWithIconbar ">
+																			<!--<Input class="formInput formInputWithIcon" value="6000023456789"/>-->
+																			<Input class="formInputBw" value="{JSInvdethead>Barcode}" tooltip="{i18n>HdText}" id="id_HeaderTxt" editable="{path: 'JSKey>/0/Key'}" placeholder="Enter Barcode no"/>
+																		</HBox>
+																	</VBox>
+																	<!-- Sale Amount -->
+																	<VBox class="columnbarcode formFieldbarcode">
+																		<Text text="Invoice Amount" class="cl_Atextw"/>
+																		<HBox class="cl_saleAmountBox1w inpvali " alignItems="Center" justifyContent="SpaceBetween" height="22px" id="id_AmountBox">
+																			<Text text="{path: 'JSInvdethead>/0/Waers', formatter: 'FSC360NEW.model.formatter.fnCurrencySymbol'}" class="cl_currencySymbol"
+																				change="fnAmountChange"/>
+																			<!-- Amount Input -->
+																			<Input id="id_HeaderAmnt" value="{JSInvdethead>Ntamt}" liveChange="fn_Head_Amount_Change" change="fnValidateChange" class="cl_amountInput"
+																				width="auto" editable="{path: 'JSKey>/0/Key'}" placeholder="Enter Amount"    tooltip="{ path: 'JSValidate>/Ntamt', formatter: '.fnFormatOCRTooltip' }"/>
+																			<!-- Currency Dropdown Input without default F4 icon -->
+																			<HBox alignItems="Center" class="cl_currencyWrapper">
+																				<ComboBox id="id_HeaderCurr" width="3.5rem" selectedKey="{JSInvdethead>Waers}" items="{JSCurrency>/}"
+																					class="cl_currencyDropdown sapUiSizeCompact" editable="{path: 'JSKey>/0/Key'}" showSecondaryValues="true" placeholder="Currency"
+																					tooltip="change currency">
+																					<core:ListItem key="{JSCurrency>Waers}" text="{JSCurrency>Waers}" additionalText="{JSCurrency>Ltext}"/>
+																				</ComboBox>
+																			</HBox>
+																		</HBox>
+																		<!--</HBox>-->
+																	</VBox>
+																</HBox>
+																<HBox class="cl_barcode_input_row cl_margin4 sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom" justifyContent="SpaceBetween" alignItems="End">
+																	<!-- Invoice Date -->
+																	<VBox class="columnbarcode formFieldbarcode cl_wrk_cont">
+																		<Text text="{i18n>InvDate}" class="cl_textw"/>
+																		<HBox class="formInputWithIconbar ">
+																				<DatePicker 
+    id="id_InvDate"
+    dateValue="{path:'JSInvdethead>Invdt'}"
+    displayFormat="dd/MM/YYYY"
+    change="fn_Invoicedate_change"
+    placeholder="Enter Invoice Date"
+     tooltip="{ path: 'JSValidate>/Invdt', formatter: '.fnFormatOCRDateTooltip' }"
+    valueState="{JSValidation>/InvdtState}" 
+    valueStateText="{JSValidation>/InvdtText}"
+    class="formInputBw inputhelpw inpvali"
+/>
+																			<!--<Image src="Images/calander.svg" width="10px" height="13px" class="inputIcon"/>-->
+																		</HBox>
+																	</VBox>
+																	<!-- GST Partner -->
+																	<VBox class="columnbarcode formFieldbarcode">
+																		<Text text=" {i18n>GST}" class="cl_textw"/>
+																		<HBox class="formInputWithIconbar ">
+																			<Input id="id_GST_Partner" value="{path: 'JSGST>/0/value'}" class="formInputBw inpvali" showValueHelp="false"
+																			 placeholder="Enter Gst Partner" valueState="{JSValidation>/GstState}"  tooltip="{i18n>GST}"
+																				valueStateText="{JSValidation>/GstText}" change="fnValidateChange" />
+																		</HBox>
+																	</VBox>
+																	<!-- Posting Date -->
+																	<VBox class="columnbarcode formFieldbarcode">
+																		<Text text=" {i18n>postDate}" class="cl_textw"/>
+																		<!--<DatePicker value="2025-05-16" class="formInput"/>-->
+																		<HBox class="formInputWithIconbar ">
+																			<DatePicker id="id_PostingDate" dateValue="{path:'JSInvdethead>Postingdate'}" displayFormat="dd/MM/YYYY" placeholder="Enter Posting Date"
+																				change="fn_Postingdatechange" editable="{path: 'JSKey>/0/Key'}" class="formInputBw inputhelpw"  tooltip="{i18n>postDate}"/>
+																		</HBox>
+																	</VBox>
+																	<VBox id="id_SGLVBox" class="columnbarcode formFieldbarcode" visible="{JSVisibility>/showSGL}">
+																		<Text text="{i18n>sgl}" class="cl_textw"/>
+																		<HBox class="formInputWithIconbar ">
+																			<ComboBox id="id_SGLindicator" selectedKey="{JSInvdethead>SpGlInd}" items="{JSSGL>/}" class="cl_combo_transBarw"
+																				placeholder="Select SGL Indicator" showSecondaryValues="true" maxLength="1" editable="{path: 'JSKey>/0/Key'}"  tooltip="{i18n>sgl}">
+																				<core:ListItem key="{JSSGL>Koart}" text="{JSSGL>Koart}" additionalText="{JSSGL>Merkp}"  placeholder="Enter spl Indic"/>
+																			</ComboBox>
+																		</HBox>
+																	</VBox>
+																	<VBox class="columnbarcode formFieldbarcode" id="id_shorttxt_cont" visible="{JSVisibility>/showShortTxt}">
+																		<Text text="{i18n>sttext}" class="cl_textw"/>
+																		<HBox class="formInputWithIconbar ">
+																			<!--<Input class="formInput formInputWithIcon" value="6000023456789"/>-->
+																			<Input class="formInputBw" value="{JSPORefDet>/0/Potext}" placeholder="Enter text"  tooltip="{i18n>sttext}"/>
+																			<!--<Input class="formInputBw"   id="id_shorttxt" editable="{path: 'JSKey>/0/Key'}" placeholder="Enter text"/>-->
+																		</HBox>
+																	</VBox>
+																	<!--<VBox class="columnbarcode formFieldbarcode" id="id_empty" visible="true">-->
+																	<!--</VBox>-->
+																</HBox>
+																<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginBottom" justifyContent="SpaceBetween"
+																	alignItems="End">
+																	<!-- Business Place -->
+																	<!--<Input class="formInput" value="Select Business Place" width="100%"/>-->
+																	<!--<Image src="Images/searchhelp.svg" width="10px" height="13px" class="inputIcon"/>-->
+																	<VBox class="columnbarcode formFieldbarcode">
+																		<Text text="{i18n>buspl}" class="cl_textw"/>
+																		<HBox class="formInputWithIconbar ">
+																			<ComboBox id="id_BusinessPlace" selectedKey="{= ${JSBusPlace>/0/Branch} }" items="{JSBusPlace>/}" class="cl_combo_transBarw"
+																				showSecondaryValues="true" placeholder="Select Business Place" editable="{path: 'JSKey>/0/Key'}"  tooltip="{i18n>buspl}">
+																				<core:ListItem key="{JSBusPlace>Branch}" text="{JSBusPlace>Branch}" additionalText="{JSBusPlace>Name}" placeholder="Enter Bus Place"/>
+																			</ComboBox>
+																		</HBox>
+																	</VBox>
+																	<VBox class="columnbarcode formFieldbarcode">
+																		<Text text="{i18n>sec}" class="cl_textw"/>
+																		<HBox class="formInputWithIconbar ">
+																			<ComboBox id="id_SectnCode" selectedKey="{= ${JSSectionCode>/0/Seccode} }" items="{JSSectionCode>/}" class="cl_combo_transBarw"
+																				placeholder="Select Section Code" showSecondaryValues="true" editable="{path: 'JSKey>/0/Key'}"  tooltip="{i18n>sec}">
+																				<core:ListItem key="{JSSectionCode>Seccode}" text="{JSSectionCode>Seccode}" additionalText="{JSSectionCode>Name}"
+																					placeholder="Enter Section Code"/>
+																			</ComboBox>
+																		</HBox>
+																	</VBox>
+																	<!-- Tax Amount -->
+																	<!--	<VBox class="columnbarcode formFieldbarcode" >-->
+																	<!--	<Text text="Tax Amount" class="cl_textw"/>-->
+																	<!--	<HBox class="formInputWithIconbar " >-->
+																	<!--		<Input id="id_TaxAmnt" value="{JSInvdethead>Intax}" type="Number" class="formInputB1" width="auto" editable="{path: 'JSKey>/0/Key'}" placeholder="Enter Tax Amount"/>-->
+																	<!--		<CheckBox id="id_check" selected="true" select="fncheck" tooltip="{i18n>Calculate Tax}" class="cl_taxCheckbox inputIcon"-->
+																	<!--			editable="{path: 'JSKey>/0/Key'}"/>-->
+																	<!--	</HBox>-->
+																	<!--</VBox>-->
+																	<VBox class="columnbarcode formFieldbarcode">
+																		<Text text="{i18n>taxamt}" class="cl_textw"/>
+																		<HBox class="formInputWithIconbar ">
+																			<!--<HBox class="cl_taxAmountBox" alignItems="Center" justifyContent="SpaceBetween" width="190px" height="22px">-->
+																			<!--<Input id="id_TaxAmnt" value="{JSInvdethead>Intax}" type="Number" class="formInputBw" width="auto" editable="{path: 'JSKey>/0/Key'}" placeholder="Enter Tax Amount"/>-->
+																			<Input id="id_TaxAmnt" value="{JSInvdethead>Intax}" type="Number" class="formInputBw" width="auto" editable="{path: 'JSKey>/0/Key'}"
+																				placeholder="Enter Tax Amount" change="fn_amount_split"  tooltip="{i18n>taxamt}"/>
+																			<CheckBox id="id_check" selected="true" select="fncheck" tooltip="{i18n>Calculate Tax}" class="cl_taxCheckbox inputIcon"
+																				editable="{path: 'JSKey>/0/Key'}"/>
+																		</HBox>
+																	</VBox>
+																	<!-- Empty Filler Column  icon="Images/history.svg" -->
+																	<VBox id="id_SGLVBox1" class="columnbarcode formFieldbarcode">
+																		<Text text="{i18n>Po Adv Amount}" class="cl_textw"/>
+																		<HBox class="formInputWithIconbar ">
+																			<Input id="id_padv" value="{JSusername>/Poadv}"  class="formInputBw" width="auto" editable="false"
+																				placeholder="PO Advance Amount"   tooltip="{i18n>advance amt}"/>
+																		</HBox>
+																	</VBox>
+																	<!--<VBox class="columnbarcode formFieldbarcode">-->
+																	
+																	<!--</VBox>-->
+																</HBox>
+															</VBox>
+															<!-- Vendor Details Section -->
+															<HBox class="cl_vendorDetailsSection" justifyContent="SpaceBetween" alignItems="Start" wrap="Wrap" id="id_vendorDetailsSection"
+																visible="false">
+																<!-- Left Side: Vendor Details -->
+																<VBox width="75%">
+																	<!--<Text text="Vendor Details" class="cl_text"/>-->
+																	<HBox class="cl_sectionTitle" width="100%" tooltip="Vendor Name">
+																		<Text text="Vendor Details" class="cl_vendorTitle" tooltip="Vendor Name"/>
+																	</HBox>
+																	<HBox justifyContent="SpaceBetween" class="rowm">
+																		<!-- Vendor ID -->
+																		<VBox width="35%" id="id_vendorc_box">
+																			<Text text="Vendor ID" class="cl_text"/>
+																			<Input value="{JSVendorDet>/Lifnr}" id="id_vendorcode" class="formInput" width="100%" editable="true" valueState="None"
+																				placeholder="Enter Vendor Code"  />
+																			<!--<Input value="100037" class="formInput" editable="false"/>-->
+																		</VBox>
+																		<!-- Address -->
+																		<VBox width="35%">
+																			<Text text="Address" class="cl_text"/>
+																			<!--<Input value="UP" class="formInput" editable="false"/>-->
+																			<Input value="{path: 'JSVendorDet>/Ort01'}" width="100%" class="formInput" editable="false" placeholder="Enter Vendor Address"/>
+																		</VBox>
+																		<!-- Pincode -->
+																		<VBox width="35%">
+																			<Text text="Pincode" class="cl_text"/>
+																			<!--<Input value="56010" class="formInput" editable="false"/>-->
+																			<Input value="{path: 'JSVendorDet>/Pstlz'}" width="100%" class="formInput" editable="false" placeholder="Enter Vendor Pincode"/>
+																		</VBox>
+																	</HBox>
+																	<HBox justifyContent="SpaceBetween" class="rowm">
+																		<!-- Label Name -->
+																		<VBox width="35%">
+																			<Text text="Label Name" class="cl_text"/>
+																			<!--<Input value="0.000" class="formInput" editable="false"/>-->
+																			<Input value="{path: 'JSVendorDet>/Regio'}" width="100%" class="formInput" editable="false" placeholder="Enter Vendor Region"/>
+																		</VBox>
+																		<!-- GSTIN -->
+																		<VBox width="35%">
+																			<Text text="GSTIN" class="cl_text"/>
+																			<!--<Input value="24AAA1234567F234" class="formInput" editable="false"/>-->
+																			<Input id="id_gstin" value="{JSVendorDet>/Stcd3}" editable="false" width="100%" class="formInput" placeholder="Enter GSTIN no"/>
+																		</VBox>
+																		<VBox width="35%"/>
+																	</HBox>
+																</VBox>
+																<VBox width="25%" class="clvalidation">
+																	<!-- Section Title -->
+																	<HBox class="cl_sectionTitle cl_validate" width="100%">
+																		<Text text="Validations" class="cl_vendorTitle"/>
+																	</HBox>
+																	<!-- Row 1: VAT + Invalid -->
+																	<HBox justifyContent="SpaceBetween" class="cl_switchRow">
+																		<HBox alignItems="Center" class="cl_switchBox">
+																			<!--<Switch state="true"/>-->
+																			<Switch state="{path:'JSselectcnt>/1/VAT'}" customTextOn="{i18n>On}" customTextOff="{i18n>Off}" enabled="{path: 'JSKey>/0/Key'}" id="id_VAT"
+																				class="sapUiSizeCompact cl_switch"/>
+																			<Text text="VAT" class="cl_switchtext"/>
+																		</HBox>
+																		<HBox alignItems="Center" class="cl_switchBox">
+																			<!--<Switch state="true"/>-->
+																			<Switch state="{path:'JSselectcnt>/1/Invalid'}" enabled="{path: 'JSKey>/0/Key'}" change="fnselectionChange" id="id_Invalid"
+																				class="sapUiSizeCompact cl_switch"/>
+																			<Text text="Invalid" class="cl_switchtext"/>
+																		</HBox>
+																	</HBox>
+																	<!-- Row 2: Original + Priority -->
+																	<HBox justifyContent="SpaceBetween" class="cl_switchRow">
+																		<HBox alignItems="Center" class="cl_switchBox">
+																			<!--<Switch state="true"/>-->
+																			<Switch id="id_original" state="{path:'JSselectcnt>/1/Original'}" enabled="{path: 'JSKey>/0/Key'}" change="fnselectionChange"
+																				class="sapUiSizeCompact cl_switch"/>
+																			<Text text="Original" class="cl_switchtext"/>
+																		</HBox>
+																		<HBox alignItems="Center" class="cl_switchBox">
+																			<!--<Switch state="false"/>-->
+																			<Switch id="id_Priority" state="{path:'JSselectcnt>/1/Priority'}" enabled="{path: 'JSKey>/0/Key'}" change="fnselectionChange"
+																				class="sapUiSizeCompact cl_switch"/>
+																			<Text text="Priority" class="cl_switchtext"/>
+																		</HBox>
+																	</HBox>
+																	<!-- Row 3: Duplicate only -->
+																	<HBox justifyContent="Start" class="cl_switchRow">
+																		<HBox alignItems="Center" class="cl_switchBox">
+																			<!--<Switch state="true"/>-->
+																			<Switch id="id_duplicate" state="{path:'JSselectcnt>/1/Duplicate'}" enabled="{path: 'JSKey>/0/Key'}" change="fnselectionChange"
+																				class="sapUiSizeCompact cl_switch"/>
+																			<Text text="Duplicate" class="cl_switchtext"/>
+																		</HBox>
+																	</HBox>
+																</VBox>
+															</HBox>
+														</CustomListItem>
+													</List>
+													<!--commentttttttttttttt-->
+													<HBox justifyContent="" alignItems="top" class="cl_tabHeaderRow" id="id_tabHeaderRow">
+														<VBox id="tabArea" width="99%">
+															<IconTabBar class="cl_tabBar1 cl_tabbar2" expandable="false" selectedKey="{JSState>/poTabKey}" select="onIconTabSelect" id="id_TabDetail">
+																<items>
+																	<!--<IconTabFilter text="PO Reference" key="po" icon="Images/poreference.svg" id="id_poref_tab">-->
+																	<IconTabFilter text="PO Reference" key="functionalLocation"
+																		icon="{= ${JSState>/poTabKey} === 'functionalLocation' ? 'Images/poreference.svg' : 'Images/porefblack.svg' }" id="id_poref_tab">
+																			<VBox class="cl_poContent" renderType="Bare">
+																			<!-- Filters Row -->
+																			<!--<HBox class="cl_poControls" alignItems="Center">-->
+																			<!--	<HBox class="cl_search_boxs">-->
+																			<!--		<ComboBox id="id_SelChangeGrn" class="cl_combo_search1" width="100%" placeholder="Goods Receipt" items="{JSChangeGRN>/}"-->
+																			<!--			selectionChange="fnchangeGrn" selectedKey="1">-->
+																			<!--			<core:Item key="{JSChangeGRN>DomvalueL}" text="{JSChangeGRN>Ddtext}"/>-->
+																			<!--		</ComboBox>-->
+																			<!--	</HBox>-->
+																			<!--	<HBox class="cl_search_box1">-->
+																			<!--		<Input id="id_InGrnChange" placeholder=" " editable="{path: 'JSKey>/0/Key'}" class="cl_combo_search1"/>-->
+																			<!--	</HBox>-->
+																			<!--	<HBox class="cl_search_box2">-->
+																			<!--		<ComboBox id="id_goodstype" class="cl_combo_search1" placeholder="Goods / Service Items" items="{JSGoodsType>/}"-->
+																			<!--			selectionChange="fn_get_PO_Details">-->
+																			<!--			<core:Item key="{JSGoodsType>DomvalueL}" text="{JSGoodsType>Ddtext}"/>-->
+																			<!--		</ComboBox>-->
+																			<!--	</HBox>-->
+																			<!--	<HBox class="cl_search_box3">-->
+																			<!--		<Image src="Images/goodsitem.svg" width="10px" height="13px" class="clgoodsicon" press="onCollapse_Poref_press"/>-->
+																			<!--	</HBox>-->
+																			<!--</HBox>-->
+																			<VBox class="some_container_class" height="35px">
+																				<!--</HBox>-->
+																				<Toolbar class="cl_poControls" design="Auto">
+																					<!-- LEFT SIDE -->
+																					<HBox class="cl_search_boxs">
+																						<ComboBox id="id_SelChangeGrn" class="cl_combo_search1" width="160px" placeholder="Goods Receipt" items="{JSChangeGRN>/}"
+																							selectionChange="fnchangeGrn" selectedKey="1">
+																							<core:Item key="{JSChangeGRN>DomvalueL}" text="{JSChangeGRN>Ddtext}"/>
+																						</ComboBox>
+																					</HBox>
+																					<HBox class="cl_search_box1">
+																						<Input id="id_InGrnChange" width="112px" editable="false" class="cl_combo_search1 cl_ponum"/>
+																					</HBox>
+																					<Button id="id_BtnGrnChange" tooltip="{i18n>Adoption}" icon="Images/adoptbox.svg" class=" FSC_Btnhvr cl_wrkbnch_abopt" press="fnClick_ChangeGrnFrag"></Button>
+																						<Button icon="Images/clearab.svg" class="sapUiTinyMarginTopBottom sapUiTinyMarginBegin cl_btncss cl_wrkbnch_reldbtn" tooltip="Refresh" press="onRefreshPress"/>
+																					<!-- Spacer between left and right -->
+																					<ToolbarSpacer/>
+																					<!-- RIGHT SIDE -->
+																					<HBox class="cl_search_box2">
+																							<Image src="Images/cardgrid.svg" width="26px" height="26px" class="gl_collapse_btn colwb" press="On_vendorpdc"/>
+																				
+																						<ComboBox id="id_goodstype" class="cl_combo_search1" width="200px" placeholder="Goods / Service Items" items="{JSGoodsType>/}"
+																							selectionChange="fn_get_PO_Details">
+																							<core:Item key="{JSGoodsType>DomvalueL}" text="{JSGoodsType>Ddtext}"/>
+																						</ComboBox>
+																					</HBox>
+																					<HBox >
+																						<Image src="Images/cardgrid.svg" width="26px" height="26px" class="gl_collapse_btn colwb" press="onCollapse_Poref_press"/>
+																					</HBox>
+																						
+																				</Toolbar>
+																			</VBox>
+																			<!-- SAPUI5 uitable:Table potable -->
+																			<!--rows="{jsPO>/poItems}"-->
+																			<ui:Table id="id_table_poref" rows="{JSPORefDet>/}"
+																				class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiTinyMarginBottom FSC_Table_workbench FSC_Table " selectionMode="MultiToggle"
+																				visibleRowCount="1" width="100%" paste="onPaste" visible="true" noData="No Planned Delivery Cost For The PO">
+																				<ui:columns >
+																					<!--<ui:Column hAlign="Center">-->
+																					<!--	<CheckBox select="onSelectAllCheck" id="idSelectAllCheck" tooltip="Select All" class="check_box_selectall"/>-->
+																					<!--	<ui:template>-->
+																					<!--		<CheckBox selected="{JSPORefDet>checked}" select="onCheckSelect" class="customCellColor"/>-->
+																					<!--	</ui:template>-->
+																					<!--</ui:Column>-->
+																					<ui:Column width="3rem" class="firstrow">
+																						<Label text="{i18n>Item}" tooltip="{i18n>Item}"/>
+																						<ui:template>
+																							<Text text="{path: 'JSPORefDet>Item', formatter: 'FSC360NEW.model.formatter.fnLeadingZero'}"
+																								class="APW_InputWidth lblAlignRes2 customCellColor customCellColor1" editable="{path: 'JSKey_Table>/0/Key'}" wrapping="false"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="8rem" hAlign="center" class="secondrow">
+																						<Label text="{i18n>Amount}" tooltip="{i18n>Amount}"/>
+																						<ui:template>
+																							<Input class="APW_InputWidth " type="Number" change="fnAmountChange" value="{JSPORefDet>Amount}" liveChange="fn_Item_Amount_Change_Po"
+																								textAlign="center" id="id_APW_InputWidth" editable="true"></Input>
+																							<!--  <Text text="{path:'JMItem>Wrbtr',formatter:'APWorkbench.model.formatter.fnAmount'}"  textDirection = "RTL" class="APW_InputWidth lblAlignRes2" wrapping="false"/>-->
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="5rem">
+																						<Label text="{i18n>Quantity}" tooltip="{i18n>Quantity}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Quantity}" textAlign="left" class="APW_InputWidth lblAlignRes2" id="id_JSPORefDetQuantity" editable="true"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="7.3rem">
+																						<Label text="{i18n>PurchaseOrder}" tooltip="{i18n>PurchaseOrder}"/>
+																						<ui:template>
+																							<!--<Input value="{JSPORefDet>Purchaseorder}" class=" APW_InputWidth lblAlignRes2" wrapping="false" id="id_JSPORefDetPurchaseorder"-->
+																							<!--	editable="{path: 'JSKey_Table>/0/Key'}"/>-->
+																							<Link  text="{JSPORefDet>Purchaseorder}" press="onPODetailPress" class="cl_qid_sel cl_table_det_text cl_linkwb" id="id_JSPORefDetPurchaseorder"
+													wrapping="false" />
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="4rem">
+																						<Label text="{i18n>Item}" tooltip="{i18n>Item}"/>
+																						<ui:template>
+																							<Input value="{path:'JSPORefDet>Ebelp',formatter:'FSC360NEW.model.formatter.fnRemoveLeadingZero'}" class="APW_InputWidth lblAlignRes2"
+																								wrapping="false" id="id_JSPORefDetEbelp" editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<!--rk5-->
+																					<ui:Column width="6rem">
+																						<Label textAlign="Center" text="{i18n>TaxCode}" tooltip="{i18n>TaxCode}"/>
+																						<ui:template >
+																							<!--<Input showSuggestion="true" showValueHelp="true" valueHelpRequest="fn_TaxCode_frag_POREF_Tab" suggestionItems="{JSPORefDet>Taxcode}"-->
+																							<!--	suggest="fnSuggestTax" suggestionItemSelected="fnSelectTax" valueHelpOnly="true" liveChange="fnTaxChange" width="87%"-->
+																							<!--	class="APW_InputWidth cltaxpo" value="{JSPORefDet>Taxcode}" tooltip="{JSPORefDet>Taxdesc}" id="id_JSPORefDetTaxcode"-->
+																							<!--	editable="{path: 'JSKey>/0/Key'}">-->
+																							<!--	<suggestionItems>-->
+																							<!--		<core:ListItem text="{JSPORefDet>Taxcode}" additionalText="{JSPORefDet>Taxcode}"/>-->
+																							<!--	</suggestionItems>-->
+																							<!--</Input>-->
+																							<ComboBox class="cl_column_cell apinputtext cl_combo_table" width="100%" selectedKey="{JSPORefDet>Taxcode}" items="{JSTaxCode>/}"
+																								selectionChange="fn_TaxCodeChange_PoRef" editable="true" id="id_JSPORefDetTaxcode">
+																								<core:Item key="{JSTaxCode>Mwskz}" text="{parts: ['JSTaxCode>Mwskz','JSTaxCode>Text1'], formatter: '.formatTaxCodePoRef'}"/>
+																							</ComboBox>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="5rem" hAlign="Right">
+																						<Label text="{i18n>Material}" tooltip="{i18n>Material}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Material}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JSPORefDetMaterial" textAlign="Begin"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="8rem">
+																						<Label textAlign="Center" text="{i18n>POText}" tooltip="{i18n>POText}"/>
+																						<ui:template >
+																							<Input value="{JSPORefDet>Potext}" class="APW_InputWidth lblAlignRes2" textAlign="Center" wrapping="false" id="id_JSPORefDetPotext"
+																								editable="{path: 'JSKey_TableJSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="8rem">
+																						<Label text="{i18n>Uom}" tooltip="{i18n>UnitofMeasure}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Uom}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JSPORefDetUom"
+																								editable="{path: 'JSKey_TableJSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="5rem">
+																						<Label text="{i18n>MatGrp}" tooltip="{i18n>MatGrp}"/>
+																						<ui:template>
+																							<CheckBox text="{JMItem>Matkl}" class="sapUiTinyMarginBottom"></CheckBox>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="5rem">
+																						<Label text="{i18n>Service}" tooltip="{i18n>Service}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Srvpos}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemSrvpos"
+																								editable="{path: 'JSKey_TableJSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="7rem">
+																						<Label text="{i18n>GLAcc}" tooltip="{i18n>GLAcc}"/>
+																						<ui:template>
+																							<Input value="{path:'JSPORefDet>Glaccount',formatter:'FSC360NEW.model.formatter.fnLeadingZero'}" class="APW_InputWidth lblAlignRes2"
+																								textAlign="Begin" wrapping="false" id="id_JSPORefDetGlaccount" editable="{path: 'JSKey_TableJSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="7rem">
+																						<Label text="{i18n>CostCenter}" tooltip="{i18n>CostCenter}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Kostl}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemKostl"
+																								editable="{path: 'JSKey_TableJSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="7rem">
+																						<Label text="{i18n>WBS}" tooltip="{i18n>WBS}"/>
+																						<ui:template>
+																							<Input value="{JMItem>PsPspPnr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemPsPspPnr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="7rem">
+																						<Label text="{i18n>Order}" tooltip="{i18n>Order}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Aufnr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemAufnr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="5rem">
+																						<Label text="{i18n>Asset}" tooltip="{i18n>Asset}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Anln1}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemAnln1"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="7rem">
+																						<Label text="{i18n>Subnumber}" tooltip="{i18n>Subnumber}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Anln2}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemAnln2"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="7rem">
+																						<Label text="{i18n>AssetValDt}" tooltip="{i18n>AssetValDt}"/>
+																						<ui:template>
+																							<Input value="{path:'JMItem>Bzdat',formatter:'FSC360NEW.model.formatter.fnDate'}" class="APW_InputWidth lblAlignRes2" wrapping="false"
+																								id="id_JMItemBzdat" editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="7rem">
+																						<Label text="{i18n>FundsCenter}" tooltip="{i18n>FundsCenter}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Fundscenter}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JSPORefDetFundscenter"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="9rem">
+																						<Label text="{i18n>CommitmentItem}" tooltip="{i18n>CommitmentItem}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Fipos}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemFipos"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>SaleOrder}" tooltip="{i18n>SaleOrder}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Kdauf}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemKdauf"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem" hAlign="Right">
+																						<Label text="{i18n>SlsOrdItem}" tooltip="{i18n>SlsOrdItem}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Kdpos}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemKdpos"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																							<!--<Text text="{path:'JMItem>Kdpos',formatter:'APWorkbench.model.formatter.fnAmount'}" class="lblAlignRes2" wrapping="false"/>-->
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="4rem">
+																						<Label text="{i18n>CostObject}" tooltip="{i18n>CostObject}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Kstrg}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemKstrg"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="6rem">
+																						<Label text="{i18n>ProfitSegment}" tooltip="{i18n>ProfitSegment}"/>
+																						<ui:template>
+																							<Input value="{JMItem>pro_Seg}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItempro_Seg"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>FunctionalArea}" tooltip="{i18n>FunctionalArea}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Fkber}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemFkber"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="9rem">
+																						<Label text="{i18n>PersonnelNumber}" tooltip="{i18n>PersonnelNumber}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Pernr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemPernr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>ProfitCenter}" tooltip="{i18n>ProfitCenter}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Prctr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemPrctr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>Partner}" tooltip="{i18n>PartnerCustomernumber}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Vptnr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemVptnr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="13rem">
+																						<Label text="{i18n>Network}" tooltip="{i18n>Network}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Nplnr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemNplnr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>OperAct}" tooltip="{i18n>OperAct}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Vornr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemVornr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>ScheduleLine}" tooltip="{i18n>ScheduleLine}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Scheduleline}" class="lblAlignRes2" wrapping="false" id="id_JSPORefDetScheduleline"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="6rem">
+																						<Label text="{i18n>Fund}" tooltip="{i18n>Fund}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Fund}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JSPORefDetFund"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>Grant}" tooltip="{i18n>Grant}"/>
+																						<ui:template>
+																							<Input value="{JMItem>grant_Nbr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemgrant_Nbr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																							<!--<Text text="{path:'JMItem>Lifnr',formatter:'APWorkbench.model.formatter.fnLeadingZero'}" class="lblAlignRes2" wrapping="false"/>-->
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="6rem">
+																						<Label text="{i18n>RE}" tooltip="{i18n>RecoveryIndicator}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Recid}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemRecid"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>COArea}" tooltip="{i18n>ControllingArea}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Kokrs}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemKokrs"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>ItemCategoryfromPurchasing}" tooltip="{i18n>ItemCategoryfromPurchasing}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Epstp}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemEpstp"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>Received}" tooltip="{i18n>QuantityofGoodsReceived}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Received}" textDirection="RTL" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JSPORefDetReceived"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																							<!--<Text text="{JMItem>Wemng}" class="lblAlignRes2" wrapping="false"></Text>-->
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>Settled}" tooltip="{i18n>Quantityinvoiced}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Settled}" textDirection="RTL" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JSPORefDetSettled"
+																								editable="{path: 'JSKey_TableJSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>GRQtyinOPUN}" tooltip="{i18n>GRQtyinOPUN}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Grqtyinopun}" textDirection="RTL" class="APW_InputWidth lblAlignRes2" wrapping="false"
+																								id="id_JSPORefDetGrqtyinopun" editable="{path: 'JSKey_TableJSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>OrderPriceUnit}" tooltip="{i18n>OPUN}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Orderpriceunit}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JSPORefDetOrderpriceunit"
+																								editable="{path: 'JSKey_TableJSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>IRQuantity}" tooltip="{i18n>IRQuantity}"/>
+																						<ui:template>
+																							<Input value="{path:'JMItem>Bprem',formatter:'FSC360NEW.model.formatter.fnAmount'}" textDirection="RTL" class="APW_InputWidth lblAlignRes2"
+																								wrapping="false" id="id_JMItemBprem" editable="{path: 'JSKey_TableJSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>POQuantity}" tooltip="{i18n>POQuantity}"/>
+																						<ui:template>
+																							<Input value="{path:'JMItem>Bsmng',formatter:'FSC360NEW.model.formatter.fnAmount'}" type="Number" textDirection="RTL"
+																								class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemBsmng" editable="{path: 'JSKey_TableJSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>InvoiceamountACCToVendor}" tooltip="{i18n>InvoiceamountACCToVendor}"/>
+																						<ui:template>
+																							<Input value="{path:'JMItem>Rbwwr',formatter:'FSC360NEW.model.formatter.fnAmount'}" textDirection="RTL" class="APW_InputWidth lblAlignRes2"
+																								wrapping="false" id="id_JMItemRbwwr" editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>InvoiceamountACCToVendor}" tooltip="{i18n>InvoiceamountACCToVendor}"/>
+																						<ui:template>
+																							<Input value="{path:'JMItem>Rbmng',formatter:'FSC360NEW.model.formatter.fnAmount'}" textDirection="RTL" class="APW_InputWidth lblAlignRes2"
+																								wrapping="false" id="id_JMItemRbmng" editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>NetPOValue}" tooltip="{i18n>NetPOValue}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Netwr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemNetwr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>NetPrice}" tooltip="{i18n>NetPrice}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Netprice}" textDirection="RTL" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JSPORefDetNetprice"
+																								editable="{path: 'JSKey_Table>/0/Key'}"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>POCurrency}" tooltip="{i18n>POCurrency}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Bewae}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemBewae"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>PriceUnit}" tooltip="{i18n>PriceUnit}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Priceunit}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JSPORefDetPriceunit"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>ReferenceDocument}" tooltip="{i18n>ReferenceDocumentNo}"/>
+																						<ui:template>
+																							<!--<Input value="{JSPORefDet>Mblnr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JSPORefDetMblnr"-->
+																							<!--	editable="{path: 'JSKey_Table>/0/Key'}"></Input>-->
+																							<Link text="{JSPORefDet>Mblnr}" press="onGRNDetailPress" class="cl_qid_sel cl_table_det_text cl_linkwb" id="id_JSPORefDetMblnr"
+																								wrapping="false"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>ItemReferenceDocument}" tooltip="{i18n>ItemofaReferenceDocumentNo}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Lfpos}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemLfpos"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>FYr}" tooltip="{i18n>FiscalYear}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Fiscyear}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JSPORefDetFiscyear"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>GRBLKDQuantity}" tooltip="{i18n>GRBLKDQuantity}"/>
+																						<ui:template>
+																							<Input value="{path:'JMItem>Bpwes',formatter:'FSC360NEW.model.formatter.fnAmount'}" textDirection="RTL" class="APW_InputWidth lblAlignRes2"
+																								wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}" id="id_JMItemBpwes"/>
+																							<!--<Text select="{JMItem>Bpwes}" class="lblAlignRes2" wrapping="false"></Text>-->
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>DeliveryNoteSheetNo}" tooltip="{i18n>DeliveryNoteSheetNo}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Xblnr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemXblnr" ediable="false"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>BillOfLading}" tooltip="{i18n>BillOfLading}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Frbnr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemFrbnr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>DeliveryNoteQty}" tooltip="{i18n>DeliveryNoteQty}"/>
+																						<ui:template>
+																							<Input value="{path:'JMItem>Lsmng',formatter:'FSC360NEW.model.formatter.fnAmount'}" textDirection="RTL" class="APW_InputWidth lblAlignRes2"
+																								wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}" id="id_JMItemLsmng"/>
+																							<!--<Text select="{JMItem>Lsmng}" class="lblAlignRes2" wrapping="false"></Text>-->
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>DelNoteUnit}" tooltip="{i18n>UOMforDeliveryNote}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Lsmeh}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemLsmeh"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>GRIRClearing}" tooltip="{i18n>GRIRClearing}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Arewr}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemArewr"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>ConditionType}" tooltip="{i18n>ConditionType}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Kschl}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemKschl"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>UOM}" tooltip="{i18n>UnitOfMeasure}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Uom}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JSPORefDetUom2"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>Vendor}" tooltip="{i18n>Vendor}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Vendor}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JSPORefDetVendor"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>Incoterms}" tooltip="{i18n>Incoterms}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Inco1}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemInco1"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>Plant}" tooltip="{i18n>Plant}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Plant}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_TableJSKey_Table>/0/Key'}"
+																								id="id_JSPORefDetPlant"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>ValuationArea}" tooltip="{i18n>ValuationArea}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Bwkey}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemBwkey"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>OriginGroup}" tooltip="{i18n>OriginGroup}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Hrkft}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemHrkft"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>ValuationType}" tooltip="{i18n>ValuationType}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Valuationtype}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JSPORefDetValuationtype"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>MPNnumber}" tooltip="{i18n>MPNnumber}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Ematn}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemEmatn"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>Stockmaterial}" tooltip="{i18n>Stockmaterial}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Matbf}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemMatbf"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>CrossPlantCM}" tooltip="{i18n>CrossPlantCM}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Satntr}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemSatntr"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>EANUPC}" tooltip="{i18n>EANUPC}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Ean11}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemEan11"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>VendorMaterialSheetnumber}" tooltip="{i18n>MaterialNumberAtVendor}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Idnlf}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemIdnlf"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>Promotion}" tooltip="{i18n>Promotion}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Aktnr}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemAktnr"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>Region}" tooltip="{i18n>Region}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Regio}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemRegio"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>SubsequentDrCr}" tooltip="{i18n>SubsequentDrCr}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Tbtkz}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemTbtkz"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>ManualBlockingReason}" tooltip="{i18n>ManualBlockingReason}"/>
+																						<ui:template>
+																							<!--<Text text="{JMItem>Spgrq}"  class="APW_InputWidth lblAlignRes2" wrapping="false"></Text>-->
+																							<Input value="{JMItem>Spgrq}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemSpgrq"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>CorrectnID}" tooltip="{i18n>CorrectionIndicator}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Kzmek}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="true" id="id_JMItemKzmek"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>ReturnItem}" tooltip="{i18n>ReturnItem}"/>
+																						<ui:template>
+																							<!--  <Text text="{JMItem>Retpo}"  class="APW_InputWidth lblAlignRes2" wrapping="false"></Text>-->
+																							<Input value="{JMItem>Retpo}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemRetpo"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>DeliveryDate}" tooltip="{i18n>DeliveryDate}"/>
+																						<ui:template>
+																							<Input value="{path:'JMItem>Eindt',formatter:'FSC360NEW.model.formatter.fnDate'}" class="APW_InputWidth lblAlignRes2" wrapping="false"
+																								editable="{path: 'JSKey_Table>/0/Key'}" id="id_JMItemEindt"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>CreatedBy}" tooltip="{i18n>CreatedBy}"/>
+																						<ui:template>
+																							<Input value="{JSPORefDet>Createdby}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JSPORefDetCreatedby"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>Text}" tooltip="{i18n>Text}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Sgtxt}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="true" id="id_JMItemSgtxt"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>ServiceType}" tooltip="{i18n>ServiceType}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Lstar}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemLstar"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>BusinessProcess}" tooltip="{i18n>BusinessProcess}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Prznr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemPrznr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>FreightCostNo}" tooltip="{i18n>FreightCostNo}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Fknum}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemFknum"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>FreightCostItem}" tooltip="{i18n>FreightCostItem}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Fkpos}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemFkpos"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>ItemCategory}" tooltip="{i18n>ItemCategoryfreightCost}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Fkpty}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemFkpty"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>ExternalIden1}" tooltip="{i18n>ExternalIdentification1}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Exti1}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemExti1"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>BusEntity}" tooltip="{i18n>BusinessEntity}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Swenr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemSwenr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>Building}" tooltip="{i18n>Building}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Sgenr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemSgenr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>Property}" tooltip="{i18n>Property}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Sgrnr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemSgrnr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>RentalUnit}" tooltip="{i18n>RentalUnit}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Smenr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemSmenr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>LeaseOut}" tooltip="{i18n>LeaseOut}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Smive}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemSmive"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>DelCstsKey}" tooltip="{i18n>Delivery Cost Key}"/>
+																						<ui:template>
+																							<Input value="{JMItem>delv_Ckey}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemdelv_Ckey"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>SettlementUnit}" tooltip="{i18n>SettlementUnit}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Sempsl}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemSempsl"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>MgmntCntrctno}" tooltip="{i18n>ManagementContractNumber}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Svwnr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemSvwnr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>Referencedate}" tooltip="{i18n>Referencedate}"/>
+																						<ui:template>
+																							<Input value="{path:'JMItem>Dabrz',formatter:'FSC360NEW.model.formatter.fnDate'}" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemDabrz" class="APW_InputWidth lblAlignRes2" wrapping="false"/>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>ContractNo}" tooltip="{i18n>ContractNumber}"/>
+																						<ui:template>
+																							<Input value="{JMItem>Recnnr}" class="APW_InputWidth lblAlignRes2" wrapping="false" id="id_JMItemRecnnr"
+																								editable="{path: 'JSKey_Table>/0/Key'}"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>BlkreasonOrderPriceQty}" tooltip="{i18n>BlkreasonOrderPriceQty}"/>
+																						<ui:template>
+																							<Input value="{path:'JMItem>Bupla',formatter:'FSC360NEW.model.formatter.fnDate'}" class="APW_InputWidth lblAlignRes2" wrapping="false"
+																								id="id_JMItemBupla" editable="{path: 'JSKey_Table>/0/Key'}"/>
+																							<!--<Text select="{JMItem>Bupla}"  class="APW_InputWidth lblAlignRes2" wrapping="false"></Text>-->
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>BlkreasonQty}" tooltip="{i18n>BlkreasonQty}"/>
+																						<ui:template>
+																							<!--  <Text text="{path:'JMItem>hsn_Sac',formatter:'APWorkbench.model.formatter.fnDate'}" class="APW_InputWidth lblAlignRes2" wrapping="false"/>-->
+																							<Input value="{path:'JMItem>hsn_Sac',formatter:'FSC360NEW.model.formatter.fnDate'}" class="APW_InputWidth lblAlignRes2" wrapping="false"
+																								editable="{path: 'JSKey_Table>/0/Key'}" id="id_JMItemhsn_Sac"/>
+																							<!--<Text select="{JMItem>hsn_Sac}"  class="APW_InputWidth lblAlignRes2" wrapping="false"></Text>-->
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>BlkRealPrice}" tooltip="{i18n>BlkRealPrice}"/>
+																						<ui:template>
+																							<!--  <Text text="{path:'JMItem>hsn_Flag',formatter:'APWorkbench.model.formatter.fnDate'}" class="APW_InputWidth lblAlignRes2" wrapping="false"/>-->
+																							<Input value="{path:'JMItem>hsn_Flag',formatter:'FSC360NEW.model.formatter.fnDate'}" class="APW_InputWidth lblAlignRes2" wrapping="false"
+																								editable="{path: 'JSKey_Table>/0/Key'}" id="id_JMItemhsn_Flag"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>Blkreasondate}" tooltip="{i18n>Blkreasondate}"/>
+																						<ui:template>
+																							<Input value="{JMItem>customs_Val}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemcustoms_Val"/>
+																							<!--<Text select="{JMItem>customs_Val}"  class="APW_InputWidth lblAlignRes2" wrapping="false"></Text>-->
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>BlkreasonQuality}" tooltip="{i18n>BlkreasonQuality}"/>
+																						<ui:template>
+																							<!--  <Text text="{JMItem>Spgrg}"  class="APW_InputWidth lblAlignRes2" wrapping="false"></Text>-->
+																							<Input value="{JMItem>Spgrg}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemSpgrg"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>BlkreasonAmount}" tooltip="{i18n>BlkreasonAmount}"/>
+																						<ui:template>
+																							<!--  <Text text="{JMItem>Spgrm}" class="APW_InputWidth lblAlignRes2" wrapping="false"></Text>-->
+																							<Input value="{JMItem>Spgrm}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemSpgrm"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>VarianceType}" tooltip="{i18n>VarianceType}"/>
+																						<ui:template>
+																							<!--  <Text text="{JMItem>Spgrp}"  class="APW_InputWidth lblAlignRes2" wrapping="false"></Text>-->
+																							<Input value="{JMItem>Spgrp}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemSpgrp"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>SettlePer}" tooltip="{i18n>SettlePer}"/>
+																						<ui:template>
+																							<!--  <Text text="{JMItem>Spgrt}"  class="APW_InputWidth lblAlignRes2" wrapping="false"></Text>-->
+																							<Input value="{JMItem>Spgrt}" class="APW_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey_Table>/0/Key'}"
+																								id="id_JMItemSpgrt"></Input>
+																						</ui:template>
+																					</ui:Column>
+																					<ui:Column width="10rem">
+																						<Label text="{i18n>DeliveryDate}" tooltip="{i18n>DeliveryDate}"/>
+																						<ui:template>
+																							<Input value="{path:'JMItem>Spgrc',formatter:'FSC360NEW.model.formatter.fnDate'}" class="APW_InputWidth lblAlignRes2" wrapping="false"
+																								id="id_JMItemSpgrc" editable="{path: 'JSKey_Table>/0/Key'}"/>
+																							<!--<Text select="{JMItem>Spgrc}"  class="APW_InputWidth lblAlignRes2" wrapping="false"></Text>-->
+																						</ui:template>
+																					</ui:Column>
+																				</ui:columns>
+																			</ui:Table>
+																			<!-- Action Buttons -->
+																			<HBox alignItems="Center" id="id_select_box" justifyContent="Start" class="cl_action_buttons">
+																			
+																			
+																			</HBox>
+																			<!--po table end -->
+																			<ScrollContainer vertical="true" horizontal="false" visible="false" id="id_list_poref" class="card_po_cont">
+																				<List items="{path: 'JSPORefDet>/'}" class="APW_ItemListClass " noDataText="No planned delivery cost for the PO">
+																					<CustomListItem class="sapUiSizeCompact">
+																						<HBox id="id_form_wrapper_poref" visible="true" class="cl_form_wrapper cl_row_wrapper" width="100%">
+																							<VBox id="cardview_poref" width="95%">
+																								<!-- First Row -->
+																								<HBox class="cl_barcode_input_row sapUiTinyMarginBegin sapUiTinyMarginEnd" justifyContent="SpaceBetween" alignItems="End">
+																									<VBox class="columnbarcode formFieldbarcode">
+																										<Text text="{i18n>matcode} " class="cl_textcard"/>
+																										<HBox class="formInputWithIconbar ">
+																											<Input class="formInputBw" tooltip="{i18n>matcode}" value="{JSPORefDet>Material} - {JSPORefDet>Potext}"/>
+																										</HBox>
+																									</VBox>
+																									<VBox class="columnbarcode formFieldbarcode">
+																										<Text text="{i18n>grnses}" class="cl_textcard"/>
+																										<HBox class="formInputWithIconbar ">
+																											<Input class="formInputBw" tooltip="{i18n>grnses}" value="{JSPORefDet>Mblnr}"/>
+																										</HBox>
+																									</VBox>
+																									<VBox class="columnbarcode formFieldbarcode">
+																										<Text text="{i18n>amt}" class="cl_textcard"/>
+																										<HBox class="formInputWithIconbar ">
+																											<Input class="formInputBw" tooltip="{i18n>amt}" value="{JSPORefDet>Amount}"/>
+																										</HBox>
+																									</VBox>
+																									<VBox class="columnbarcode formFieldbarcode">
+																										<Text text="{i18n>itemtext}" class="cl_text"/>
+																										<HBox class="formInputWithIconbar ">
+																											<Input class="formInputBw " tooltip="{i18n>itemtext}" value="{JSPORefDet>Potext}"/>
+																										</HBox>
+																									</VBox>
+																								</HBox>
+																								<!-- Second Row -->
+																								<HBox class="cl_barcode_input_row sapUiTinyMarginBegin sapUiTinyMarginEnd sapUiTinyMarginBottom" justifyContent="SpaceBetween"
+																									alignItems="End">
+																									<VBox class="columnbarcode formFieldbarcode">
+																										<Text text="{i18n>qty}" class="cl_textcard"/>
+																										<HBox class="formInputWithIconbar ">
+																											<Input class="formInputBw formInputBwcard" tooltip="{i18n>qty}" value="{JSPORefDet>Quantity}" width="100%"/>
+																										</HBox>
+																									</VBox>
+																									<VBox class="columnbarcode formFieldbarcode">
+																										<Text text="{i18n>hsn}" class="cl_textcard"/>
+																										<HBox class="formInputWithIconbar ">
+																											<!--<Input class="formInputBw formInputBwcard" width="100%" placeholder="Select HSN Code" showValueHelp="true" value="{JSPORefDet>J1bnbm}"-->
+																											<!--	id="id_hsn_po_no" valueHelpRequest="fn_HSN_frag_PO" valueHelpOnly="true" editable="{path: 'JSKey>/0/Key'}"/>-->
+																											<ComboBox width="100%" class="cl_combo_transBarw cl_combo_transBarcardw" placeholder="Select HSN Code" selectedKey="{JSPORefDet>J1bnbm}"
+																												items="{ path: 'JSHSN>/' }" editable="{path: 'JSKey>/0/Key'}" tooltip="{i18n>hsn}" selectionChange="fn_HSNChange_PO">
+																												<core:Item key="{JSHSN>Steuc}" text="{parts: ['JSHSN>Steuc','JSHSN>Text1'], formatter: '.formatHSN'}"/>
+																											</ComboBox>
+																										</HBox>
+																									</VBox>
+																									<VBox class="columnbarcode formFieldbarcode">
+																										<Text text="{i18n>taxcode}" class="cl_textcard"/>
+																										<HBox class="formInputWithIconbar ">
+																											<!--<Input class="formInputBw formInputBwcard" value="{JSPORefDet>Taxcode}" showValueHelp="true"-->
+																											<!--	id="id_taxcode_val" valueHelpRequest="fn_TaxCode_frag_POREF_Tab" valueHelpOnly="true" editable="{path: 'JSKey>/0/Key'}"/>-->
+																											<ComboBox class="cl_combo_transBarw cl_combo_transBarcardw" width="100%" placeholder="Select Tax Code" selectedKey="{JSPORefDet>Taxcode}"
+																												items="{JSTaxCode>/}" tooltip="{i18n>taxcode}" selectionChange="fn_TaxCodeChange_PoRef" editable="{path: 'JSKey>/0/Key'}">
+																												<core:Item key="{JSTaxCode>Mwskz}" text="{parts: ['JSTaxCode>Mwskz','JSTaxCode>Text1'], formatter: '.formatTaxCodePoRef'}"/>
+																											</ComboBox>
+																										</HBox>
+																									</VBox>
+																									<VBox class="columnbarcode formFieldbarcode">
+																										<Text text="Internal Order" class="cl_textcard"/>
+																										<HBox class="formInputWithIconbar ">
+																											<Input class="formInputBw" value="{JSPORefDet>Intorder}" tooltip="{i18n>InvDate}"/>
+																										</HBox>
+																									</VBox>
+																								</HBox>
+																							</VBox>
+																							<VBox id="button_poref" width="2rem" alignItems="Start" class="cl_vertical_line" justifyContent="Center">
+																								<!--<VBox width="5%" height="100%" class="cl_vertical_line"></VBox>-->
+																								<VBox alignItems="Center" justifyContent="Start" width="100%">
+																									<Image id="id_additem_poref" src="Images/create_btn.svg" press="fn_additem_PoRef_Tab" width="18px" height="17px"
+																										class="sapUiTinyMarginBottom sapUiTinyMarginTop cl_add_img" visible="{path: 'JSKey>/0/Key'}"/>
+																									<Image id="id_deleteitem_poref" src="Images/trash_btn.svg" press="fn_deleteitem_PoRef_Tab" width="18px" height="17px"
+																										class="sapUiTinyMarginBottom cl_delete_img" visible="{path: 'JSKey>/0/Key'}"/>
+																									<Image id="id_copyitem_poref" src="Images/copy_btn.svg" press="fn_copyitem_PoRef_Tab" width="18px" height="17px"
+																										class="sapUiTinyMarginBottom cl_copy_img" visible="{path: 'JSKey>/0/Key'}"/>
+																								</VBox>
+																							</VBox>
+																						</HBox>
+																					</CustomListItem>
+																				</List>
+																			</ScrollContainer>
+																			
+																		</VBox>
+				<!--														<VBox class="cl_basicbg">-->
+				<!--<Image src="Images/basicbg.png" tooltip="open pdf" height="130px" width="100%"/>-->
+							
+				<!--															</VBox>	-->
+																	</IconTabFilter>
+																	<!--yasin play-->
+																	<!--<IconTabFilter text="GL Account" key="gl" icon="Images/glacc.svg" class="gl_account_tab">-->
+																		<IconTabFilter text="GL Account" key="gl" icon="{= ${JSState>/poTabKey} === 'gl' ? 'Images/glblue.svg' : 'Images/glacc.svg' }"
+																		id="id_glaccount_tab">
+																		<Text id="id_glAccountSectionHeader" text="GL Account" class="cl_sectionTitlegl" visible="false"/>
+																		<Toolbar class="cl_toolbar" design="Transparent">
+																			<!-- Left Side Buttons -->
+																			<Button id="id_DownLoad" icon="Images/down_btn.svg" text="Download" press="fnDownLoad" enabled="true" class="whitebtn"/>
+																			<Button id="id_Upload" icon="Images/upld_btn.svg" text="Upload" enabled="true" press="fnUpload" class="bluebtn"/>
+																			<ToolbarSpacer/>
+																			<!-- Right Side Button -->
+																			<Button icon="Images/collapse_btn.svg" tooltip="Collapse" press="onCollapsePress" class="gl_collapse_btn"/>
+																		</Toolbar>
+																		<ScrollContainer height="180px" id="id_list_invdet" vertical="true" class="gl_account_card_cont">
+																			<List items="{path: 'JSInvdet>/'}" class="APW_ItemListClass ">
+																				<CustomListItem class="sapUiSizeCompact ">
+																					<HBox id="id_form_wrapper" visible="true" class="cl_form_wrappergl cl_row_wrapper " width="100%">
+																						<VBox width="5%" alignItems="Center" justifyContent="Center">
+																							<VBox width="2rem" alignItems="Center" justifyContent="Center" class="round_cont" id="round">
+																								<Text id="id_itemcnt" text="{path:'JSInvdet>Item',formatter:'FSC360NEW.model.formatter.fnLeadingZero'}" class="cl_item cl_circle_number"/>
+																							</VBox>
+																						</VBox>
+																						<VBox id="cardview" width="90%">
+																							<!-- First Row -->
+																							<HBox class="cl_barcode_input_row sapUiTinyMarginBegin sapUiTinyMarginEnd" justifyContent="SpaceBetween" alignItems="End">
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>glacc}" class="cl_textcard"/>
+																									<HBox class="formInputWithIconbar ">
+																										<!--<Input class="formInputBw formInputBwcard" value="{JSInvdet>Saknr}" id="id_gl_acc_val" valueHelpOnly="true" showValueHelp="true"-->
+																										<!--	valueHelpRequest="fn_GLAc_frag" editable="{path: 'JSKey>/0/Key'}"/>-->
+																										<ComboBox id="id_gl_acc_val" selectedKey="{JSInvdet>Saknr}" selectionChange="fn_onGLAccountChange" items="{ path: 'JSGLAccount>/' }"
+																											editable="{path: 'JSKey>/0/Key'}" class="cl_combo_transBarw cl_combo_transBarcardw"  tooltip="{i18n>glacc}">
+																											<core:Item key="{JSGLAccount>Saknr}" text="{= ${JSGLAccount>Saknr} + ' - ' + ${JSGLAccount>Txt50} }"/>
+																										</ComboBox>
+																									</HBox>
+																								</VBox>
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>costcen}" class="cl_textcard"/>
+																									<HBox class="formInputWithIconbar ">
+																										<!--<Input class="formInputBw formInputBwcard" value="{JSInvdet>Kostl}" showValueHelp="true" id="id_costcenter_val"-->
+																										<!--	editable="{path: 'JSKey>/0/Key'}" valueHelpRequest="fn_CostCntr_frag"/>-->
+																										<ComboBox id="id_costcenter_val" selectedKey="{JSInvdet>Kostl}" selectionChange="fn_onCostCenterChange" items="{ path: 'JSCostCenter>/' }"
+																											editable="{path: 'JSKey>/0/Key'}" class="cl_combo_transBarw cl_combo_transBarcardw" tooltip="{i18n>costcen}">
+																											<core:Item key="{JSCostCenter>Kostl}" text="{= ${JSCostCenter>Kostl} + ' - ' + ${JSCostCenter>Ktext} }"/>
+																										</ComboBox>
+																									</HBox>
+																								</VBox>
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>amt}" class="cl_textcard"/>
+																									<HBox class="formInputWithIconbar ">
+																										<Input class="formInputBw " value="{JSInvdet>Netpr}" id="id_glaccount_amnt" change="fn_onAmountChange" liveChange="fn_onAmountLiveChange"
+																											submit="fn_onAmountChange" tooltip="{i18n>amt}"/>
+																									</HBox>
+																								</VBox>
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>itemtext}" class="cl_textcard"/>
+																									<HBox class="formInputWithIconbar ">
+																										<Input class="formInputBw" value="{JSInvdet>Itemtxt}" tooltip="{i18n>itemtext}"/>
+																									</HBox>
+																								</VBox>
+																							</HBox>
+																							<!-- Second Row -->
+																							<HBox class="cl_barcode_input_row sapUiTinyMarginBegin sapUiTinyMarginEnd sapUiTinyMarginBottom" justifyContent="SpaceBetween"
+																								alignItems="End">
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>profitcen}" class="cl_textcard"/>
+																									<HBox class="formInputWithIconbar ">
+																										<Input class="formInputBw" value="{JSInvdet>Prctr}" width="100%" tooltip="{i18n>profitcen}"/>
+																									</HBox>
+																								</VBox>
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>hsn}" class="cl_textcard"/>
+																									<HBox class="formInputWithIconbar ">
+																										<!--<Input value="{ parts: [ {path: 'JSInvdet>Hsncode'}, {path: 'JSInvdet>Hsndesc'} ], formatter: '.formatCodeDesc' }"-->
+																										<!--			class="formInputBw formInputBwcard" width="100%" placeholder="Select HSN Code" showValueHelp="true" id="id_hsn_no_gltab"-->
+																										<!--			valueHelpRequest="fn_HSN_frag" editable="{path: 'JSKey>/0/Key'}"/>-->
+																										<ComboBox id="id_hsn_no" selectedKey="{JSInvdet>/0/Hsncode}" selectionChange="fn_onHSNChange" items="{ path: 'JSHSN>/' }"
+																											class="cl_combo_transBarw cl_combo_transBarcardw" editable="{path: 'JSKey>/0/Key'}" tooltip="{i18n>hsn}">
+																											<!-- Dropdown: show code + description -->
+																											<core:Item key="{JSHSN>Steuc}" text="{= ${JSHSN>Steuc} + ' - ' + ${JSHSN>Text1} }"/>
+																										</ComboBox>
+																									</HBox>
+																								</VBox>
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>taxcode}" class="cl_textcard"/>
+																									<HBox class="formInputWithIconbar ">
+																										<!--<Input class="formInputBw formInputBwcard" width="100%" value="{JSInvdet>Mwskz}" showValueHelp="true"-->
+																										<!--	valueHelpRequest="fn_TaxCode_frag" id="id_mwskz" editable="{path: 'JSKey>/0/Key'}" valueHelpOnly="true"/>-->
+																										<ComboBox id="id_mwskz" selectedKey="{JSInvdet>Mwskz}" selectionChange="fn_onTaxCodeChange" items="{ path: 'JSTaxCode>/' }"
+																											editable="{path: 'JSKey>/0/Key'}" class="cl_combo_transBarw cl_combo_transBarcardw" tooltip="{i18n>taxcode}">
+																											<!-- Show "Code - Description" in dropdown -->
+																											<core:Item key="{JSTaxCode>Mwskz}" text="{= ${JSTaxCode>Mwskz} + ' - ' + ${JSTaxCode>Text1} }"/>
+																										</ComboBox>
+																									</HBox>
+																								</VBox>
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>Inord}" class="cl_textcard"/>
+																									<HBox class="formInputWithIconbar ">
+																										<Input class="formInputBw" value="{JSInvdet>Intorder}" tooltip="{i18n>Inord}"/>
+																									</HBox>
+																								</VBox>
+																							</HBox>
+																							<HBox class="cl_barcode_input_row sapUiTinyMarginBegin sapUiTinyMarginEnd sapUiTinyMarginBottom" justifyContent="SpaceBetween"
+																								alignItems="End">
+																								<VBox class="columnbarcode formFieldbarcode columnbarcodegl">
+																									<Text text="{i18n>DC}" class="cl_textcard"/>
+																									<HBox class="formInputWithIconbar cl_full_gl_creditdebit">
+																										<ComboBox class="cl_combo_transBarw cl_full_credit_comb" tooltip="{i18n>DC}" selectedKey="Deb" id="id_glcCombo" selectionChange="fn_deb_cred_full">
+																											<core:Item key="Deb" text="Debit"/>
+																											<core:Item key="Cre" text="Credit"/>
+																										</ComboBox>
+																									</HBox>
+																								</VBox>
+																							</HBox>
+																						</VBox>
+																						<VBox id="button" width="5%" alignItems="Start" class="cl_vertical_line" justifyContent="Center">
+																							<!-- Vertical Separator Line -->
+																							<!--<VBox width="5%" height="100%" class="cl_vertical_line"></VBox>-->
+																							<!-- Action Buttons vertically aligned -->
+																							<VBox alignItems="Center" justifyContent="Start" width="100%">
+																								<!-- Button Stack -->
+																								<Image id="id_additem2" src="Images/create_btn.svg" press="fn_additem" width="18px" height="17px"
+																									class="sapUiTinyMarginBottom sapUiTinyMarginTop cl_add_img" visible="{path: 'JSKey>/0/Key'}"/>
+																								<Image id="id_deleteitem2" src="Images/trash_btn.svg" press="fn_deleteitem" width="18px" height="17px"
+																									class="sapUiTinyMarginBottom cl_delete_img" visible="{path: 'JSKey>/0/Key'}"/>
+																								<Image id="id_copyitem2" src="Images/copy_btn.svg" press="fn_copyitem" width="18px" height="17px" class="sapUiTinyMarginBottom cl_copy_img"
+																									visible="{path: 'JSKey>/0/Key'}"/>
+																							</VBox>
+																						</VBox>
+																					</HBox>
+																				</CustomListItem>
+																			</List>
+																		</ScrollContainer>
+																		<uitable:Table id="id_gltable" rows="{JSInvdet>/}" selectionMode="MultiToggle" enableSelectAll="true" visibleRowCount="1"
+																			navigationMode="Scrollbar" columnHeaderVisible="true" enableColumnReordering="true" visible="false" rowSelectionChange="onPoRowSelect"
+																			class="FSC_Table cl_barcode_table cl_gl_tableborder FSC_Table_cr cl_header_icon1">
+																			<uitable:columns>
+																				<!-- GL Account -->
+																				<uitable:Column width="15%" hAlign="Center">
+																					<Text text="G/L Acct" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<ComboBox id="id_JSInvdetSaknr" selectedKey="{JSInvdet>/0/Saknr}" selectionChange="fn_onGLAccountChange" items="{ path: 'JSGLAccount>/' }"
+																							editable="{path: 'JSKey>/0/Key'}" class="cl_column_cell apinputtext cl_combo_table">
+																							<core:Item key="{JSGLAccount>Saknr}" text="{= ${JSGLAccount>Saknr} + ' - ' + ${JSGLAccount>Txt50} }"/>
+																						</ComboBox>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- Cost Center -->
+																				<uitable:Column width="15%" hAlign="Center">
+																					<Text text="Cost Center" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<ComboBox id="id_JSInvdetKostl" selectedKey="{JSInvdet>/0/Kostl}" selectionChange="fn_onCostCenterChange" items="{ path: 'JSCostCenter>/' }"
+																							editable="{path: 'JSKey>/0/Key'}" class="cl_column_cell apinputtext cl_combo_table">
+																							<core:Item key="{JSCostCenter>Kostl}" text="{= ${JSCostCenter>Kostl} + ' - ' + ${JSCostCenter>Ktext} }"/>
+																						</ComboBox>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- Tax Code -->
+																				<uitable:Column width="10%" hAlign="Center">
+																					<Text text="Tax Code" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<ComboBox class="cl_column_cell apinputtext cl_combo_table" width="100%" selectedKey="{JSInvdet>/0/Mwskz}" items="{JSTaxCode>/}"
+																							selectionChange="fn_TaxCodeChange_PoRef" editable="{path: 'JSKey>/0/Key'}" id="id_JSInvdetMwskz">
+																							<core:Item key="{JSTaxCode>Mwskz}" text="{parts: ['JSTaxCode>Mwskz','JSTaxCode>Text1'], formatter: '.formatTaxCodePoRef'}"/>
+																						</ComboBox>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- Profit Center -->
+																				<uitable:Column width="14%" hAlign="Center">
+																					<Text text="Profit Center" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<Input value="{JSInvdet>/0/Prctr}" editable="{path: 'JSKey>/0/Key'}" id="id_JSInvdetPrctr" class="cl_table_input"/>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- Short Text -->
+																				<!--<uitable:Column width="6%" hAlign="Center">-->
+																				<!--    <Text text="Short Text" class="cl_Tltxt"/>-->
+																				<!--    <uitable:template>-->
+																				<!--        <Input value="{JMItem>HkontTxt}" class="cl_table_input"/>-->
+																				<!--    </uitable:template>-->
+																				<!--</uitable:Column>-->
+																				<!-- NEW: Amount -->
+																				<uitable:Column width="8%" hAlign="Center">
+																					<Text text="Amount" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<Input value="{JSInvdet>/0/Netpr}" class="cl_table_input" change=".fn_onAmountChange"/>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- NEW: Item Text -->
+																				<uitable:Column width="10%" hAlign="Center">
+																					<Text text="Item Text" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<Input value="{JSInvdet>/0/Itemtxt}" class="cl_table_input"/>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- NEW: HSN Code -->
+																				<uitable:Column width="10%" hAlign="Center">
+																					<Text text="HSN Code" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<ComboBox id="id_JSInvdetHsncode" selectedKey="{JSInvdet>/0/Hsncode}" selectionChange="fn_onHSNChange" items="{ path: 'JSHSN>/' }"
+																							editable="{path: 'JSKey>/0/Key'}" class="cl_column_cell apinputtext cl_combo_table" tooltip="{JSInvdet>/0/Hsndesc}">
+																							<core:Item key="{JSHSN>Steuc}" text="{= ${JSHSN>Steuc} + ' - ' + ${JSHSN>Text1} }"/>
+																						</ComboBox>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- NEW: Internal Order -->
+																				<uitable:Column width="10%" hAlign="Center">
+																					<Text text="Internal Order" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<Input value="{JSInvdet>/0/Intorder}" class="cl_table_input"/>
+																					</uitable:template>
+																				</uitable:Column>
+																			</uitable:columns>
+																		</uitable:Table>
+																	</IconTabFilter>
+																	<IconTabFilter text="Material" key="material" icon="{= ${JSState>/poTabKey} === 'material' ? 'Images/matblue.svg' : 'Images/material.svg' }"
+																		id="id_material_tab">
+																		<HBox class="cl_row_wrapperwm ml">
+																			<!-- Round Number -->
+																			<VBox width="2rem" alignItems="Center" justifyContent="Center" class="round_cont1" id="round3">
+																				<Label text="{JSMatdet>/0/Item}" class="cl_circle_number"/>
+																			</VBox>
+																			<!-- Form Container -->
+																			<VBox class="cl_form_wrappermat" id="id_form_wrapper1">
+																				<VBox id="cardview2">
+																					<!-- First Row -->
+																					<HBox class="cl_barcode_input_row sapUiTinyMarginBegin sapUiTinyMarginEnd" justifyContent="SpaceBetween" alignItems="End">
+																						<VBox class="columnbarcode formFieldbarcode columnbarcodegl">
+																							<Text text="{i18n>mat}" class="cl_textcard"/>
+																							<HBox class="formInputWithIconbar ">
+																							
+																								<ComboBox id="id_material" selectedKey="{JSMatdet>/0/Matnr}" selectionChange="onMaterialChange" items="{ path: 'JSMaterial>/' }"
+																									class="cl_combo_transBarw" editable="true"  tooltip="{i18n>mat}">
+																									<!-- Dropdown shows both code and description -->
+																									<core:Item key="{JSMaterial>Matnr}" text="{= ${JSMaterial>Matnr} + ' - ' + ${JSMaterial>Maktg} }"/>
+																								</ComboBox>
+																							</HBox>
+																						</VBox>
+																						<VBox class="columnbarcode formFieldbarcode columnbarcodegl">
+																							<Text text="{i18n>valtype}" class="cl_textcard"/>
+																							<HBox class="formInputWithIconbar ">
+																								<Input class="formInputBw" value="{JSMatdet>/0/Vprsv}"  tooltip="{i18n>valtype}"/>
+																							</HBox>
+																						</VBox>
+																						<VBox class="columnbarcode formFieldbarcode columnbarcodegl">
+																							<Text text="{i18n>amt}" class="cl_textcard"/>
+																							<HBox class="formInputWithIconbar ">
+																								<Input class="formInputBw"  tooltip="{i18n>amt}" value="{JSMatdet>/0/Zuumb}" id="id_glamnt" change="onAmountChange" liveChange="fnMatAmountChange"/>
+																							</HBox>
+																						</VBox>
+																						<VBox class="columnbarcode formFieldbarcode columnbarcodegl">
+																							<Text text="{i18n>Baseunit}" class="cl_textcard"/>
+																							<HBox class="formInputWithIconbar ">
+																								<Input class="formInputBw" value="{JSMatdet>/0/Meins}"  tooltip="{i18n>Baseunit}"/>
+																							</HBox>
+																						</VBox>
+																					</HBox>
+																					<!-- Second Row -->
+																					<HBox class="cl_barcode_input_row sapUiTinyMarginBegin sapUiTinyMarginEnd sapUiTinyMarginBottom" justifyContent="SpaceBetween"
+																						alignItems="End">
+																						<VBox class="columnbarcode formFieldbarcode columnbarcodegl">
+																							<Text text="{i18n>plant}" class="cl_textcard"/>
+																							<HBox class="formInputWithIconbar ">
+																								<!--<Input class="formInputgl formInput-custom" value="{JSMatdet>/0/Plnt}" width="100%"/>-->
+																								<!--<Input showSuggestion="true" showValueHelp="true" valueHelpRequest="fn_plantfrag_mat_Tab" width="100%"-->
+																								<!--class="formInputBw formInputBwm" value="{JSMatdet>/0/Plnt}" id="id_JSMatdetPlnt2"-->
+																								<!--editable="{path: 'JSKey>/0/Key'}" tooltip="{JSMatdet>Plant_Desc}"></Input>-->
+																								<ComboBox id="id_JSMatdetPlnt2" selectedKey="{JSMatdet>/0/Plnt}" selectionChange="onPlantChange" items="{ path: 'JSPlant>/' }"
+																									class="cl_combo_transBarw"  tooltip="{i18n>plant}" editable="{path: 'JSKey>/0/Key'}" >
+																									<!-- Dropdown: show code + desc -->
+																									<!--<core:Item key="{JSPlant>Werks}" text="{= ${JSPlant>Werks} + ' - ' + ${JSPlant>Name1} }"/>-->
+																									<core:Item key="{JSPlant>Wekrs}" text="{parts: ['JSPlant>Wekrs','JSPlant>Name1'], formatter: '.formatPlant'}"/>
+																								</ComboBox>
+																							</HBox>
+																						</VBox>
+																						<VBox class="columnbarcode formFieldbarcode columnbarcodegl">
+																							<Text text="{i18n>DC}" class="cl_textcard"/>
+																							<HBox class="formInputWithIconbar ">
+																								<ComboBox width="100%" class="cl_combo_transBarw"  tooltip="{i18n>DC}" selectedKey="D" id="id_dcCombo" change=".onDCChange">
+																									<core:Item key="D" text="Debit"/>
+																									<core:Item key="C" text="Credit"/>
+																								</ComboBox>
+																							</HBox>
+																						</VBox>
+																						<VBox class="columnbarcode formFieldbarcode columnbarcodegl">
+																							<Text text="{i18n>qty}" class="cl_textcard"/>
+																							<HBox class="formInputWithIconbar ">
+																								<Input class="formInputBw" liveChange="onQuantityChange"  tooltip="{i18n>qty}" value="0.000" showValueHelp="false"/>
+																							</HBox>
+																						</VBox>
+																						<VBox class="columnbarcode formFieldbarcode columnbarcodegl">
+																							<Text text="{i18n>Taxcode}" class="cl_textcard"/>
+																							<HBox class="formInputWithIconbar ">
+																								<!--<Input class="formInputBw formInputBwm"  showValueHelp="true" value="{JSMatdet>/0/Mwskz}" valueHelpRequest="fn_Taxcodefrag_MatTab" tooltip="tax description" />-->
+																								<ComboBox id="id_mwskz_mat" selectedKey="{JSMatdet>/0/Mwskz}" selectionChange="fn_onTaxCodeMatChange" items="{ path: 'JSTaxCode>/' }"
+																									class="cl_combo_transBarw" editable="{path: 'JSKey>/0/Key'}"  tooltip="{i18n>Taxcode}">
+																									<!-- Dropdown shows code + description -->
+																									<core:Item key="{JSTaxCode>Mwskz}" text="{= ${JSTaxCode>Mwskz} + ' - ' + ${JSTaxCode>Text1} }"/>
+																								</ComboBox>
+																							</HBox>
+																						</VBox>
+																					</HBox>
+																				</VBox>
+																			</VBox>
+																		</HBox>
+																	</IconTabFilter>
+																	<IconTabFilter text="Down Payment" key="downPayment" id="id_dpTab"
+																		icon="{= ${JSState>/poTabKey} === 'downPayment' ? 'Images/downpayment_blue.svg' : 'Images/downpayment.svg' }">
+																		<Text text="Down Payment" class="cl_sectionTitlegl sapUiSmallMarginTop" id="id_DP_heading" visible="false"/>
+																		<Toolbar class="cl_toolbar" design="Transparent">
+																			<!-- Left Side Buttons -->
+																			<!--<Button icon="Images/down_btn.svg" text="Download" press="fnDownLoad" class="whitebtn"/>-->
+																			<!--<Button icon="Images/upld_btn.svg" text="Upload" press="fnUpload" class="bluebtn"/>-->
+																			<ToolbarSpacer/>
+																			<!-- Right Side Button -->
+																			<Button icon="Images/collapse_btn.svg" tooltip="Collapse" press="onCollapsePressDownPay" class="gl_collapse_btn"/>
+																		</Toolbar>
+																		<!-- Down Payment Scroll List -->
+																		<!-- Down Payment Table -->
+																		<uitable:Table rows="{JSInvdet>/}" selectionMode="MultiToggle" enableSelectAll="true" id="id_downpayment_table" visibleRowCount="5"
+																			navigationMode="Scrollbar" columnHeaderVisible="true" enableColumnReordering="true"
+																			class="FSC_Table cl_barcode_table cl_gl_tableborder FSC_Table_cr cl_header_icon1">
+																			<uitable:columns>
+																				<!-- Amount (Wrbtr) -->
+																				<uitable:Column width="100px" hAlign="Center">
+																					<Text text="Amount" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<Text text="{JSInvdet>Wrbtr}" class="cl_table_text"/>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- Tax Amount (Taxamt) -->
+																				<uitable:Column width="100px" hAlign="Center">
+																					<Text text="Tax Amount" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<Text text="{JSInvdet>Taxamt}" class="cl_table_text"/>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- Tax Code (Mwskz) -->
+																				<uitable:Column width="80px" hAlign="Center">
+																					<Text text="Tax Code" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<Text text="{JSInvdet>Mwskz}" class="cl_table_text"/>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- Assignment (Zuonr) -->
+																				<uitable:Column width="80px" hAlign="Center">
+																					<Text text="Assignment" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<Text text="{JSInvdet>Zuonr}" class="cl_table_text"/>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- Item Text (Sgtxt) -->
+																				<uitable:Column width="150px" hAlign="Center">
+																					<Text text="Item Text" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<Text text="{JSInvdet>Sgtxt}" class="cl_table_text"/>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- Business Area (Gsber) -->
+																				<uitable:Column width="100px" hAlign="Center">
+																					<Text text="Business Area" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<Text text="{JSInvdet>Gsber}" class="cl_table_text"/>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- PO Number (Ebeln) -->
+																				<uitable:Column width="120px" hAlign="Center">
+																					<Text text="PO Number" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<Text text="{JSInvdet>Ebeln}" class="cl_table_text"/>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- PO Item (Ebelp) -->
+																				<uitable:Column width="80px" hAlign="Center">
+																					<Text text="Item" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<Text text="{JSInvdet>Ebelp}" class="cl_table_text"/>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- Line Item Number (Zekkn) -->
+																				<uitable:Column width="80px" hAlign="Center">
+																					<Text text="Line Item" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<Text text="{JSInvdet>Zekkn}" class="cl_table_text"/>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- Business Place (Bupla) -->
+																				<uitable:Column width="100px" hAlign="Center">
+																					<Text text="Business Place" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<Text text="{JSInvdet>Bupla}" class="cl_table_text"/>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- Section Code (Secco) -->
+																				<uitable:Column width="100px" hAlign="Center">
+																					<Text text="Section Code" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<Text text="{JSInvdet>Secco}" class="cl_table_text"/>
+																					</uitable:template>
+																				</uitable:Column>
+																				<!-- Valuation Advance (Val_adv) -->
+																				<uitable:Column width="120px" hAlign="Center">
+																					<Text text="Val Date" class="cl_Tltxt"/>
+																					<uitable:template>
+																						<Text text="{path:'JSInvdet>ValDt', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_table_text"/>
+																					</uitable:template>
+																				</uitable:Column>
+																			</uitable:columns>
+																		</uitable:Table>
+																		<ScrollContainer height="300px" visible="false" id="id_downpayment_card" vertical="true" class="FSC_Card_Container sapUiSmallMarginBegin">
+																			<List items="{JSInvdet>/}" class="FSC_CardList">
+																				<CustomListItem class="sapUiSizeCompact">
+																					<HBox visible="true" class="cl_form_wrappergl cl_row_wrapper" width="100%">
+																						<!-- Serial / Item Number -->
+																						<VBox width="5%" alignItems="Center" justifyContent="Center">
+																							<VBox width="2rem" alignItems="Center" justifyContent="Center" class="round_cont">
+																								<Text text="{path:'JSInvdet>Item',formatter:'FSC360NEW.model.formatter.fnLeadingZero'}" class="cl_item cl_circle_number"/>
+																							</VBox>
+																						</VBox>
+																						<!-- Card Content -->
+																						<VBox width="90%">
+																							<!-- Row 1: Amount, Tax Amount, Tax Code -->
+																							<HBox justifyContent="SpaceBetween" alignItems="End" class="cl_barcode_input_row sapUiTinyMarginBegin sapUiTinyMarginEnd">
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>amt}" class="cl_textcard"/>
+																									<Input value="{JSInvdet>Wrbtr}" class="formInputBw" tooltip="{i18n>amt}"/>
+																								</VBox>
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>taxamt}" class="cl_textcard"/>
+																									<Input value="{JSInvdet>Taxamt}" tooltip="{i18n>taxamt}" class="formInputBw"/>
+																								</VBox>
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>taxcode}" class="cl_textcard"/>
+																									<ComboBox selectedKey="{JSInvdet>Mwskz}" tooltip="{i18n>taxcode}" items="{ path: 'JSTaxCode>/' }" class="cl_combo_transBarw">
+																										<core:Item key="{JSTaxCode>Mwskz}" text="{= ${JSTaxCode>Mwskz} + ' - ' + ${JSTaxCode>Text1} }"/>
+																									</ComboBox>
+																								</VBox>
+																							</HBox>
+																							<!-- Row 2: Assignment, Item Text -->
+																							<HBox justifyContent="SpaceBetween" alignItems="End"
+																								class="cl_barcode_input_row sapUiTinyMarginBegin sapUiTinyMarginEnd sapUiTinyMarginBottom">
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>assig}" class="cl_textcard"/>
+																									<Input value="{JSInvdet>Zuonr}" tooltip="{i18n>assig}" class="formInputBw"/>
+																								</VBox>
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>itemtext}" class="cl_textcard"/>
+																									<Input value="{JSInvdet>Sgtxt}" tooltip="{i18n>itemtext}" class="formInputBw"/>
+																								</VBox>
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>valdate} " class="cl_textcard"/>
+																										<!--<Text text="{path:'JSInvdet>ValDt', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_table_text"/>-->
+																									<Input value="{path:'JSInvdet>ValDt', formatter:'FSC360NEW.model.formatter.fnDate'}" tooltip="{i18n>valdate}" class="formInputBw"/>
+																								</VBox>
+																							</HBox>
+																							<!-- Row 3: Business Area, PO Number, PO Item -->
+																							<HBox justifyContent="SpaceBetween" alignItems="End"
+																								class="cl_barcode_input_row sapUiTinyMarginBegin sapUiTinyMarginEnd sapUiTinyMarginBottom">
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text=" {i18n>busarea}" class="cl_textcard"/>
+																									<Input value="{JSInvdet>Gsber}" tooltip="{i18n>busarea}" class="formInputBw"/>
+																								</VBox>
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text=" {i18n>pono}" class="cl_textcard"/>
+																									<Input value="{JSInvdet>Ebeln}" tooltip="{i18n>pono}" class="formInputBw"/>
+																								</VBox>
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>poitem}" class="cl_textcard"/>
+																									<Input value="{JSInvdet>Ebelp}" tooltip="{i18n>poitem}" class="formInputBw"/>
+																								</VBox>
+																							</HBox>
+																							<!-- Row 4: Line Item, Business Place, Section Code -->
+																							<HBox justifyContent="SpaceBetween" alignItems="End"
+																								class="cl_barcode_input_row sapUiTinyMarginBegin sapUiTinyMarginEnd sapUiTinyMarginBottom">
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>lineitem}" class="cl_textcard"/>
+																									<Input value="{JSInvdet>Zekkn}" tooltip="{i18n>lineitem}" class="formInputBw"/>
+																								</VBox>
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>buspl}" class="cl_textcard"/>
+																									<Input value="{JSInvdet>Bupla}" tooltip="{i18n>buspl}" class="formInputBw"/>
+																								</VBox>
+																								<VBox class="columnbarcodegl formFieldbarcode">
+																									<Text text="{i18n>sec}" class="cl_textcard"/>
+																									<Input value="{JSInvdet>Secco}" tooltip="{i18n>sec}" class="formInputBw"/>
+																								</VBox>
+																							</HBox>
+																						</VBox>
+																						<!-- Action Buttons -->
+																						<VBox width="5%" alignItems="Start" justifyContent="Center" class="cl_vertical_line">
+																							<VBox alignItems="Center" justifyContent="Start" width="100%">
+																								<Image src="Images/create_btn.svg" press="fn_additem" width="18px" height="17px" class="sapUiTinyMarginBottom sapUiTinyMarginTop cl_add_img"/>
+																								<Image src="Images/trash_btn.svg" press="fn_deleteitem" width="18px" height="17px" class="sapUiTinyMarginBottom cl_delete_img"/>
+																								<Image src="Images/copy_btn.svg" press="fn_copyitem" width="18px" height="17px" class="sapUiTinyMarginBottom cl_copy_img"/>
+																							</VBox>
+																						</VBox>
+																					</HBox>
+																				</CustomListItem>
+																			</List>
+																		</ScrollContainer>
+																	</IconTabFilter>
+																</items>
+															</IconTabBar>
+														</VBox>
+														<VBox id="id_SingleTabView" class="cl_sectionTitlegl" visible="false">
+															<Text text="GL Account" class="cl_glTitle"/>
+															<VBox id="id_glaccount_content"/>
+														</VBox>
+														<VBox width="3%" class="cl_tabCollapseBtn" alignItems="End">
+															<Button icon="Images/po_collapse_btn.svg" tooltip="Collapse" press="onExpand" class="gl_collapse_btn expand_btn"/>
+														</VBox>
+													</HBox>
+											
+												</VBox>
+											
+											</IconTabFilter>
+												
+											<IconTabFilter text="Details" id="id_DetailsTab" key="functionalLocation"
+												icon="{= ${JSState>/selectedKey} === 'functionalLocation' ? 'Images/basic.svg' : 'Images/basicblack.svg' }">
+											<VBox class="formSection" id="id_formSection_det">
+													<List id="id_list_inv" items="{JSInvdet>/}" class="myInvoiceListClass">
+														<CustomListItem>
+															<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginBottom" justifyContent="SpaceBetween"
+																alignItems="End">
+																<!-- Business Place -->
+																<!--<Input class="formInput" value="Select Business Place" width="100%"/>-->
+																<!--<Image src="Images/searchhelp.svg" width="10px" height="13px" class="inputIcon"/>-->
+																<VBox class="columnbarcode formFieldbarcode">
+																	<Text text="{i18n>doctype}" class="cl_textw"/>
+																	<HBox class="formInputWithIconbar ">
+																		<Input id="id_doc_type" value="KZ" class="formInputBw inpvali" showValueHelp="false" editable="{path: 'JSKey>/0/Key'}" 
+																			change="fnValidateChange" tooltip="{i18n>doctype}"/>
+																	</HBox>
+																</VBox>
+																<VBox class="columnbarcode formFieldbarcode">
+																	<Text text="{i18n>busarea}" class="cl_textw"/>
+																	<HBox class="formInputWithIconbar ">
+																		<Input id="id_business_area" value="{JSInvdet>Gsber}" class="formInputBw inpvali" showValueHelp="false" editable="{path: 'JSKey>/0/Key'}"
+																			placeholder="" change="fnValidateChange" tooltip="{i18n>busarea}"/>
+																	</HBox>
+																</VBox>
+															
+																<VBox class="columnbarcode formFieldbarcode">
+																	<Text text=" {i18n>assigno}" class="cl_textw"/>
+																	<HBox class="formInputWithIconbar ">
+																		<Input id="id_assignment_no" value="{JSInvdet>Zuonr}" class="formInputBw inpvali" showValueHelp="false" editable="{path: 'JSKey>/0/Key'}"
+																			placeholder="" change="fnValidateChange" tooltip="{i18n>assigno}"/>
+																	</HBox>
+																</VBox>
+															
+																<VBox class="columnbarcode formFieldbarcode">
+																	<Text text="{i18n>gl}" class="cl_textw"/>
+																	<HBox class="formInputWithIconbar ">
+																		<Input id="id_gl_no" value="{JSInvdet>Hkont}" class="formInputBw inpvali" showValueHelp="false" editable="{path: 'JSKey>/0/Key'}"
+																			placeholder="" change="fnValidateChange" tooltip="{i18n>gl}"/>
+																	</HBox>
+																</VBox>
+															</HBox>
+														</CustomListItem>
+													</List>
+												</VBox>
+											</IconTabFilter>
+											<!--<IconTabFilter id="id_PaymentTab" text="Payment" key="payment" icon="Images/payment.svg" class="cl_tabPayment">-->
+												<IconTabFilter id="id_PaymentTab" text="Payment" key="payment"
+												icon="{= ${JSState>/selectedKey} === 'payment' ? 'Images/payblue.svg' : 'Images/payment.svg' }" class="cl_tabPayment">
+											
+												<HBox width="100%" fitContainer="true">
+													<VBox width="65%">
+														<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd" justifyContent="SpaceBetween" alignItems="End">
+															<!-- Transtype -->
+															<VBox class="columnbarcode formFieldbarcode">
+																<Text text="{i18n>basedate}" class="cl_textw"/>
+															
+																<HBox class="formInputWithIconbar ">
+																	<DatePicker id="id_BaseDate" placeholder="DD.MM.YYYY" displayFormat="dd/MM/YYYY" change="fn_Invoicedate_change"
+																		editable="{path: 'JSKey>/0/Key'}" class="formInputBw inputhelpw" tooltip="{i18n>basedate}"/>
+																</HBox>
+															</VBox>
+															<!-- Invoice Number -->
+															<VBox class="columnbarcode formFieldbarcode">
+																<Text text="{i18n>duedate}" class="cl_textw"/>
+											
+																<HBox class="formInputWithIconbar ">
+																	<DatePicker id="id_DueOn" placeholder="DD.MM.YYYY" displayFormat="dd/MM/YYYY" editable="{path: 'JSKey>/0/Key'}"
+																		class="formInputBw inputhelpw" tooltip="{i18n>duedate}"/>
+																</HBox>
+															</VBox>
+															<!-- Header Text -->
+															<VBox class="columnbarcode formFieldbarcode">
+																<Text text="{i18n>dis}" class="cl_textw"/>
+																<HBox class="formInputWithIconbar ">
+																	<Input id="id_Discount" editable="{path: 'JSKey>/0/Key'}" tooltip="{i18n>dis}" class="formInputBw" value=" "/>
+																</HBox>
+															</VBox>
+														</HBox>
+														<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd" justifyContent="SpaceBetween" alignItems="End">
+															<VBox class="columnbarcode formFieldbarcode">
+																<Text text="{i18n>paymeth}" class="cl_textw"/>
+																<HBox class="formInputWithIconbar ">
+																	<!--<Input id="id_PayMethod" editable="{path: 'JSKey>/0/Key'}" class="formInputBw" value="Select Method" width="100%"/>-->
+																	<!--<Image src="Images/popup.svg" width="12px" height="15px" press="fn_PaymentMethod_frag" class="inputIconwp"/>-->
+																	<ComboBox id="id_PayMethod" placeholder="Select Method" selectionChange="fn_PaymentMethodChange" class="cl_combo_transBarw"
+																		tooltip="{i18n>paymeth}" ></ComboBox>
+																</HBox>
+															</VBox>
+															<VBox class="columnbarcode formFieldbarcode">
+																<Text text="{i18n>payblk}" class="cl_textw"/>
+																<HBox class="formInputWithIconbar ">
+																	<!--<ComboBox id="id_payment_block" placeholder="Select Payment Block" selectionChange="fn_PaymentBlockChange" class="cl_combo_transBarw"-->
+																	<!--	tooltip="Select Payment Block" width="100%"></ComboBox>-->
+																	<Select items="{JSPayBlock>/}" id="id_Payment_Block" change="fnTrnsidselect" width="10.5rem" selectedKey="1"
+																		class=" sapUiSizeCompact cl_combo_transBarw" tooltip="{i18n>payblk}" enabled="{path: 'JSKey>/0/Key'}">
+																		<core:Item key="{JSPayBlock>Zahls}" text="{JSPayBlock>Textl}"/>
+																	</Select>
+																</HBox>
+															</VBox>
+															<VBox class="columnbarcode formFieldbarcode">
+																<Text id="id_InvRef" editable="{path: 'JSKey>/0/Key'}" text="{i18n>invref}" class="cl_textw"/>
+																<HBox class="formInputWithIconbar ">
+																	<Input class="formInputBw" tooltip="{i18n>invref}" placeholder="Enter Invoice Reference" width="100%"/>
+																		</HBox>
+															</VBox>
+														</HBox>
+														<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd" justifyContent="SpaceBetween" alignItems="End">
+															<!-- Business Place -->
+															<VBox class="columnbarcode formFieldbarcode">
+																<Text text="{i18n>housebank}" class="cl_textw"/>
+																<HBox class="formInputWithIconbar ">
+																	<ComboBox id="id_HouseBank" tooltip="{i18n>housebank}" placeholder="Select House Bank" selectionChange="fn_HousebankChange" class="cl_combo_transBarw" width="100%"></ComboBox>
+																</HBox>
+															</VBox>
+															<VBox class="columnbarcode formFieldbarcode">
+																<Text text="{i18n>assigno}" class="cl_textw"/>
+																<HBox class="formInputWithIconbar ">
+																	<Input id="id_AccId" editable="{path: 'JSKey>/0/Key'}" tooltip="{i18n>assigno}" class="formInputBw" placeholder="Enter Assignment No." width="100%"/>
+																</HBox>
+															</VBox>
+															<VBox class="columnbarcode formFieldbarcode"></VBox>
+														</HBox>
+													</VBox>
+											
+													<VBox width="33%" class="paymentBox">
+														<Text text="{i18n>payterm}" class="cl_text"/>
+														<HBox class="cl_barcode_input_rowwp " justifyContent="SpaceBetween" alignItems="End">
+															<VBox class="columnbarcode formFieldbarcode">
+																<!-- Input with Icon -->
+																<HBox class="formInputWithIconbar ">
+																	<ComboBox id="id_payment_term" placeholder="Select Payment Term" selectionChange="fn_PaymentTermChange" class="cl_combo_transBarw"
+																		width="100%" tooltip="{i18n>payterm}"></ComboBox>
+																</HBox>
+															</VBox>
+														</HBox>
+														<!-- Two-column Inputs Row -->
+														<HBox class="cl_barcode_input_rowwp sapUiTinyMarginBottom " justifyContent="SpaceBetween" alignItems="End">
+															<VBox class="columnbarcode formFieldbarcode">
+																<HBox class="formInputWithIconbar">
+																	<Input id="id_tag1" editable="{path: 'JSKey>/0/Key'}" value=" " class="formInputB01 formInputB01l formInputB01lread "/>
+																	<!-- id_Zprz1 -->
+																	<Input id="id_Zprz1" editable="{path: 'JSKey>/0/Key'}" value=" " class="formInputB01 formInputB01r formInputB01rread"/>
+																</HBox>
+															</VBox>
+														</HBox>
+														<!-- Repeat for second row -->
+														<HBox class="cl_barcode_input_rowwp " justifyContent="SpaceBetween" alignItems="End">
+															<VBox class="columnbarcode formFieldbarcode sapUiSmallMarginBottom">
+																<HBox class="formInputWithIconbar ">
+																	<Input id="id_tag2" editable="{path: 'JSKey>/0/Key'}" value=" " class="formInputB01 formInputB01l formInputB01lread"/>
+																	<!-- id_Zprz1 -->
+																	<Input id="id_Zprz2" editable="{path: 'JSKey>/0/Key'}" value=" " class="formInputB01 formInputB01r formInputB01rread"/>
+																</HBox>
+															</VBox>
+														</HBox>
+														<!-- Net Days -->
+														<!--<HBox class="cl_barcode_input_rowwp  " justifyContent="SpaceBetween" alignItems="End">-->
+														<HBox class="formInputWithIconbar ">
+															<Input id="id_tag3" editable="{path: 'JSKey>/0/Key'}" value=" " class=" daysNet"/>
+															<HBox class="formInputWithIconbar ">
+																<Text text="Days Net" class="netDaysText"/>
+															</HBox>
+														</HBox>
+													
+													</VBox>
+												</HBox>
+											</IconTabFilter>
+											<!--<IconTabFilter text="Tax" key="tax" icon="Images/tax.svg">-->
+											<IconTabFilter text="Tax" id="id_TaxTab" key="tax" icon="{= ${JSState>/selectedKey} === 'tax' ? 'Images/taxblue.svg' : 'Images/tax.svg' }">
+												<ui:Table id="id_taxtabtable" rows="{JSTaxTab>/}" class="sapUiTinyMarginTop FSC_Table FSC_Table1 FSC_Tabletax" selectionMode="None"
+													paste="onPaste" noData="TDS is not Applicable">
+													<ui:columns >
+														<ui:Column width="10%">
+															<Label text="{i18n>DC}" tooltip="{i18n>D/C}"/>
+															<ui:template>
+																<Input value="{JSTaxTab>Shkzg}" class="AP_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey>/0/Key'}" id="id_JSTaxTabShkzg"/>
+															</ui:template>
+														</ui:Column>
+														<ui:Column width="20%" hAlign="End">
+															<Label text="{i18n>TaxDoccurrency}" tooltip="{i18n>Tax Doc. currency}"/>
+															<ui:template>
+																<Input value="{JSTaxTab>Ivtax}" class="AP_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey>/0/Key'}" id="id_JSTaxTabIvtax"/>
+															</ui:template>
+														</ui:Column>
+														<ui:Column width="20%" hAlign="End">
+															<Label text="{i18n>BaseAmtindoccurr}" tooltip="{i18n>Base Amt. in doc curr}"/>
+															<ui:template>
+																<Input value="{JSTaxTab>Ivbamt}" class="AP_InputWidth lblAlignRes2" wrapping="false" editable="{path: 'JSKey>/0/Key'}"
+																	id="id_JSTaxTabIvbamt"/>
+															</ui:template>
+														</ui:Column>
+														<ui:Column width="7%">
+															<Label textAlign="Center" text="{i18n>TaxCode}" tooltip="{i18n>Tax Code}"/>
+															<ui:template >
+																<!--<Input value="{JSTaxTab>Mwskz}" showValueHelp="true" valueHelpRequest="fn_Taxcodefrag_TaxTab" class="AP_InputWidth cltaxtaxcode"-->
+																<!--	editable="{path: 'JSKey>/0/Key'}" id="id_JSTaxTabMwskz"/>-->
+																<ComboBox items="{ path: 'JSTaxCode>/', sorter: { path: 'Mwskz' } }" selectedKey="{JSTaxTab>Mwskz}" selectionChange="fn_TaxConfrm_Taxtab"
+																	liveChange="fn_Taxcode_LC" editable="{path: 'JSKey>/0/Key'}" class="cl_column_cell apinputtext cl_combo_table" id="id_JSTaxTabMwskz">
+																	<core:Item key="{JSTaxCode>Mwskz}" text="{parts: ['JSTaxCode>Mwskz','JSTaxCode>Text1'], formatter: '.formatTaxCode'}"/>
+																</ComboBox>
+															</ui:template>
+														</ui:Column>
+													</ui:columns>
+												</ui:Table>
+											</IconTabFilter>
+											<!--<IconTabFilter text="WHT" key="wht" icon="Images/wht.svg">-->
+										<IconTabFilter text="WHT" key="wht" icon="{= ${JSState>/selectedKey} === 'wht' ? 'Images/whtblue.svg' : 'Images/wht.svg' }" select="onIconTabSelect">
+													<ui:Table id="idWithHoldTable" rows="{JSWithHold>/}" class="sapUiTinyMarginTop cltabpo FSC_Table wht_table" selectionMode="None"
+													width="97.7%" visibleRowCount="5" paste="onPaste" noData="Withholding Tax is not Applicable">
+													<ui:columns >
+														<ui:Column width="15%">
+															<Label text="{i18n>Nameofwhldtxtyp}" tooltip="{i18n>Name of w/hld.tx typ}"/>
+															<ui:template>
+																<Text text="{JSWithHold>WtType}" class="APW_InputWidth lblAlignRes2" wrapping="false"/>
+															</ui:template>
+														</ui:Column>
+														<ui:Column width="8%">
+															<Label text="{i18n>Wtaxcode}" tooltip="{i18n>W/tax code}"/>
+															<ui:template>
+															
+<ComboBox
+    value="{JSWithHold>WtWithcd}"
+    editable="true"
+   
+    class="cl_column_cell apinputtext cl_combo_table"
+    selectionChange=".onWHTSelectionChange"
+    
+    change="onWHTCodeLiveChange">
+
+    <items>
+        <core:Item 
+            key="{JSWithHold>WtWithcd}"
+      
+        	   text="{= ${JSWithHold>WtWithcd} + ' - ' + ${JSWithHold>WtType} }" />
+          
+    </items>
+    
+
+</ComboBox>
+
+
+<!--<ComboBox-->
+<!--    value="{JSWithHold>WtWithcd}"-->
+<!--    editable="true"-->
+<!--    showClearIcon="true"-->
+<!--    class="cl_column_cell apinputtext cl_combo_table"-->
+<!--    selectionChange=".onWHTSelectionChange"-->
+<!--    change="onWHTCodeLiveChange">-->
+<!--    <items>-->
+<!--        <core:Item-->
+<!--            key="{pathToTaxCodes>/key}"  -->
+<!--            text="{pathToTaxCodes>/text}" />-->
+<!--    </items>-->
+<!--</ComboBox>-->
+
+
+
+
+
+
+
+
+
+															</ui:template>
+														</ui:Column>
+														<ui:Column width="9%">
+															<Label text="{i18n>WtaxbaseFC}" tooltip="{i18n>W/tax base FC}"/>
+															<ui:template>
+																<Input value="{JSWithHold>WtQsshb}" textAlign="Left" id="id_JSWithHoldWtQsshb2" editable="{path: 'JSKey>/0/Key'}"/>
+															</ui:template>
+														</ui:Column>
+														<ui:Column width="9%">
+															<Label textAlign="Center" text="{i18n>WtaxamtFC}" tooltip="{i18n>W/tax amt FC}"/>
+															<ui:template >
+																<Input value="{JSWithHold>WtQsshb}" textAlign="Left" id="id_JSWithHoldWtQsshb" editable="{path: 'JSKey>/0/Key'}"/>
+															</ui:template>
+														</ui:Column>
+														<ui:Column width="9%">
+															<Label textAlign="Center" text="{i18n>WtaxbaseLC}" tooltip="{i18n>W/tax amt LC}"/>
+															<ui:template >
+																<Text text="{JSWithHold>WtQbshb}" class="APW_InputWidth lblAlignRes2" textAlign="Begin" wrapping="false"/>
+															</ui:template>
+														</ui:Column>
+														<ui:Column width="8%">
+															<Label textAlign="Center" text="{i18n>WtaxamtLC}" tooltip="{i18n>W/tax amt LC}"/>
+															<ui:template >
+																<Text text="{JSWithHold>WtQbshb}" class="APW_InputWidth lblAlignRes2" textAlign="Begin" wrapping="false"/>
+															</ui:template>
+														</ui:Column>
+														<ui:Column width="8%">
+															<Label textAlign="Center" text="{i18n>Withttype}" tooltip="{i18n>With.t.type}"/>
+															<ui:template >
+																<Text text="{JSWithHold>Witht}" class="APW_InputWidth lblAlignRes2" textAlign="Begin" wrapping="false"/>
+															</ui:template>
+														</ui:Column>
+															<ui:Column width="8%">
+															<Label textAlign="Center" text="{i18n>PO Adv Amt}" tooltip="{i18n>PO Adv Amt}"/>
+															<ui:template >
+																<Text text="{JSWithHold>Poadvamt}" class="APW_InputWidth lblAlignRes2" textAlign="Begin" wrapping="false"/>
+															</ui:template>
+														</ui:Column>
+														<ui:Column width="5%">
+															<Label textAlign="Center" text="{i18n>Exemtionnumber}" tooltip="{i18n>Exemtion number}"/>
+															<ui:template >
+																<Text text="{JSWithHold>WtWtexmn}" class="APW_InputWidth lblAlignRes2" textAlign="Begin" wrapping="false"/>
+															</ui:template>
+														</ui:Column>
+														
+													</ui:columns>
+												</ui:Table>
+		
+											</IconTabFilter>
+											<!--<IconTabFilter text="Related Documents" key="related" icon="Images/redoc.svg" id="id_RelDoctab" class="FSCHeadTab">-->
+											<IconTabFilter text="Related Documents" key="related"
+												icon="{= ${JSState>/selectedKey} === 'related' ? 'Images/redocblue.svg' : 'Images/redoc.svg' }" id="id_RelDoctab" class="FSCHeadTab">
+											<VBox class="cl_relScrollContainer">
+													<Panel class="bgcol sapUiSizeCompact">
+														<co:ProcessFlow id="id_processFlow" class="myCustomProcessFlow" wheelZoomable="false" scrollable="true" foldedCorners="true"
+															nodePress="fnNavGui" nodes="{Jmtree>/}" lanes="{JmLanes>/}">
+															<co:nodes>
+																<co:ProcessFlowNode laneId="{Jmtree>lane}" nodeId="{Jmtree>id}" title="{Jmtree>title}" titleAbbreviation="{Jmtree>titleAbbreviation}"
+																	children="{Jmtree>children}" state="{path:'Jmtree>state',formatter:'FSC360NEW.model.formatter.fnProcessState'}"
+																	stateText="{Jmtree>stateText}" texts="{Jmtree>texts}" highlighted="{Jmtree>highlighted}" focused="{Jmtree>focused}" class="customNodeIcon"/>
+															</co:nodes>
+															<co:lanes>
+																<co:ProcessFlowLaneHeader laneId="{JmLanes>id}" iconSrc="{JmLanes>icon}" text="{JmLanes>label}" position="{JmLanes>position}"/>
+															</co:lanes>
+														</co:ProcessFlow>
+														<layoutData>
+															<l:GridData span="L12 M12 S12"/>
+														</layoutData>
+													</Panel>
+												</VBox>
+											</IconTabFilter>
+											<!--<IconTabFilter id="id_TransHistoryTab" text="{i18n>History}" icon="Images/history.svg" class="sapUiSmallMarginTop">-->
+											<IconTabFilter id="id_TransHistoryTab" text="{i18n>History}" key="history"
+												icon="{= ${JSState>/selectedKey} === 'history' ? 'Images/historyblue.svg' : 'Images/history.svg' }">
+											
+												<Text text="Vendor Details" class="usernameCss sapUiSmallMarginBegin sapUiTinyMarginTop"/>
+												<VBox class="cl_historyScrollContainer">
+													<List width="95%" items="{oComment>/}" id="id_list" showSeparators="None">
+														<CustomListItem>
+															<HBox class="timelineItem">
+																<VBox class="timelineIconBox">
+																	<Image src="{path: 'oComment>Tdformat', formatter: 'FSC360NEW.model.formatter.getTimelineIcon'}" class="lineitemsimgCss1"/>
+																	<VBox class="cl_Vline_clr" visible="{oComment>VBoxClr}"></VBox>
+																	<VBox class="cl_Vline_white" visible="{oComment>VBoxWhite}"></VBox>
+																</VBox>
+																<VBox class="timelineContent">
+																	<Text text="{path: 'oComment>Tdline', formatter: 'FSC360NEW.model.formatter.getTimelineTitle'}" class="timelineTitle"/>
+																	<!--<Text text="{path: 'oComment>Tdline', formatter: 'FSC360NEW.model.formatter.getTimelineAuthorDate'}" class="timelineSub"/>-->
+																	<FormattedText htmlText="{path: 'oComment>Tdline', formatter: 'FSC360NEW.model.formatter.getTimelineAuthorDate'}" class="timelineSub"/>
+																</VBox>
+															</HBox>
+														</CustomListItem>
+													</List>
+												</VBox>
+											</IconTabFilter>
+											<IconTabFilter text="Amount Split" key="AmountSplit" id="id_AmountSplit_Tab"
+												icon="{= ${JSState>/selectedKey} === 'AmountSplit' ? 'Images/amtsplitwhite.svg' : 'Images/amtsplit.svg' }">
+											
+												<m:Table id="id_Amtsplit" items="{amountsplit>/AmountSplit}" inset="false" width="95%" class="cl_amtsplittab">
+													<m:columns>
+														<m:Column><m:Text text="WHT" class="cl_amtsplittabcell"/></m:Column>
+														<m:Column><m:Text text="Amount" class="cl_amtsplittabcell"/></m:Column>
+														<m:Column><m:Text text="Tax Code" class="cl_amtsplittabcell"/></m:Column>
+														<m:Column><m:Text text="Payment Mode" class="cl_amtsplittabcell"/></m:Column>
+														<m:Column><m:Text text="Payment Term" class="cl_amtsplittabcell"/></m:Column>
+													</m:columns>
+													<m:ColumnListItem type="Inactive" class="cl_amtsplittabrow">
+														<m:cells class="rowheight">
+															<!-- WHT + Arrow -->
+															<VBox>
+																<HBox>
+																	<Button icon="{= ${amountsplit>expanded} ? 'sap-icon://slim-arrow-up' : 'sap-icon://slim-arrow-down'}" type="Transparent"
+																		press="onExpandPress" class="rowheight"/>
+																	<ObjectNumber number="{amountsplit>WHT}" class=""/>
+																</HBox>
+																<!-- Child table directly inside parent WHT cell -->
+																<m:Table visible="{amountsplit>expanded}" items="{amountsplit>details}" inset="false" width="480%"
+																	class="sapUiTinyMarginTop cl_amtsplittabcellchild">
+																	<m:columns>
+																		<m:Column><m:Text text="Name of W/Holder" class="cl_amtsplittabcellchild"/></m:Column>
+																		<m:Column><m:Text text="W/Tax Code" class="cl_amtsplittabcellchild"/></m:Column>
+																		<m:Column><m:Text text="Base FC" class="cl_amtsplittabcellchild"/></m:Column>
+																		<m:Column><m:Text text="Amt FC" class="cl_amtsplittabcellchild"/></m:Column>
+																		<m:Column><m:Text text="Base LC" class="cl_amtsplittabcellchild"/></m:Column>
+																		<m:Column><m:Text text="Amt LC" class="cl_amtsplittabcellchild"/></m:Column>
+																	</m:columns>
+																	<m:ColumnListItem>
+																		<m:cells>
+																			<Text text="{amountsplit>Name}"/>
+																			<Text text="{amountsplit>WTaxCode}"/>
+																			<Text text="{amountsplit>BaseFC}"/>
+																			<Text text="{amountsplit>AmtFC}"/>
+																			<Text text="{amountsplit>BaseLC}"/>
+																			<Text text="{amountsplit>AmtLC}"/>
+																		</m:cells>
+																	</m:ColumnListItem>
+																</m:Table>
+															</VBox>
+															<!-- Amount -->
+															<Input value="{amountsplit>Amount}" class="sapUiSizeCompact cl_amtinp" width="45%" type="Number" change="fn_changeamtsplit"/>
+															<!-- Tax Code -->
+															<Input value="{amountsplit>TaxCode}" class="sapUiSizeCompact cl_amtinp" width="45%"/>
+															<!--<Text text="{amountsplit>TaxCode}"/>-->
+															<!-- Payment Mode -->
+															<Input value="{amountsplit>PaymentMode}" class="sapUiSizeCompact cl_amtinp" width="45%"/>
+															<!--<Text text="{amountsplit>PaymentMode}"/>-->
+															<!-- Payment Term -->
+															<Input value="{amountsplit>PaymentTerm}" class="sapUiSizeCompact cl_amtinp" width="45%"/>
+															<!--<Text text="{amountsplit>PaymentTerm}"/>-->
+														</m:cells>
+													</m:ColumnListItem>
+												</m:Table>
+												<!--<Button id="id_orgstatus" icon="Images/down_btn.svg" text="Orginal Status" press="fn_orgstatus" enabled="true"-->
+												<!--	class="whitebtn sapUiSmallMarginBegin"/>-->
+												 <HBox justifyContent="End" class="cl_wrkbnch_amntsplit_orgstatuscont">
+        <Button id="id_orgstatus" icon="Images/down_btn.svg" text="{i18n>orgbtn}"
+            press="fn_orgstatus" enabled="true" class="whitebtn" tooltip="{i18n>orgbtn}"/>
+    </HBox>
+											</IconTabFilter>
+										</items>
+									</IconTabBar>
+								</VBox>
+								<!--<Text text="Main Content Area" class="cl_sectionTitle"/>-->
+								<!-- Add your right side form, table, etc. here -->
+							</VBox>
+						</HBox>
+					</VBox>
+				</content>
+				<footer class="cl_Footer" visible="{footerControlModel>/showFooter}">
+					<Toolbar class="cl_customFooter" design="Auto" visible="{footerControlModel>/showFooter}">
+						<Button icon="Images/advanced.svg" text="Advanced" press="fnSettingPop" iconFirst="false" class=" sapUiSizeCompact btn_advanced"
+							type="Transparent" visible="{path: 'JSBtnVis>/0/Key'}"/>
+						<ToolbarSpacer/>
+						<!--visible="{path: 'JSBtnVis>/0/Key'}"-->
+						<!--<Button icon="Images/reject.svg" tooltip="{i18n>rejectbtn}" visible="true"  text="{i18n>rejectbtn}" press="fnReject" class="sapUiSizeCompact btn_reject"-->
+						<!--	type="Transparent"/>-->
+						<Image
+    id="id_reject_img"
+    src="Images/regnew.svg"
+    tooltip="{i18n>rejectbtn}"
+    visible="true"
+    press="fnReject"
+    decorative="false"
+    role="button"
+    class="sapUiSizeCompact" width= "90px"/>
+						<!--<Button icon="Images/holdw.svg" tooltip="{i18n>holdbtn}" text="{i18n>holdbtn}" visible="{path: 'JSHldBtnVis>/0/Key'}" press="fn_Hold" class="sapUiSizeCompact btn_hold"-->
+						<!--	type="Transparent"/>-->
+						<Image
+    id="id_hold_img"
+    src="Images/holdnew.svg"
+    tooltip="{i18n>holdbtn}"
+    visible="{path: 'JSHldBtnVis>/0/Key'}"
+    press="fn_Hold"
+    decorative="false"
+    role="button"
+    class="sapUiSizeCompact" width= "82px"/>
+
+								<Button icon="Images/checkcnfm1.svg" tooltip="{i18n>Save}" text="{i18n>Save}"  press="fn_save1" class="sapUiSizeCompact btn_hold"
+							type="Transparent"/>
+						<!--<Button icon="Images/post.svg" text="Post" press="fn_POST" class="sapUiSizeCompact btn_post" type="Transparent"/>-->
+						<Button icon="Images/simpost.svg" tooltip="{i18n>dpaybtn}" id="id_dpclearbutton" visible="false" text="{i18n>dpaybtn}" press="fn_Cleardpfrag"
+							class="sapUiSizeCompact clsimpost cl_btn_savewb cl_btn_save classbar classbarwb" type="Transparent"/>
+							<!--visible="{path: 'JSBtnVis>/0/Key'}"-->
+						<!--<Button icon="Images/simpost.svg"  tooltip="{i18n>simpost}" visible="true" text="{i18n>simpost}" press="fn_Simulate"-->
+						<!--	class="sapUiSizeCompact clsimpost cl_btn_savewb cl_btn_save classbar classbarwb"  id="id_simulateindex" type="Transparent"/>-->
+							<Image
+    id="id_simulateindex_img"
+    src="Images/simnew.svg"
+    tooltip="{i18n>simpost}"
+    visible="true"
+    press="fn_Simulate"
+    decorative="false"
+    role="button"
+    class="sapUiSizeCompact"     width= "125px" />
+
+								<Button icon="Images/simpost.svg" id="id_postindex" tooltip="{i18n>Submit}" visible="false"  text="{i18n>Submit}" press="fn_Post_Invoice" class="cl_btn_savegrn sapUiSizeCompact cl_btn_savein cl_btn_save"
+							type="Transparent"/>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

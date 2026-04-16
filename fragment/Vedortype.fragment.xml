@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <SelectDialog
+        noDataText="No Data Found"
+        title="{i18n>Select Vendor Type}"
+        class="sapUiSizeCompact cl_vendorFrag "
+        confirm="fn_confirmVendorType"
+        cancel="fn_confirmVendorType"
+        liveChange="fn_VendorSearch"
+        items="{jsVendor>/results}">
+        <StandardListItem
+            title="{jsVendor>DomvalueL}"
+            description="{jsVendor>Ddtext}"
+            icon="sap-icon://person-placeholder"
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active" />
+    </SelectDialog>
+</core:FragmentDefinition>

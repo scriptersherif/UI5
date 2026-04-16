@@ -1,0 +1,137 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.Assigngrn"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:uitable="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="Title">
+				<customHeader>
+					<Toolbar class="header_bar1 sapUiSmallMarginEnd">
+						<Image id="id_fnback" src="Images/Left.svg" class="cl_back_btn sapUiSmallMarginBegin" visible="false" press="fn_back"></Image>
+						<Text text="{i18n>Assign GRN}" class="cl_bold cl_black_txt cl_heading cl_font sapUiSmallMarginBegin"></Text>
+						<ToolbarSpacer/>
+						<Button icon="Images/refreshbtn.png" tooltip="Refresh" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbtn.png" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="cl_username cl_font team_text "></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<VBox class="cl_full_boxB cl_full_box_tat">
+						<VBox class="cl_statusflow_input_cont sapUiTinyMarginTop " id="id_cl_statusflow_input_cont">
+							<HBox class="cl_barcode_input_row sapUiTinyMarginBegin sapUiSmallMarginEnd topbox" justifyContent="SpaceBetween" alignItems="End">
+								<VBox class="columnbarcode formFieldbarcode">
+									<Text text="{i18n>Queid}" class="cl_text cl_cc_texts"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_SearchBox" placeholder="Search by QID / Barcode / Invoice" items="{ path: 'QidModel>/combinedResults' }"
+											selectionChange="fn_onSelectSearch" class="cl_combo_transBar cl_combo_transtat1 cl_tat_status_combobox_inp" filterFunction="fnCustomFilter">
+											<core:Item key="{QidModel>key}" text="{QidModel>value}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<HBox id="id_AttachmentBox" class="attachmentBox3 attachmentBox333 sapUiTinyMarginTop cl_button_cont_show1" visible="false"
+									alignItems="Center" justifyContent="SpaceBetween">
+									<HBox class="">
+										<HBox justifyContent="Center">
+											<Image src="Images/Fileuploadicon.svg" class="cl_appr_pdfgrn" press="fn_pdf"/>
+										</HBox>
+										<HBox alignItems="" class="cl_approval_pdf">
+											<HBox>
+												<Text text="Attachments" class="fileText"/>
+											</HBox>
+											
+										</HBox>
+									</HBox>
+									<HBox>
+									
+									</HBox>
+								</HBox>
+								<HBox class="cl_button_cont_show">
+									<Button id="id_cleargrn" text="{i18n>Clear}" icon="Images/clearab.svg" type="Transparent" press="fnclearbutt"
+										class="sapUiSizeCompact cl_btn_cleara "/>
+									<Button id="id_searchgrn" text="{i18n>Search}" icon="Images/searchab.svg" type="Transparent" press="fn_search"
+										class="sapUiSizeCompact cl_btn_searcha "/>
+								</HBox>
+							</HBox>
+						</VBox>
+						<Toolbar class="cl_tbr_1 cl_tbr_2">
+							<Text text="{i18n>allList}" tooltip="{i18n>allListTooltip}" id="idCardTitle" class="cl_Tltxt sapUiSmallMarginBegin"/>
+							<ToolbarSpacer/>
+						</Toolbar>
+						<uitable:Table id="id_GrnTable" rows="{Assgrn>/}" visibleRowCount="1" width="100%"
+							class="cl_custom_table cl_custom_tableapk cl_tatreport_table cl_msme_report_table" selectionMode="MultiToggle" enableSelectAll="true"
+							rowSelectionChange="onSelectionChange">
+							<uitable:Column hAlign="Center" class="cl_column_header">
+								<Text text="GRN number" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{Assgrn>Mblnr}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column hAlign="Center" class="cl_column_header">
+								<Text text="Year" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{Assgrn>Mjahr}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column hAlign="Center" class="cl_column_header">
+								<Text text="GRN Item" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{Assgrn>Zeile}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column hAlign="Center" class="cl_column_header">
+								<Text text="Vendor Code" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{Assgrn>Lifnr}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column hAlign="Center" class="cl_column_header">
+								<Text text="PO number" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{Assgrn>Ebeln}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column hAlign="Center" class="cl_column_header">
+								<Text text="PO item" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{Assgrn>Ebelp}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column hAlign="Center" class="cl_column_header">
+								<Text text="Quantity" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{Assgrn>Menge}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column hAlign="Center" class="cl_column_header">
+								<Text text="UOM" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{Assgrn>Meins}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column hAlign="Center" class="cl_column_header">
+								<Text text="bill of lading" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{Assgrn>Frbnr}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column hAlign="Center" class="cl_column_header">
+								<Text text="Delivery note" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{Assgrn>XblnrMkpf}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+						</uitable:Table>
+					</VBox>
+				</content>
+				<footer class="cl_Footer">
+					<OverflowToolbar id="id_FooterTool" class="cl_Footer">
+						<ToolbarSpacer/>
+						<Button id="id_assigngrn" text="{i18n>Assign}" icon="Images/barcode.svg" type="transparent" press="fn_assign"
+							class="cl_btn_savegrn sapUiSizeCompact cl_btn_save"/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

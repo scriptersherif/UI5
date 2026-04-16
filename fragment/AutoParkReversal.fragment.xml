@@ -1,0 +1,40 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc">
+	<Dialog title="Details For Reversal Posting" class="cl_agentDialog cl_autopark_dialog">
+		<!--<HBox class="sapUiTinyMarginTop" alignContent="Center">-->
+		<!--    <Text text="{i18n>Agent}" class="sapUiMediumMarginBegin sapUiTinyMarginTop"></Text>-->
+		<!--    <Input  id="id_agent" maxLength="10" showValueHelp="true" valueHelpRequest="fn_Userfrag" class="sapUiSizeCompact sapUiSmallMarginBegin" liveChange="fn_Live"-->
+		<!--    ></Input>-->
+		<!--</HBox> gl_canbtn-->
+		<VBox>
+		<VBox class="column formField">
+			<Text text="{i18n>Reversal Reason}" class="cl_dialogLabel"></Text>
+			<HBox class="">
+				<ComboBox id="id_transactiontyp" 
+          items="{JSReversal>/ReversalTypes}" 
+          class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp cl_autopark_reversal_dropdwn" 
+          tooltip="">
+    <core:Item key="{JSReversal>key}" text="{JSReversal>text}"/>
+</ComboBox>
+
+				
+			</HBox>
+		</VBox>
+			<VBox class="column formField">
+			<Text text="{i18n>Posting Date}" class="cl_dialogLabel"></Text>
+			<HBox class="">
+			<HBox class="formInputWithIconbar cl_autopark_postdate_cont">
+			<DatePicker id="id_podate" change="fn_datevalidation" valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder=" " class="formInputB1 inputhelp cl_autopark_postdate"/>
+		</HBox>
+
+				
+			</HBox>
+		</VBox>
+		</VBox>
+		<beginButton>
+			<Button text="{i18n>Cancel}"  icon="Images/cancel.svg" class="cl_btn_deletec" press="fn_Assign_cancel"></Button>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>Submit}" icon="Images/sub.svg" class=" gl_subbtn " press="fn_agent_submit"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

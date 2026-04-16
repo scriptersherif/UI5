@@ -1,0 +1,42 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc">
+	<Dialog title="{i18n>Email}" class="cl_agentDialog cl_deviationDialog">
+		<content>
+		
+			<VBox width="90%" class="sapUiSmallMargin">
+				<HBox alignItems="Center" class="sapUiSmallMarginBottom">
+					<VBox class="columnbarcode formFieldbarcode columnbarcodedeviation">
+						<Text text="{i18n>Emailid}" class="cl_text cl_cc_texts"/>
+						<HBox class="formInputWithIconbar">
+							<Input id="idEmailEntry" liveChange="fnchange_barcode1" submit="fn_barcode_check" class="formInputB1 formInputdeviation" value=""
+								width="100%" layoutData="sap.ui.layout.FlexItemData" tooltip="{i18n>emailtt}"/>
+						</HBox>
+					</VBox>
+				
+					<Button id="id_sendmail" tooltip="{i18n>Mail}" icon="Images/add_deviation_icon.svg" type="Transparent" press="fn_onAddEmail"
+						class="cl_btn_Physical_mail cl_btn_deviation_correct"/>
+				</HBox>
+				<ScrollContainer height="140px" vertical="true" horizontal="false" focusable="false">
+				<List id="idEmailList" items="{JMManualDel>/Emails}" headerText="" width="100%">
+					<CustomListItem>
+						<HBox justifyContent="" alignItems="Center" width="83%" class="">
+							<HBox class="cl_deviation_mail_cont">
+								<Text text="{JMManualDel>}" class="cl_deviation_mail_text"/>
+								
+								<Image src="Images/cancelicon.svg" class="cl_cancelicon" press="fn_onRemoveEmail" tooltip="{i18n>removemail}"/>
+							</HBox>
+						</HBox>
+					</CustomListItem>
+				</List>
+					</ScrollContainer>
+			</VBox>
+		</content>
+		<beginButton>
+			<Button text="{i18n>Cancel}" icon="Images/cancel.svg" class="cl_btn_deletec cl_btn_deletec_deviation"
+				press="fnCloseMail" tooltip="{i18n>cancel}"></Button>
+		</beginButton>
+		<endButton>
+			<Button icon="Images/post_btn.svg" text="Send" press="fnmailsubmit" id="id_Ses_post1" class="btn-custom btn-post btn-send-devia"
+				type="Transparent" tooltip="{i18n>send}"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="{i18n>Remark}" class="sapUiContentPadding cl_remarkDialog SettingsPOPCls cl_commentfrag" stretch="false" draggable="false"
+		resizable="false">
+		<content>
+			<TextArea id="id_Remark" class="sapUiTinyMarginBegin cl_commentArea" liveChange="fnLiveRemark" width="95%" placeholder="Enter here..."/>
+		</content>
+		<!--<HBox class="sapUiSizeCompact sapUiSmallMargin" alignContent="Cneter" alignItems="Center" justifyContent="Center">-->
+		<!--	<Button text="{i18n>Cancel}" press="fnCloseComment" class="sapUiTinyMarginEnd cl_fragcancelbtn" tooltip="{i18n>Cancel}"/>-->
+		<!--	<Button text="{i18n>Submit}" tooltip="{i18n>Submit}" class="sapUiTinyMarginBegin cl_fragfinalbtn" press="fnSubmitComment"/>-->
+		<!--</HBox>-->
+		<beginButton>
+			<Button text="{i18n>Cancel}" tooltip="{i18n>Cancel}" icon="Images/cancel.svg" class="gl_canbtn comcan " press="fnCloseComment"></Button>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>Submit}" tooltip="{i18n>Submit}" icon="Images/sub.svg" class=" gl_subbtn " press="fnSubmitComment"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

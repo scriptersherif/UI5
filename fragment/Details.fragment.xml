@@ -1,0 +1,88 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:ui="sap.ui.table" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+	<Dialog title="Invoice details" class="sapUiSizeCompact sapUiSmallMarginBegin cl_frag cl_frag_rightslideDetails " resizable="true"
+		draggable="false" contentHeight="auto" contentWidth="410px" afterOpen="onAfterDetailsDialogOpen" modal="false" stretch="false">
+		<content>
+			<VBox class="cl_details_block">
+				<!-- Vendor List with Uploader -->
+				<List id="id_list" items="{MVen>/}">
+					<items>
+						<CustomListItem id="id_custom" class="cl_details_list" type="Active" press="OnPressList">
+							<VBox class="cl_black">
+								<Toolbar class="cl_customvtool" width="100%" height="50px">
+									<VBox>
+										<Text text="{MVen>Ven}" class=" cl_text_code"/>
+										<Text text="{MVen>Name}" class=" cl_textdet"/>
+									</VBox>
+									<ToolbarSpacer/>
+									<u:FileUploader id="id_CreateItem_Document" name="myFileUpload" uploadUrl="/sap/opu/odata/EXL/PAY_ODATA_SRV/AttachSet" iconOnly="true"
+										icon="" change="fnImgUploadComplete" value="{MVen>File}" fileType="pdf" class="hiddenUploader " width="2px" height="2px"
+										typeMissmatch="fnTypeMismatch"/>
+									<Button class="cl_approve sapUiSmallMarginEnd" press="onValueHelpBankKey"
+										icon="{= ${MVen>KeySelected} ? 'Images/key-variant-green.svg' : 'Images/key-variant.svg'}"
+										tooltip="{= ${MVen>KeySelected} ? 'Bank Key Selected' : 'Select Bank Key'}"/>
+									<!--<HBox alignItems="Center" class="cl_actionBox">-->
+									<!-- Attach Button -->
+									<Button text="{i18n>Attach}" tooltip="Upload your file" icon="Images/upload_recall.svg" type="Transparent" press="fn_openFileDialog"
+										visible="{= ${MVen>AttachmentIndicator} === 'N'}" class="sapUiSizeCompact cl_btn_Recall cl_btn_recall_attach"/>
+									<HBox class="cl_attached_recall_cont" visible="{= ${MVen>AttachmentIndicator} === 'Y'}" id="id_cancel_pdf">
+										<Image src="Images/pdficon_recall.svg" class="cl_recall_pdf_icon" tooltip="{i18n>Attachment}"/>
+										<Text text="Attached" class="cl_attach_recall cl_attached_recall_text"/>
+										<Image src="Images/cancel.svg" press="fn_onRemoveFile" class="cl_recall_pdf_icon cl_cancel_recall" tooltip="{i18n>Cancel}"/>
+									</HBox>
+								</Toolbar>
+							</VBox>
+						</CustomListItem>
+					</items>
+				</List>
+				<!-- Bank Key Toolbar -->
+				<!--<Text text="Bank Key" class="sapUiSmallMarginBegin cl_textdet"/>-->
+				<!--<Button text="Bank Key" class="sapUiSizeCompact cl_approve sapUiSmallMarginEnd" icon="sap-icon://key" press="onValueHelpBankKey"/>-->
+				<!-- Payment Location Toolbar -->
+				<VBox>
+					<!--<Text text="Payment Location" class="sapUiSmallMarginBegin cl_textdet"></Text>-->
+					<!--  <Input class="cl_inputboxdet sapUiSizeCompact sapUiSmallMarginTop sapUiSmallMarginEnd cl_textdet" id="id_payloc" width="14.5rem"-->
+					<!--    showValueHelp="true" valueHelpRequest="onValueHelpRequestPaymentLoc" showSuggestion="true" suggest="handleSuggestPayment" visible="true"-->
+					<!--    suggestionItems="{MPaymentLoc>/}">-->
+					<!--    <suggestionItems>-->
+					<!--      <core:ListItem text="{MPaymentLoc>ZsapValue}" additionalText="{MPaymentLoc>ZsapValue}"/>-->
+					<!--    </suggestionItems>-->
+					<!--  </Input>-->
+					<VBox class="formFieldbarcode comboboxcont">
+						<Text text="Payment Location" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar forminputiconrecall" width="100%">
+							<Input class="formInputB1" id="id_payloc" showValueHelp="false" valueHelpRequest="onValueHelpRequestPaymentLoc" showSuggestion="true"
+								suggest="handleSuggestPayment" visible="true" suggestionItems="{MPaymentLoc>/}">
+								<suggestionItems>
+									<core:ListItem text="{MPaymentLoc>ZsapValue}" additionalText="{MPaymentLoc>ZsapValue}"/>
+								</suggestionItems>
+							</Input>
+							<Image src="Images/popup.svg" width="12px" height="15px" class="cl_inputIcon_paymentLoc " press="onValueHelpRequestPaymentLoc"/>
+						</HBox>
+					</VBox>
+					<!--<VBox class="formFieldbarcode comboboxcont">-->
+					<!--	<Text text="Payment Location" class="cl_textbarcode"/>-->
+					<!--	<HBox class="formInputWithIconbar" width="100%">-->
+					<!--		<ComboBox id="id_payloc" items="{MPaymentLoc>/}" width="100%" selectionChange="onPaymentLocationChange" tooltip="{i18n>PaymentLocation}"-->
+					<!--			class="cl_combo_transBar cl_combo_transBar_details cl_combo_transBarbarcode">-->
+					<!--			<core:Item key="{ZsapValue}" text="{ZsapValue}"/>-->
+					<!--		</ComboBox>-->
+					<!--	</HBox>-->
+					<!--</VBox>-->
+					<VBox>
+						<Text text="Remarks" class="cl_textbarcode"/>
+						<TextArea id="textAreaWithBinding2" maxLength="255" rows="3" class="cl_remarksInput" liveChange="fnLiveRemark"/>
+					</VBox>
+					<!-- Remarks Toolbar -->
+				</VBox>
+			</VBox>
+		</content>
+		<beginButton>
+			<Button text="{i18n>Cancel}" tooltip="{i18n>Cancel}" icon="Images/restore.svg" class="sapUiSizeCompact cl_footer_blackbtn btnimg "
+				press="fn_closedetail"/>
+		</beginButton>
+		<endButton>
+			<Button text="Save &amp; Proceed" tooltip="{i18n>Submit}" icon="Images/check-circle-outline.svg" class="sapUiSizeCompact cl_long_btn"
+				press="fn_submitdetail"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

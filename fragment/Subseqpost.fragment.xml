@@ -1,0 +1,129 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog
+		id="idSubseqDialog"
+		title="Do you want to post adjustments"
+		draggable="true"
+		resizable="true"
+		contentWidth="400px"
+		contentHeight="auto"
+		class="cl_agentDialog cl_autopark_dialog">
+		
+		<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginBottom">
+				<VBox class="columnmemo formField">
+			<Text text="{i18n>Document type}" class="cl_dialogLabel sapUiSmallMarginBegin"></Text>
+			<HBox class="">
+	<!-- Dropdown for Posting Type -->
+			<Select id="idPostingType" width="100%"  class="cl_combo_transBar cl_combo_transtat sapUiSmallMarginBegin cl_tat_status_combobox_inp cl_autopark_reversal_dropdwn cl_statusupdate" change="onPostingTypeChange">
+				<items>
+					<!--<core:Item key="D" text="Subsequent Debit"/>-->
+					<core:Item key="C" text="Subsequent Credit"/>
+					<core:Item key="D" text="Subsequent Debit"/>
+					<core:Item key="F" text="FI Credit Memo"/>
+				</items>
+			</Select>
+
+				
+			</HBox>
+		</VBox>
+		<VBox id="vbGLAccount" class="columnmemo formField" visible="false">
+    <Text text="{i18n>Gl Account}" class="cl_dialogLabel"></Text>
+    <HBox>
+        <ComboBox id="idGLAccount"
+       
+                  selectionChange="fn_onGLAccountChange"
+                  items="{ path: 'JSGLAccount>/' }"
+                  editable="{path: 'JSKey>/0/Key'}"
+                  class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp cl_autopark_reversal_dropdwn cl_statusupdate">
+            <core:Item key="{JSGLAccount>Saknr}" text="{= ${JSGLAccount>Saknr} + ' - ' + ${JSGLAccount>Txt50} }"/>
+        </ComboBox>
+    </HBox>
+</VBox>
+
+<VBox id="vbCostCenter" class="columnmemo formField" visible="false">
+    <Text text="{i18n>Cost Center}" class="cl_dialogLabel"></Text>
+    <HBox>
+        <ComboBox id="idCostCenter"
+                 
+                  selectionChange="fn_onCostCenterChange"
+                  items="{ path: 'JSCostCenter>/' }"
+                  editable="{path: 'JSKey>/0/Key'}"
+                  class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp cl_autopark_reversal_dropdwn cl_statusupdate">
+            <core:Item key="{JSCostCenter>Kostl}" text="{= ${JSCostCenter>Kostl} + ' - ' + ${JSCostCenter>Ktext} }"/>
+        </ComboBox>
+    </HBox>
+</VBox>
+
+<VBox id="vbTax" class="columnmemo formField" visible="false">
+    <Text text="{i18n>Tax Code}" class="cl_dialogLabel"></Text>
+    <HBox>
+        <ComboBox id="idTaxCode"
+                 
+                  selectionChange="fn_onTaxCodeChange1"
+                  items="{ path: 'JSTaxCode>/' }"
+                  editable="{path: 'JSKey>/0/Key'}"
+                  class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp cl_autopark_reversal_dropdwn cl_statusupdate">
+            <core:Item key="{JSTaxCode>Mwskz}" text="{= ${JSTaxCode>Mwskz} + ' - ' + ${JSTaxCode>Text1} }"/>
+        </ComboBox>
+    </HBox>
+</VBox>
+	<!--		<VBox class="columnmemo formField">-->
+	<!--		<Text text="{i18n>Gl Account}" class="cl_dialogLabel"></Text>-->
+	<!--		<HBox class="">-->
+	<!-- Dropdown for Posting Type -->
+				<!--	<Input-->
+				<!--id="idGLAccount"-->
+				<!--placeholder="Enter GL Account"-->
+				<!--width="100%"-->
+				<!--maxLength="15"-->
+				<!-- class="formInputBw " -->
+				<!--type="Number"/>-->
+	<!--			<ComboBox id="idGLAccount" selectedKey="{JSInvdet>Saknr}" selectionChange="fn_onGLAccountChange" items="{ path: 'JSGLAccount>/' }"-->
+	<!--							editable="{path: 'JSKey>/0/Key'}" class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp cl_autopark_reversal_dropdwn cl_statusupdate">-->
+	<!--		<core:Item key="{JSGLAccount>Saknr}" text="{= ${JSGLAccount>Saknr} + ' - ' + ${JSGLAccount>Txt50} }"/>-->
+	<!--												</ComboBox>-->
+
+				
+	<!--		</HBox>-->
+	<!--	</VBox>-->
+
+		
+
+			<!-- Input: Cost Center -->
+	<!--				<VBox class="columnmemo formField">-->
+	<!--		<Text text="{i18n>Cost Center}" class="cl_dialogLabel"></Text>-->
+	<!--		<HBox class="">-->
+	<!-- Dropdown for Posting Type -->
+	<!--	<ComboBox 	id="idCostCenter" selectedKey="{JSInvdet>Kostl}" selectionChange="fn_onCostCenterChange"-->
+	<!--	items="{ path: 'JSCostCenter>/' }"-->
+	<!--		editable="{path: 'JSKey>/0/Key'}" -->
+	<!--		class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp cl_autopark_reversal_dropdwn cl_statusupdate">-->
+	<!--				<core:Item key="{JSCostCenter>Kostl}" text="{= ${JSCostCenter>Kostl} + ' - ' + ${JSCostCenter>Ktext} }"/>-->
+	<!--			</ComboBox>-->
+				<!--	<Input-->
+				<!--id="idCostCenter"-->
+				<!--placeholder="Enter Cost Center"-->
+				<!--width="100%"-->
+				<!--maxLength="15"-->
+				<!-- class="formInputBw " -->
+				<!--type="Number"/>-->
+
+				
+	<!--		</HBox>-->
+	<!--	</VBox>-->
+
+			<!-- Hidden Flag (auto set from dropdown) -->
+			<Input
+				id="idFlag"
+				visible="false"/>
+				
+		</VBox>
+
+		<!-- Footer Buttons -->
+		<endButton>
+			<Button text="No" press="fn_NoPress" class="cl_btn_deletec"/>
+		</endButton>
+		<beginButton>
+			<Button text="Yes" type="Emphasized" press="fn_YesPress" class=" gl_subbtn "/>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

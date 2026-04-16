@@ -1,0 +1,149 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:ui="sap.ui.table" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Dialog title="{i18n>Refrence}" class="sapUiSizeCompact APW_SimulatHeader clfrag cl_agentDialog cl_agentDialogadopt" resizable="true" draggable="true">
+		<content>
+			<l:Grid defaultSpan="L12 M6 S6" class="">
+				<l:content>
+					<Panel class=" sapUiSizeCompact">
+							<!--<OverflowToolbar id="id_GoodsToolbar" class="clsbtnbrd">-->
+								<!--	<ToolbarSpacer></ToolbarSpacer>-->
+									<!--<Button  class="sapUiSizeCompact clbtn sesadd" icon="Images/addadopt.svg"  press="fnAddItemGoods" id="id_add"></Button>-->
+									<!--<Button class="sapUiSizeCompact clbtn" icon="Images/remadopt.svg" press="fnDeleteItemGoods" id="id_delete"></Button>-->
+								<!--</OverflowToolbar>-->
+						<VBOX id="id_GrnTab">
+						<ui:Table id="Id_TbGoodsReceipt" rows="{JSGoods>/}" class="sapUiTinyMarginTop adopsestab FSC_Table_workbench FSC_Table " selectionMode="None" visibleRowCount="7"
+							paste="onPaste">
+							<ui:extension>
+							
+							</ui:extension>
+							<ui:columns >
+								<ui:Column width="10%">
+									<Label text="{i18n>GRN No.}" tooltip="{i18n>GRN No}"/>
+									<ui:template>
+										<!--<Input value="{JSGoods>Mblnr}" class=""></Input>-->
+<!--										<ComboBox-->
+<!--    selectedKey="{JSGoods>Mblnr}"-->
+<!--    selectionChange=".onGrnSelect"-->
+<!--    width="100%"-->
+<!--    class="cl_combocell"-->
+<!--    items="{-->
+<!--        path: 'JSGRN_ALL>/',-->
+<!--        filters: [-->
+<!--            { path: 'Mjahr', operator: 'EQ', value1: '{JSGoods>Gjahr}' }-->
+<!--        ]-->
+<!--    }">-->
+<!--    <core:ListItem-->
+<!--        key="{JSGRN_ALL>Mblnr}"-->
+<!--        text="{JSGRN_ALL>Mblnr}"-->
+<!--        additionalText="{JSGRN_ALL>Mjahr}" />-->
+<!--</ComboBox>-->
+<ComboBox
+    id="id_grnCombo"
+    selectedKey="{JSGoods>Mblnr}"
+   
+    selectionChange=".onGrnSelect"
+   class="cl_combocell"
+    width="100%"
+    items="{
+        path: 'JSGRN>/'
+    }"
+    >
+    <core:ListItem
+        key="{JSGRN>Mblnr}"
+        text="{JSGRN>Mblnr}"
+        additionalText="{JSGRN>Mjahr}" />
+</ComboBox>
+				
+									</ui:template>
+								</ui:Column>
+								<ui:Column width="8%">
+									<Label text="{i18n>Fiscal Year}" tooltip="{i18n>Fiscal Year}"/>
+									<ui:template>
+										<!--<Input value="{JSGoods>Gjahr}" class=""></Input>-->
+										<ComboBox
+    id="id_fiscalYearCombo"
+    selectedKey="{JSGoods>Gjahr}"
+    selectionChange=".onYearSelect"
+    
+    width="100%"
+    class="cl_combocell"
+   items="{path: 'JSYear>/results'}">
+    <core:ListItem key="{JSYear>Year}" text="{JSYear>Year}" />
+</ComboBox>
+									</ui:template>
+								</ui:Column>
+									<ui:Column width="5%">
+									<Label text="{i18n>Delete}" tooltip="{i18n>Fiscal Year}"/>
+									<ui:template>
+										<Button class="sapUiSizeCompact clbtn cl_trash" icon="Images/trash_btn.svg" press="fnDeleteItemGoods" id="id_delete"></Button>
+							
+									</ui:template>
+								</ui:Column>
+							
+							</ui:columns>
+						</ui:Table>
+						 <Button text="+ Add More" press="fnAddItemGoods" id="id_add" class="whitebtn sapUiTinyMarginTop"/>
+						 </VBOX>
+						<ui:Table id="Id_TbPO" visible="false" rows="{JSPO>/}" class="sapUTinyMarginTop adopsestab FSC_Table_workbench FSC_Table " selectionMode="None" visibleRowCount="7"
+							paste="onPaste">
+							<ui:extension>
+								<OverflowToolbar class="clsbtnbrd" >
+									<ToolbarSpacer></ToolbarSpacer>
+									<Button  class="sapUiSizeCompact clbtn sesadd" icon="Images/addadopt.svg" press="fnAddItemPO" id="id_addPO"></Button>
+									<Button class="sapUiSizeCompact clbtn" icon="Images/remadopt.svg" press="fnDeleteItemPO" id="id_deletePO"></Button>
+								</OverflowToolbar>
+							</ui:extension>
+							<ui:columns >
+								<ui:Column width="10%">
+									<Label text="{i18n>Purchase Order}" tooltip="{i18n>Purchase Order}"/>
+									<ui:template>
+										<Input value="{JSPO>Ebeln}" class=""></Input>
+									</ui:template>
+								</ui:Column>
+								<ui:Column width="10%">
+									<Label text="{i18n>Item No.}" tooltip="{i18n>Item No}"/>
+									<ui:template>
+										<Input value="{JSPO>Ebelp}" class=""></Input>
+									</ui:template>
+								</ui:Column>
+							</ui:columns>
+						</ui:Table>
+						<ui:Table id="Id_TbSES" visible="false" rows="{JSses>/}" class="sapUTinyMarginTop adopsestab FSC_Table_workbench FSC_Table " selectionMode="None" visibleRowCount="7"
+							paste="onPaste">
+							<ui:extension>
+								<OverflowToolbar id="id_SESToolbar" class="clsbtnbrd">
+									<ToolbarSpacer></ToolbarSpacer>
+									<Button class="sapUiSizeCompact clbtn sesadd" icon="Images/addadopt.svg" press="fnAddItemSES" id="id_addSES"></Button>
+									<Button class="sapUiSizeCompact clbtn" icon="Images/remadopt.svg" press="fnDeleteItemSES" id="id_deleteSES"></Button>
+								</OverflowToolbar>
+							</ui:extension>
+							<ui:columns >
+								<ui:Column width="10%">
+									<Label text="{i18n>Service Entry Sheet}" tooltip="{i18n>Service Entry Sheet}"/>
+									<ui:template>
+										<Input value="{JSses>Lfbnr}" class=""></Input>
+									</ui:template>
+								</ui:Column>
+							</ui:columns>
+						</ui:Table>
+						
+						<layoutData>
+							<l:GridData span="L12 M12 S12"/>
+						</layoutData>
+					</Panel>
+				</l:content>
+			</l:Grid>
+		</content>
+			<beginButton>
+			<Button text="Cancel"  icon="Images/adoptcan.svg" press="fnCloseGrn" class="cl_canbtn gl_canbtn gl_canbtn1 cl_canbtnadop "/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>Adopt}"  icon="Images/adoptsub.svg" press="fnConfirmGrn" class=" gl_subbtn gl_subbtn1 cl_adopsubmit "/>
+		</endButton>
+		<!--<endButton>-->
+		<!--	<Button text="{i18n>Adopt}" text="{i18n>Adopt}"" press="fnConfirmGrn" class=""/>-->
+		<!--</endButton>-->
+		<!--<beginButton>-->
+		<!--	<Button text="{i18n>Cancel}" press="fnCloseGrn" tooltip="{i18n>Close}" class=""/>-->
+		<!--</beginButton>-->
+	</Dialog>
+</core:FragmentDefinition>

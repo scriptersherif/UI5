@@ -1,0 +1,102 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:ui="sap.ui.table" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified">
+	<Dialog title="{i18n>Invoice Details}" class="sapUiSizeCompact sapUiSmallMarginBegin cl_frag cl_frag_rightslidecapvo" resizable="true"
+		draggable="false" contentHeight="auto" afterOpen="onAfterSimulateDialogOpen"  modal="false"
+  stretch="false">
+		<content>
+			<HBox class="cl_ses_input_cont" width="" id="idSesInputCont">
+				<VBox class="cl_barcode_input_cont" id="idFormCompact" visible="true">
+	<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+		<VBox class="formFieldbarcode">
+			<Text text="Company Code" class="cl_textbarcode cl_mandatory_label"/>
+			<HBox class="formInputWithIconbar">
+				<Input id='id_Bukrs' class="formInputB1 forminputfragvo" width="100%" liveChange='fn_liveChange'/>
+				<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_FragCompany"/>
+			</HBox>
+		</VBox>
+	</HBox>
+
+	<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+		<VBox class="formFieldbarcode">
+			<Text text="Department" class="cl_textbarcode"/>
+			<HBox class="formInputWithIconbar">
+				<Input id='id_Department'  class="formInputB1 forminputfragvo" width="100%" liveChange='fn_liveChange'/>
+				<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_FragDepartment"/>
+			</HBox>
+		</VBox>
+	</HBox>
+
+	<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+		<VBox class="formFieldbarcode">
+			<Text text="Purchase Organization" class="cl_textbarcode"/>
+			<HBox class="formInputWithIconbar">
+				<Input id='id_Purchasegrp' class="formInputB1 forminputfragvo" width="100%" liveChange='fn_liveChange'/>
+				<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_FragPurchaseGroup"/>
+			</HBox>
+		</VBox>
+	</HBox>
+
+	<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+		<VBox class="formFieldbarcode">
+			<Text text="Account Group" class="cl_textbarcode"/>
+			<HBox class="formInputWithIconbar">
+				<Input id='id_Accgrp' class="formInputB1 forminputfragvo" width="100%" liveChange='fn_liveChange'/>
+				<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_FragAccGroup"/>
+			</HBox>
+		</VBox>
+	</HBox>
+
+	<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+		<VBox class="formFieldbarcode">
+			<Text text="Name" class="cl_textbarcode"/>
+			<HBox class="formInputWithIconbar">
+				<Input id='id_name'  class="formInputB1 forminputfragvo" width="100%" liveChange='fn_liveChange'/>
+			
+			</HBox>
+		</VBox>
+	</HBox>
+
+	<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+		<VBox class="formFieldbarcode">
+			<Text text="Email Id" class="cl_textbarcode"/>
+			<HBox class="formInputWithIconbar">
+				<Input id='id_email' change='fn_mailCheck' class="formInputB1 forminputfragvo" liveChange='fn_liveChange' width="100%"/>
+				
+			</HBox>
+		</VBox>
+	</HBox>
+
+	<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+		<VBox class="formFieldbarcode">
+			<Text text="Vendor Type" class="cl_textbarcode"/>
+<!--			<HBox class="formInputWithIconbar">-->
+<!--			<Select id="id_vendorTyp"-->
+<!--        forceSelection="false"-->
+<!--         items="{jsVendor>/results}" -->
+<!--        class="formInputB1 forminputfragvo cl_combo"-->
+<!--        width="100%"-->
+<!--        change="fn_liveChange">-->
+<!--    <core:Item key="{jsVendor>DomvalueL}" text="{jsVendor>Ddtext}" />-->
+<!--</Select>-->
+
+<!--			</HBox>-->
+<HBox class="formInputWithIconbar">
+    <Input id='id_vendorTyp' class="formInputB1 forminputfragvo" width="100%" />
+    <Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_FragVendorType"/>
+</HBox>
+		</VBox>
+	</HBox>
+	<!--<Button text="{i18n>Cancel Request}" tooltip="{i18n>Close}" icon="Images/cancel.svg" class="gl_canbtn simcan " press='fn_sub'></Button>-->
+</VBox>
+			
+			</HBox>
+		</content>
+		<beginButton>
+			<Button text="{i18n>Cancel Request}" tooltip="{i18n>Close}" icon="Images/cancel.svg" class="cl_btn_deletec cl_btn_deletecv" press='fn_clear'></Button>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>Submit &amp; Continue}" tooltip="{i18n>Submit}" icon="Images/check-circle-outline.svg" class=" cl_btn_deletecb "
+				press='fn_onSumbit'></Button>
+		</endButton>
+	
+	</Dialog>
+</core:FragmentDefinition>
