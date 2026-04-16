@@ -51,35 +51,35 @@ sap.ui.define([
 			this.getView().setModel(oSuccessModel, "successModel");
 
 		},
-		fn_loadCompanyCodes: function() {
-			var oModel = new sap.ui.model.odata.v2.ODataModel("/sap/opu/odata/EXL/FSCNXT360_SRV/");
-			var that = this;
+		// fn_loadCompanyCodes: function() {
+		// 	var oModel = new sap.ui.model.odata.v2.ODataModel("/sap/opu/odata/EXL/FSCNXT360_SRV/");
+		// 	var that = this;
 
-			oModel.read("/StatusFlowSet", {
-				filters: [
-					new sap.ui.model.Filter("Type", sap.ui.model.FilterOperator.EQ, "BUKRS")
-				],
-				success: function(oData) {
-					var oJSONModel = new sap.ui.model.json.JSONModel({
-						Company: oData.results
-					});
-					that.getView().setModel(oJSONModel, "JSCCode");
-					// sap.ui.getCore().byId("In_Non_CompCode").bindItems({ // commented by Manosankari
-					// 	path: "JSCCode>/Company",
-					// 	length: oData.results.length,
-					// 	template: new sap.ui.core.ListItem({
-					// 		key: "{JSCCode>Bukrs}",
-					// 		text: "{JSCCode>Bukrs}",
-					// 		additionalText: "{JSCCode>Butxt}"
-					// 	})
-					// });
-				},
-				error: function() {
-					// sap.m.MessageBox.error("Error loading company codes");
-						that.openErrorDialog('Error loading company codes');
-				}
-			});
-		},
+		// 	oModel.read("/StatusFlowSet", {
+		// 		filters: [
+		// 			new sap.ui.model.Filter("Type", sap.ui.model.FilterOperator.EQ, "BUKRS")
+		// 		],
+		// 		success: function(oData) {
+		// 			var oJSONModel = new sap.ui.model.json.JSONModel({
+		// 				Company: oData.results
+		// 			});
+		// 			that.getView().setModel(oJSONModel, "JSCCode");
+		// 			// sap.ui.getCore().byId("In_Non_CompCode").bindItems({ // commented by Manosankari
+		// 			// 	path: "JSCCode>/Company",
+		// 			// 	length: oData.results.length,
+		// 			// 	template: new sap.ui.core.ListItem({
+		// 			// 		key: "{JSCCode>Bukrs}",
+		// 			// 		text: "{JSCCode>Bukrs}",
+		// 			// 		additionalText: "{JSCCode>Butxt}"
+		// 			// 	})
+		// 			// });
+		// 		},
+		// 		error: function() {
+		// 			// sap.m.MessageBox.error("Error loading company codes");
+		// 				that.openErrorDialog('Error loading company codes');
+		// 		}
+		// 	});
+		// },
 		fnliveCompanynon: function(oEvent) {
 			sap.ui.getCore().byId("In_Non_CompCode").setValueState();
 			sap.ui.getCore().byId("In_Non_CompCode").setValueStateText();
