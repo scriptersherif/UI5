@@ -1,0 +1,10 @@
+<core:FragmentDefinition xmlns="sap.m"  xmlns:core="sap.ui.core">
+	<SelectDialog  title="{i18n>SelectPlant}" class="cl_frag"  liveChange="fn_plant_LC" items="{JSPlant>/}" 
+		confirm="fn_Plant_Confrm" >
+		<!--<StandardListItem  title="{JSPlant>Werks}" description="{JSPlant>Name1}"/>-->
+		        <StandardListItem  
+            title="{parts: ['JSPlant>Werks', 'JSPlant>Name1'], formatter: '.formatPlant'}"
+            description=""
+        />
+	</SelectDialog>
+</core:FragmentDefinition>

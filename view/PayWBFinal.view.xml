@@ -1,0 +1,654 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.PayWBFinal"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:t="sap.ui.table" xmlns:ui="sap.ui.table">
+	<App>
+		<Page class="cl_page">
+			<customHeader>
+				<Toolbar class="header_bar1 sapUiSmallMarginEnd">
+					<Image id="id_fnback" src="Images/arrow-left.svg" class="cl_back_btn sapUiSmallMarginBegin" visible="false" press="fn_back"/>
+					<Text text="Payment Workbench - Approval Application" class="cl_bold cl_black_txt cl_heading cl_font sapUiSmallMarginBegin"/>
+					 <RadioButtonGroup id="idViewSelector" class="cl_RadiotxtBtn" columns="3" select="onRadioNav">
+                    <buttons>
+                        <RadioButton text="Initiator" class="cl_RadiotxtBtn"/>
+                        <RadioButton text="Approver" class="cl_RadiotxtBtn"/>
+                        <RadioButton text="Bank Approver" class="cl_RadiotxtBtn"/>
+                    </buttons>
+                </RadioButtonGroup>
+					<ToolbarSpacer/>
+					<Button icon="Images/refreshbtn.png" tooltip="Refresh" class="refresh_btn" press="fn_appr"/>
+					<Button icon="Images/bellbtn.png" tooltip="Notification" class="notifi_btn"  press="fn_work"/>
+					<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+						<Text text="" id="id_uname" class="cl_username cl_font team_text"/>
+						<Image src="Images/Input.svg" class="team_image"/>
+					</HBox>
+				</Toolbar>
+			</customHeader>
+			<SplitApp id="SplitAppDemo" class="cl_paymentfin_whole" initialMaster="master" initialDetail="detail">
+				<detailPages>
+					<Page id="detail"  title="Detail 1" showHeader="false" backgroundDesign="Solid">
+						<!--<Toolbar class="sapUiTinyMarginBottom sapUiTinyMarginTop sapUiSmallMarginEnd sapUiTinyMarginBegin cl_total1">-->
+						<!--  <core:Icon id="id_back" press="onBack" src="sap-icon://home" width="10px" class="sapUiTinyMarginBegin sapUiSmallMargin" color="#93E6A8"></core:Icon>-->
+						<!--  <ToolbarSpacer/>-->
+						<!--</Toolbar>-->
+					
+						
+								<VBox height="100%" vertical="true" focusable="false">
+									<VBox height="100%" class="sapUiSmallMarginBegin ">
+										<!--<Toolbar class="cl_tool">-->
+										<!--  <Image src="images/BackBlack.png" class="cl_arrow sapUiSmallMarginBegin" press="onBack"></Image>-->
+										<!--  <Text text="{i18n>Ready for Process}" class="cl_textopencountblack"></Text>-->
+										<!--  <HBox class="cl_oitemclr " alignContent="Center" alignItems="Center" justifyContent="Center">-->
+										<!--    <Text text="" class="cl_textopencount" id="id_open"></Text>-->
+										<!--  </HBox>-->
+										<!--  <ToolbarSpacer/>-->
+										<!--<Button text="Comments" class="sapUiSizeCompact sapUiTinyMarginBeginEnd cl_reject" icon="sap-icon://comment" press="OnPressComment"-->
+										<!--  id="id_comments" visible="false"></Button>-->
+										<!--<Button icon="sap-icon://pdf-reader" text="PDF/Print" class="sapUiSizeCompact sapUiTinyMarginBegin sapUiSmallMarginEnd cl_approve"-->
+										<!--  press="onPressPDF" enabled="true" id="id_pdf" visible="false"></Button>-->
+										<!--</Toolbar>-->
+										<HBox id="idCardContainer" class="cl_paymentappr_cards " width="100%">
+											<VBox width="33.3%" class="cl_boxes2 ">
+												<!--<Toolbar class="cl_tool cl_toolheight2 sapUiTinyMarginTop">-->
+												<!--<Text text="{i18n>Account}" class="cl_textgrey sapUiSmallMarginBegin"></Text>-->
+												<!--</Toolbar>-->
+												<!--<Toolbar class="cl_tool1">-->
+												<!--	<Label text="{i18n>Mode}" class="cl_Tltxt sapUiSmallMarginBottom" required="true"></Label>-->
+												<!--	<Input class="cl_inputbox sapUiSizeCompact " id="id_modecode" width="50%" showValueHelp="true" submit="OnPressMode"-->
+												<!--		valueHelpRequest="onValueHelpRequestedMode"></Input>-->
+												<!--</Toolbar>-->
+												<!--<Toolbar class="cl_tool">-->
+												<!--	<Label text="{i18n>HouseBank}" class="cl_Tltxt sapUiSmallMarginBottom " wrapping="false" required="true"></Label>-->
+												<!--	<Input class="cl_inputbox sapUiSizeCompact sapUiTinyMarginBegin " width="40%" showValueHelp="true"-->
+												<!--		valueHelpRequest="onValueHelpRequestedHouseBank" id="id_housebank" showSuggestion="true" suggest="handleSuggestHouse" change="fn_housebank"-->
+												<!--		suggestionItems="{MHouseBank>/}">-->
+												<!--		<suggestionItems>-->
+												<!--			<core:ListItem key="{MHouseBank>Hbkid}" text="{MHouseBank>Hbkid}"/>-->
+												<!--		</suggestionItems>-->
+												<!--	</Input>-->
+												<!--</Toolbar>-->
+												<!--<HBox class="sapUiSmallMarginBegin" width="100%">-->
+												<!--<Toolbar class="cl_tool">-->
+												<!--	<Label text="{i18n>GL Account}" class="cl_Tltxt sapUiSmallMarginBottom sapUiSmallMarginBegin" required="true"></Label>-->
+												<!--	<Input class="cl_inputbox sapUiSizeCompact cl_glbox" width="72%" showValueHelp="true" valueHelpRequest="onValueHelpRequestedglacc"-->
+												<!--		id="id_glacc" change="onSubmitGL" showSuggestion="true" suggest="handleSuggestGL" suggestionItems="{MGLAccount>/}">-->
+												<!--		<suggestionItems>-->
+												<!--			<core:ListItem key="{MGLAccount>Ukont}" text="{MGLAccount>Ukont}"/>-->
+												<!--		</suggestionItems>-->
+												<!--	</Input>-->
+												<!--</Toolbar>-->
+												<VBox class="cl_payAP_content ">
+													<!-- Mode -->
+													<VBox class="formFieldbarcode comboboxcont " height="56px">
+														<Text text="{i18n>Mode}" class="cl_textbarcode"/>
+														<HBox class="formInputWithIconbar" width="100%">
+															<ComboBox id="id_modecode" items="{MModeOfPay>/}" change="OnPressMode" selectionFinish="handleSelectionFinish" width="100%"
+																class="cl_combo_transBar cl_combo_transBarbarcode" editable="{path: 'JSKey>/0/Key'}" tooltip="{i18n>companycode}">
+																<!-- Each item shown in dropdown -->
+																<core:Item text="{= ${MModeOfPay>Zlsch} + ' - ' + ${MModeOfPay>Text1} }" key="{MModeOfPay>Zlsch}"/>
+															</ComboBox>
+														</HBox>
+													</VBox>
+													<!-- House Bank -->
+													<VBox class="formFieldbarcode comboboxcont" height="56px">
+														<Text text="{i18n>HouseBank}" class="cl_textbarcode"/>
+														<HBox class="formInputWithIconbar" width="100%">
+															<ComboBox id="id_housebank" items="{MHouseBank>/}" change="fn_housebank" selectionFinish="handleSelectionFinish" width="100%"
+																class="cl_combo_transBar cl_combo_transBarbarcode" showValueHelp="true" editable="{path: 'JSKey>/0/Key'}" tooltip="{i18n>HouseBank}"
+																showSuggestion="true" suggest="handleSuggestHouse" valueHelpRequest="onValueHelpRequestedHouseBank">
+																<core:Item text="{MHouseBank>Hbkid}" key="{MHouseBank>Hbkid}"/>
+															</ComboBox>
+														</HBox>
+													</VBox>
+													<!-- GL Account -->
+													<VBox class="formFieldbarcode comboboxcont" height="56px">
+														<Text text="{i18n>GL Account}" class="cl_textbarcode"/>
+														<HBox class="formInputWithIconbar" width="100%">
+															<ComboBox id="id_glacc" items="{MGLAccount>/}" change="onSubmitGL" selectionFinish="handleSelectionFinish" width="100%"
+																class="cl_combo_transBar cl_combo_transBarbarcode" showValueHelp="true" editable="{path: 'JSKey>/0/Key'}" tooltip="{i18n>GLAccount}"
+																showSuggestion="true" suggest="handleSuggestGL" valueHelpRequest="onValueHelpRequestedglacc">
+																<core:Item text="{MGLAccount>Ukont}" key="{MGLAccount>Ukont}"/>
+															</ComboBox>
+														</HBox>
+													</VBox>
+												</VBox>
+											</VBox>
+											<VBox width="33.3%" class="cl_boxvb32 sapUiTinyMarginBeginEnd ">
+												<VBox class="bankCard">
+													<!-- Bank Name Section -->
+													<HBox class="bankHeader " justifyContent="SpaceBetween">
+														<VBox>
+															<Text text="Bank Name" class="bankLabel"/>
+															<Text text="ICICI Bank" class="bankName"/>
+														</VBox>
+														<VBox class=" sapUiTinyMarginTop">
+															<Image src="Images/contactless.svg" class="contactlessIcon"/>
+														</VBox>
+													</HBox>
+													<!-- Chip and Account Section -->
+													<HBox justifyContent="SpaceBetween">
+														<VBox class="accountSection ">
+															<Image src="Images/chip.svg" class="chipIcon "/>
+															<VBox class="accountInfo">
+																<Text text="Account" class="bankLabel"/>
+																<Text text="{/AccountNumber}" class="bankName" id="id_glaccount"/>
+															</VBox>
+														</VBox>
+														<!-- Amount Section -->
+														<VBox class="amountSection sapUiTinyMarginTop" alignItems="End">
+															<Image src="Images/worldcard.svg" class="worldCardIcon "/>
+															<VBox class="amountInfo" alignItems="End">
+																<Text text="Amount In Lakhs" class="bankLabel"/>
+																<Text text="₹ {/BankBalance}" class="bankName" id="id_bankbalance"/>
+															</VBox>
+														</VBox>
+													</HBox>
+												</VBox>
+											</VBox>
+											<VBox width="33.3%" class=" ">
+												<!--<VBox width="50%">-->
+												<!--<Toolbar class="cl_tool cl_toolheight sapUiSmallMarginTop">-->
+												<!--	<Text text="{i18n>Total Amount in Lakhs}" class="cl_Tltxt sapUiTinyMarginTop sapUiSmallMarginBegin"></Text>-->
+												<!--	<ToolbarSpacer></ToolbarSpacer>-->
+												<!--	<HBox>-->
+												<!--		<Text text="Rs." class="cl_textblue2_change sapUiSmallMarginBegin "></Text>-->
+												<!--		<Text text="" class="cl_textblue2_change" id="id_totalamo"></Text>-->
+												<!--		<Text text="Lakhs" class="cl_textblue2_change sapUiSmallMarginEnd sapUiTinyMarginBegin" id="id_amo"></Text>-->
+												<!--	</HBox>-->
+												<!--</Toolbar>-->
+												<!--	<Toolbar class="cl_tool cl_toolheight">-->
+												<!--		<Image src="images/line.png" class="sapUiSmallMarginBegin cl_imageline"></Image>-->
+												<!--	</Toolbar>-->
+												<!--<Toolbar class="cl_tool cl_toolheight sapUiSmallMarginTop">-->
+												<!--	<Text text="{i18n>Total MSME Amount}" class="cl_Tltxt sapUiSmallMarginBegin"></Text>-->
+												<!--	<ToolbarSpacer></ToolbarSpacer>-->
+												<!--	<HBox>-->
+												<!--		<Text text="{i18n>Rs.}" class="cl_textblue2_change sapUiSmallMarginBegin "></Text>-->
+												<!--		<Text text="" class="cl_textblue2_change" id="id_msme1"></Text>-->
+												<!--		<Text text="Lakhs" class="cl_textblue2_change sapUiSmallMarginEnd sapUiTinyMarginBegin" id="id_amo1"></Text>-->
+												<!--	</HBox>-->
+												<!--</Toolbar>-->
+												<!--	<Toolbar class="cl_tool cl_toolheight">-->
+												<!--		<Image src="images/line.png" class="sapUiSmallMarginBegin cl_imageline"></Image>-->
+												<!--	</Toolbar>-->
+												<!--</VBox>-->
+												<HBox class="cl_container_d total_card ">
+													<HBox class="cl_cont_right" width="100%">
+														<HBox class="cl_card_texts_gap" justifyContent="SpaceBetween" width="100%">
+															<Text text="Total Amount" class="cl_card_info"/>
+															<Text text="Amount in Lakhs" class="cl_card_info cl_short_gap"/>
+														</HBox>
+														<HBox justifyContent="SpaceBetween">
+															<HBox>
+																<Text text="" id="id_totalamo" class="cl_card_number"/>
+																<Text text="Lakhs" class="cl_card_number_short"/>
+															</HBox>
+															<Text text="" id="id_actamo" class="cl_card_number cl_short_gap"/>
+														</HBox>
+													</HBox>
+												</HBox>
+												<HBox class="cl_container_d card2 sapUiTinyMarginTop cl_margin12" id="idCardWithYou">
+													<HBox class="cl_cont_right">
+														<HBox class="cl_card_texts_gap">
+															<Text text="Total MSME Amount" class="cl_card_info"/>
+														</HBox>
+														<HBox>
+															<!--<Text text="" id="id_pendingScan" class="cl_card_number"/>-->
+															<Text text="" id="id_msme1" class="cl_card_number"/>
+															<Text text="Lakhs" id="id_amo1" class="cl_card_number_short"/>
+														</HBox>
+													</HBox>
+													<VBox class="iconBackgroundpink">
+														<Image src="Images/file-document-check-outline.svg" class="icon" width="18px" height="18px"/>
+													</VBox>
+													<!--<Button icon="Images/pendscan.svg" class="list_btn"/>-->
+												</HBox>
+												<!--<VBox width="50%">-->
+												<!--	<Text text="{i18n>Total Amount}" class="cl_Tltxt sapUiTinyMarginTop sapUiSmallMarginBegin"></Text>-->
+												<!--	<ToolbarSpacer></ToolbarSpacer>-->
+												<!--	<HBox>-->
+												<!--		<Text text="Rs." class="cl_textblue2_change sapUiSmallMarginBegin "></Text>-->
+												<!--		<Text text="" class="cl_textblue2_change" id="id_actamo"></Text>-->
+												<!--	</HBox>-->
+												<!--</Toolbar>-->
+												<!--	<Toolbar class="cl_tool cl_toolheight">-->
+												<!--		<Image src="images/line.png" class="sapUiSmallMarginBegin cl_imageline"></Image>-->
+												<!--	</Toolbar>-->
+												<!--</VBox>-->
+											</VBox>
+										</HBox>
+										<!--      <Toolbar class="cl_tool sapUiSmallMarginTop">-->
+										<!--  <Image src="images/menu.jpg" class="cl_menu sapUiTinyMarginBegin" press="onPressMenu"></Image>-->
+										<!--  <Text text="Open Items (90)" class="cl_text sapUiSmallMarginBeginEnd"></Text>-->
+										<!--  <Text text="Selected (40)" class="cl_text sapUiSmallMarginBeginEnd"></Text>-->
+										<VBox id="id_pdf_slide" class="cl_full_box cl_tab_appr_payment" >
+											<!--</Toolbar>-->
+											<Toolbar class="cl_tbr_payment_appr ">
+												<HBox width="100%" justifyContent="SpaceBetween" alignItems="Center">
+													<HBox >
+														<Text text="Open Item" class="cl_scan_text cl_open_text sapUiSmallMarginBegin "/>
+														<!--<HBox class="cl_badge_counter_2">-->
+														<Text text="0" id="id_open" class="cl_badge_counter_appr"></Text>
+														<!--</HBox>-->
+													</HBox>
+													<!-- Spacer pushes next items further right -->
+													<!-- Search Field -->
+													<HBox alignItems="Center" class="sapUiTinyMarginEnd">
+														<HBox class="cl_hbx_sf cl_hbx_sf1">
+															<Button icon="sap-icon://navigation-down-arrow" class="cl_arrow sapUiSizeCompact sapUiTinyMarginBegin" press="fnSearchPop"></Button>
+															<SearchField placeholder="Search" id="id_search2" class="cl_search_pay_appr sapUiTinyMarginTop sapUiSizeCompact "
+																liveChange="fnSearchField" search="fnSearchField"></SearchField>
+														</HBox>
+														<Button icon="Images/downloadin.svg" text="" class="greybtn cl_icon_btn sapUiTinyMarginBegin sapUiTinyMarginEnd"
+															press="onExcelDowloadLvl2" enabled="true" id="id_exceldownl2" visible="false"></Button>
+														<!-- Comments Button -->
+														<Button text="Comments" class="sapUiSizeCompact sapUiTinyMarginEnd greybtn" icon="Images/comment-text-multiple-outline.svg"
+															press="OnPressComment" id="id_comments"></Button>
+														<!-- PDF Button -->
+														<Button icon="Images/file-document-white.svg" text="Print/ PDF" class="bluebtn bluebtnicon" press="onPressPDF" enabled="true" id="id_pdf"></Button>
+													</HBox>
+												</HBox>
+											</Toolbar>
+											<VBox class="scrollContainer" id="id_vbox_table" width="100%">
+												
+												<t:Table id="id_tablepay" visibleRowCount="2" selectionMode="None" width="150%" rows="{Mopen>/}"
+													class="cl_payment_table cl_custom_table cl_custom_tableapk" rowSelectionChange="onSelectOpenItems">
+													<t:Column width="20px" hAlign="Center" class="cl_coloumncolor">
+														<Label text="" class="cl_tabletxt_first" textDirection="LTR"/>
+														<t:template hAlign="End">
+															<Text text="{Mopen>Prctr1}"  class="cl_Tltxt" textDirection="LTR"/>
+														</t:template>
+													</t:Column>
+													<t:Column width="100px" hAlign="Center" class="cl_coloumncolor">
+														<Label text="Profit Center" class="cl_tabletxt_first" textDirection="LTR"/>
+														<t:template hAlign="End">
+															<Text text="{Mopen>Prctr}"  class="cl_Tltxt" textDirection="LTR"/>
+														</t:template>
+													</t:Column>
+													<t:Column width="100px" hAlign="Center" class="cl_coloumncolor">
+														<Label text="Document No" class="cl_tabletxt" textDirection="LTR"/>
+														<t:template>
+															<Link text="{Mopen>Belnr}" class="cl_qid_sel " textDirection="LTR" textAlign="Begin" tooltip="Document Number" press="fn_docdisplay"/>
+														</t:template>
+													</t:Column>
+													<t:Column width="100px" hAlign="Center" class="cl_coloumncolor">
+														<Label text="Doc Type" class="cl_tabletxt" textDirection="LTR"/>
+														<t:template>
+															<Text text="{Mopen>Blart}" class="cl_Tltxt" textDirection="LTR" textAlign="Begin" tooltip="Document Type"/>
+														</t:template>
+													</t:Column>
+													<t:Column width="100px" hAlign="Center" class="cl_coloumncolor">
+														<Label text="Date" class="cl_tabletxt" textDirection="LTR"/>
+														<t:template>
+															<Text text="{path:'Mopen>Bldat', formatter:'FSC360NEW.model.formatter.fnDate'}" class="cl_Tltxt"/>
+														</t:template>
+													</t:Column>
+													<t:Column width="100px" hAlign="Center" class="cl_coloumncolor">
+														<Label text="Vendor" class="cl_tabletxt" textDirection="LTR"/>
+														<t:template>
+															<Text text="{Mopen>Lifnr}" class="cl_Tltxt" textDirection="LTR"/>
+														</t:template>
+													</t:Column>
+													<t:Column width="158px" hAlign="Center" class="cl_coloumncolor">
+														<Label text="Vendor Name" class="cl_tabletxt" textDirection="LTR"/>
+														<t:template>
+														<!--	<Toolbar class="cl_tool cl_toolheight2">-->
+																<Text text="{Mopen>Name1}" class="cl_Tltxt" textDirection="LTR" />
+															<!--</Toolbar>-->
+														</t:template>
+													</t:Column>
+													<t:Column width="100px" hAlign="Center" class="cl_coloumncolor">
+														<Label text="Invoice" class="cl_tabletxt" textDirection="LTR"/>
+														<t:template>
+															<Text text="{Mopen>Xblnr}" class="cl_Tltxt" textDirection="LTR"/>
+														</t:template>
+													</t:Column>
+													<t:Column width="100px" hAlign="Center" class="cl_coloumncolor">
+														<Label text="Invoice Date" class="cl_tabletxt" textDirection="LTR"/>
+														<t:template>
+															<Text text="{path:'Mopen>Reindat', formatter:'FSC360NEW.model.formatter.fnDate'}" class="cl_Tltxt"/>
+														</t:template>
+													</t:Column>
+													<t:Column width="100px" hAlign="Center" class="cl_coloumncolor">
+														<Label text="Amount" class="cl_tabletxt" textDirection="LTR"/>
+														<t:template>
+															<Text text="{Mopen>Dmbtr}" class="cl_Tltxt" textDirection="LTR"/>
+														</t:template>
+													</t:Column>
+													<t:Column width="100px" hAlign="Center" class="cl_coloumncolor">
+														<Label text="Due Date" class="cl_tabletxt" textDirection="LTR"/>
+														<t:template>
+															<Text text="{path:'Mopen>Netdt', formatter:'FSC360NEW.model.formatter.fnDate'}" class="cl_Tltxt"/>
+														</t:template>
+													</t:Column>
+													<t:Column width="100px" hAlign="Center" class="cl_coloumncolor">
+														<Label text="Pay Amount" class="cl_Tltxt" textDirection="LTR"/>
+														<t:template>
+															<Text text="{Mopen>PayAmount}" class="cl_Tltxt" textDirection="Inherit" tooltip="Pay Amount"/>
+															<!-- If editable input is required later, uncomment this:
+            <Input value="{Mopen>PayAmount}" id="id_payamount"
+                   enabled="{path:'Mopen>Shkzg', formatter:'PaymentSolution.model.Formatter.fnEditable'}"
+                   editable="{= ${Mopen>/edit_amount} === 'true' ? true : false}"
+                   liveChange="onPayAmountchange"/> -->
+														</t:template>
+													</t:Column>
+													<t:Column width="100px" hAlign="Center" class="cl_coloumncolor">
+														<Label text="Partial Paid" class="cl_tabletxt" textDirection="LTR"/>
+														<t:template>
+															<Text text="{Mopen>PartialPaid}" class="cl_Tltxt" textDirection="LTR"/>
+														</t:template>
+													</t:Column>
+													<t:Column width="100px" hAlign="Center" class="cl_coloumncolor">
+														<Label text="Curr" class="cl_tabletxt" textDirection="LTR"/>
+														<t:template>
+															<Text text="{Mopen>Waers}" class="cl_Tltxt" textDirection="LTR"/>
+														</t:template>
+													</t:Column>
+													<t:Column width="100px" hAlign="Center" class="cl_coloumncolor">
+														<Label text="Age" class="cl_tabletxt" textDirection="LTR"/>
+														<t:template>
+															<HBox alignContent="Center" alignItems="Center" justifyContent="Center">
+																<Text text="{Mopen>Ageing}" class="cl_Tltxt" textDirection="LTR"/>
+																<Image src="{path:'Mopen>Indi', formatter:'PaymentSolution.model.Formatter.Age'}" height="15px" width="15px"
+																	class="sapUiTinyMarginBegin sapUiTinyMarginTop"/>
+															</HBox>
+														</t:template>
+													</t:Column>
+													<t:Column width="100px" hAlign="Center" class="cl_coloumncolor">
+														<Label text="C/D" class="cl_tabletxt" textDirection="LTR"/>
+														<t:template>
+															<Text text="{path:'Mopen>Shkzg', formatter:'FSC360NEW.model.formatter.CD'}" class="cl_Tltxt" id="id_cd"/>
+														</t:template>
+													</t:Column>
+												</t:Table>
+											
+											</VBox>
+											
+										</VBox>
+											<HBox alignContent="End" alignItems="End" justifyContent="End">
+										<Button icon="Images/cash.svg" text="Payment Loc" class="blackbtn blackbtnicon sapUiTinyMarginBeginEnd " press="onPressTrigger"
+											enabled="true" id="id_trigger" visible="false"></Button>
+										<Button text="Reject" class="blackbtn sapUiTinyMarginBeginEnd " icon="Images/cancel_black.svg" id="id_reject" press="OnPressReject" visible="false"></Button>
+										<Button text="Approve" class="bluebtn sapUiTinyMarginBeginEnd" icon="Images/approve_image.svg" press="OnPressSuccess"
+											id="id_approve" visible="false"></Button>
+										<Button icon="Images/approve_image.svg" text="Submit" class="bluebtn sapUiTinyMarginBeginEnd" press="onPressSubmitfordirectPay"
+											enabled="true" id="id_submit" visible="false"></Button>
+									</HBox>
+									</VBox>
+									<!--<Toolbar>-->
+									<!--  <ToolbarSpacer></ToolbarSpacer>-->
+									<!--  <Button text="Submit" press="onPressSubmitfordirectPay"></Button>-->
+									<!--</Toolbar>-->
+								
+								</VBox>
+								
+						
+							
+					
+						
+					</Page>
+				</detailPages>
+				<masterPages>
+					<Page id="master" class="cl_paymentfin_left" title="Master 1" showHeader="false" backgroundDesign="List">
+						<VBox width="100%" class="cl_paymentfin_left_in" id="id_left_panel">
+							<!-- Header with Title + Collapse -->
+							<HBox justifyContent="SpaceBetween" class="cl_ses_left_head">
+								<HBox>
+									<Text text="Proposal ID's" id="idCardTitle" class="cl_scan_text"/>
+								</HBox>
+							</HBox>
+							<!-- Search Box -->
+							<VBox class="cl_search_container">
+								<HBox class="customSearchBox" alignItems="Center">
+									<Image src="Images/magnify.svg" class="searchIcon"/>
+									<Input placeholder="Search" id="id_search1" class="searchInput" type="Text" liveChange="handleSearch1"/>
+									<Text text="⌘ K" class="shortcutHint"/>
+								</HBox>
+							</VBox>
+							<VBox class="cl_payment_scrollContainer">
+								<!-- Proposal List -->
+								<List id="id_list" items="{MId>/}" class="customList " itemPress="onselection">
+									<CustomListItem type="Active" press="OnPressList" id="id_custom">
+										<VBox class="">
+											<!-- Proposal ID -->
+											<HBox alignItems="Center" class="invoiceBox">
+												<Text text="Proposal ID :" class="queueId_ValText"/>
+												<Text text="{path:'MId>Transid', formatter:'FSC360NEW.model.formatter.TransId'}" class="queueId_ValText"/>
+											</HBox>
+											<!-- Pay Location -->
+											<HBox alignItems="Center" justifyContent="SpaceBetween" class="invoiceBox">
+												<HBox class="dateBox">
+													<Image src="Images/map.svg" class="iconImage"/>
+													<Text text="{MId>PayLoc}" class="invoiceText"/>
+												</HBox>
+												<HBox class="dateBox">
+													<Image src="Images/factory.svg" class="iconImage"/>
+													<Text text="{MId>Name1}" class="invoiceText"/>
+												</HBox>
+											</HBox>
+											<!-- Pay Amount -->
+											<!-- Posting Date -->
+											<HBox alignItems="Center" justifyContent="SpaceBetween" class="dateBox">
+												<HBox class="dateBox">
+													<Image src="Images/calendar-ses.svg" class="iconImage"/>
+													<Text text="{path:'MId>Reindat', formatter :'FSC360NEW.model.formatter.fnDate'}" class="invoiceText"/>
+												</HBox>
+												<HBox alignItems="Center" class="invoiceBox">
+													<!--<Text text="Pay Amt:" class="queueid_text"/>-->
+													<Text text="{MId>PayAmount}" class="clamtap"/>
+												</HBox>
+											</HBox>
+											<!-- Company Code -->
+											<!--<HBox alignItems="Center" class="invoiceBox">-->
+											<!--    <Text text="Company Code:" class="queueid_text"/>-->
+											<!--    <Text text="{MId>Name1}" class="invoiceText"/>-->
+											<!--</HBox>-->
+										</VBox>
+									</CustomListItem>
+								</List>
+							</VBox>
+						</VBox>
+						<!--<Toolbar class="sapUiSmallMarginTop cl_toolmaster">-->
+						<!--	<Text text="Proposal ID's" class="cl_texthead sapUiTinyMarginTopBottom sapUiSmallMarginBegin sapUiTinyMarginEnd"/>-->
+						<!--<ToolbarSpacer width="10px"/>-->
+						<!--	<Button icon="sap-icon://sorting-ranking" class=" sapUiTinyMarginTopBottom sapUiTinyMarginEnd cl_sorticon sapUiSizeCompact"-->
+						<!--		press="fn_sort_frag1"></Button>-->
+						<!--	<SearchField placeholder="Search" class="sapUiSizeCompact sapUiSmallMarginTop sapUiTinyMarginEnd cl_search" search="handleSearch1"-->
+						<!--		id="id_search1" width="40%"></SearchField>-->
+						<!--</Toolbar>-->
+						<!--<List id="id_list" items="{MId>/}" itemPress="onselection">-->
+						<!--	<items>-->
+						<!--		<CustomListItem type="Active" press="OnPressList" id="id_custom" class="cl_toolmaster">-->
+						<!--			<VBox width="90%" height="140px" id="id_vb"-->
+						<!--				class="sapUiTinyMarginTop sapUiTinyMarginEnd sapUiSmallMarginBegin sapUiSmallMarginBottom cl_masterclick">-->
+						<!--<Toolbar height="1.7rem" class="cl_toolmaster sapUiSmallMarginBegin"><Text text="Proposal ID :" class="cl_text3" tooltip="Proposal ID"/>-->
+						<!--  <ToolbarSpacer/>-->
+						<!--  <Text text="{path:'MId>Transid' , formatter:'FSC360NEW.model.Formatter.TransId'}" class="sapUiSmallMarginEnd cl_text"-->
+						<!--    textDirection="LTR" textAlign="Left"/>-->
+						<!--  <ToolbarSpacer/>-->
+						<!--</Toolbar>-->
+						<!--<Toolbar height="1.7rem" class="cl_toolmaster sapUiSmallMarginBegin"><Text text="Pay Location:" class="cl_text3" tooltip="Pay Location"/>-->
+						<!--  <ToolbarSpacer/>-->
+						<!--  <Text text="{MId>PayLoc}" class="cl_text sapUiTinyMarginEnd" textDirection="LTR" textAlign="Left"/>-->
+						<!--  <ToolbarSpacer/>-->
+						<!--</Toolbar>-->
+						<!--<Toolbar height="1.7rem" class="cl_toolmaster sapUiSmallMarginBegin"><Text text="Pay Amt:" class="cl_text3" tooltip="Pay Amount"/>-->
+						<!--  <ToolbarSpacer/>-->
+						<!--  <Text text="{MId>PayAmount}" class="cl_text sapUiSmallMarginBegin" textDirection="LTR" textAlign="Left"/>-->
+						<!--  <ToolbarSpacer/>-->
+						<!--</Toolbar>-->
+						<!--<Toolbar height="1.7rem" class="cl_toolmaster sapUiSmallMarginBegin"><Text text="Posting Date:" class="cl_text3" tooltip="Posting Date"/>-->
+						<!--  <ToolbarSpacer/>-->
+						<!--  <Text text="{path:'MId>Reindat' , formatter:'FSC360NEW.model.Formatter.Date'}" class="cl_text" textDirection="LTR" textAlign="Left"/>-->
+						<!--  <ToolbarSpacer/>-->
+						<!--</Toolbar>-->
+						<!--<Toolbar height="1.7rem" class="cl_toolmaster sapUiSmallMarginBegin"><Text text="Company Code:" class="cl_text3" tooltip="Company Code"/>-->
+						<!--  <ToolbarSpacer/>-->
+						<!--  <Text text="{MId>Name1}" class="cl_text sapUiSmallMarginEnd" textDirection="LTR" textAlign="Left"/>-->
+						<!--  <ToolbarSpacer/>-->
+						<!--</Toolbar>-->
+						<!--				<Toolbar height="1.7rem" class="cl_toolmaster sapUiSmallMarginBegin"><Text text="Proposal ID :" class="cl_text3" tooltip="Proposal ID"/>-->
+						<!--					<ToolbarSpacer/>-->
+						<!--					<HBox alignContent="Start" alignItems="Start" justifyContent="Start" width="120px">-->
+						<!--						<Text text="{path:'MId>Transid' , formatter:'FSC360NEW.model.Formatter.TransId'}" class="cl_text" textDirection="LTR"-->
+						<!--							textAlign="Left"/>-->
+						<!--					</HBox>-->
+						<!--				</Toolbar>-->
+						<!--				<Toolbar height="1.7rem" class="cl_toolmaster sapUiSmallMarginBegin"><Text text="Pay Location:" class="cl_text3" tooltip="Pay Location"/>-->
+						<!--					<ToolbarSpacer/>-->
+						<!--					<HBox alignContent="Start" alignItems="Start" justifyContent="Start" width="120px">-->
+						<!--						<Text text="{MId>PayLoc}" class="cl_text" textDirection="LTR" textAlign="Left"/>-->
+						<!--					</HBox>-->
+						<!--				</Toolbar>-->
+						<!--				<Toolbar height="1.7rem" class="cl_toolmaster sapUiSmallMarginBegin"><Text text="Pay Amt:" class="cl_text3" tooltip="Pay Amount"/>-->
+						<!--					<ToolbarSpacer/>-->
+						<!--					<HBox alignContent="Start" alignItems="Start" justifyContent="Start" width="120px">-->
+						<!--						<Text text="{MId>PayAmount}" class="cl_text" textDirection="LTR" textAlign="Left"/>-->
+						<!--					</HBox>-->
+						<!--				</Toolbar>-->
+						<!--				<Toolbar height="1.7rem" class="cl_toolmaster sapUiSmallMarginBegin"><Text text="Posting Date:" class="cl_text3" tooltip="Posting Date"/>-->
+						<!--					<ToolbarSpacer/>-->
+						<!--					<HBox alignContent="Start" alignItems="Start" justifyContent="Start" width="120px">-->
+						<!--						<Text text="{path:'MId>Reindat' , formatter:'FSC360NEW.model.Formatter.Date'}" class="cl_text" textDirection="LTR" textAlign="Left"/>-->
+						<!--					</HBox>-->
+						<!--				</Toolbar>-->
+						<!--				<Toolbar height="1.7rem" class="cl_toolmaster sapUiSmallMarginBegin"><Text text="Company Code:" class="cl_text3" tooltip="Company Code"/>-->
+						<!--					<ToolbarSpacer/>-->
+						<!--					<HBox alignContent="Start" alignItems="Start" justifyContent="Start" width="120px">-->
+						<!--						<Text text="{MId>Name1}" class="cl_text" textDirection="LTR" textAlign="Left"/>-->
+						<!--					</HBox>-->
+						<!--				</Toolbar>-->
+						<!--			</VBox>-->
+						<!--		</CustomListItem>-->
+						<!--	</items>-->
+						<!--<StandardListItem title="To Master2" type="Navigation" press=".onPressGoToMaster" />-->
+						<!--</List>-->
+					</Page>
+				</masterPages>
+			</SplitApp>
+		</Page>
+	</App>
+</mvc:View>	<!--<t:Table id="id_tablepay" selectionMode="True" rows="{Mopen>/}" class="cl_payment_table cl_custom_table cl_custom_tableapk"-->
+												<!--	rowSelectionChange="onSelectOpenItems">-->
+												<!--	<t:Column width="8.1%" hAlign="Center" class="cl_coloumncolor">-->
+												<!--		<Label text="Profit Center" class="cl_tabletxt" textDirection="LTR"/>-->
+												<!--		<t:template hAlign="End">-->
+												<!--			<Text text="{Mopen>Prctr}" class="cl_Tltxt" textDirection="LTR"/>-->
+												<!--		</t:template>-->
+												<!--	</t:Column>-->
+												<!--	<t:Column width="9%" hAlign="Center" class="cl_coloumncolor">-->
+												<!--		<Label text="Document No" class="cl_tabletxt" textDirection="LTR"/>-->
+												<!--		<t:template >-->
+												<!--			<Link text="{Mopen>Belnr}" class="cl_Tltxt" textDirection="LTR" textAlign="Begin" tooltip="Document Number" press="fn_docdisplay"/>-->
+												<!--<Text text="{Mopen>Belnr}" class="cl_Tltxt" textDirection="LTR" textAlign="Begin"/>-->
+												<!--		</t:template>-->
+												<!--	</t:Column>-->
+												<!--	<t:Column width="7%" hAlign="Center" class="cl_coloumncolor">-->
+												<!--		<Label text="Doc Type" class="cl_tabletxt" textDirection="LTR"/>-->
+												<!--		<t:template >-->
+												<!--			<Text text="{Mopen>Blart}" class="cl_Tltxt" textDirection="LTR" textAlign="Begin" tooltip="Document Type"/>-->
+												<!--		</t:template>-->
+												<!--	</t:Column>-->
+												<!--	<t:Column width="8.1%" hAlign="Center" class="cl_coloumncolor">-->
+												<!--		<Label text="Date" class="cl_tabletxt" textDirection="LTR"/>-->
+												<!--		<t:template>-->
+												<!--<Text text="{MProfit>Bldat}" class="cl_Tltxt" textDirection="LTR"/>-->
+												<!--			<Text text="{path:'Mopen>Bldat' , formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_Tltxt"></Text>-->
+												<!--		</t:template>-->
+												<!--	</t:Column>-->
+												<!--	<t:Column width="6.1%" hAlign="Center" class="cl_coloumncolor">-->
+												<!--		<Label text="Vendor" class="cl_tabletxt" textDirection="LTR"/>-->
+												<!--		<t:template>-->
+												<!--			<Text text="{Mopen>Lifnr}" class="cl_Tltxt" textDirection="LTR"/>-->
+												<!--		</t:template>-->
+												<!--	</t:Column>-->
+												<!--	<t:Column width="10.1%" hAlign="Center" class="cl_coloumncolor">-->
+												<!--		<Label text="Vendor Name" class="cl_tabletxt" textDirection="LTR"/>-->
+												<!--		<t:template>-->
+												<!--<Text text="{Mopen>Name1}" class="cl_Tltxt" textDirection="LTR"/>-->
+												<!--			<Toolbar class="cl_tool cl_toolheight2">-->
+												<!--				<Text text="{Mopen>Name1}" class="cl_Tltxt " textDirection="LTR" wrapping="true"/>-->
+												<!--<ToolbarSpacer></ToolbarSpacer>-->
+												<!--<Text text="{path:'MProfit>Indi' , formatter:'FSCNxt.model.Formatter.Age'}" class="cl_Tltxt"></Text>-->
+												<!--<Image src="{path:'Mopen>Mindk' , formatter:'PaymentSolution.model.Formatter.MSME'}"-->
+												<!--	visible="{path:'Mopen>Mindk' , formatter:'PaymentSolution.model.Formatter.fnVisible'}" height="15px" width="30px"-->
+												<!--	class="sapUiMediumMarginBegin"></Image>-->
+												<!--    <Image src="{path:'JmAll>Shkzg', formatter:'IV_PAYAGING.model.Formatter.fndebitcredit'}" height="15px" width="15px"-->
+												<!--class=" sapUiTinyMarginTopBottom sapUiTinyMarginBegin"></Image>-->
+												<!--			</Toolbar>-->
+												<!--		</t:template>-->
+												<!--	</t:Column>-->
+												<!--<t:Column width="10rem" hAlign="Begin" class="cl_coloumncolor">-->
+												<!--  <Label text="MSME" class="cl_tabletxt" textDirection="LTR"/>-->
+												<!--  <t:template>-->
+												<!--    <Text text="{MProfit>Mindk}" class="cl_Tltxt" textDirection="LTR"/>-->
+												<!--  </t:template>-->
+												<!--</t:Column>-->
+												<!--	<t:Column width="8.1%" hAlign="Center" class="cl_coloumncolor">-->
+												<!--		<Label text="Invoice" class="cl_tabletxt" textDirection="LTR"/>-->
+												<!--		<t:template>-->
+												<!--			<Text text="{Mopen>Xblnr}" class="cl_Tltxt" textDirection="LTR"/>-->
+												<!--		</t:template>-->
+												<!--	</t:Column>-->
+												<!--	<t:Column width="9.1%" hAlign="Center" class="cl_coloumncolor">-->
+												<!--		<Label text="Invoice Date " class="cl_tabletxt" textDirection="LTR"/>-->
+												<!--		<t:template>-->
+												<!--			<Text text="{path:'Mopen>Reindat' , formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_Tltxt"></Text>-->
+												<!--<Text text="{Mopen>Reindat}" class="cl_Tltxt" textDirection="LTR"/>-->
+												<!--		</t:template>-->
+												<!--	</t:Column>-->
+												<!--	<t:Column width="8%" hAlign="Center" class="cl_coloumncolor">-->
+												<!--		<Label text="Amount" class="cl_tabletxt" textDirection="Inherit"/>-->
+												<!--		<t:template>-->
+												<!--			<Text text="{Mopen>Dmbtr}" class="cl_Tltxt" textDirection="LTR"/>-->
+												<!--		</t:template>-->
+												<!--	</t:Column>-->
+												<!--	<t:Column width="8%" hAlign="Center" class="cl_coloumncolor">-->
+												<!--		<Label text="Due Date " class="cl_tabletxt" textDirection="LTR"/>-->
+												<!--		<t:template>-->
+												<!--<Text text="{MProfit>Netdt}" class="cl_Tltxt" textDirection="LTR"/>-->
+												<!--			<Text text="{path:'Mopen>Netdt' , formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_Tltxt"></Text>-->
+												<!--		</t:template>-->
+												<!--	</t:Column>-->
+												<!--	<t:Column width="8%" hAlign="Center" class="cl_coloumncolor">-->
+												<!--		<Label text="Pay Amount " class="cl_Tltxt" textDirection="LTR"/>-->
+												<!--		<t:template>-->
+												<!--			<Input value="{Mopen>PayAmount}" id="id_payamount" enabled="{path:'Mopen>Shkzg' , formatter:'PaymentSolution.model.Formatter.fnEditable'}"-->
+												<!--				editable="{= ${Mopen>/edit_amount} === 'true' ? true : false}" liveChange="onPayAmountchange"></Input>-->
+												<!--<Text text="{Mopen>PayAmount}" class="cl_Tltxt" textDirection="LTR"/>-->
+												<!--		</t:template>-->
+												<!--	</t:Column>-->
+												<!--	<t:Column width="9.1%" hAlign="Center" class="cl_coloumncolor">-->
+												<!--		<Label text="Partial Paid" class="cl_tabletxt" textDirection="Inherit"/>-->
+												<!--		<t:template>-->
+												<!--			<Text text="{Mopen>PartialPaid}" class="cl_Tltxt" textDirection="LTR"/>-->
+												<!--		</t:template>-->
+												<!--	</t:Column>-->
+												<!--	<t:Column width="4.1%" hAlign="Center" class="cl_coloumncolor">-->
+												<!--		<Label text="Curr" class="cl_tabletxt" textDirection="LTR"/>-->
+												<!--		<t:template>-->
+												<!--			<Text text="{Mopen>Waers}" class="cl_Tltxt" textDirection="LTR"/>-->
+												<!--		</t:template>-->
+												<!--	</t:Column>-->
+												<!--	<t:Column width="4.1%" hAlign="Center" class="cl_coloumncolor">-->
+												<!--		<Label text="Age" class="cl_tabletxt" textDirection="LTR"/>-->
+												<!--		<t:template>-->
+												<!--			<HBox class="" alignContent="Center" alignItems="Center" justifyContent="Center">-->
+												<!--<Toolbar class="cl_tool cl_toolheight2">-->
+												<!--				<Text text="{Mopen>Ageing}" class="cl_Tltxt " textDirection="LTR"/>-->
+												<!--<ToolbarSpacer></ToolbarSpacer>-->
+												<!--<Text text="{path:'MProfit>Indi' , formatter:'FSCNxt.model.Formatter.Age'}" class="cl_Tltxt"></Text>-->
+												<!--				<Image src="{path:'Mopen>Indi' , formatter:'PaymentSolution.model.Formatter.Age'}" height="15px" width="15px"-->
+												<!--					class="sapUiTinyMarginBegin sapUiTinyMarginTop"></Image>-->
+												<!--    <Image src="{path:'JmAll>Shkzg', formatter:'IV_PAYAGING.model.Formatter.fndebitcredit'}" height="15px" width="15px"-->
+												<!--class=" sapUiTinyMarginTopBottom sapUiTinyMarginBegin"></Image>-->
+												<!--</Toolbar>-->
+												<!--			</HBox>-->
+												<!--		</t:template>-->
+												<!--	</t:Column>-->
+												<!--	<t:Column width="4.1%" hAlign="Center" class="cl_coloumncolor">-->
+												<!--		<Label text="C/D " class="cl_tabletxt" textDirection="LTR"/>-->
+												<!--		<t:template>-->
+												<!--<Text text="{MProfit>Shkzg}" class="cl_Tltxt" textDirection="LTR"/>-->
+												<!--			<Text text="{path:'Mopen>Shkzg' , formatter:'FSC360NEW.model.formatter.CD'}" class="" id="id_cd"></Text>-->
+												<!--		</t:template>-->
+												<!--	</t:Column>-->
+												<!--</t:Table>-->

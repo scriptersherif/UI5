@@ -1,0 +1,421 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.PhysicalTracking"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:uitable="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="{i18n>PhysicalTracking}" class="cl_page">
+				<customHeader>
+					<Toolbar class="header_bar_d">
+						<Title text="{i18n>PhysicalTracking}" class="cl_ses_txt" tooltip="{i18n>PhysicalTracking}"/>
+						<ToolbarSpacer/>
+						<Button icon="Images/refreshbtn.png" tooltip="{i18n>refresh}" class="cl_refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbtn.png" tooltip="{i18n>notification}" class="cl_notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="team_text cl_font"></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<VBox class="cl_full_boxB cl_full_boxstatus cl_full_box_phy_trac1">
+						<VBox class="cl_statusflow_input_cont" id="id_cl_statusflow_input_cont">
+							<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd" justifyContent="SpaceBetween" alignItems="End">
+								<VBox class="cl_date_recall clphysicalapplication cl_date_deviation cl_date_unblock" width="">
+									<Text text="{i18n>ScanDate}" class="cl_textbarcode cl_textdeviation cl_textphytr"/>
+									<HBox alignItems="Center" class="formInputWithIconbar forminputiconrecall forminputiconphytr">
+										<!-- From Input -->
+										<HBox class="formInputWithIconbar" alignItems="Center">
+											<DatePicker valueFormat="YYYY-MM-dd" readonly="true" icon="sap-icon://calendar" displayFormat="dd/MM/YYYY" placeholder="From"
+												class="formInputB1 forminputtat forminputfirsttat tatdatepick deviationdate deviationdatefirst unblockdatefirst" id="id_creationdatefrm"
+												tooltip="{i18n>FromDateTooltip}" change="fn_datevalidation"/>
+										</HBox>
+										<HBox class="formInputWithIconbar" alignItems="Center">
+											<DatePicker valueFormat="YYYY-MM-dd" readonly="true" icon="sap-icon://appointment" displayFormat="dd/MM/YYYY" placeholder="To"
+												class="formInputB1 forminputtat forminputlasttat forminputlastrecall forminputlastdeviation deviationdate deviationdatelast unblockdatelast"
+												id="id_creationdateend" tooltip="{i18n>ToDateTooltip}" change="fn_datevalidation"/>
+										</HBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode3 formFieldbarcode comboboxcont cl_status_multibox clphysicalapplication" width="">
+									<Text text="{i18n>Barcode}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_barcode" items="{JSStatusList>/}" placeholder="Select Barcode"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp">
+											<core:Item key="{JSStatusList>StatKey}" text="{JSStatusList>StatText}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+							
+									<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+									<Text text="Plant" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_Plant" placeholder="Plant" selectionChange="fn_PlantChange"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" tooltip="{i18n>plant}" ></ComboBox>
+										<!--<Input class="formInputB1" value=" " width="100%" layoutData="sap.ui.layout.FlexItemData" id="id_Plant"  tooltip="{i18n>Plant}"/>-->
+										<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_getPlant"/>-->
+									</HBox>
+								</VBox>
+								<HBox class="cl_button_cont_physicaltrack">
+									<Button id="id_clear" text="{i18n>Clear}" icon="Images/clearab.svg" type="Transparent" press="fnclearbutt"
+										class="sapUiSizeCompact cl_btn_cleara " tooltip="{i18n>clearTooltip}" />
+									<Button id="id_search" text="{i18n>Search}" icon="Images/searchab.svg" type="Transparent" press="fnSearch"
+										class="sapUiSizeCompact cl_btn_searcha " tooltip="{i18n>searchTooltip}"/>
+								</HBox>
+							</HBox>
+						</VBox>
+					</VBox>
+					<VBox class="cl_full_boxB cl_tab_boxstatus cl_full_box_phy_trac cl_full_boxstatus_min">
+						<Toolbar class="cl_tbr_1 cl_tbr_4 cl_tbr_recall cl_tbr_phytra">
+							<HBox alignItems="Center" justifyContent="Center">
+								<Image src="Images/Filter.svg" press="fnFilterPop" class="sapUiSizeCompact cl_filter_btn cl_filter_btn1" tooltip="{i18n>filter}"/>
+							</HBox>
+							<!-- Button group inside HBox -->
+							<HBox class="cl_btn_group" alignItems="Center">
+								<Button tooltip="{i18n>All}" id="idAllBtn" class="cl_btn_phy_all" text="All" icon="Images/allphy_tra_icon.svg" type="Transparent"
+									press="fn_onGroupBtnPress">
+									<customData>
+										<core:CustomData key="all" value="all"/>
+									</customData>
+								</Button>
+								<Button tooltip="{i18n>Indexing}" class="cl_btn_phy_ind" text="Indexing" icon="Images/indexing_phy_tra_icon.svg" type="Transparent"
+									press="fn_onGroupBtnPress">
+									<customData>
+										<core:CustomData key="indexing" value="indexing"/>
+									</customData>
+								</Button>
+								<Button tooltip="{i18n>Finance}" class="cl_btn_phy_fin" text="Finance" icon="Images/finance_phy_tra_icon.svg" type="Transparent"
+									press="fn_onGroupBtnPress">
+									<customData>
+										<core:CustomData key="finance" value="finance"/>
+									</customData>
+								</Button>
+							</HBox>
+							<ToolbarSpacer/>
+							<HBox class="cl_button_cont_hideshow">
+								<Button id="id_BtnExcel" icon="Images/download_phy.svg" type="Transparent" press="fn_save" class="sapUiSizeCompact cl_btn_Physical_mail"
+									tooltip="{i18n>DownloadExcel}"/>
+								<Button id="id_sendmail" tooltip="{i18n>Mail}" icon="Images/download_mail.svg" type="Transparent" press="fnemail"
+									class="sapUiSizeCompact cl_btn_Physical_mail"/>
+								<Button id="id_unblock" tooltip="{i18n>Save}" text="{i18n>Save}" icon="Images/content-save-phy_tra.svg" type="Transparent" press="fnsave"
+									class="sapUiSizeCompact cl_btn_Physical"/>
+							</HBox>
+						</Toolbar>
+						<uitable:Table id="idTable" rows="{RecallModel>/}" selectionMode="MultiToggle" enableSelectAll="true" visibleRowCount="12" width="100%"
+							class="cl_custom_table cl_custom_tableapk cl_tatreport_table cl_recall_table" rowSelectionChange="fn_action" fixedColumnCount="1"
+							selectionChange="onSelectionChange">
+							<uitable:Column width="8rem" hAlign="Center" id="materialdocno" class="cl_column_header" visible="{FilterTableModel>/0/visible}">
+	<Text text="{FilterTableModel>/0/label}" tooltip="{FilterTableModel>/0/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Text text="{RecallModel>Mblnr}" tooltip="{RecallModel>Mblnr}" class="cl_column_cell"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/1/visible}">
+	<Text text="{FilterTableModel>/1/label}" tooltip="{FilterTableModel>/1/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Text text="{RecallModel>Xblnr}" tooltip="{RecallModel>Xblnr}" class="cl_column_cell"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/2/visible}">
+	<Text text="{FilterTableModel>/2/label}" tooltip="{FilterTableModel>/2/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Text text="{path:'RecallModel>Bldat', formatter:'FSC360NEW.model.formatter.fnDate'}"
+			  tooltip="{path:'RecallModel>Bldat', formatter:'FSC360NEW.model.formatter.fnDate'}"
+			  class="cl_column_cell"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/3/visible}">
+	<Text text="{FilterTableModel>/3/label}" tooltip="{FilterTableModel>/3/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Text text="{RecallModel>Lfbnr}" tooltip="{RecallModel>Lfbnr}" class="cl_column_cell"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/4/visible}">
+	<Text text="{FilterTableModel>/4/label}" tooltip="{FilterTableModel>/4/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Text text="{RecallModel>Lifnr}" tooltip="{RecallModel>Lifnr}" class="cl_column_cell"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/5/visible}">
+	<Text text="{FilterTableModel>/5/label}" tooltip="{FilterTableModel>/5/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Text text="{RecallModel>VenName}" tooltip="{RecallModel>VenName}" class="cl_column_cell"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/6/visible}">
+	<Text text="{FilterTableModel>/6/label}" tooltip="{FilterTableModel>/6/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Text text="{RecallModel>Ebeln}" tooltip="{RecallModel>Ebeln}" class="cl_column_cell"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/7/visible}">
+	<Text text="{FilterTableModel>/7/label}" tooltip="{FilterTableModel>/7/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Text text="{RecallModel>Name}" tooltip="{RecallModel>Name}" class="cl_column_cell"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/8/visible}">
+	<Text text="{FilterTableModel>/8/label}" tooltip="{FilterTableModel>/8/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Text text="{RecallModel>Mjahr}" tooltip="{RecallModel>Mjahr}" class="cl_column_cell"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="12rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/9/visible}">
+	<Text text="{FilterTableModel>/9/label}" tooltip="{FilterTableModel>/9/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Input id="idtdate" value="{path:'RecallModel>IdtAcDate', formatter:'FSC360NEW.model.formatter.fnDate'}"
+			   tooltip="{path:'RecallModel>IdtAcDate', formatter:'FSC360NEW.model.formatter.fnDate'}"
+			   editable="false"
+			   enabled="{ parts:[ {path:'RecallModel>Name'}, {path:'RecallModel>GrnUser'}, {path:'RecallModel>IdtUser'}, {path:'RecallModel>FiUser'} ], formatter:'FSC360NEW.model.formatter.fnIdtEnabled1' }"
+			   class="cl_table_det_text cl_table_det_text1 tabin cl_input_tab_phytr"/>
+	</uitable:template>
+</uitable:Column>
+
+							<uitable:Column width="12rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/10/visible}">
+	<Text text="{FilterTableModel>/10/label}" tooltip="{FilterTableModel>/10/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Input id="idttime" value="{path:'RecallModel>IdtAcTime', formatter:'FSC360NEW.model.formatter.Time'}"
+			   tooltip="{path:'RecallModel>IdtAcTime', formatter:'FSC360NEW.model.formatter.Time'}"
+			   editable="false"
+			   enabled="{ parts:[ {path:'RecallModel>Name'}, {path:'RecallModel>GrnUser'}, {path:'RecallModel>IdtUser'}, {path:'RecallModel>FiUser'} ], formatter:'FSC360NEW.model.formatter.fnIdtEnabled1' }"
+			   class="cl_table_det_text cl_table_det_text1 tabin cl_input_tab_phytr"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/11/visible}">
+	<Text text="{FilterTableModel>/11/label}" tooltip="{FilterTableModel>/11/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Input id="storedate" value="{path:'RecallModel>AcDate', formatter:'FSC360NEW.model.formatter.Time'}"
+			   tooltip="{path:'RecallModel>AcDate', formatter:'FSC360NEW.model.formatter.Time'}"
+			   editable="false"
+			   enabled="{ parts:[ {path:'RecallModel>Name'}, {path:'RecallModel>GrnUser'}, {path:'RecallModel>IdtUser'}, {path:'RecallModel>FiUser'} ], formatter:'FSC360NEW.model.formatter.fnStoreEnabled1' }"
+			   class="cl_table_det_text cl_table_det_text1 tabin cl_input_tab_phytr"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/12/visible}">
+	<Text text="{FilterTableModel>/12/label}" tooltip="{FilterTableModel>/12/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Input id="storetime" value="{path:'RecallModel>AcTime', formatter:'FSC360NEW.model.formatter.Time'}"
+			   tooltip="{path:'RecallModel>AcTime', formatter:'FSC360NEW.model.formatter.Time'}"
+			   editable="false"
+			   enabled="{ parts:[ {path:'RecallModel>Name'}, {path:'RecallModel>GrnUser'}, {path:'RecallModel>IdtUser'}, {path:'RecallModel>FiUser'} ], formatter:'FSC360NEW.model.formatter.fnStoreEnabled1' }"
+			   class="cl_table_det_text cl_table_det_text1 tabin cl_input_tab_phytr"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/13/visible}">
+	<Text text="{FilterTableModel>/13/label}" tooltip="{FilterTableModel>/13/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<CheckBox class="cl_customCheckbox" id="idGrnUserChk"
+				  selected="{path:'RecallModel>GrnUser', formatter:'FSC360NEW.model.formatter.fnStoreSelected'}"
+				  tooltip="{path:'RecallModel>GrnUser', formatter:'FSC360NEW.model.formatter.fnStoreSelected'}"
+				  select="fnselect"
+				  enabled="{ parts:[ {path:'RecallModel>StoreAuth'}, {path:'RecallModel>GrnUser'}, {path:'RecallModel>IdtUser'}, {path:'RecallModel>FiUser'} ], formatter:'FSC360NEW.model.formatter.fnStoreEnabled' }"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/14/visible}">
+	<Text text="{FilterTableModel>/14/label}" tooltip="{FilterTableModel>/14/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<CheckBox class="cl_customCheckbox" id="sel1"
+				  selected="{path:'RecallModel>IdtUser', formatter:'FSC360NEW.model.formatter.fnIdtSelected'}"
+				  tooltip="{path:'RecallModel>IdtUser', formatter:'FSC360NEW.model.formatter.fnIdtSelected'}"
+				  select="fnselect1"
+				  enabled="{ parts:[ {path:'RecallModel>Name'}, {path:'RecallModel>GrnUser'}, {path:'RecallModel>IdtUser'}, {path:'RecallModel>FiUser'},{path:'RecallModel>Remark'}, {path:'RecallModel>PoType'} ], formatter:'FSC360NEW.model.formatter.fnIdtEnabled' }"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/15/visible}">
+	<Text text="{FilterTableModel>/15/label}" tooltip="{FilterTableModel>/15/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Input id="id_challonno" value="{RecallModel>DelChalNo}" tooltip="{RecallModel>DelChalNo}"
+			   class="cl_table_det_text cl_table_det_text1 tabin cl_input_tab_phytr" change="fnChange"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/16/visible}">
+	<Text text="{FilterTableModel>/16/label}" tooltip="{FilterTableModel>/16/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<DatePicker value="{ path: 'RecallModel>ChalDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' } }"
+					tooltip="{ path: 'RecallModel>ChalDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' } }"
+					id="id_challondate" change="fnChange1" width="100%"
+					class="tabin cl_table_det_text cl_table_det_text1 cl_table_data_inp_phytr"
+					placeholder="DD/MM/YYYY"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/17/visible}">
+	<Text text="{FilterTableModel>/17/label}" tooltip="{FilterTableModel>/17/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Text text="{RecallModel>Slno}" tooltip="{RecallModel>Slno}" class="cl_column_cell"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/18/visible}">
+	<Text text="{FilterTableModel>/18/label}" tooltip="{FilterTableModel>/18/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Text text="{path:'RecallModel>GrnDate', formatter:'FSC360NEW.model.formatter.fnDate'}"
+			  tooltip="{path:'RecallModel>GrnDate', formatter:'FSC360NEW.model.formatter.fnDate'}"
+			  class="cl_column_cell"/>
+	</uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/19/visible}">
+	<Text text="{FilterTableModel>/19/label}" tooltip="{FilterTableModel>/19/label}" class="cl_Tltxt"/>
+	<uitable:template>
+		<Text text="{RecallModel>Lgort}" tooltip="{RecallModel>Lgort}" class="cl_column_cell"/>
+	</uitable:template>
+</uitable:Column>
+
+						<uitable:Column width="10rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/20/visible}">
+    <Text text="{FilterTableModel>/20/label}" tooltip="{FilterTableModel>/20/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{RecallModel>Lgobe}" tooltip="{RecallModel>Lgobe}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/21/visible}">
+    <Text text="{FilterTableModel>/21/label}" tooltip="{FilterTableModel>/21/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{RecallModel>StoreId}" tooltip="{RecallModel>StoreId}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+							<uitable:Column width="10rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/22/visible}">
+    <Text text="{FilterTableModel>/22/label}" tooltip="{FilterTableModel>/22/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{RecallModel>StoreUname}" tooltip="{RecallModel>StoreUname}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/23/visible}">
+    <Text text="{FilterTableModel>/23/label}" tooltip="{FilterTableModel>/23/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{RecallModel>IdtId}" tooltip="{RecallModel>IdtId}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="10rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/24/visible}">
+    <Text text="{FilterTableModel>/24/label}" tooltip="{FilterTableModel>/24/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{RecallModel>IdtUname}" tooltip="{RecallModel>IdtUname}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/25/visible}">
+    <Text text="{FilterTableModel>/25/label}" tooltip="{FilterTableModel>/25/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <Input id="fidate" value="{path:'RecallModel>FiDate', formatter:'FSC360NEW.model.formatter.fnDateValidate'}" editable="false"
+            enabled="{ parts:[ {path:'RecallModel>Name'}, {path:'RecallModel>GrnUser'}, {path:'RecallModel>IdtUser'}, {path:'RecallModel>FiUser'} ], formatter:'FSC360NEW.model.formatter.fnFiEnabled1' }"
+            tooltip="{path:'RecallModel>FiDate', formatter:'FSC360NEW.model.formatter.fnDateValidate'}"
+            class="cl_table_det_text cl_table_det_text1 tabin cl_input_tab_phytr"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/26/visible}">
+    <Text text="{FilterTableModel>/26/label}" tooltip="{FilterTableModel>/26/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <Input id="fitime" value="{path:'RecallModel>FiTime', formatter:'FSC360NEW.model.formatter.Time'}" editable="false"
+            enabled="{ parts:[ {path:'RecallModel>Name'}, {path:'RecallModel>GrnUser'}, {path:'RecallModel>IdtUser'}, {path:'RecallModel>FiUser'} ], formatter:'FSC360NEW.model.formatter.fnFiEnabled1' }"
+            tooltip="{path:'RecallModel>FiTime', formatter:'FSC360NEW.model.formatter.Time'}"
+            class="cl_table_det_text cl_table_det_text1 tabin cl_input_tab_phytr"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/27/visible}">
+    <Text text="{FilterTableModel>/27/label}" tooltip="{FilterTableModel>/27/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{RecallModel>FiId}" tooltip="{RecallModel>FiId}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="10rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/28/visible}">
+    <Text text="{FilterTableModel>/28/label}" tooltip="{FilterTableModel>/28/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{RecallModel>FiUname}" tooltip="{RecallModel>FiUname}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/29/visible}">
+    <Text text="{FilterTableModel>/29/label}" tooltip="{FilterTableModel>/29/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <CheckBox class="cl_customCheckbox" id="sel2" selected="{path:'RecallModel>FiUser', formatter:'FSC360NEW.model.formatter.fnFiSelected'}"
+            select="fnselect2"
+            enabled="{ parts:[ {path:'RecallModel>Name'}, {path:'RecallModel>GrnUser'}, {path:'RecallModel>IdtUser'}, {path:'RecallModel>FiUser'} ], formatter:'FSC360NEW.model.formatter.fnIdtEnabled' }"
+            tooltip="{path:'RecallModel>FiUser'}"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/30/visible}">
+    <Text text="{FilterTableModel>/30/label}" tooltip="{FilterTableModel>/30/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{RecallModel>Werks}" tooltip="{RecallModel>Werks}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+						<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/31/visible}">
+    <Text text="{FilterTableModel>/31/label}" tooltip="{FilterTableModel>/31/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{RecallModel>Menge105}" tooltip="{RecallModel>Menge105}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/32/visible}">
+    <Text text="{FilterTableModel>/32/label}" tooltip="{FilterTableModel>/32/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{RecallModel>Meins105}" tooltip="{RecallModel>Meins105}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/33/visible}">
+    <Text text="{FilterTableModel>/33/label}" tooltip="{FilterTableModel>/33/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{RecallModel>Erfmg}" tooltip="{RecallModel>Erfmg}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/34/visible}">
+    <Text text="{FilterTableModel>/34/label}" tooltip="{FilterTableModel>/34/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{RecallModel>Erfme}" tooltip="{RecallModel>Erfme}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/35/visible}">
+    <Text text="{FilterTableModel>/35/label}" tooltip="{FilterTableModel>/35/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{RecallModel>PoType}" tooltip="{RecallModel>PoType}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="12rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/36/visible}">
+    <Text text="{FilterTableModel>/36/label}" tooltip="{FilterTableModel>/36/label}" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{RecallModel>Remark}" tooltip="{RecallModel>Remark}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+						</uitable:Table>
+						<HBox id="idPaginationFooter" justifyContent="SpaceBetween" alignItems="Center"
+							class="cl_pagination_footer cl_pagination_footer1 cl_pagination_min_height">
+							<HBox width="100px" justifyContent="Start">
+								<Button icon="Images/arrow-left.svg" text="Previous" width="100px" class="cl_prev_button" press="fn_onPreviousPage" id="idPrevBtn"/>
+							</HBox>
+							<HBox width="calc(100% - 200px)" id="idPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers"></HBox>
+							<HBox width="100px" justifyContent="End">
+								<Button text="Next" icon="Images/arrow-right.svg" iconFirst="false" class="cl_next_button" press="fn_onNextPage" id="idNextBtn"/>
+							</HBox>
+						</HBox>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

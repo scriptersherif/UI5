@@ -1,0 +1,102 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified" xmlns:l="sap.ui.layout"
+  xmlns:f="sap.ui.layout.form" xmlns:uitable="sap.ui.table">
+  <Dialog title="Summary" contentHeight="100%" contentWidth="40%" showHeader="true" class="cl_agentDialog cl_frag_rightslidesum">
+   <content>
+   	<VBox class="summary">
+   	<uitable:Table id="id_Sel_Table"
+    rows="{LNSumm>/}"
+    visibleRowCount="5"
+    selectionMode="None"
+    class="MTableClass simtable"
+    noDataText="Loading...">
+
+    <!-- Column: Condition -->
+    <uitable:Column>
+        <Label text="Condition" class="TableTextClass"/>
+        <uitable:template>
+            <Text text="{LNSumm>Kschl}-{LNSumm>Vtext}"/>
+        </uitable:template>
+    </uitable:Column>
+
+    <!-- Column: Liability -->
+    <uitable:Column>
+        <Label text="Liability" class="TableTextClass"/>
+        <uitable:template>
+            <Input id="id_condtotalsumm"
+                value="{path:'LNSumm>Wrbtr', formatter:'AssbcAssignBarcode.model.formatter.fnAmount'}"
+                editable="false"
+                change="fnCustomvalchange"
+                class="suminput"/>
+        </uitable:template>
+    </uitable:Column>
+
+    <!-- Column: Invoice Amount -->
+    <uitable:Column>
+        <Label text="Invoice Amount" class="TableTextClass"/>
+        <uitable:template>
+            <Input id="id_InvAmtsumm"
+                editable="true"
+                change="fnInvSummChange"
+                type="Number"
+                class="suminput"
+                value="{path:'LNSumm>InvoiceAmt', formatter:'AssbcAssignBarcode.model.formatter.fnAmount'}"/>
+        </uitable:template>
+    </uitable:Column>
+
+    <!-- Column: Deviation -->
+    <uitable:Column>
+        <Label text="Deviation" class="TableTextClass"/>
+        <uitable:template>
+            <Input id="id_differencesumm"
+                editable="false"
+                change="fnDifferenceChange"
+                type="Number"
+                class="suminput"
+                value="{path:'LNSumm>Difference', formatter:'AssbcAssignBarcode.model.formatter.fn_indicator'}"/>
+        </uitable:template>
+    </uitable:Column>
+
+</uitable:Table>
+</VBox>
+    <!--  <Table id="id_Sel_Table" items="{LNSumm>/}" mode="None" class="MTableClass" noDataText="Loading...">-->
+    <!--    <columns >-->
+    <!--      <Column  hAlign="Center">-->
+    <!--        <Text text="Condition" class="TableTextClass"/>-->
+    <!--      </Column>-->
+    <!--      <Column  hAlign="Center">-->
+    <!--        <Text text="Liability" class="TableTextClass"/>-->
+    <!--      </Column>-->
+    <!--      <Column  hAlign="Center">-->
+    <!--        <Text text="Invoice Amount" class="TableTextClass"/>-->
+    <!--      </Column>-->
+    <!--      <Column  hAlign="Center">-->
+    <!--        <Text text="Deviation" class="TableTextClass"/>-->
+    <!--      </Column>-->
+    <!--    </columns>-->
+    <!--  <items>-->
+    <!--      <ColumnListItem>-->
+    <!--        <cells>-->
+              <!-- Condition Text -->
+    <!--          <Text text="{LNSumm>Kschl}-{LNSumm>Vtext}"/>-->
+              <!-- Amount change="fnAmountChange"-->
+    <!--          <Input id="id_condtotalsumm"  value="{path:'LNSumm>Wrbtr',formatter:'AssbcAssignBarcode.model.formatter.fnAmount'}"-->
+    <!--             editable = "false" change ="fnCustomvalchange"/>-->
+              <!-- Invoice Amt -->
+    <!--          <Input id="id_InvAmtsumm" editable="true" change="fnInvSummChange" type="Number"-->
+    <!--                     value="{path:'LNSumm>InvoiceAmt',formatter:'AssbcAssignBarcode.model.formatter.fnAmount'}"/>-->
+              <!-- Diff -->
+    <!--          <Input id="id_differencesumm" editable="false" change="fnDifferenceChange" type="Number"-->
+    <!--              value="{path:'LNSumm>Difference',formatter:'AssbcAssignBarcode.model.formatter.fn_indicator'}"/>-->
+    <!--        </cells>-->
+    <!--      </ColumnListItem>-->
+    <!--    </items>-->
+    <!--</Table>-->
+    </content>
+    <beginButton>
+      <Button text="{i18n>Close}" tooltip="{i18n>Close}"  icon="Images/cancel.svg" class="gl_canbtn simcan " press="fnCancelSumm" />
+    </beginButton>
+    <endButton>
+      <Button text="Submit" class="  gl_subbtn simpost "  icon="Images/subsumab.svg"  press="fnSubmitSumm" />
+    </endButton>
+  </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m"  xmlns:core="sap.ui.core">
+	<SelectDialog  title="{i18n>Select Vendor}" class="cl_frag cl_frag_rightslidecapvo cl_frag_vendor"  liveChange="fn_Lifnr_LC" items="{JSVendor>/}" 
+		confirm="fn_Lifnr_Confrm" width="15%">
+	
+		<StandardListItem title="{= ${JSVendor>Mcod1} + ' - ' + ${JSVendor>Lifnr} }" class="clven" />
+
+	</SelectDialog>
+</core:FragmentDefinition>
+	<!--<StandardListItem  title="{JSVendor>Mcod1}" description="{JSVendor>Lifnr}"/>-->

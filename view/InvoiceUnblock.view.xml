@@ -1,0 +1,279 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.InvoiceUnblock"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:uitable="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="{i18n>InvoiceUbl}" class="cl_page">
+				<customHeader>
+					<Toolbar class="header_bar_d">
+						<Title text="{i18n>InvoiceUbl}" class="cl_ses_txt"/>
+						<ToolbarSpacer/>
+						<Button icon="Images/refreshbtn.png" tooltip="Refresh" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbtn.png" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<!--<Text text="AP Team" class="team_text"/>-->
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="team_text cl_font"></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<VBox class="cl_full_boxB cl_full_boxstatus cl_full_box_unblck">
+						<VBox class="cl_statusflow_input_cont" id="id_cl_statusflow_input_cont">
+							<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd topbox" justifyContent="SpaceBetween" alignItems="End">
+								<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+									<Text text="Company" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="companycode" items="{JSCCode>/Company}" selectedKey="{JSSelected>/Company}" placeholder="{i18n>companyCode}"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" filterSecondaryValues="true" showSecondaryValues="true" selectionChange="onCompanyChange" tooltip="{i18n>companyCode}">
+											<core:Item key="{JSCCode>Bukrs}" text="{JSCCode>Bukrs}" tooltip="Company code"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+									<Text text="{i18n>FiscalYear}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<Input id="id_fiscalyear" class="formInputB1" width="100%" layoutData="sap.ui.layout.FlexItemData" placeholder="{i18n>FiscalYearPH}"
+											tooltip="{i18n>FiscalYearTT}"/>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+									<Text text="{i18n>Plant}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<MultiComboBox id="idplant" items="{JSPlant>/}" selectionFinish="fn_handleSelectionFinish" maxWidth="100%"
+											class="cl_combo_transBar cl_deviation_combobox" tooltip="{i18n>Plant}">
+											<!--<core:Item key="{JSPlant>Werks}" text="{JSPlant>Werks}"/>-->
+											  <core:Item 
+										        text="{= ${JSPlant>Werks} + ' - ' + ${JSPlant>Name1} }"
+										        key="{JSPlant>Werks}" />
+										</MultiComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+									<Text text="{i18n>Vendor}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<MultiComboBox id="idvendor" items="{JSVendor>/}" selectionFinish="fn_handleSelectionFinish"  filterSecondaryValues="true" showSecondaryValues="true" maxWidth="100%"
+											class="cl_combo_transBar cl_deviation_combobox" tooltip="{i18n>vendor}">
+											<!--<core:Item key="{JSVendor>Lifnr}" text="{JSVendor>Lifnr}" additionalText="{JSVendor>Mcod1}" />-->
+											  <core:Item 
+										        text="{= ${JSVendor>Lifnr} + ' - ' + ${JSVendor>Mcod1} }"
+										        key="{JSVendor>Lifnr}" />
+										</MultiComboBox>
+									</HBox>
+								</VBox>
+							</HBox>
+						</VBox>
+						<VBox class="cl_statusflow_input_cont">
+							<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd topbox" justifyContent="SpaceBetween" alignItems="End">
+								<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+									<Text text="{i18n>Transaction Type}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_transactiontyp" items="{JSTransList>/}" placeholder="{i18n>transtype}" tooltip="{i18n>transtype}"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp">
+											<core:Item key="{JSTransList>StatKey}" text="{JSTransList>StatText}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+									<Text text="{i18n>PostingAgent}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_Agent" items="{jsUserName1>/}" placeholder="{i18n>PostingAgentPH}"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" showSecondaryValues="true" tooltip="{i18n>PostingAgentTT}"
+											selectionChange="onAgentChange">
+											<core:ListItem key="{jsUserName1>Bname}" text="{jsUserName1>Bname}" additionalText="{jsUserName1>NameText}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+									<Text text="{i18n>InvoiceNumber}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<Input id="id_invon" class="formInputB1" width="100%" layoutData="sap.ui.layout.FlexItemData" placeholder="{i18n>InvoiceNumber}"
+											tooltip="{i18n>invoiceNumberTT}"/>
+									</HBox>
+								</VBox>
+								<VBox class="cl_date_recall clphysicalapplication cl_date_deviation cl_date_unblock" width="">
+									<Text text="Date" class="cl_textbarcode cl_textdeviation"/>
+									<HBox alignItems="Center" class="formInputWithIconbar forminputiconrecall">
+										<!-- From Input -->
+										<HBox class="formInputWithIconbar" alignItems="Center">
+											<DatePicker valueFormat="YYYY-MM-dd" readonly="true" icon="sap-icon://calendar" displayFormat="dd/MM/YYYY" placeholder="From"
+												class="formInputB1 forminputtat forminputfirsttat tatdatepick deviationdate deviationdatefirst unblockdatefirst" id="id_docdatefrm"
+												change="fn_datevalidation" tooltip="{i18n>FromDateTooltip}"/>
+										</HBox>
+										<HBox class="formInputWithIconbar" alignItems="Center">
+											<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder="To"
+												class="formInputB1 forminputtat forminputlasttat forminputlastrecall forminputlastdeviation deviationdate deviationdatelast unblockdatelast"
+												id="id_docdateend" change="fn_datevalidation" tooltip="{i18n>ToDateTooltip}"/>
+										</HBox>
+									</HBox>
+								</VBox>
+							</HBox>
+						</VBox>
+						<VBox class="cl_statusflow_input_cont">
+							<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd topbox" justifyContent="SpaceBetween" alignItems="End">
+								<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+									<Text text="{i18n>ApprovedBy}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_Approvedby" items="{jsUserName1>/}" placeholder="{i18n>ApprovedByPH}"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" showSecondaryValues="true" tooltip="{i18n>ApprovedByTT}"
+											selectionChange="onAgentChange" editable="false">
+											<core:ListItem key="{jsUserName1>Bname}" text="{jsUserName1>NameLast}" additionalText="{jsUserName1>NameLast}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+									<Text text="{i18n>SectionCode}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_sec_code" items="{jsSection>/}" selectedKey="{JSSelected>/Seccode}" placeholder="{i18n>SectionCodePH}"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" selectionChange="onSectionChange" tooltip="{i18n>SectionCodeTT}">
+											<core:Item key="{jsSection>Seccode}" text="{jsSection>Seccode}" tooltip="{i18n>SectionCodeTT}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="clphysicalapplication cl_unblock_cont_radio" width="">
+									<HBox class="radio-container" alignItems="Center" justifyContent="Start" fitContainer="true">
+										<RadioButtonGroup selectedIndex="0" columns="2" select="fn_onRadioSelect" class="smallRadioGroup">
+											<buttons>
+												<RadioButton text="Pending For Approval" class="smallRadioButton smallRadioButton1"/>
+												<RadioButton text="Log Report" class="smallRadioButton smallRadioButton2"/>
+											</buttons>
+										</RadioButtonGroup>
+									</HBox>
+								</VBox>
+								<HBox class="cl_button_cont_recall clphysicalapplication cl_button_cont_invunblck">
+									<Button id="id_clear" text="{i18n>Clear}" icon="Images/clearab.svg" type="Transparent" press="fnclearbutt"
+										class="sapUiSizeCompact cl_btn_cleara " tooltip="{i18n>clearTooltip}"/>
+									<Button id="id_search" text="{i18n>Search}" icon="Images/searchab.svg" type="Transparent" press="fn_search"
+										class="sapUiSizeCompact cl_btn_searcha " tooltip="{i18n>searchTooltip}"/>
+								</HBox>
+							</HBox>
+						</VBox>
+					</VBox>
+					<VBox class="cl_full_boxB cl_full_box_unblck">
+						<Toolbar class="cl_tbr_1 cl_tbr_2 cl_tbr_invunblck">
+							<HBox alignItems="Center" justifyContent="Center">
+								<Image src="Images/Filter.svg" press="fnFilterPop" class="sapUiSizeCompact cl_filter_btn cl_filter_btn1 cl_filter_btn_unblck"/>
+							</HBox>
+							<Text text="Blocked Invoice" id="idCardTitle" class="cl_Tltxt cl_Tltxt_blocked sapUiTinyMarginBegin"/>
+							<Text text="0" class="cl_badge_counter" id="id_totcount"/>
+							<ToolbarSpacer/>
+							<HBox class="cl_button_cont_hideshow">
+								<Button id="id_unblock" text="{i18n>Unblock}" icon="Images/ubl.svg" type="Transparent" press="fn_unblock"
+									class="sapUiSizeCompact cl_btn_Unblock " tooltip="{i18n>Unblock}"/>
+							</HBox>
+						</Toolbar>
+						<uitable:Table id="idTable" rows="{JS_InvUbl>/}" selectionMode="Multi" visibleRowCount="9" width="100%"
+							class="cl_custom_table cl_custom_tableapk cl_tatreport_table cl_invblk cl_invcustomtab">
+						<uitable:Column width="10%" hAlign="Center" class="cl_column_header cl_invblkheader" visible="{FilterTableModel>/0/visible}">
+    <Text text="Queue Id" tooltip="Queue Id" class="cl_Tltxt" id="idFirstColumnText"/>
+    <uitable:template>
+        <Text text="{JS_InvUbl>Qid}" tooltip="{JS_InvUbl>Qid}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="7%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/1/visible}">
+    <Text text="Fiscal Year" tooltip="Fiscal Year" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{JS_InvUbl>Gjahr}" tooltip="{JS_InvUbl>Gjahr}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<!--<uitable:Column width="10%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/2/visible}">-->
+<!--    <Text text="Trans. Type" tooltip="Trans. Type" class="cl_Tltxt"/>-->
+<!--    <uitable:template>-->
+<!--        <Text text="{JS_InvUbl>Trnsty}" tooltip="{JS_InvUbl>Trnsty}" class="cl_column_cell"/>-->
+<!--    </uitable:template>-->
+<!--</uitable:Column>-->
+
+<uitable:Column width="10%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/2/visible}">
+    <Text text="TransType" tooltip="Description" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{JS_InvUbl>Descr}" tooltip="{JS_InvUbl>Descr}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="10%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/4/visible}">
+    <Text text="Company Code" tooltip="Company Code" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{JS_InvUbl>Bukrs}" tooltip="{JS_InvUbl>Bukrs}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="8%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/3/visible}">
+    <Text text="Vendor" tooltip="Vendor" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{JS_InvUbl>Vendor}" tooltip="{JS_InvUbl>Vendor}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="10%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/5/visible}">
+    <Text text="ID" tooltip="ID" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{JS_InvUbl>Wbagent}" tooltip="{JS_InvUbl>Wbagent}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="10%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/6/visible}">
+    <Text text="Workflow Age" tooltip="Workflow Age" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{JS_InvUbl>Wfage}" tooltip="{JS_InvUbl>Wfage}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="10%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/7/visible}">
+    <Text text="Invoice No." tooltip="Invoice No." class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{JS_InvUbl>Invno}" tooltip="{JS_InvUbl>Invno}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="10%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/8/visible}">
+    <Text text="Billing Date" tooltip="Billing Date" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{path:'JS_InvUbl>Bdate', formatter :'FSC360NEW.model.formatter.fnDate'}" tooltip="{path:'JS_InvUbl>Bdate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="10%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/9/visible}">
+    <Text text="UnblckBy" tooltip="UnblckBy" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{JS_InvUbl>UnblckBy}" tooltip="{JS_InvUbl>UnblckBy}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+
+<uitable:Column width="10%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/10/visible}">
+    <Text text="UnblckDate" tooltip="UnblckDate" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{path:'JS_InvUbl>UnblckDate', formatter :'FSC360NEW.model.formatter.fnDate'}" tooltip="{path:'JS_InvUbl>UnblckDate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+    </uitable:template>
+</uitable:Column>
+<uitable:Column width="12%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/11/visible}">
+    <Text text="Vendor Name" tooltip="Vendor Name" class="cl_Tltxt"/>
+    <uitable:template>
+        <Text text="{JS_InvUbl>Vendorname}" tooltip="{JS_InvUbl>Vendorname}" class="cl_column_cell cl_unblck_venname" wrapping="false"/>
+    </uitable:template>
+</uitable:Column>
+
+
+					
+						</uitable:Table>
+						<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer cl_pagination_footer1 cl_pagination_min_height"
+							id="idPaginationFooter">
+							<HBox width="100px" justifyContent="Start">
+								<Button icon="Images/arrow-left.svg" text="Previous" width="100px" class="cl_prev_button" press="fn_onNextPage"
+									id="idPrevBtn"/>
+							</HBox>
+							<HBox width="calc(100% - 200px)" id="idPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers">
+								<!-- Page buttons dynamically inserted here -->
+							</HBox>
+							<HBox width="100px" justifyContent="End">
+								<Button text="Next" icon="Images/arrow-right.svg" iconFirst="false" class="cl_next_button" press="fn_onNextPage"
+									id="idNextBtn"/>
+							</HBox>
+						</HBox>
+					
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

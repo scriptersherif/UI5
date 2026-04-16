@@ -1,0 +1,520 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.Fulfilment"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:uitable="sap.ui.table">
+	<App>
+		<pages>
+			<Page showHeader="true" class="cl_page">
+				<customHeader>
+					<Toolbar class="header_bar">
+						<Title text="Fulfilment" class="cl_fullfill_txt"/>
+					
+						<HBox id="id_usertype" class="cl_btn_group" alignItems="Center">
+							<Button text="{i18n>Workbench}" tooltip="{i18n>Workbench}" icon="Images/workbench.svg" press="fn_onUserTypePress" class="cl_btn_phy_all">
+								<customData>
+									<core:CustomData key="key" value="W"/>
+								</customData>
+							</Button>
+							<Button text="{i18n>Indexer}" tooltip="{i18n>Indexer}" icon="Images/indexer.svg" press="fn_onUserTypePress" class="cl_btn_phy_ind">
+								<customData>
+									<core:CustomData key="key" value="I"/>
+								</customData>
+							</Button>
+							<Button text="{i18n>NonPOIndexer}" tooltip="{i18n>NonPOIndexer}" icon="Images/nonpoIndexer.svg" press="fn_onUserTypePress"
+								class="cl_btn_phy_ind">
+								<customData>
+									<core:CustomData key="key" value="N"/>
+								</customData>
+							</Button>
+							<Button text="{i18n>AutoParking}" tooltip="{i18n>AutoParking}" icon="Images/autoparkf.svg" press="fn_onUserTypePress" class="cl_btn_phy_ind">
+								<customData>
+									<core:CustomData key="key" value="A"/>
+								</customData>
+							</Button>
+								<Button text="{i18n>Hold}" tooltip="{i18n>Hold}" icon="Images/holdw.svg" press="fn_onUserTypePress" class="cl_btn_phy_fin">
+								<customData>
+									<core:CustomData key="key" value="H"/>
+								</customData>
+							</Button>
+						</HBox>
+						<ToolbarSpacer/>
+						<Button icon="Images/refreshbtn.png" tooltip="Refresh" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbtn.png" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<!--<Text text="AP Team" class="team_text"/>-->
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="team_text cl_font sapUiSmallMarginEnd"></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<!--<ScrollContainer horizontal="true" vertical="false" height="auto">-->
+					<HBox class="cl_card_cont_head" id="cl_card_cont_head1" width="100%">
+						<HBox class="cl_container cl_container1 total_card" width="20%">
+							<HBox class="cl_cont_right">
+								<HBox>
+									<Text text="Total Invoices" class="cl_card_info"/>
+								</HBox>
+								<HBox>
+									<Text text="" class="cl_card_number" id="id_total"/>
+								</HBox>
+								<HBox>
+									<Text text="" class="cl_card_invamt" id="id_totamt"/>
+								</HBox>
+							</HBox>
+							<VBox class="iconBackgroundtodayinvff">
+								<Image src="Images/TodayInvoice.svg" class="icon" width="16px" height="25px"/>
+							</VBox>
+						</HBox>
+						<HBox class="cl_container cl_container2 card3 with_others msme" width="20%">
+							<HBox class="cl_cont_right">
+								<HBox>
+									<Text text="MSME Invoices" class="cl_card_info"/>
+								</HBox>
+								<HBox>
+									<Text text="" class="cl_card_number" id="id_msme"/>
+								</HBox>
+								<HBox>
+									<Text text="" class="cl_card_msmeamt" id="msmeamt"/>
+								</HBox>
+							</HBox>
+							<VBox class="iconBackgroundmsmeff">
+								<Image src="Images/msmeinvoice.svg" class="icon" width="20px" height="25px"/>
+							</VBox>
+						</HBox>
+						<HBox class="cl_container cl_container3 card5 ontime" width="20%">
+							<HBox class="cl_cont_right">
+								<HBox>
+									<Text text="Today Posted" class="cl_card_info"/>
+								</HBox>
+								<HBox>
+									<Text text="" class="cl_card_number" id="id_todayPosted"/>
+								</HBox>
+								<HBox>
+									<Text text="" class="cl_card_tdypostamt" id="todayamt"/>
+								</HBox>
+							</HBox>
+							<VBox class="iconBackgroundgreen iconBackgroundgreenff">
+								<Image src="Images/timer-check-outline.svg" class="icon" width="20px" height="25px"/>
+							</VBox>
+						</HBox>
+						<HBox class="cl_container cl_container4 card7 escalated" width="20%">
+							<HBox class="cl_cont_right">
+								<HBox>
+									<Text text="Escalated" class="cl_card_info"/>
+								</HBox>
+								<HBox>
+									<Text text="" class="cl_card_number" id="id_escalate"/>
+								</HBox>
+								<HBox>
+									<Text text="" class="cl_card_escamt" id="escalateamt"/>
+								</HBox>
+							</HBox>
+							<VBox class="iconBackgroundredff">
+								<Image src="Images/flash-outlineff.svg" class="icon" width="20px" height="25px"/>
+							</VBox>
+							<!--<Button icon="Images/esclation_image.svg" tooltip="Esclated" class="list_btn" press="fn_esculated"/>-->
+						</HBox>
+						<HBox class="cl_container card4 unassign clmargin16" width="20%">
+							<HBox class="cl_cont_right">
+								<HBox>
+									<Text text="Long Pending" class="cl_card_info"/>
+								</HBox>
+								<HBox>
+									<Text text="" class="cl_card_number" id="id_longpend"/>
+								</HBox>
+								<HBox>
+									<Text text="" class="cl_card_pendingamt" id="longpendamt"/>
+								</HBox>
+							</HBox>
+							<VBox class="iconBackgroundorange iconBackgroundorangeff">
+								<Image src="Images/pendingff.svg" class="icon" width="17px" height="25px"/>
+							</VBox>
+						</HBox>
+					</HBox>
+					<!--</l:Grid>-->
+					<!--</ScrollContainer>-->
+					<HBox height="83%">
+						<VBox id="id_pdf_slide" class="cl_full_box " height="100%">
+							<Toolbar class="cl_tbr_1">
+								<!-- Filter -->
+								<Image src="Images/Filter.svg" press="fnFilterPopup" class="sapUiSizeCompact cl_filter_btn" tooltip="{i18n>Filter}"/>
+								<!-- Title & Counter -->
+								<Text text="" id="idCardTitle" class="cl_Tltxt_tot"/>
+								<Text text="" class="cl_badge_counter" id="id_total_1"/>
+								<ToolbarSpacer/>
+								<!-- Search Area -->
+								<!--<HBox class="cl_hbx_sf">-->
+								<!--	<Button icon="sap-icon://navigation-down-arrow" class="cl_arrow sapUiSizeCompact sapUiMediumMarginBegin" press="fnSearchPop"-->
+								<!--		tooltip="{i18n>AdvancedSearch}"/>-->
+								<!--	<SearchField placeholder="{i18n>SearchByQid}" id="id_search_field" class="cl_search_field_ff sapUiTinyMarginTop sapUiSizeCompact"-->
+								<!--		liveChange="fnSearchField" search="fnSearchField"/>-->
+								<!--</HBox>-->
+									<HBox class="cl_search_containerap" alignItems="Center" justifyContent="Start" fitContainer="true">
+									<MultiComboBox id="id_search_fields" selectionChange="onSearchFieldsChange" placeholder="Select fields"
+										class="cl_search_multi cl_searchmulti">
+										<items>
+											<core:Item key="Qid" text="Queue Id"/>
+											<core:Item key="Name1" text="Vendor"/>
+											<core:Item key="Invno" text="Invoice No"/>
+											<core:Item key="Username" text="Agent"/>
+											<core:Item key="Werks" text="Plant"/>
+										
+										</items>
+									</MultiComboBox>
+									<SearchField id="id_search_field" placeholder="Search..." liveChange="fnSearchField" search="fnSearchField"
+										class="cl_search_field sapUiSmallMarginEnd"/>
+								</HBox>
+							
+								<!-- Action Buttons -->
+								<Button icon="Images/eyedropper.svg" text="{i18n>Pick}" tooltip="{i18n>Pick}" press="fnPick" class="cl_btncss" type="Transparent"/>
+								<Button icon="Images/account-arrow-left-outline.svg" text="{i18n>Reassign}" tooltip="{i18n>Reassign}" press="fn_Reassign" class="cl_btncss"
+									type="Transparent"/>
+								<Button icon="Images/account-check-outline.svg" text="{i18n>Assign}" tooltip="{i18n>Assign}" press="fnAssign"
+									class="cl_btncss sapUiTinyMarginEnd cl_assginclr" type="Transparent"/>
+									
+										<Button icon="Images/account-arrow-left-outline.svg" text="{i18n>Post}" tooltip="{i18n>Simulate}" press="fn_Post_Fulfill" class="cl_btncss"
+									type="Transparent"/>
+								<Button icon="Images/account-check-outline.svg" text="{i18n>Simulate}" tooltip="{i18n>Simulate}" press="fnSimulate_Fulfill"
+									class="cl_btncss sapUiTinyMarginEnd cl_assginclr" type="Transparent"/>
+							</Toolbar>
+							<VBox class="scrollContainer" id="id_vbox_table" width="100%">
+								<uitable:Table id="id_table_width" selectionMode="MultiToggle" enableSelectAll="true" rows="{jsDet>/}" visibleRowCount="10"
+									visibleRowCountMode="Fixed" navigationMode="Paginator" enableColumnReordering="true" columnHeaderVisible="true"
+									class="cl_tble cl_custom_table qidtab" width="{= ${appState>/sidebarCollapsed} ? '100%' : '120%'}" rowSelectionChange="fn_action" enableCellFilter="false" ariaLabelledBy="title" fixedColumnCount="1">
+									<uitable:columns>
+										<uitable:Column width="8.42%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/0/visible}">
+											<HBox alignItems="Center">
+												<Text text="Queue ID" class="cl_Tltxt"/>
+												<Image src="Images/arrow-down.svg" id="qidSortIcon" width="14px" height="14px" class="cl_header_icon" press="fn_sortByQueid"/>
+											</HBox>
+											<uitable:template class="cl_column_cell">
+												<!--<Text text="{path:'jsDet>Qid'}" class="cl_qid_sel cl_table_det_text"/>-->
+												<Link text="{path:'jsDet>Qid', formatter :'FSC360NEW.model.formatter.fnZero'}" press="fn_nav_to_wb" class="cl_qid_sel cl_table_det_text"
+													wrapping="false">
+														<customData>
+															<core:CustomData key="QidColor" value="{path: 'jsDet>DupRef', formatter: 'FSC360NEW.model.formatter.formatQidColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Link>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="8.65%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/1/visible}">
+											<Text text="Date" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{path:'jsDet>Qiddate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_table_det_text" wrapping="false">
+												<customData>
+															<core:CustomData key="QidColor" value="{path: 'jsDet>DupRef', formatter: 'FSC360NEW.model.formatter.formatQidColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="8.25%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/2/visible}">
+											<Text text="Time" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{path:'jsDet>Qiddate', formatter :'FSC360NEW.model.formatter.fnTime'}" class="cl_table_det_text" wrapping="false">
+														<customData>
+															<core:CustomData key="QidColor" value="{path: 'jsDet>DupRef', formatter: 'FSC360NEW.model.formatter.formatQidColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="6.34%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/3/visible}">
+											<Text text="Invoice " class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+													<HBox width="100%" height="100%">
+												<Button icon="Images/document.svg" press="fn_pdf" class="cl_invoice_btn" type="Transparent" tooltip="View Invoice">
+														<customData>
+															<core:CustomData key="QidColor" value="{path: 'jsDet>DupRef', formatter: 'FSC360NEW.model.formatter.formatQidColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Button>
+															</HBox>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="12%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/4/visible}">
+											<Text text="Invoice Number" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{jsDet>Invno}" class="cl_table_det_text">
+														<customData>
+															<core:CustomData key="QidColor" value="{path: 'jsDet>DupRef', formatter: 'FSC360NEW.model.formatter.formatQidColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="10%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/5/visible}">
+											<Text text="Invoice Type" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{jsDet>Invdesc}" class="cl_table_det_text">
+														<customData>
+															<core:CustomData key="QidColor" value="{path: 'jsDet>DupRef', formatter: 'FSC360NEW.model.formatter.formatQidColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="15%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/6/visible}">
+											<Text text="Vendor " class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{jsDet>Name1}" class="cl_table_det_text">
+														<customData>
+															<core:CustomData key="QidColor" value="{path: 'jsDet>DupRef', formatter: 'FSC360NEW.model.formatter.formatQidColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="6.63%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/7/visible}">
+											<Text text="Company Code" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{jsDet>Bukrs}" class="cl_table_det_text">
+														<customData>
+															<core:CustomData key="QidColor" value="{path: 'jsDet>DupRef', formatter: 'FSC360NEW.model.formatter.formatQidColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="11%" hAlign="Center" class="cl_column_header_tf" visible="{FilterTableModel>/8/visible}">
+											<Text text="Agent" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{path:'jsDet>Username'}" class="cl_table_det_text">
+														<customData>
+															<core:CustomData key="QidColor" value="{path: 'jsDet>DupRef', formatter: 'FSC360NEW.model.formatter.formatQidColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="8%" visible="{FilterTableModel>/9/visible}" hAlign="Center" class="cl_column_header">
+											<Text text="Amount" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{path:'jsDet>Ntamt', formatter:'FSC360NEW.model.formatter.fnAmount'}" class="cl_table_det_text">
+														<customData>
+															<core:CustomData key="QidColor" value="{path: 'jsDet>DupRef', formatter: 'FSC360NEW.model.formatter.formatQidColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Currency -->
+										<uitable:Column width="6%" visible="{FilterTableModel>/10/visible}" hAlign="Center" class="cl_column_header">
+											<Text text="Currency" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{jsDet>Waers}" class="cl_table_det_text">
+														<customData>
+															<core:CustomData key="QidColor" value="{path: 'jsDet>DupRef', formatter: 'FSC360NEW.model.formatter.formatQidColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Tax Code -->
+										<uitable:Column width="6%" visible="{FilterTableModel>/11/visible}" hAlign="Center" class="cl_column_header">
+											<Text text="Tax Code" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{jsDet>Mwskz}" class="cl_table_det_text">
+														<customData>
+															<core:CustomData key="QidColor" value="{path: 'jsDet>DupRef', formatter: 'FSC360NEW.model.formatter.formatQidColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Business Place -->
+										<uitable:Column width="8%" visible="{FilterTableModel>/12/visible}" hAlign="Center" class="cl_column_header">
+											<Text text="Business Place" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{jsDet>Bupla}" class="cl_table_det_text">
+														<customData>
+															<core:CustomData key="QidColor" value="{path: 'jsDet>DupRef', formatter: 'FSC360NEW.model.formatter.formatQidColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Section Code -->
+										<uitable:Column width="8%" visible="{FilterTableModel>/13/visible}" hAlign="Center" class="cl_column_header">
+											<Text text="Section Code" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{jsDet>Secco}" class="cl_table_det_text">
+														<customData>
+															<core:CustomData key="QidColor" value="{path: 'jsDet>DupRef', formatter: 'FSC360NEW.model.formatter.formatQidColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Vendor Code -->
+										<uitable:Column width="8%" visible="{FilterTableModel>/14/visible}" hAlign="Center" class="cl_column_header">
+											<Text text="Vendor Code" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{jsDet>Lifnr}" class="cl_table_det_text">
+														<customData>
+															<core:CustomData key="QidColor" value="{path: 'jsDet>DupRef', formatter: 'FSC360NEW.model.formatter.formatQidColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Plant -->
+										<uitable:Column width="6%" visible="{FilterTableModel>/15/visible}" hAlign="Center" class="cl_column_header">
+											<Text text="Plant" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{jsDet>Werks}" class="cl_table_det_text">
+														<customData>
+															<core:CustomData key="QidColor" value="{path: 'jsDet>DupRef', formatter: 'FSC360NEW.model.formatter.formatQidColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+											</uitable:template>
+										</uitable:Column>
+										<!--{appState>/sidebarCollapsed} -->
+										<uitable:Column id="id_status_column" width="11%" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/16/visible}">
+											<HBox alignItems="Center">
+												<Text text="Status" class="cl_Tltxt"/>
+												<Image src="Images/arrow-down.svg" id="statusSortIcon" width="14px" height="14px" class="cl_header_icon" press="fn_onSortByStatus"/>
+											</HBox>
+											<uitable:template class="cl_column_cell">
+												<HBox alignItems="Center" width="90px">
+													<Button id="statusBtn" text="{jsDet>DisplayStatus}" icon="sap-icon://circle-task-2" iconFirst="true" type="Transparent" class="cl_status">
+														<customData>
+															<core:CustomData key="status" value="{jsDet>DisplayStatus}" writeToDom="true"/>
+														</customData>
+													</Button>
+												</HBox>
+											</uitable:template>
+										</uitable:Column>
+									</uitable:columns>
+								</uitable:Table>
+								<uitable:Table id="id_pick_table" selectionMode="MultiToggle" enableSelectAll="true" rows="{pickModel>/}" visibleRowCount="10" visibleRowCountMode="Fixed"
+									navigationMode="Paginator" enableColumnReordering="true" columnHeaderVisible="true" visible="false" class="cl_tble cl_custom_table cl_picktable"
+									width="100%">
+									<uitable:columns>
+										<!-- QID -->
+										<uitable:Column width="10%" hAlign="Center" class="cl_column_header">
+											<Text text="Queue ID" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<!--<Text text="{pickModel>Qid}" class="cl_table_det_text"/>-->
+													<Link text="{path:'pickModel>Qid', formatter :'FSC360NEW.model.formatter.fnZero'}" press="fn_nav_to_wb1" class="cl_qid_sel cl_table_det_text"
+													wrapping="false"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Vendor -->
+										<uitable:Column width="8%" hAlign="Center" class="cl_column_header">
+											<Text text="Vendor" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{pickModel>Lifnr}" class="cl_table_det_text"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Company Code -->
+										<uitable:Column width="12%" hAlign="Center" class="cl_column_header">
+											<Text text="Company Code" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{pickModel>Bukrs}" class="cl_table_det_text"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Invoice Number -->
+										<uitable:Column width="15%" hAlign="Center" class="cl_column_header">
+											<Text text="Invoice No" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{pickModel>Invno}" class="cl_table_det_text"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Currency -->
+										<uitable:Column width="10%" hAlign="Center" class="cl_column_header">
+											<Text text="Currency" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{pickModel>Waers}" class="cl_table_det_text"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Invoice Date -->
+										<uitable:Column width="15%" hAlign="Center" class="cl_column_header">
+											<Text text="Invoice Date" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{path:'pickModel>Invdt', formatter:'FSC360NEW.model.formatter.fnDate'}" class="cl_table_det_text"/>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="15%" hAlign="Center" class="cl_column_header">
+											<Text text="Vendor Name" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{pickModel>Name1}" class="cl_table_det_text"/>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="15%" hAlign="Center" class="cl_column_header">
+											<Text text="Purchase Order" class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{pickModel>Ebeln}" class="cl_table_det_text"/>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="15%" hAlign="Center" class="cl_column_header">
+											<Text text="GRN Doc." class="cl_Tltxt"/>
+											<uitable:template class="cl_column_cell">
+												<Text text="{pickModel>Mblnr}" class="cl_table_det_text"/>
+											</uitable:template>
+										</uitable:Column>
+									</uitable:columns>
+								</uitable:Table>
+							</VBox>
+							<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer" width="100%" id="fultab">
+								<!-- Previous Button -->
+								<HBox width="100px" justifyContent="Start">
+									<Button icon="Images/arrow-left.svg" text="{i18n>Previous}" tooltip="{i18n>Previous}" id="idPrevButton" class="cl_prev_button"
+										press="fn_onPreviousPage" visible="true"/>
+								</HBox>
+								<!-- Dynamic Page Numbers -->
+								<HBox width="calc(100% - 200px)" id="idPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers">
+									<!-- Page number buttons inserted dynamically -->
+								</HBox>
+								<!-- Next Button -->
+								<HBox width="100px" justifyContent="End">
+									<Button text="{i18n>Next}" tooltip="{i18n>Next}" icon="Images/arrow-right.svg" id="idNextButton" iconFirst="false" class="cl_next_button"
+										press="fn_onNextPage" visible="true"/>
+								</HBox>
+							</HBox>
+							<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer" width="100%" id="fultabPick" visible="false">
+								<!-- Previous Button -->
+								<HBox width="100px" justifyContent="Start">
+									<Button icon="Images/arrow-left.svg" text="{i18n>Previous}" tooltip="{i18n>Previous}" id="idPrevPickButton" class="cl_prev_button"
+										press="fn_onPreviousPickPage"/>
+								</HBox>
+								<!-- Dynamic Page Numbers -->
+								<HBox width="calc(100% - 200px)" id="idPickPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers">
+									<!-- Page number buttons will be created dynamically in controller -->
+								</HBox>
+								<!-- Next Button -->
+								<HBox width="100px" justifyContent="End">
+									<Button text="{i18n>Next}" tooltip="{i18n>Next}" icon="Images/arrow-right.svg" id="idNextPickButton" iconFirst="false"
+										class="cl_next_button" press="fn_onNextPickPage"/>
+								</HBox>
+							</HBox>
+						</VBox>
+						<VBox class="cl_leftPanell1" height="100%" visible="{JsScrl>/0/Key}">
+							<HBox alignItems="Center" justifyContent="SpaceBetween" class="cl_pdfHeader">
+								<HBox alignItems="Center" gap="0.5rem">
+									<Text text="View Invoice" class="cl_pdfTitle"/>
+									<!--<Button icon="Images/plus.svg" tooltip="Zoom In" press="fn_onZoomIn" type="Transparent"-->
+									<!--	class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn " width="12px" height="12px"/>-->
+									<!--<Button icon="Images/minus.svg" tooltip="Zoom Out" press="fn_onZoomOut" type="Transparent"-->
+									<!--	class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn"/>-->
+									<Button icon="Images/print.svg" tooltip="Print" press="fn_onPrint" type="Transparent"
+										class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn"/>
+									<Button icon="Images/downloadin.svg" tooltip="Download PDF" press="fn_onDownload" type="Transparent"
+										class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn"/>
+								</HBox>
+								<!--<Text text="View Invoice" class="cl_pdfTitle"/>-->
+								<Image src="Images/window-close.svg" class="cl_pdfIconBtn" press="fn_close_pdf"/>
+							</HBox>
+							<VBox class="cl_leftPanell">
+								<ScrollContainer id="id_scrll" width="100%" class="cl_pdfScroll" visible="{JsScrl>/0/Key}" focusable="true" horizontal="true"
+									vertical="true"></ScrollContainer>
+							</VBox>
+						</VBox>
+					</HBox>
+				
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

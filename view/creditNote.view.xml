@@ -1,0 +1,208 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.creditNote"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:uitable="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="Title">
+				<customHeader>
+					<Toolbar class="header_bar1 sapUiSmallMarginEnd">
+						<Image id="id_fnback" src="Images/Left.svg" class="cl_back_btn sapUiSmallMarginBegin" visible="false" press="fn_back"></Image>
+						<!--<Text text="{i18n>CreditDebitNote}" class="cl_bold cl_black_txt cl_heading cl_font sapUiSmallMarginBegin"></Text>-->
+						<ComboBox id="id_typesel" selectedKey="{JSType>/Type}" tooltip="{i18n>Type}" placeholder="Select Document Type"
+							selectionChange="fnChangeType" width="13rem"
+							class="sapUiSmallMarginBegin cl_headingtext cl_headingtxtin" change="fnChangeTypeLive"
+							items="{path: 'JSType>/results'}">
+							<core:ListItem key="{JSType>Type}" text="{JSType>Type}"/>
+						</ComboBox>
+						<ToolbarSpacer/>
+						<Button icon="Images/refresh.svg" tooltip="Refresh" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbutton.svg" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<!--<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="cl_username cl_font sapUiMediumMarginEnd"></Text>-->
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="cl_username cl_font team_text "></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<l:VerticalLayout class="cl_full_boxB sapUiSizeCompact" width="97%">
+						<l:Grid defaultSpan="L3 M3 S3" vSpacing="0" class="sapUiSmallMarginTop">
+							<l:content>
+								<Panel class="cl_grid_panel">
+									<Label text="{i18n>Goods Receipt}:" tooltip="{i18n>Goods Receipt}" width="10rem" class="cl_textw"/>
+								</Panel>
+								<Panel class="cl_grid_panel">
+									<Label text="{i18n>Year}:" tooltip="{i18n>Year}" width="10rem" class="cl_textw"/>
+								</Panel>
+								<Panel class="cl_grid_panel">
+									<Label text="{i18n>Invoice No.}:" tooltip="{i18n>Invoice No.}" width="10rem" class="cl_textw"/>
+								</Panel>
+								<Panel class="cl_grid_panel">
+									<Label text="{i18n>Invoive Date}:" tooltip="{i18n>Invoive Date}" width="10rem" class="cl_textw"/>
+								</Panel>
+							</l:content>
+						</l:Grid>
+						<l:Grid defaultSpan="L3 M3 S3" vSpacing="0">
+							<l:content>
+								<Panel class="cl_grid_panel3">
+									<Input id="id_grn" tooltip="{i18n>Goods Receipt}" placeholder="Enter Goods Receipt" width="14rem"
+										class="formInputB01 formInputB01l formInputB01lfile cl_combo_transBar1 formInputB01cn" value="{JSGoods>/Mblnr}" showValueHelp="true"
+										valueHelpRequest="onGrnValueHelp" liveChange="fnChangeState" maxLength="10"/>
+								</Panel>
+								<Panel class="cl_grid_panel3">
+									<ComboBox id="id_fiscalYearCombo" selectedKey="{JSGoods>/Mjahr}" tooltip="{i18n>Year}" placeholder="Enter Fiscal Year"
+										selectionChange="fn_onYearSelect" width="14rem"
+										class="cl_combo_transBar cl_tat_status_combobox_inp cl_cn_status_combobox_inp cl_combo_transtat2" maxLength="4" liveChange="fnChangeState"
+										items="{path: 'JSYear>/results'}">
+										<core:ListItem key="{JSYear>Year}" text="{JSYear>Year}"/>
+									</ComboBox>
+								</Panel>
+								<Panel class="cl_grid_panel3">
+									<Input id="id_invno" tooltip="{i18n>Invoice No.}" placeholder="Enter Invoice Number" width="14rem"
+										class="formInputB01 formInputB01l formInputB01lfile cl_combo_transBar1 formInputB01cn" change="fnLiveComment" liveChange="fnLiveComment"/>
+								</Panel>
+								<Panel class="cl_grid_panel3">
+									<!--<Input id="id_invdt" tooltip="{i18n>Invoive Date}" width="14rem" class="formInputB01 formInputB01l formInputB01lfile cl_combo_transBar1"/>-->
+									<DatePicker id="id_invdt" dateValue="{path:'JSInvdethead>Invdt'}" tooltip="{i18n>Invoive Date}" width="14rem" displayFormat="dd/MM/YYYY"
+										change="fn_Invoicedate_change" placeholder="Enter Invoice Date" valueState="{JSValidation>/InvdtState}"
+										valueStateText="{JSValidation>/InvdtText}"
+										class="formInputB01 formInputB01l formInputB01lfile cl_combo_transBar1 inputhelpw inpvali formInputB01cn"/>
+								</Panel>
+							</l:content>
+						</l:Grid>
+						<l:Grid defaultSpan="L3 M3 S3" vSpacing="0" class="sapUiTinyMarginTop">
+							<l:content>
+								<Panel class="cl_grid_panel">
+									<Label text="{i18n>Upload Invoice}:" tooltip="{i18n>Upload Invoice}" width="10rem" class="cl_textw"/>
+									<u:FileUploader id="fileUploader" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file"
+										class="formInputB01l formInputB01lfile bluebtn sapUiSmallMarginBottom cl_combo_transBar1 formInputB01cn bluebtn1" placeholder="Upload Invoice"
+										change="handleUploadComplete" editable="false"/>
+								</Panel>
+								<Panel class="cl_grid_panel1 sapUiTinyMarginTop">
+									<Button id="id_clear" text="{i18n>Clear}" icon="Images/clearab.svg" type="Transparent" press="fnclearbutt"
+										class="sapUiSizeCompact cl_btn_cleara cl_btn_cleara1 cl_btn_searcha1" tooltip="{i18n>clearTooltip}"/>
+									<Button id="id_search" text="{i18n>Search}" icon="Images/searchab.svg" type="Transparent" press="fnPressSearch"
+										class="sapUiSizeCompact cl_btn_searcha cl_btn_searcha1" tooltip="{i18n>searchTooltip}"/>
+								</Panel>
+							</l:content>
+						</l:Grid>
+						<l:Grid defaultSpan="L3 M3 S3" vSpacing="0" class="" visible="false">
+							<l:content>
+								<Panel class="cl_grid_panel">
+									<RadioButtonGroup columns="2" id="id_posel" class="cl_RadiotxtBtna" select="fnSelectRB" visible="true">
+										<RadioButton text="Quantity" class="cl_RadiotxtBtna" id="id_rd1"/>
+										<RadioButton text="Value" class="cl_RadiotxtBtna " id="if_rd2"/>
+									</RadioButtonGroup>
+								</Panel>
+							</l:content>
+						</l:Grid>
+					</l:VerticalLayout>
+					<l:VerticalLayout class="cl_full_boxB cl_full_boxtab sapUiSizeCompact" width="97%">
+						<l:Grid defaultSpan="XL12 L12 M3 S3" vSpacing="0" class="sapUiTinyMarginTop">
+							<l:content>
+								<Panel class="cl_grid_panel">
+									<Text text="{i18n>VendorNm}:" tooltip="{i18n>Vendor}" class="cl_textw sapUiTinyMarginEnd"/>
+									<Text text="" tooltip="{i18n>Vendor}" class="cl_textw" id="id_title"/>
+									<uitable:Table id="id_table" selectionMode="None" enableSelectAll='true' rows="{JSBCTable>/}" enableCellFilter="true" visibleRowCount="5"
+										class="sapUiTinyMarginTop sapUiTinyMarginTop FSC_Table cl_barcode_tableborder FSC_Table_cr cl_header_icon1 cl_textaligntb cl_fsc_table"
+										fixedColumnCount="1" rowSelectionChange="action" ariaLabelledBy="title" sort="sortDeliveryDate">
+										<uitable:columns>
+											<uitable:Column hAlign="Center" showFilterMenuEntry="false" width="7rem" showSortMenuEntry="false">
+												<HBox alignItems="Center">
+													<Text text="{i18n>Matnr}" class="cl_Tltxt"/>
+													<Image src="Images/arrow-down.svg" id="qidSortIcon" width="14px" height="14px" class="cl_header_icon1" press="fn_sortByQueid"/>
+												</HBox>
+												<uitable:template>
+													<Link text="{JSBCTable>Matnr}" press="fn_nav_to_wb" class="cl_table_det_text pofield cl_table_det_text1" wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column hAlign="Center" width="9rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+												<Text text="{i18n>Desc}" class="cl_Tltxt"/>
+												<uitable:template>
+													<Text text="{JSBCTable>Maktx}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+												<Text text="{i18n>SLoc}" class="cl_Tltxt"/>
+												<uitable:template>
+													<Text text="{JSBCTable>Lgort}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false">
+												<Text text="{i18n>Po Number}" class="cl_Tltxt"/>
+												<uitable:template>
+													<Text text="{JSBCTable>Ebeln}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false" id="id_grnqty">
+												<Text text="{i18n>GRNQty}" class="cl_Tltxt"/>
+												<uitable:template>
+													<Text text="{JSBCTable>Menge}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false" id="id_rtnqty">
+												<Text text="{i18n>RtnQty}" class="cl_Tltxt"/>
+												<uitable:template>
+													<Input id="id_rtnqty1" value="{JSBCTable>Emenge}" class="cl_table_det_text" wrapping="false" valueLiveUpdate="true"
+														liveChange="fnChangeState" enabled="{JSVisibility>/Qty}" editable="{JSVisibility>/Qty}"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false" id="id_grnamt">
+												<Text text="{i18n>GRNAmt}" class="cl_Tltxt"/>
+												<uitable:template>
+													<Text text="{JSBCTable>Dmbtr}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column hAlign="Center" width="7rem" showFilterMenuEntry="false" showSortMenuEntry="false" id="id_grnedit">
+												<Text text="{i18n>RtnAmount}" class="cl_Tltxt"/>
+												<uitable:template>
+													<Input value="{JSBCTable>Edmbtr}" class="cl_table_det_text" wrapping="false" liveChange="fnChangeState"
+														valueLiveUpdate="true" submit="fnChangeValue" change="fnChangeValue" id="id_grnedit1" enabled="{JSVisibility>/Amt}" editable="{JSVisibility>/Amt}"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column hAlign="Center" width="6rem" showFilterMenuEntry="false" showSortMenuEntry="false" id="id_currency">
+												<Text text="{i18n>Currency}" class="cl_Tltxt"/>
+												<uitable:template>
+													<Text text="{JSBCTable>Waers}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column hAlign="Center" width="5rem" showFilterMenuEntry="false" showSortMenuEntry="false" id="id_uom">
+												<Text text="{i18n>Unit}" class="cl_Tltxt"/>
+												<uitable:template>
+													<Text text="{JSBCTable>Meins}" class="cl_table_det_text cl_table_det_text1" wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+										</uitable:columns>
+									</uitable:Table>
+									<!--<Toolbar class="cl_header_barbtn header_bar2">-->
+									<!--	<Button icon="Images/arrow-left.svg" text="{i18n>Previous}" tooltip="{i18n>Previous}" id="idPrevButton" class="cl_prev_button cl_btntxt"-->
+									<!--		press="onPreviousJSBCPage" visible="true"/>-->
+									<!--	<ToolbarSpacer/>-->
+									<!--	<HBox width="calc(100% - 200px)" id="idPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers"></HBox>-->
+									<!--	<ToolbarSpacer/>-->
+									<!--	<Button text="{i18n>Next}" tooltip="{i18n>Next}" icon="Images/arrow-right.svg" id="idNextButton" iconFirst="false" class="cl_next_button cl_btntxt cl_nextbtnm"-->
+									<!--		press="onNextJSBCPage" visible="true"/>-->
+									<!--</Toolbar>-->
+								</Panel>
+								<Panel class="cl_grid_panel">
+									<Text text="{i18n>Remarks}:" tooltip="{i18n>Vendor}" width="10rem" class="cl_textw"/>
+								</Panel>
+								<Panel class="cl_grid_panel1 sapUiTinyMarginBottom">
+									<!--<Text text="{i18n>Remarks}:" tooltip="{i18n>Vendor}" width="10rem" class="cl_textw"/>-->
+									<TextArea id="id_textarea" class="formInputB01 cl_textarea formInputB01l formInputB01lfile cl_combo_transBar1" width="100%"
+										liveChange="fnLiveComment"></TextArea>
+									<Toolbar class="header_bar1 cl_header_barbtn cl_header_barbtnad">
+										<ToolbarSpacer/>
+										<!--<Button id="id_clear1" text="{i18n>Clear}" icon="Images/clearab.svg" type="Transparent" press="fnclearbutt"-->
+										<!--	class="sapUiSizeCompact cl_btn_cleara cl_btn_cleara1" tooltip="{i18n>clearTooltip}"/>-->
+										<Button id="id_search1" text="{i18n>Submit}" icon="Images/simpost.svg" type="Transparent" press="fnPressSubmit"
+											class="sapUiSizeCompact cl_btn_searcha cl_btn_searcha1" tooltip="{i18n>searchTooltip}"/>
+									</Toolbar>
+								</Panel>
+							</l:content>
+						</l:Grid>
+					</l:VerticalLayout>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

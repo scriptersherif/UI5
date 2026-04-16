@@ -1,0 +1,27 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  core:controllerName="FSC360NEW.controller.Approval">
+    <Dialog
+        id="remarkDialog"
+        title="Remarks"
+        icon="sap-icon://message"
+        type="Message"
+   class="cl_agentDialog"
+        afterClose=".onRemarkDialogClose">
+
+        	<TextArea id="id_remarks" maxLength="255" rows="3" class="cl_remarksInput customTextArea" liveChange="fnLiveRemark" placeholder="Enter here..."/>
+
+        <beginButton>
+            <Button
+                text="Cancel"
+                press=".onCancelRemarkPress" class="gl_canbtn gl_canbtn1" />
+        </beginButton>
+
+        <endButton>
+            <Button
+                text="Submit"
+                press=".onSubmitRemarkPress" class=" gl_subbtn gl_subbtn1 " />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

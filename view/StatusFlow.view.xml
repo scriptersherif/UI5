@@ -1,0 +1,334 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.StatusFlow"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:uitable="sap.ui.table" xmlns:u="sap.ui.unified" xmlns:l="sap.ui.layout">
+	<App>
+		<pages>
+			<Page class="cl_page"  enableScrolling="false">
+				<customHeader>
+					<Toolbar class="header_bar_d">
+						<Title text="{i18n>scanapplication}" class="cl_ses_txt" tooltip="{i18n>scanapplication}"/>
+						<ToolbarSpacer/>
+						<Button icon="Images/refreshbtn.png" tooltip="{i18n>refresh}" class="cl_refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbtn.png" tooltip="{i18n>notification}" class="cl_notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<!--<Text text="AP Team" class="team_text"/>-->
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="team_text cl_font"></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<VBox class="cl_full_boxB cl_full_boxstatus cl_full_boxstatus_min cl_full_boxstatus_status">
+						<VBox class="cl_statusflow_input_cont" id="id_cl_statusflow_input_cont">
+							<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd topbox" justifyContent="SpaceBetween" alignItems="End">
+							
+								<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+									<Text text="{i18n>Company Code}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<!--<MultiComboBox id="idCCode" items="{path: 'JSCCode>/Company/results'}" change="fnCompChange" selectionFinish="handleSelectionFinish"-->
+										<!--	maxWidth="100%" class="cl_combo_transBar cl_companycode_scan" editable="{path: 'JSKey>/0/Key'}" tooltip="{i18n>companycode}"  selectedKeys="{JSKey>/SelectedBukrs}">-->
+										<!--	<core:Item text="{= ${JSCCode>Bukrs} + ' - ' + ${JSCCode>Butxt} }" key="{JSCCode>Bukrs}" />-->
+										<!--</MultiComboBox>-->
+										<MultiComboBox
+										    id="idCCode"
+										    items="{path: 'CompanyModel>/Company'}"
+										    selectionFinish="handleSelectionFinish"
+										    maxWidth="100%"
+										     tooltip="{i18n>companycode}"
+										    class="cl_combo_transBar cl_companycode_scan" 
+										    selectedKeys="{CompanyModel>/SelectedBukrs}">
+										
+										    <core:Item 
+										        text="{= ${CompanyModel>Bukrs} + ' - ' + ${CompanyModel>Butxt} }"
+										        key="{CompanyModel>Bukrs}" />
+										</MultiComboBox>
+
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clscanapplication" width="">
+									<Text text="Plant" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_Plant" placeholder="Plant" selectionChange="fn_PlantChange"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" tooltip="{i18n>plant}" ></ComboBox>
+									
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+									<Text text="{i18n>Status}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<MultiComboBox id="id_Status" items="{JSStatusList>/}" selectionChange="fn_handleSelectionChange" selectionFinish=""
+											maxWidth="100%" class="cl_combo_transBar cl_companycode_scan" tooltip="{i18n>Status}">
+											<core:Item key="{JSStatusList>StatKey}" text="{JSStatusList>StatText}"/>
+										</MultiComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clscanapplication">
+									<Text text="{i18n>Vendor}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<!--<ComboBox id="idVendor" placeholder="Select Vendor" width="100%" tooltip="{i18n>vendor}" selectionChange="fn_VendorChange"-->
+										<!--	class="formInputB1 cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp"></ComboBox>-->
+												<ComboBox id="idVendor" placeholder="Select Vendor" width="100%" tooltip="{i18n>vendor}" selectionChange="fn_VendorChange"
+											class="formInputB1 cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" filterSecondaryValues="true" showSecondaryValues="true">
+											<core:Item key="{JSVendor>Lifnr}" text="{JSVendor>Mcod1}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+							</HBox>
+							<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd" justifyContent="SpaceBetween" alignItems="End">
+								<VBox class="columnbarcode formFieldbarcode cl_scanbarcode" width="">
+									<Text text="Date Range" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar ">
+										<!--<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder=" " class="formInputB1 inputhelp"/>-->
+										<DateRangeSelection placeholder="DD.MM.YYYY -TO- DD.MM.YYYY" delimiter=" -TO- " valueFormat="yyyy-MM-dd" displayFormat="dd/MM/YYY"
+											change="onDateRangeChanged" class="formInputB1 inputhelp cl_date_scan" id="id_DateRangePO" tooltip="{i18n>Daterange}"/>
+										<DatePicker id="id_StrDate" visible="false" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" change="fn_datevalidation"/>
+										<DatePicker id="id_EndDate" visible="false" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" change="fn_datevalidation"/>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clscanapplication1" width="">
+									<Text text="{i18n>ProfitCentre}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<Input id="idProfitCentre" placeholder="Profit center" class="formInputB1" width="100%" layoutData="sap.ui.layout.FlexItemData" tooltip="{i18n>Profitcenter}"/>
+
+										<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_getProfifCntr"/>-->
+									</HBox>
+								</VBox>
+								<VBox class="cl_status_multibox" width="">
+									<Text text="{i18n>Transtype}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<MultiComboBox id="id_Transtype" items="{JSTransType>/}" change="fnTrnsidselect" selectionFinish="" maxWidth="100%"
+											class="cl_combo_transBar cl_transtyp_scan" width="100%" tooltip="{i18n>transtype}">
+											<core:Item text="{JSTransType>Ddtext}" key="{JSTransType>DomvalueL}"/>
+										</MultiComboBox>
+									</HBox>
+								</VBox>
+							</HBox>
+						</VBox>
+						<Toolbar class="cl_tbr_1 cl_tbr_2">
+							
+							<Text text="{i18n>alllist}" id="idCardTitle" class="cl_Tltxt cl_Tltxt_scan" tooltip="{i18n>alllist}"/>
+							<Text text="0" class="cl_badge_counter" id="LabTabSFRTitle"/>
+							<ToolbarSpacer/>
+							<HBox class="cl_hide_show_search_cont" id="show_hide_search">
+								<Image src="Images/hideshowicon.svg" id="qidSortIcon" width="14px" height="12px" class="cl_header_icon cl_status_hidetoggle"
+									press="fn_sortByQueid" tooltip="{i18n>hidesearch}"/>
+								<Text text="{i18n>hidesearch}" class="cl_Tltxt cl_Tltxt1" id="hiddenshowtxt" tooltip="{i18n>hidesearch}"/>
+							</HBox>
+							<HBox class="cl_button_cont_hideshow">
+								<Button id="id_clear" text="{i18n>Clear}" icon="Images/clearab.svg" type="Transparent" press="fn_clearbutt"
+									class="sapUiSizeCompact cl_btn_cleara " tooltip="{i18n>clear}"/>
+								<Button id="id_search" text="{i18n>Search}" icon="Images/searchab.svg" type="Transparent" press="fn_search"
+									class="sapUiSizeCompact cl_btn_searcha " tooltip="{i18n>search}"/>
+							</HBox>
+						</Toolbar>
+
+						<VBox class="cl_table_wrapper">
+							<uitable:Table id="id_table_width" selectionMode="None"  rows="{JSstatus>/}"  width="100%"
+								class="cl_custom_table cl_custom_tableapk cl_tatreport_table cl_recall_table  cl_deviationtable cl_status_table" rowSelectionChange="action"
+								ariaLabelledBy="title" visibleRowCount="4" sort="sortDeliveryDate">
+							
+								<uitable:Column width="3rem" hAlign="Center" class="cl_column_header">
+							<HBox alignItems="Center" justifyContent="Center" class="cl_filter_icon_status_cont" tooltip="{i18n>filter}">
+								<Image src="Images/Filter.svg" press="fn_FilterPop" class="sapUiSizeCompact cl_filter_btn"/>
+							</HBox>
+								<uitable:template>
+									<Text text=""/>
+								</uitable:template>
+							</uitable:Column>
+									<uitable:Column showFilterMenuEntry="false" showSortMenuEntry="false" width="16rem" visible="{FilterTableModel>/0/visible}">
+										<Text text="{i18n>QueueID}" class="cl_Tltxt"/>
+										<uitable:template>
+											<VBox class="cl_vertical_box">
+												<!-- QID Row -->
+												<HBox alignItems="Center">
+													<Text text="QID :" class="cl_qid_label"/>
+													<Text text="{JSstatus>Qid}" class="cl_qid_label"/>
+													<!--<Link  press="fnPressUID" class="cl_qid_link"/>-->
+												</HBox>
+												<!-- Vendor Name + Invoice Number -->
+												<HBox justifyContent="" alignItems="Center">
+													<HBox alignItems="Center" class="cl_status_vendor">
+														<Image src="Images/scan_account.svg" width="14px" height="14px" class="cl_appr_account1"/>
+														<Text text="{JSstatus>Name1}" class="cl_status_qid_det"/>
+													</HBox>
+													<HBox alignItems="Center">
+														<Image src="Images/scan_invoice.svg" width="14px" height="14px" class="cl_appr_icon"/>
+														<Text text="{JSstatus>Invno}" class="cl_status_qid_det"/>
+													</HBox>
+												</HBox>
+												<!-- Serial No + Invoice Date -->
+												<HBox justifyContent="" alignItems="Center">
+													<HBox alignItems="Center" class="cl_status_vendor">
+														<Image src="Images/scan_barcode.svg" width="14px" height="14px" class="cl_appr_account1"/>
+														<Text text="{JSstatus>Slno}" class="cl_status_qid_det"/>
+													</HBox>
+													<HBox alignItems="Center">
+														<Image src="Images/scan_date.svg" width="12px" height="12px" class="cl_appr_account1 cl_status_date"/>
+														<Text text="{path:'JSstatus>Invdt', formatter:'FSC360NEW.model.formatter.date'}" class="cl_status_qid_det"/>
+													</HBox>
+												</HBox>
+											</VBox>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column showFilterMenuEntry="false" showSortMenuEntry="false" width="6rem" visible="{FilterTableModel>/1/visible}">
+										<Text text="{i18n>Status}" class="cl_Tltxt"/>
+										<uitable:template>
+											<HBox class="cl_status_text_cont" width="100%">
+												<Button text="{path:'JSstatus>Stats', formatter:'FSC360NEW.model.formatter.fnGetStatusText'}" icon="sap-icon://circle-task-2"
+													type="Transparent" class="cl_status">
+													<customData>
+														<core:CustomData key="status" value="{JSstatus>Stats}" writeToDom="true"/>
+													</customData>
+												</Button>
+											</HBox>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" showSortMenuEntry="false" width="12rem" visible="{FilterTableModel>/2/visible}">
+										<Text text="{i18n>Attached}" class="cl_Tltxt"/>
+										<uitable:template>
+											<l:VerticalLayout class="cl_attachedSesLayout" width="100%">
+												<HBox alignItems="Center" justifyContent="Start" renderType="Bare">
+													<Image src="Images/scan_date.svg" width="12px" height="12px" class="cl_appr_account2" visible="{= !!${JSstatus>Attachdt} }"/>
+													<Text text="{path:'JSstatus>Attachdt', formatter:'FSC360NEW.model.formatter.date'}" tooltip="{i18nSF>Attached Date}"
+														visible="{path:'JSstatus>Attachdt',formatter:'FSC360NEW.model.formatter.fnVisible'}" class="sapUiTinyMarginBegin"/>
+													<Text text="{= ${JSstatus>Attachdays} ? '(' + ${JSstatus>Attachdays} + ' Days ago)' : '' }" tooltip="{i18n>Attached Days}"
+														visible="{path:'JSstatus>Attachdays',formatter:'FSC360NEW.model.formatter.fnVisible'}" class="cl_status_days"/>
+												</HBox>
+												<!-- Row with User Icon + Attached Agent -->
+												<HBox alignItems="Center" justifyContent="Start" class="cl_status_icon_agent">
+													<Image src="Images/scan_account.svg" width="14px" height="14px" class="cl_appr_account2" visible="{= !!${JSstatus>AttachAgnt} }"/>
+													<Text text="{path:'JSstatus>AttachAgnt', formatter:'FSC360NEW.model.formatter.fnTextOrDash'}" tooltip="{i18nSF>Attached Agent}"
+														visible="{path:'JSstatus>AttachAgnt',formatter:'FSC360NEW.model.formatter.fnVisible'}" class="sapUiTinyMarginBegin"/>
+												</HBox>
+											</l:VerticalLayout>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="" showFilterMenuEntry="false" showSortMenuEntry="false" width="12rem" visible="{FilterTableModel>/3/visible}">
+										<Text text="{i18n>Attached SES}" class="cl_Tltxt"/>
+										<uitable:template>
+											<l:VerticalLayout class="cl_attachedSesLayout" width="100%">
+												<HBox alignItems="Center" justifyContent="Start" renderType="Bare">
+													<Image src="Images/scan_date.svg" width="12px" height="12px" class="cl_appr_account2" visible="{= !!${JSstatus>Preinddate} }"/>
+													<Text text="{path:'JSstatus>Preinddate', formatter:'FSC360NEW.model.formatter.date'}" tooltip="{i18n>Predate}"
+														visible="{path:'JSstatus>Preinddate', formatter:'FSC360NEW.model.formatter.fnVisible'}" class="sapUiTinyMarginBegin"/>
+													<Text text="{= ${JSstatus>Preinddays} ? '(' + ${JSstatus>Preinddays} + ' Days Ago)' : '-' }" tooltip="{i18n>Predays}"
+														visible="{path:'JSstatus>Preinddays', formatter:'FSC360NEW.model.formatter.fnVisible'}" class="cl_status_days"/>
+												</HBox>
+												<HBox alignItems="Center" justifyContent="Start" class="cl_status_icon_agent">
+													<Image src="Images/scan_account.svg" width="14px" height="14px" class="cl_appr_account2" visible="{= !!${JSstatus>Preagent} }"/>
+													<Text text="{path:'JSstatus>Preagent', formatter:'FSC360NEW.model.formatter.fnTextOrDash'}" tooltip="{i18n>PreAgent}"
+														class="sapUiTinyMarginBegin"/>
+												</HBox>
+											</l:VerticalLayout>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" showSortMenuEntry="false" width="12rem" visible="{FilterTableModel>/4/visible}">
+										<Text text="{i18n>Indexed}" class="cl_Tltxt"/>
+										<uitable:template>
+											<l:VerticalLayout class="cl_attachedSesLayout" width="100%">
+												<HBox alignItems="Center" justifyContent="Start" renderType="Bare">
+													<Image src="Images/scan_date.svg" width="12px" height="12px" class="cl_appr_account2" visible="{= !!${JSstatus>Indxdt} }"/>
+													<Text text="{path:'JSstatus>Indxdt', formatter:'FSC360NEW.model.formatter.date'}" tooltip="{i18nSF>IndexedDate}"
+														class="sapUiTinyMarginBegin"/>
+													<Text class="cl_status_days" text="{= ${JSstatus>Indexdays} ? '(' + ${JSstatus>Indexdays} + ' Days ago)' : '-' }"/>
+												</HBox>
+												<HBox alignItems="Center" justifyContent="Start" class="cl_status_icon_agent">
+													<Image src="Images/scan_account.svg" width="14px" height="14px" class="cl_appr_account2" visible="{= !!${JSstatus>IndAgnt} }"/>
+													<Text text="{path:'JSstatus>IndAgnt', formatter:'FSC360NEW.model.formatter.fnTextOrDash'}" tooltip="{i18nSF>IndAgent}"
+														class="sapUiTinyMarginBegin"/>
+												</HBox>
+											</l:VerticalLayout>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center " showFilterMenuEntry="false" showSortMenuEntry="false" width="12rem" visible="{FilterTableModel>/5/visible}">
+										<Text text="{i18n>In Workflow}" class="cl_Tltxt"/>
+										<uitable:template>
+											<l:VerticalLayout class="cl_attachedSesLayout" width="100%">
+												<HBox alignItems="Center" justifyContent="Start" renderType="Bare">
+													<Image src="Images/scan_date.svg" width="12px" height="12px" class="cl_appr_account2" visible="{= !!${JSstatus>Wfdate} }"/>
+													<Text text="{path:'JSstatus>Wfdate', formatter:'FSC360NEW.model.formatter.date'}" tooltip="{i18n>Wfdate}"
+														visible="{path:'JSstatus>Wfdate',formatter:'FSC360NEW.model.formatter.fnVisible'}" class="sapUiTinyMarginBegin"/>
+													<Text text="{= ${JSstatus>FinalDelay} ? '(' + ${JSstatus>FinalDelay} + ' Days)' : '' }" tooltip="{i18n>Wfdays}"
+														visible="{path:'JSstatus>FinalDelay',formatter:'FSC360NEW.model.formatter.fnVisible'}" class="cl_status_days"/>
+												</HBox>
+												<HBox alignItems="Center" justifyContent="Start" class="cl_status_icon_agent">
+													<Image src="Images/scan_account.svg" width="14px" height="14px" class="cl_appr_account2" visible="{= !!${JSstatus>LvUser} }"/>
+													<Text text="{path:'JSstatus>LvUser', formatter:'FSC360NEW.model.formatter.fnTextOrDash'}" tooltip="{i18nSF>Workflow Agent}"
+														visible="{path:'JSstatus>LvUser',formatter:'FSC360NEW.model.formatter.fnVisible'}" class="sapUiTinyMarginBegin"/>
+												</HBox>
+											</l:VerticalLayout>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" showSortMenuEntry="false" width="9rem" visible="{FilterTableModel>/6/visible}">
+										<Text text="{i18n>In Progress}" class="cl_Tltxt "/>
+										<uitable:template >
+											<l:VerticalLayout class="cl_attachedSesLayout">
+												<Text text="{path:'JSstatus>Wbdate', formatter:'FSC360NEW.model.formatter.date'}" tooltip="{i18n>Wbdate}"
+													visible="{path:'JSstatus>Wbdate',formatter:'FSC360NEW.model.formatter.fnVisible'}"/>
+												<Text class="cl_status_days" text="{path:'JSstatus>Wbdays'} Days ago" tooltip="{i18n>Wbdays}"
+													visible="{path:'JSstatus>Wbdate',formatter:'FSC360NEW.model.formatter.fnVisible'}"/>
+												<Text text="{JSstatus>Wbagent}" tooltip="{i18nSF>WorkBench Agent}"/>
+											</l:VerticalLayout>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" showSortMenuEntry="false" width="9rem" visible="{FilterTableModel>/7/visible}">
+										<Text text="{i18n>Posting}" class="cl_Tltxt"/>
+										<uitable:template>
+											<l:VerticalLayout class="cl_attachedSesLayout">
+												<Text text="{path:'JSstatus>Wbdate', formatter:'FSC360NEW.model.formatter.date'}" tooltip="{i18nSF>Wbdate}"
+													visible="{path:'JSstatus>Wbdate',formatter:'FSC360NEW.model.formatter.fnVisible'}"/>
+												<Text class="cl_status_days" text="{path:'JSstatus>Wbdays'} Days ago" tooltip="{i18nSF>Wbdays}"
+													visible="{path:'JSstatus>Wbdate',formatter:'FSC360NEW.model.formatter.fnVisible'}"/>
+												<Text text="{JSstatus>Documentnumber}" tooltip="{i18nSF>SAP_Doc_number}" class=""
+													visible="{path:'JSstatus>Documentnumber',formatter:'FSC360NEW.model.formatter.fnVisible'}"/>
+												<Text text="{JSstatus>Belnr}" tooltip="{i18nSF>Accounting_doc}" class=""
+													visible="{path:'JSstatus>Belnr',formatter:'FSC360NEW.model.formatter.fnVisible'}"/>
+												<Text text="{JSstatus>Agent}" tooltip="{i18nSF>PostAgent}" visible="{path:'JSstatus>Agent',formatter:'FSC360NEW.model.formatter.fnVisible'}"/>
+												<Text text="{parts:[{path:'JSstatus>Ntamt'},{path:'JSstatus>Waers'}],formatter:'FSC360NEW.model.formatter.fnAmount'}"
+													tooltip="{i18nSF>InvAmount}" class="" visible="{path:'JSstatus>Ntamt',formatter:'FSC360NEW.model.formatter.fnVisible'}"/>
+											</l:VerticalLayout>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" showSortMenuEntry="false" width="9rem" visible="{FilterTableModel>/8/visible}">
+										<Text text="{i18n>Payment}" class="cl_Tltxt"/>
+										<uitable:template>
+											<l:VerticalLayout class="cl_attachedSesLayout">
+												<Text text="{path:'JSstatus>Augdt',formatter:'FSC360NEW.model.formatter.date'}" tooltip="{i18nSF>Payment_Date}"
+													visible="{path:'JSstatus>Augdt',formatter:'FSC360NEW.model.formatter.fnVisible'}"/>
+												<Text visible="{parts:[{path:'JSstatus>Erdat'},{path:'JSstatus>Augdt'}],formatter:'FSC360NEW.model.formatter.fnVisibleVendor'}"
+													text="{parts:[{path:'JSstatus>Erdat'},{path:'JSstatus>Augdt'}],formatter:'FSC360NEW.model.formatter.fnPostDays'}"
+													tooltip="{i18nSF>PaymntDays}"/>
+												<Text text="{JSstatus>Augbl}" tooltip="{i18nSF>Payment_Doc}" class=""
+													visible="{path:'JSstatus>Augbl',formatter:'FSC360NEW.model.formatter.fnVisible'}"/>
+												<Text text="{parts:[{path:'JSstatus>Dmbtr'},{path:'JSstatus>Waers'}],formatter:'FSC360NEW.model.formatter.fnAmount'}"
+													tooltip="{i18nSF>PayAmount}" class="" visible="{path:'JSstatus>Dmbtr',formatter:'FSC360NEW.model.formatter.fnVisible'}"/>
+												<Text text="{JSstatus>Zlsch }" tooltip="{i18nSF>Payment_method}"
+													visible="{path:'JSstatus>Zlsch',formatter:'FSC360NEW.model.formatter.fnVisible'}" class=""/>
+											</l:VerticalLayout>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" showFilterMenuEntry="false" showSortMenuEntry="false" width="100%" visible="{FilterTableModel>/9/visible}">
+										<Text text="{i18n>TotalTime}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{path:'JSstatus>Grossdays'}" tooltip="{i18nSF>Grossdays}" class="cl_cellCenter" textAlign="Center"/>
+										</uitable:template>
+									</uitable:Column>
+								
+							</uitable:Table>
+							<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer cl_pagination_footer1 cl_pagination_min_height"
+								id="paginationfooter">
+								<HBox width="100px" justifyContent="Start">
+									<Button icon="Images/arrow-left.svg" text="Previous" width="100px" class="cl_prev_button" press="fn_previouspage" id="idPrevBtn"/>
+								</HBox>
+								<HBox width="calc(100% - 200px)" id="idPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers"></HBox>
+								<HBox width="100px" justifyContent="End">
+									<Button text="Next" icon="Images/arrow-right.svg" iconFirst="false" class="cl_next_button" press="fn_nextpage" id="idNextBtn"/>
+								</HBox>
+							</HBox>
+						</VBox>
+					</VBox>
+					
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

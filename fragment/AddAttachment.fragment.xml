@@ -1,0 +1,35 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="{i18n>AddAttachment}" class="sapUiContentPadding cl_addattach cl_pop">
+		<content height="100%">
+			
+			<List items="{JSImgList>/}">
+				<StandardListItem
+					title="{JSImgList>Name}"
+					type="Active"
+					press="fn_View_Attachment"
+					icon="sap-icon://attachment"
+					class="cl_fnt_size cl_color_head sapUiSizeCompact cl_font" />
+			</List>
+
+			<UploadCollection
+				id="id_UploadCollection"
+				multiple="false"
+				sameFilenameAllowed="false"
+				instantUpload="false" 
+				showSeparators="All"
+				change="onFileUploadChange" 
+				fileDeleted="onFileDeleted"
+				filenameLengthExceed="onFilenameLengthExceed"
+				fileSizeExceed="onFileSizeExceed"
+				typeMissmatch="onTypeMissmatch"
+				noDataText=" "
+				mode="Delete" />
+
+			<HBox class="sapUiSizeCompact sapUiSmallMargin" alignItems="End" justifyContent="Center">
+				<Button text="Cancel" tooltip="Cancel" press="fn_cancel_add_attachment" class="sapUiTinyMarginEnd cl_fragcancelbtn" />
+				<Button text="Upload" tooltip="Upload the Attachments with Queue ID" press="fn_ok_add_attachment" class="sapUiTinyMarginBegin cl_fragfinalbtn" />
+			</HBox>
+
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

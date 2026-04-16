@@ -1,0 +1,51 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc">
+	<Dialog title="Warning !" showHeader='false' class='cl_dialog'>
+		<!--<Panel width="50%" class="sapUiResponsiveMargin">-->
+			<VBox alignContent="Center" alignItems="Center" justifyContent="Center">
+				<VBox class='cl_errorDialog' alignContent="Center" alignItems="Center" justifyContent="Center">
+					<Image src="images/warning.png" class='sapUiSmallMarginTop'></Image>
+					<Text text="Vendor with same name already exists" class="cl_errorText"></Text>
+				</VBox>
+				<!--<content>-->
+				 <ScrollContainer height='200px' vertical='true'>
+				 	
+			
+					<Table items="{jsMatchVen>/}" width="96%" class="cl_tble sapUiTinyMarginBeginEnd sapUiSmallMarginTopBottom">
+						<columns >
+							<Column  hAlign="Center">
+								<Text text='Vendor' class='cl_itemText'></Text>
+							</Column>
+							<Column  hAlign="Center">
+								<Text text='Name' class='cl_matText'></Text>
+							</Column>
+							<Column  hAlign="Center">
+								<Text text='Vat No.' class='cl_uomText'></Text>
+							</Column>
+						</columns>
+						<items >
+							<ColumnListItem class="cl_table_content" vAlign="Middle">
+								<cells>
+									<Text text="{jsMatchVen>Lifnr}" class="cl_cellText"></Text>
+									<Text text="{jsMatchVen>Name1}" class="cl_cellText "></Text>
+									<Text text="{jsMatchVen>Stceg}" class="cl_cellText"></Text>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+			</ScrollContainer>
+				<!--</content>-->
+			</VBox>
+				<Toolbar class='cl_remBtmTool'>
+					<Button text="Ignore the request" class="sapUiSizeCompact sapUiSmallMarginBegin cl_truckCancelBtn" press="fn_ignorerReq"></Button>
+					<ToolbarSpacer/>
+					<Button text="Ignore and continue" class="sapUiSizeCompact sapUiSmallMarginEnd cl_truckAddBtn" press="fn_ignoreAndCont"></Button>
+				</Toolbar>
+		<!--</Panel>-->
+	</Dialog>
+</core:FragmentDefinition>
+<!--<beginButton>-->
+<!--    <Button text="Ignore the request" class="sapUiSizeCompact sapUiSmallMarginBottom cl_truckCancelBtn" press="fnCancelSTO"></Button>-->
+<!--</beginButton>-->
+<!--<endButton>-->
+<!--    <Button text="Ignore and continue" class="sapUiSizeCompact sapUiSmallMarginBottom cl_truckAddBtn" press="close_fn_get_STO"></Button>-->
+<!--</endButton>-->

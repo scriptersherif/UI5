@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="{i18n>BuisnessPlace}" class="cl_frag"  items="{JSBusPlace>/}" liveChange="fn_BusPlace_LC" 
+		confirm="fn_BusPlace_Confirm" cancel="fnBussConfrm">
+		<StandardListItem icon="sap-icon://building" title="{JSBusPlace>Branch}" description="{JSBusPlace>Name}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

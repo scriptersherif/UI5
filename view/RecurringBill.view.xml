@@ -1,0 +1,421 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.RecurringBill"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:uitable="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="Title" class="noScrollPage">
+				<customHeader>
+					<Toolbar class="header_bar_d">
+						<Title text="{i18n>recurringbill}" class="cl_ses_txt"/>
+						<ToolbarSpacer/>
+						<Button icon="Images/refreshbtn.png" tooltip="Refresh" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbtn.png" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="team_text cl_font"></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<VBox class="cl_rec_bill_cont">
+						<VBox Width="100%" class="cl_menu_rec_bill_cont">
+							<HBox class="radio-container" alignItems="Center" justifyContent="Start" fitContainer="true">
+								<RadioButtonGroup id="id_radBtnGrp" selectedIndex="0" columns="2" select="fn_onRadioSelect" class="smallRadioGroup cl_radiogrp_rec_bill">
+									<buttons>
+										<RadioButton text="Bill Register" class="smallRadioButton smallRadioButton1"/>
+										<RadioButton text="Bill Report" class="smallRadioButton smallRadioButton2"/>
+									</buttons>
+								</RadioButtonGroup>
+							</HBox>
+						</VBox>
+						<HBox class="cl_ses_whole cl_rec_bill_whole" id="id_billreport" visible="true">
+							<VBox width="25%" class="cl_ses_left" id="id_left_panel">
+								<HBox justifyContent="SpaceBetween" class="cl_ses_left_head">
+									<HBox class="formInputWithIconbar">
+										<ComboBox items="{JSloadBill>/}" selectionChange="fn_BillTypeChange" id="id_loadbill" placeholder=""
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp cl_combo_rec_bill" tooltip="">
+											<core:Item key="{JSloadBill>Billtyp}" text="{JSloadBill>BName}"/>
+										</ComboBox>
+									</HBox>
+									<Button id="id_unblock" text="{i18n>newbill}" icon="Images/plus-circle-recurringbill.svg" type="Transparent" press="fn_addbill"
+										class="sapUiSizeCompact cl_btn_Unblock cl_btn_rec_bill" tooltip="{i18n>newbill}"/>
+								</HBox>
+								<VBox class="cl_search_container cl_search_cont_rec_bill">
+									<HBox class="customSearchBox" alignItems="Center">
+										<Image src="Images/magnify.svg" class="searchIcon"/>
+										<Input placeholder="Search" class="searchInput cl_searchinp_rec_bill" showValueHelp="false" type="Text" liveChange="fn_Searchfilter"/>
+									</HBox>
+								</VBox>
+								<ScrollContainer width="100%" horizontal="true" vertical="false" class="cl_scrollcontainer_rec_bill">
+									<List items="{JSON>/Bills}" id="idRegList" class="customList cl_customlist_rec_bill" templateShareable="false">
+										<CustomListItem press="fn_ListItemPress" type="Active">
+											<VBox class="listItemBox">
+												<!-- Top Row: Queue Id & Date -->
+												<HBox justifyContent="SpaceBetween" alignItems="Center" class="invoiceBox">
+													<HBox alignItems="Center">
+														<Text text="Bill No :" class="queueid_text"/>
+														<Text text=" {path:'JSON>Billid', formatter :'FSC360NEW.model.formatter.fnRemoveLeadingZero'}" class="queueId_ValText"/>
+													</HBox>
+													<HBox alignItems="Center" class="dateBox cl_vendor_rec_bill">
+														<Image src="Images/vendor_recbill.svg" class="iconImage"/>
+														<Text text="{JSON>Vendorname}" class="dateText" tooltip="{JSON>Vendorname}"/>
+													</HBox>
+												</HBox>
+												<!-- Bottom Row: Invoice Number -->
+												<HBox justifyContent="SpaceBetween" alignItems="Center" class="invoiceBox">
+													<HBox alignItems="Center" class="dateBox">
+														<Image src="Images/dateicon_recbill.svg" class="iconImage"/>
+														<Text text="{path: 'JSON>Duedat', formatter: 'FSC360NEW.model.formatter.fnDate'}" class="invoiceText"/>
+													</HBox>
+												</HBox>
+											</VBox>
+										</CustomListItem>
+									</List>
+								</ScrollContainer>
+							</VBox>
+							<HBox class="cl_ses_input_cont" width="75%" id="idSesInputCont">
+								<HBox class="radio-container" alignItems="Center" justifyContent="Start" fitContainer="true">
+									<Text text="Payment Type :" class="cl_paymentTypeText"/>
+									<RadioButtonGroup id="id_prepost" selectedIndex="0" columns="1" select="Fn_PrePostSelect"
+										class="smallRadioGroup cl_radiogrp_rec_bill cl_radiogrp_rec_bill1">
+										<buttons>
+											<RadioButton text="Pre Paid" class="smallRadioButton smallRadioButton1 cl_radio_btn_preepaid"/>
+											<RadioButton text="Post Paid" class="smallRadioButton smallRadioButton2 cl_radio_btn_postpaid "/>
+										</buttons>
+									</RadioButtonGroup>
+								</HBox>
+								<VBox class="cl_recurring_bill_cont_input">
+									<VBox>
+										<Text text="Billing Details" class="cl_billing_rec_bill"/>
+									</VBox>
+									<VBox class="cl_barcode_input_con cl_recur_bill_input_cont" id="idFormCompact" visible="true">
+										<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+											<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+												<Text text="{i18n>Vendor}" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<ComboBox id="idVendor" items="{JSVendor>/}" placeholder="Select Vendor" width="100%" tooltip="{i18n>vendor}"
+														selectionChange="fn_VendorChange" filterSecondaryValues="true" showSecondaryValues="true"
+														class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp">
+														<core:Item key="{JSVendor>Lifnr}" text="{JSVendor>Mcod1}"/>
+													</ComboBox>
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+												<Text text="{i18n>Billingtyp}" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<ComboBox id="id_billingtype" items="{JSBillType>/}" placeholder="{i18n>Billingtyp}"
+														class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" tooltip="{i18n>Billingtyp}">
+														<core:Item key="{JSBillType>Billtyp}" text="{JSBillType>BName}"/>
+													</ComboBox>
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode formFieldbarcode columnbarcode3" width="">
+												<Text text="Billing Date" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<DatePicker id="id_podate"  valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" change="fn_datevalidation"
+														placeholder=" " readonly="true" class="formInputB1 inputhelp cl_inputhelp_rec_bill"/>
+													<!--<DatePicker id="id_podate" change="fn_datevalidation" valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder=" "-->
+													<!--	class="formInputB1 inputhelp cl_inputhelp_rec_bill"/>-->
+												</HBox>
+											</VBox>
+										</HBox>
+										<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+											<VBox class="columnbarcode formFieldbarcode columnbarcode3" width="">
+												<Text text="{i18n>duedate}" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<DatePicker id="id_duedate" change="fn_datevalidation" valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder=" "
+														class="formInputB1 inputhelp cl_inputhelp_rec_bill"/>
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+												<Text text="{i18n>Billingcycle}" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<ComboBox id="id_billingcycle" items="{JSBillCycle>/}" placeholder="{i18n>Billingcyclett}"
+														class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" tooltip="{i18n>Billingcycle}">
+														<core:Item key="{JSBillCycle>Blcycl}" text="{JSBillCycle>CName}"/>
+													</ComboBox>
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+												<Text text="{i18n>Paymentyp}" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<ComboBox id="idpaymttyp" items="{ path: 'JSPayType>/PayType' }" placeholder="{i18n>Paymentyptt}"
+														class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" tooltip="{i18n>Paymentyp}">
+														<core:ListItem key="{JSPayType>Key}" text="{JSPayType>PayType}"/>
+													</ComboBox>
+												</HBox>
+											</VBox>
+										</HBox>
+										<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+											<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+												<Text text="{i18n>taxrate}" class="cl_textbarcode"/>
+												<!--<HBox class="formInputWithIconbar">-->
+												<!--	<ComboBox items="{JSTransList>/}" placeholder="{i18n>taxratett}" class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp"-->
+												<!--		tooltip="{i18n>taxrate}">-->
+												<!--		<core:Item key="{}" text="{}"/>-->
+												<!--	</ComboBox>-->
+												<!--</HBox>-->
+												<HBox class="formInputWithIconbar">
+													<Input class="formInputB1" width="100%" layoutData="sap.ui.layout.FlexItemData" placeholder="{i18n>taxratett}" tooltip="{i18n>taxrate}"
+														id="id_taxrate"/>
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+												<Text text="{i18n>glaccntno}" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<ComboBox items="{/}" placeholder="{i18n>glaccntnott}" class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp"
+														tooltip="{i18n>glaccntno}" id="id_glacnt">
+														<core:Item key="{}" text="{}"/>
+													</ComboBox>
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+												<Text text="{i18n>costcnt}" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+							
+														<ComboBox id="id_costcnt" items="{JSCostCenter>/}" tooltip="{i18n>costcnt}"
+														 filterSecondaryValues="true" showSecondaryValues="true" placeholder="{i18n>costcnttt}"
+														class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp">
+														<core:Item key="{JSCostCenter>Kostl}" text="{JSCostCenter>Ktext}"/>
+													</ComboBox>
+												</HBox>
+											</VBox>
+										</HBox>
+									</VBox>
+									<VBox>
+										<Text text="Customer Identification" class="cl_billing_rec_bill cl_customer_rec_bill"/>
+									</VBox>
+									<VBox class="cl_barcode_input_con cl_recur_bill_input_cont" visible="true">
+										<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+											<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+												<Text text="{i18n>primarytyp}" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<Input class="formInputB1" id="id_primaryacct" width="100%" layoutData="sap.ui.layout.FlexItemData" placeholder="{i18n>primarytyptt}"
+														tooltip="{i18n>primarytyp}"/>
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+												<Text text="{i18n>secondaryacc}" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<Input class="formInputB1" width="100%" layoutData="sap.ui.layout.FlexItemData" placeholder="{i18n>secondaryacctt}"
+														tooltip="{i18n>secondaryacc}" id="id_mobile"/>
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode formFieldbarcode columnbarcode3" width="">
+												<Text text="{i18n>emailid}" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<Input class="formInputB1" width="100%" layoutData="sap.ui.layout.FlexItemData" id="id_email" placeholder="{i18n>emailidtt}"
+														tooltip="{i18n>emailid}"/>
+												</HBox>
+											</VBox>
+										</HBox>
+										<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+											<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+												<Text text="{i18n>plant}" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<Input class="formInputB1" width="100%" layoutData="sap.ui.layout.FlexItemData" id="id_plant" placeholder="{i18n>plantTooltip}"
+														tooltip="{i18n>plant}"/>
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+												<Text text="{i18n>building}" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<Input class="formInputB1" width="100%" layoutData="sap.ui.layout.FlexItemData" placeholder="{i18n>buildingtt}" tooltip="{i18n>building}"
+														id="id_faclty"/>
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode formFieldbarcode columnbarcode3" width="">
+												<Text text="{i18n>personalresponse}" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<Input class="formInputB1" width="100%" layoutData="sap.ui.layout.FlexItemData" placeholder="{i18n>personalresponsett}"
+														tooltip="{i18n>personalresponse}" id="id_perresp"/>
+												</HBox>
+											</VBox>
+										</HBox>
+										<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+											<VBox class="columnbarcode formFieldbarcode columnbarcode3" width="">
+												<Text text="{i18n>startdate}" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<DatePicker change="fn_datevalidation" valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder=" "
+														class="formInputB1 inputhelp cl_inputhelp_rec_bill" id="id_startdate"/>
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode formFieldbarcode columnbarcode3" width="">
+												<Text text="{i18n>enddate}" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<DatePicker change="fn_datevalidation" valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder=" "
+														class="formInputB1 inputhelp cl_inputhelp_rec_bill" id="id_enddate"/>
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode3 formFieldbarcode comboboxcont" width="">
+												<Text text="{i18n>hsn/sac}" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+						
+														<ComboBox id="id_hsn" items="{JSHSN>/}" placeholder="{i18n>hsn/sactt}" tooltip="{i18n>hsn/sac}"
+													 filterSecondaryValues="true" showSecondaryValues="true"
+														class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp">
+														<core:Item key="{JSHSN>Steuc}" text="{JSHSN>Mcod1}"/>
+													</ComboBox>
+												</HBox>
+											</VBox>
+										</HBox>
+									</VBox>
+								</VBox>
+								<HBox class="cl_save_rec_bill">
+									<Button text="{i18n>Cancel}" id="id_cancel_btn" icon="Images/window-outline.svg" class="blackbtn cl_rec_bill_cancel" press="fn_addbill" tooltip="{i18n>cancel}"/>
+									<Button icon="Images/save-outline.svg" text="Save" press="fnSaveBtnPress" id="id_save_btn" class="bluebtn cl_rec_bill_save" type="Transparent"
+										tooltip="{i18n>send}"/>
+									<Button id="id_act_btn" icon="sap-icon://activate" text="" tooltip="Active" press="fnInactBtnPress" class="blackbtn cl_activate_rec_bill"
+										type="Transparent"/>
+								</HBox>
+							</HBox>
+						</HBox>
+						<HBox class="cl_ses_whole cl_rec_bill_whole" id="id_billregister" visible="false">
+							<VBox class="cl_bill_register_cont">
+								<VBox class="cl_statusflow_input_cont cl_rec_bill_cont" id="id_cl_statusflow_input_cont">
+									<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd topbox" justifyContent="SpaceBetween" alignItems="End">
+										<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+											<Text text="Company" class="cl_textbarcode"/>
+											<HBox class="formInputWithIconbar">
+												<ComboBox id="id_companycode" filterSecondaryValues="true" showSecondaryValues="true" placeholder="{i18n>companyCode}"
+													class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" selectionChange="onCompanyChange" tooltip="{i18n>companyCode}">
+													<core:Item key="{JSCCode>Bukrs}" text="{JSCCode>Bukrs}" tooltip="Company code"/>
+												</ComboBox>
+											</HBox>
+										</VBox>
+										<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+											<Text text="{i18n>Plant}" class="cl_textbarcode"/>
+											<HBox class="formInputWithIconbar">
+												<!--<ComboBox id="idplant" placeholder="{i18n>Plant}" class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp"-->
+												<!--	selectionChange="fn_PlantChange" filterSecondaryValues="true" showSecondaryValues="true" tooltip="{i18n>companyCode}">-->
+													<!--<core:Item key="{JSPlant>Werks}" text="{JSPlant>Werks}"/>-->
+												<!--</ComboBox>-->
+												<ComboBox
+  id="idplant"
+  class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp"
+  placeholder="{i18n>Plant}"
+  selectionChange="fn_PlantChange"
+  showSecondaryValues="true"
+  filterSecondaryValues="true"
+  tooltip="{i18n>companyCode}">
+  <core:Item key="{JSPlant>Werks}" text="{JSPlant>Werks}" />
+</ComboBox>
+
+											</HBox>
+										</VBox>
+										<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+											<Text text="{i18n>Vendor}" class="cl_textbarcode"/>
+											<HBox class="formInputWithIconbar">
+												<ComboBox items="{JSVendor>/}" placeholder="{i18n>vendor}" class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp"
+													tooltip="{i18n>vendor}" id="id_vendorbill" filterSecondaryValues="true" showSecondaryValues="true">
+													<core:Item key="{JSVendor>Lifnr}" text="{JSVendor>Lifnr}"/>
+												</ComboBox>
+											</HBox>
+										</VBox>
+										<VBox class="columnbarcode formFieldbarcode clphysicalapplication" width="">
+											<Text text="{i18n>Billingtyp}" class="cl_textbarcode"/>
+											<HBox class="formInputWithIconbar">
+												<ComboBox id="id_billingtype_recbill" items="{JSBillRecbill>/}" placeholder="{i18n>Typestt}"
+													class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" tooltip="{i18n>Typestt}">
+													<core:Item key="{JSBillRecbill>Billtyp}" text="{JSBillRecbill>BName}"/>
+												</ComboBox>
+												
+											</HBox>
+										</VBox>
+										<HBox class="cl_button_cont_physicaltrack">
+											<Button id="id_clear" text="{i18n>Clear}" icon="Images/clearab.svg" type="Transparent" press="fnclear_recbill"
+												class="sapUiSizeCompact cl_btn_cleara" tooltip="{i18n>clearTooltip}"/>
+											<Button id="id_search" text="{i18n>Search}" icon="Images/searchab.svg" type="Transparent" press="fnSearch_recbill"
+												class="sapUiSizeCompact cl_btn_searcha " tooltip="{i18n>searchTooltip}"/>
+										</HBox>
+									</HBox>
+								</VBox>
+								<Toolbar class="cl_tbr_1 cl_tbr_2 cl_tbr_recbill">
+									<Text text="{i18n>billsdet}" tooltip="{i18n>allListTooltip}" id="idCardTitle" class="cl_Tltxt sapUiSmallMarginBegin"/>
+									<Text text="0" class="cl_badge_counter" id="id_LabTabSFRTitle"/>
+									<ToolbarSpacer/>
+									<HBox class="cl_button_cont_hideshow">
+										<Button text="{i18n>Generate Bill}" icon="Images/restore_recall.svg" type="Transparent" press="fn_onRecallPress"
+											class="sapUiSizeCompact cl_btn_Recall cl_btn_generate"/>
+										
+									</HBox>
+								</Toolbar>
+								<uitable:Table id="id_table_width" selectionMode="None" rows="{JSBillList>/}" width="100%"
+									class="cl_custom_table cl_custom_tableapk cl_tatreport_table cl_recall_table cl_deviationtable " rowSelectionChange="action"
+									ariaLabelledBy="title" visibleRowCount="" sort="sortDeliveryDate">
+									<uitable:Column width="2rem" hAlign="Center" class="cl_column_header">
+										<HBox alignItems="Center" justifyContent="Center" class="cl_filter_icon_status_cont" tooltip="{i18n>filter}">
+											<Image src="" press="fn_FilterPop" class="sapUiSizeCompact cl_filter_btn"/>
+										</HBox>
+										<uitable:template>
+											<Text text=""/>
+										</uitable:template>
+									</uitable:Column>
+										<uitable:Column width="13%" hAlign="Center" class="cl_column_header">
+								<Text text="{i18n>transid}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'JSBillList>Transid', formatter :'FSC360NEW.model.formatter.fnLeadingZero'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="14%" hAlign="Center" class="cl_column_header">
+								<Text text="{i18n>companycode}" class="cl_Tltxt" tooltip="{i18n>companycode}"/>
+								<uitable:template>
+									<Text text="{JSBillList>Bukrs}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="14%" hAlign="Center" class="cl_column_header">
+								<Text text="{i18n>plant}" class="cl_Tltxt" tooltip="{i18n>plant}"/>
+								<uitable:template>
+									<Text text="{JSBillList>Werks}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="14%" hAlign="Center" class="cl_column_header">
+								<Text text="{i18n>Vendor}" class="cl_Tltxt" tooltip="{i18n>Vendor}"/>
+								<uitable:template>
+									<Text text="{JSBillList>Lifnr}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+								<uitable:Column width="14%" hAlign="Center" class="cl_column_header">
+								<Text text="{i18n>Billingtyp}" class="cl_Tltxt" tooltip="{i18n>Billingtyp}"/>
+								<uitable:template>
+									<Text text="{JSBillList>BltypText}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+								<uitable:Column width="14%" hAlign="Center" class="cl_column_header">
+								<Text text="{i18n>billingdate}" class="cl_Tltxt" tooltip="{i18n>billingdate}s"/>
+								<uitable:template>
+									<Text text="{path:'JSBillList>Bldat', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="14%" hAlign="Center" class="cl_column_header">
+								<Text text="{i18n>Amount}" class="cl_Tltxt" tooltip="{i18n>Amount}"/>
+								<uitable:template>
+									<Text text="{path:'JSBillList>Amount', formatter :'FSC360NEW.model.formatter.fnAmount'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+								<uitable:Column width="14%" hAlign="Center" class="cl_column_header">
+								<Text text="{i18n>duedate}" class="cl_Tltxt" tooltip="{i18n>duedate}"/>
+								<uitable:template>
+									<Text text="{path:'JSBillList>Duedat', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+								</uitable:Table>
+									<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer cl_pagination_footer_recall cl_pagination_min_height"
+							id="idPaginationFooter">
+							<HBox width="100px" justifyContent="Start">
+								<Button icon="Images/arrow-left.svg" text="Previous" width="100px" class="cl_prev_button" press="fn_onPreviousPage" id="idPrevBtn"/>
+							</HBox>
+							<HBox width="calc(100% - 200px)" id="idPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers">
+				
+							</HBox>
+							<HBox width="100px" justifyContent="End">
+								<Button text="Next" icon="Images/arrow-right.svg" iconFirst="false" class="cl_next_button" press="fn_onNextPage" id="idNextBtn"/>
+							</HBox>
+						</HBox>
+							</VBox>
+						</HBox>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

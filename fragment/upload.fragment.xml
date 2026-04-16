@@ -1,0 +1,15 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:u="sap.ui.unified" xmlns:ui="sap.ui.table" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
+  xmlns:f="sap.ui.layout.form">
+  <Dialog title="Upload GL details"  class="cl_agentDialog">
+	<VBox alignContent="Center" justifyContent="Center" alignItems="Center">
+    <u:FileUploader typeMissmatch="handleTypeMissmatch" fileType="xlsx,csv,xls" change="handleUploadComplete" id="fileuploaderPO" style="Emphasized"
+                    icon="sap-icon://upload" class="cl_MassUpload sapUiTinyMargin sapUiSizeCompact" uploadComplete="handleUploadComplete"  placeholder="Choose a file for Upload..."></u:FileUploader>
+	</VBox>
+    <beginButton>
+      <Button type="Emphasized" class="sapUiSizeCompact gl_subbtn simpost " icon="Images/sub.svg" press="fn_uploadSubmit"  text="{i18n>Submit}"/>
+    </beginButton>
+    <endButton>
+      <Button type="Emphasized"  icon="Images/cancel.svg" class="sapUiSizeCompact sapUiSmallMarginEnd gl_canbtn simcan" text="{i18n>Cancel}" press="fn_uploadCancel"/>
+    </endButton>
+  </Dialog>
+</core:FragmentDefinition>

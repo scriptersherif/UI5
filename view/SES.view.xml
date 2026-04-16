@@ -1,0 +1,334 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="FSC360NEW.controller.SES" xmlns:uitable="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="SES" class="cl_page">
+				<customHeader>
+					<Toolbar class="header_bar_d">
+						<Title text="SES Desk" class="cl_ses_txt"/>
+						<ToolbarSpacer/>
+						<Button icon="Images/refresh.svg" tooltip="Refresh" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbutton.svg" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="team_text cl_font"></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<HBox class="cl_ses_whole">
+						<VBox width="25%" class="cl_ses_left" id="id_left_panel">
+							<HBox justifyContent="SpaceBetween" class="cl_ses_left_head">
+								<HBox>
+									<Text text="{i18n>ScannedInv}" id="idCardTitle" class="cl_scan_text"/>
+									<Text id="id_scannedinvoiceno" class="cl_badge_counter_ses"/>
+								</HBox>
+								<Image src="Images/arrow-collapse-left.svg" tooltip="{i18n>expand}" width="16px" height="16px" press="fn_left_panel_collapse" class="cl_ses_left_img"/>
+							</HBox>
+							<VBox class="cl_search_container">
+								<HBox class="customSearchBox" alignItems="Center">
+									<Image src="Images/magnify.svg" class="searchIcon"/>
+									<Input placeholder="{i18n>search}" class="searchInput" showValueHelp="false" type="Text" liveChange="onQidSearch"/>
+									<Text text="⌘ K" class="shortcutHint"/>
+								</HBox>
+							</VBox>
+							<VBox class="cl_scrollContainer cl_ses_scroll_cont">
+								<List items="{JSListQid>/}" id="id_qidList" class="customList" templateShareable="false">
+									<CustomListItem press="fn_ListItemPress" type="Active">
+										<VBox class="listItemBox">
+											<!-- Top Row: Queue Id & Date -->
+											<HBox alignItems="Center">
+												<Text text="{i18n>Sesqueid}" class="queueid_text"/>
+												<Text text=" {path:'JSListQid>Qid', formatter :'FSC360NEW.model.formatter.fnZero'}" class="queueId_ValText"/>
+											</HBox>
+											<!-- Bottom Row: Invoice Number -->
+											<HBox justifyContent="SpaceBetween" alignItems="Center" class="invoiceBox">
+												<HBox alignItems="Center" class="dateBox">
+													<Image src="Images/invoice-ses.svg" class="iconImage"/>
+													<Text text="{JSListQid>Ebeln}" class="invoiceText"/>
+												</HBox>
+												<HBox alignItems="Center" class="dateBox">
+													<Image src="Images/calendar-ses.svg" class="iconImage"/>
+													<Text text="{path:'JSListQid>Scandate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="dateText"/>
+												</HBox>
+											</HBox>
+										</VBox>
+									</CustomListItem>
+								</List>
+							</VBox>
+						</VBox>
+						<HBox class="cl_ses_input_cont" width="75%" id="idSesInputCont">
+							<VBox>
+								<HBox>
+									<Image src="Images/ses_side.svg" width="27px" height="27px" visible="false" id="id_ses_left_open" class="cl_ses_left_open"
+										press="fn_ses_left_open" tooltip="{i18n>collapse}"/>
+									<Text text="Queue Id Details" class="cl_vendorTitle cl_vendortitle1"></Text>
+								</HBox>
+								<HBox class="cl_open_barcode_pdf" id="idOpenBarcodePdf">
+									<Image src="Images/arrow-collapse-left.svg" width="14px" height="14px" class="cl_ses_openpdf" press="onToggleFormLayout" tooltip="{i18n>openpdf}"/>
+									<Image src="Images/pdf_img.svg" width="14px" height="14px" class="cl_ses_openpdf" press="onToggleFormLayout" tooltip="{i18n>openpdf}"/>
+								</HBox>
+							</VBox>
+							<VBox class="cl_barcode_input_cont" id="idFormCompact" visible="true">
+								<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+									<VBox class="columnbarcode formFieldbarcode" >
+										<Text text="{i18n>Vendor}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<ComboBox id="id_vendor" items="{JSVendor>/}" placeholder="{i18n>vendorph}" width="100%" tooltip="{i18n>vendorNumberTooltip}"
+												filterSecondaryValues="true" showSecondaryValues="true" class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp">
+												<core:Item key="{JSVendor>Lifnr}" text="{JSVendor>Mcod1}"/>
+											</ComboBox>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode" >
+										<Text text="Posting Date" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<DatePicker id="id_podate" dateValue="{path:'JSDate>0/Aedat'}"  valueFormat="YYYY-MM-dd" displayFormat="dd/MM/YYYY" placeholder=" " class="formInputB1 inputhelp"/>
+										</HBox>
+							
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode comboboxcont" >
+										<Text text="{i18n>PurchaseOrder}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<MultiInput id="id_ponumber" liveChange="onLiveChangePO" placeholder="{i18n>purchaseOrder_ses_TT}" tokenUpdate="onTokenUpdatePO"
+												tokenValidator="onTokenValidatePO" showValueHelp="false" valueHelpRequest="onValueHelpRequestedVendor" submit="onSubmitPO"
+												class="cl_inputbox cl_inputbox1 cl_multi cl_multi2 cl_multi3 sapUiSizeCompact cl_input_ses_po" showSuggestion="true"
+												suggest="handleSuggestVendor">
+												<layoutData>
+													<FlexItemData growFactor="1"/>
+												</layoutData>
+											</MultiInput>
+											<Image src="Images/sesadoptplus.svg" width="39px" height="28px" class="inputIcon cl_ses_adopticon" press="fnaddPo"/>
+										</HBox>
+									</VBox>
+								</HBox>
+								<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+									<VBox class="columnbarcode formFieldbarcode" >
+										<Text text="{i18n>itemno}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<Input editable="{path: 'JSKey>/0/Key'}" liveChange="onItemNoChange" class="formInputB1" placeholder="{i18n>itemno}" submit="onSubmitPO"
+												width="100%" layoutData="sap.ui.layout.FlexItemData" tooltip="{i18n>itemno}" id="id_itemno"/>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode" >
+										<Text text="{i18n>sestxt}" class="cl_textbarcode"></Text>
+										<HBox class="formInputWithIconbar">
+											<Input id="id_sestext" class="formInputB1" tooltip="{i18n>sestxt}" placeholder="{i18n>sestxtph}" width="100%"
+												layoutData="sap.ui.layout.FlexItemData"></Input>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode" >
+										<Text text="{i18n>headtxt}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<Input class="formInputB1" placeholder="{i18n>headtxtph}" tooltip="{i18n>headtxt}" width="100%" layoutData="sap.ui.layout.FlexItemData"
+												id="id_headertxt"/>
+										</HBox>
+									</VBox>
+								</HBox>
+								<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+									<VBox class="columnbarcode formFieldbarcode" >
+										<Text text="{i18n>InvoiceNumber}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<Input editable="{path: 'JSKey>/0/Key'}" class="formInputB1" placeholder="{i18n>InvoiceNumberph}" tooltip="{i18n>InvoiceNumber}"
+												width="100%" layoutData="sap.ui.layout.FlexItemData" id="id_invoiceno"/>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode" >
+										<Text text="Invoice Date" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<DatePicker id="id_invoicedate" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy"  placeholder=" "
+												class="formInputB1 inputhelp" readonly="true"/>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode" >
+										<Text text="{i18n>totamnt}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<Input class="formInputB1" placeholder="{i18n>totamntph}" tooltip="{i18n>totamnt}" width="100%" layoutData="sap.ui.layout.FlexItemData"
+												id="id_totalamount"/>
+										</HBox>
+									</VBox>
+								</HBox>
+							</VBox>
+							<VBox class="cl_barcode_input_cont" id="idFormFull" visible="false">
+								<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+									<VBox class="columnbarcode formFieldbarcode" >
+										<Text text="{i18n>Vendor}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<ComboBox id="id_vendor1" placeholder="{i18n>vendorph}" width="100%" tooltip="{i18n>vendorNumberTooltip}" filterSecondaryValues="true"
+												showSecondaryValues="true" class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp">
+												<core:Item key="{JSVendor>Lifnr}" text="{JSVendor>Mcod1}"/>
+											</ComboBox>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode" >
+										<Text text="{i18n>PostingDate}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder=" " class="formInputB1 inputhelp"
+												id="id_podate1" />
+								</HBox>
+									</VBox>
+								</HBox>
+								<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+									<VBox class="columnbarcode formFieldbarcode comboboxcont" >
+										<Text text="{i18n>PurchaseOrder}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<MultiInput id="id_ponumber1" tokenUpdate="onTokenUpdatePO" showValueHelp="false" valueHelpRequest="onValueHelpRequestedVendor"
+												tooltip="{/vendorTooltip}" submit="onSubmitPO"
+												class="cl_inputbox cl_inputbox1 cl_multi cl_multi2 cl_multi3 sapUiSizeCompact cl_input_ses_po" placeholder="{i18n>purchaseOrder_ses_TT}" showSuggestion="true"
+												suggest="handleSuggestVendor">
+												<suggestionItems>
+													<core:ListItem key="{MVendor>Lifnr}" text="{MVendor>Lifnr}" additionalText="{MVendor>Name1}"/>
+												</suggestionItems>
+												<layoutData>
+													<FlexItemData growFactor="1"/>
+												</layoutData>
+											</MultiInput>
+											<Image src="Images/sesadoptplus.svg" width="39px" height="28px" class="inputIcon cl_ses_adopticon" press="fnaddPo"/>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode comboboxcont" >
+										<Text text="{i18n>itemno}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<MultiInput tooltip="{i18n>itemno}" id="id_itemno1" liveChange="onItemNoChange" showValueHelp="false" placeholder="{i18n>itemno}"
+												class="cl_inputbox cl_inputbox1 cl_multi cl_multi2 cl_multi3 sapUiSizeCompact cl_input_ses_po">
+												<layoutData>
+													<FlexItemData growFactor="1"/>
+												</layoutData>
+											</MultiInput>
+										</HBox>
+									</VBox>
+								</HBox>
+								<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+									<VBox class="columnbarcode formFieldbarcode" >
+										<Text text="{i18n>sestxt}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar dateremover">
+											<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder="{i18n>sestxtph}" class="formInputB1 inputhelp"/>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode" >
+										<Text text="{i18n>headtxt}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar dateremover">
+											<DatePicker id="id_headertxt1" readonly="true" displayFormat="dd/MM/YYYY" placeholder="{i18n>headtxtph}" class="formInputB1 inputhelp"/>
+										</HBox>
+									</VBox>
+								</HBox>
+								<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+									<VBox class="columnbarcode formFieldbarcode" >
+										<Text text="{i18n>InvoiceNumber}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<Input id="id_invoiceno1" editable="{path: 'JSKey>/0/Key'}" placeholder="{i18n>InvoiceNumberph}" tooltip="{i18n>InvoiceNumber}" width="100%"
+												layoutData="sap.ui.layout.FlexItemData" class="forminput3sec"/>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode" >
+										<Text text="{i18n>InvoiceDate}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<DatePicker id="id_invoicedate1" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" placeholder=" " class="forminput3sec inputhelp"
+												readonly="true"/>
+										</HBox>
+									</VBox>
+									<VBox class="columnbarcode formFieldbarcode">
+										<Text text="{i18n>totamnt}" class="cl_textbarcode"/>
+										<HBox class="formInputWithIconbar">
+											<Input id="id_totalamount1" placeholder="{i18n>totamntph}" tooltip="{i18n>totamnt}" width="100%" layoutData="sap.ui.layout.FlexItemData"
+												class="forminput3sec"/>
+										</HBox>
+									</VBox>
+								</HBox>
+							</VBox>
+							<uitable:Table id="id_table" selectionMode="true" enableSelectAll="true" rows="{JSSesDet>/}" enableCellFilter="true" visibleRowCount="2"
+								 fixedLayout="false" class="cl_ses_table FSC_Table cl_barcode_table" rowSelectionChange="action" ariaLabelledBy="title"
+								sort="sortDeliveryDate" layoutData="sap.ui.layout.GridData">
+								<uitable:columns>
+									<uitable:Column hAlign="Center" width="4rem">
+										<Text text="{i18n>Pono}" tooltip="{i18n>Pono}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSSesDet>Ebeln}" tooltip="{JSSesDet>Ebeln}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="4rem">
+										<Text text="{i18n>ItemNo}." tooltip="{i18n>ItemNo}." class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{path: 'JSSesDet>Ebelp', formatter :'FSC360NEW.model.formatter.fnLeadingZero'}"
+												tooltip="{path: 'JSSesDet>Ebelp', formatter :'FSC360NEW.model.formatter.fnLeadingZero'}" press="fn_nav_to_wb" class="cl_table_det_text"
+												wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="8rem">
+										<Text text="{i18n>ServiceDescription}" tooltip="{i18n>ServiceDescription}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSSesDet>Ktext1}" tooltip="{JSSesDet>Ktext1}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="4rem">
+										<Text text="{i18n>Quantity}" tooltip="{i18n>Quantity}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSSesDet>Menge}" tooltip="{JSSesDet>Menge}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="10%">
+										<Text text="{i18n>Unit}" tooltip="{i18n>Unit}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSSesDet>Meins}" tooltip="{JSSesDet>Meins}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="15%">
+										<Text text="{i18n>Amount}" tooltip="{i18n>Amount}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSSesDet>Netwr}" tooltip="{JSSesDet>Netwr}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column hAlign="Center" width="15%">
+										<Text text="{i18n>Currency}" tooltip="{i18n>Currency}" class="cl_Tltxt"/>
+										<uitable:template>
+											<Text text="{JSSesDet>Waers}" tooltip="{JSSesDet>Waers}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+								</uitable:columns>
+							</uitable:Table>
+							<HBox justifyContent="End" class="cl_post_btn_box">
+								<Button icon="Images/post_btn.svg" text="{i18n>SESPost}" tooltip="{i18n>SESPost}" press="fn_Ses_post" id="id_Ses_post1" class="btn-custom btn-post" type="Transparent"/>
+							
+							</HBox>
+						</HBox>
+							<VBox class="cl_leftPanell1" height="100%" width="30%" id="id_3rd_vbx" visible="false">
+							<HBox alignItems="Center" justifyContent="SpaceBetween" class="cl_pdfHeader">
+								<HBox alignItems="Center" gap="0.5rem">
+									<Text text="View Invoice" class="cl_pdfTitle"/>
+									<!--<Button icon="Images/plus.svg" tooltip="Zoom In" press="fn_onZoomIn" type="Transparent"-->
+									<!--	class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn " width="12px" height="12px"/>-->
+									<!--<Button icon="Images/minus.svg" tooltip="Zoom Out" press="fn_onZoomOut" type="Transparent"-->
+									<!--	class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn"/>-->
+									<!--<Button icon="Images/print.svg" tooltip="Print" press="fn_onPrint" type="Transparent"-->
+									<!--	class=" sapUiSizeCompact sapUiTinyMarginEnd sapUiTinyMarginTop cl_filter_btn"/>-->
+									<!--<Button icon="Images/downloadin.svg" tooltip="Download PDF" press="fn_onDownload" type="Transparent"-->
+									<!--	class=" sapUiSizeCompact sapUiTinyMarginEnd sapUiTinyMarginTop cl_filter_btn"/>-->
+								</HBox>
+								<!--<Text text="View Invoice" class="cl_pdfTitle"/>-->
+								<Image src="Images/window-close.svg" class="cl_pdfIconBtn" press="onHidePdfPanel"/>
+							</HBox>
+							<VBox class="cl_leftPanell">
+							<ScrollContainer tooltip="Invoice" id="id_scrll" class="cl_pdfScroll" width="100%" height="100%" focusable="false" horizontal="false"
+									vertical="true"></ScrollContainer>
+							</VBox>
+						</VBox>
+						<!--<VBox width="30%" id="id_3rd_vbx" visible="false" class="sapUiTinyMarginBegin cl_leftPanel1 cl_leftPanel2">-->
+						<!--	<HBox alignItems="Center" justifyContent="SpaceBetween" height="50px" class="cl_pdfHeader1">-->
+						<!--		<Text text="View Invoice" class="cl_pdfTitle1"/>-->
+						<!--			<Button icon="Images/print.svg" tooltip="Print" press="fn_onPrint" type="Transparent"-->
+						<!--				class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn"/>-->
+						<!--			<Button icon="Images/downloadin.svg" tooltip="Download PDF" press="fn_onDownload" type="Transparent"-->
+						<!--				class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn"/>-->
+						<!--		<Image src="Images/arrow-collapse-right.svg" width="16px" height="16px" class="cl_ses_right_img" press="onHidePdfPanel" tooltip="close pdf"/>-->
+						<!--	</HBox>-->
+						<!--	<VBox class="cl_leftPanel">-->
+						<!--		<ScrollContainer tooltip="Invoice" id="id_scrll" class="cl_pdfScroll" width="100%" height="100%" focusable="false" horizontal="false"-->
+						<!--			vertical="true"></ScrollContainer>-->
+						<!--	</VBox>-->
+						<!--</VBox>-->
+					</HBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

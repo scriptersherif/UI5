@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="{i18n>Select Agent}"  items="{jsUserName>/}" class="APW_DilogClass cl_frag" liveChange="fn_UserName_LC"
+		confirm="fn_UserName_Confrm" >
+		<!--<StandardListItem  title="{jsUserName>Bname}" description="{jsUserName>NameLast}"/>-->
+		<CustomListItem class="clUserListItem">
+			<HBox justifyContent="Start" alignItems="Center" class="userfrag">
+				<Text text="{jsUserName>Bname}" class="sapUiSmallMarginEnd sapUiSmallMarginBegin"/>
+				<Text text=" - " />
+				<Text text="{jsUserName>NameLast}" class="sapUiSmallMarginBegin sapUiSmallMarginEnd"/>
+			</HBox>
+		</CustomListItem>
+		
+	</SelectDialog>
+</core:FragmentDefinition>

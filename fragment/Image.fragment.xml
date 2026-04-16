@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:tnt="sap.tnt">
+	<Dialog title="Invoice Scanned Copy" contentWidth="450px" contentHeight="500px" class="cl_agentDialog">
+		<VBox>
+			<HBox class="sapUiTinyMargin ">
+					<Text text="  Queid :" class="cl_remark_text"/>
+		<Text text="" id="id_Qidtxt" class="cl_remark_text" visible="true"/>
+			</HBox>
+			<HBox class="sapUiTinyMargin">
+				<Text text="  Barcode number :"  class="cl_remark_text"/>
+		<Text text="" id="id_Brcdtxt" class="cl_remark_text" visible="true"/>
+			</HBox>
+			
+		</VBox>
+		
+		<ScrollContainer height="100%" id="id_invImage" vertical="true" horizontal="true"></ScrollContainer>
+		<beginButton>
+			<Button text="Close" icon="Images/cancel.svg" class="gl_canbtn" press="fnFragInvoiceClose"/>
+		</beginButton>
+		<endButton>
+			<Button text="Assign" icon="Images/barcode.svg" type="transparent" class="gl_subbtn cl_subbtnbrcd" press="fnAssignBarcodeValid"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

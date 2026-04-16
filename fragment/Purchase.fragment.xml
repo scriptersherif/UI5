@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <SelectDialog
+        noDataText="No Data Found"
+        title="{i18n>SelectPurchaseOrg}"      
+       class="sapUiPopupWithPadding sapUiSizeCompact cl_plantFrag"
+        confirm="fn_confirmPurchaseGroup"
+        cancel="fn_confirmPurchaseGroup"
+        liveChange="fn_PurchaseSearch"
+        serach="fn_PurchaseSearch"
+        items="{JSPurchaseOrg>/}" >
+        <StandardListItem
+            title="{JSPurchaseOrg>Ekorg}"
+            description="{JSPurchaseOrg>Ekotx}"
+          icon="sap-icon://cart-3"
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active" />
+    </SelectDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,129 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:ui="sap.ui.table" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified">
+	<Dialog title="{i18n>Invoice Details}" class="sapUiSizeCompact sapUiSmallMarginBegin cl_frag cl_frag_rightslidecap" resizable="true"
+		draggable="false" contentHeight="auto" afterOpen="onAfterSimulateDialogOpen">
+		<content>
+			<HBox class="cl_ses_input_cont" width="" id="idSesInputCont">
+				<VBox class="cl_barcode_input_cont" id="idFormCompact" visible="true">
+					<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+						<VBox class="formFieldbarcode" width="">
+							<Text text="Vendor Code" class="cl_textbarcode cl_mandatory_label"/>
+							<HBox class="formInputWithIconbar">
+								<Input id="In_Po_CompCode" editable="{path: 'JSKey>/0/Key'}" class="formInputB1 forminputfragpo" value="" width="100%"
+									layoutData="sap.ui.layout.FlexItemData"/>
+								<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_CompanyCode"/>
+							</HBox>
+						</VBox>
+					
+						<VBox class="formFieldbarcode" width="">
+							<Text text="Plant" class="cl_textbarcode"/>
+							<HBox class="formInputWithIconbar">
+								<Input id="In_Po_Country" editable="{path: 'JSKey>/0/Key'}" class="formInputB1 forminputfragpo" value="" width="100%"
+									layoutData="sap.ui.layout.FlexItemData"/>
+								<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_getVendor"/>-->
+							</HBox>
+						</VBox>
+					
+					</HBox>
+					<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+						<VBox class="formFieldbarcode" width="">
+							<Text text="Barcode Number" class="cl_textbarcode"/>
+							<HBox class="formInputWithIconbar">
+								<Input id="In_Po_Region" editable="{path: 'JSKey>/0/Key'}" class="formInputB1 forminputfragpo" value="" width="100%"
+									layoutData="sap.ui.layout.FlexItemData"/>
+								<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_getVendor"/>-->
+							</HBox>
+						</VBox>
+						<VBox class="formFieldbarcode" width="">
+							<Text text="Transaction Type" class="cl_textbarcode"/>
+							<HBox class="formInputWithIconbar">
+								<Input id="In_SectionCode" editable="{path: 'JSKey>/0/Key'}" class="formInputB1 forminputfragpo" value="" width="100%"
+									layoutData="sap.ui.layout.FlexItemData"/>
+								<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fnBusPlaceValueHelp"/>-->
+							</HBox>
+						</VBox>
+					</HBox>
+						<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+							<VBox class="formFieldbarcode" width="">
+							<Text text="Invoice Number" class="cl_textbarcode"/>
+							<HBox class="formInputWithIconbar">
+								<Input id="In_Po_Vendor" editable="{path: 'JSKey>/0/Key'}" class="formInputB1 forminputfragpo" value="" width="100%"
+									layoutData="sap.ui.layout.FlexItemData"/>
+								<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_getVendor"/>-->
+							</HBox>
+						</VBox>
+							<VBox class="formFieldbarcode" width="">
+							<Text text="Invoice Date" class="cl_textbarcode cl_mandatory_label"/>
+							<HBox class="formInputWithIconbar fragpodate">
+								<DatePicker id="id_DueOnDate" valueFormat="YYYY-MM-ddT00:00:00" displayFormat="dd/MM/yyyy" class="formInputB1 forminputfragpo" change="fnDueOnChange"/>
+							</HBox>
+						</VBox>
+					
+					
+					</HBox>
+						<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+						<VBox class="formFieldbarcode" width="">
+							<Text text="Amount" class="cl_textbarcode"/>
+							<HBox class="formInputWithIconbar">
+								<Input id="In_Po_DocType" editable="{path: 'JSKey>/0/Key'}" class="formInputB1 forminputfragpo" value="" width="100%"
+									layoutData="sap.ui.layout.FlexItemData"/>
+								<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_CompanyCode"/>
+							</HBox>
+						</VBox>
+						<VBox class="formFieldbarcode" width="">
+							<Text text="Profit Center" class="cl_textbarcode"/>
+							<HBox class="formInputWithIconbar">
+								<Input id="In_ProfitCet" editable="{path: 'JSKey>/0/Key'}" class="formInputB1 forminputfragpo" value="" width="100%"
+									layoutData="sap.ui.layout.FlexItemData"/>
+								<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_CompanyCode"/>-->
+							</HBox>
+						</VBox>
+					
+					</HBox>
+						<VBox class="cl_commentContainer1">
+				<Label text="Comments" labelFor="idCommentBox" class="cl_textbarcode"/>
+				<TextArea id="cmmi" placeholder="Comments here..." class=" formInputB1 " growing="false" width="100%"/>
+			</VBox>
+				</VBox>
+			</HBox>
+				<VBox id="fullbox_before" class="" width="100%" height="140px">
+					<Label text="Upload Invoice" required="true" class="cl_attach_lbl cl_attach_lbl2 cl_uploadinv"/>
+					<VBox id="idDragDropBox" width="100%" height="58%" alignItems="Center" dragEnter="onDragEnter" dragOver="onDragOver" drop="onFileDrop"
+						class="pl_5">
+						<VBox id="idFileBox" width="100%" height="75%" justifyContent="end" alignItems="Center" dragEnter="onDragEnter" dragOver="onDragOver"
+							drop="onFileDrop" class="cl_file_upload cl_file_upload2 cl_file_upload_adv_pofrag" >
+							<HBox class="file_upload_content_cont">
+								<HBox class="upload_img_cont">
+								<Image src="Images/fileUpload.svg" class="cl_upload_btn cl_upload_btn1cap mt_r"/>
+								</HBox>
+								<VBox width="300px" class="cl_upload_contcap" style="margin-top:5px;">
+									<HBox class="uploadTextBox" justifyContent="">
+										<Text text="Click to upload" class="uploadText"/>
+										<Text text=" or drag and drop" class="uploadSubText"/>
+									</HBox>
+									<Text text="PDF, PNG, JPG (max. 800x400px)" class="hintText hintText1 hinttext"/>
+								</VBox>
+							<!--			<u:FileUploader id="id_image" sameFilenameAllowed="true" name="myFileUpload" uploadUrl="" width="265px"-->
+							<!--tooltip="{i18n>Uploadyourfiletothelocalserver}" uploadComplete="save" fileType="pdf" typeMissmatch="fnTypeMismatch"-->
+							<!--change="fnInputAllLiveChange" style="Emphasized"/>-->
+							</HBox>
+						
+						</VBox>
+					
+					</VBox>
+				
+				</VBox>
+		
+		
+		</content>
+		<beginButton>
+			<Button text="{i18n>Cancel}" tooltip="{i18n>Close}" icon="Images/cancel.svg" class="gl_canbtn simcan " press="onCaptureCancel"></Button>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>Submit}" tooltip="{i18n>Submit}" icon="Images/check-circle-outline.svg" class=" gl_subbtn simpost " press="SubmitPOPress"></Button>
+		</endButton>
+		<!--<HBox class="sapUiSizeCompact sapUiSmallMargin" justifyContent="End" alignItems="Center">-->
+		<!--	<Button text="{i18n>Close}" press="fn_Simulate_frag_close" class="sapUiTinyMarginEnd cl_fragcancelbtn" tooltip="{i18n>Close}"/>-->
+		<!--	<Button text="{i18n>Post}" id="id_post_btn" tooltip="{i18n>Post}" class="sapUiTinyMarginBegin cl_fragfinalbtn" press="fn_Post_Simulate"/>-->
+		<!--</HBox>-->
+	</Dialog>
+</core:FragmentDefinition>

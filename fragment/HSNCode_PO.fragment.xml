@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="{i18n>Select HSN Code}"  items="{JSHSN>/}" liveChange="fn_HSN_LC" class="cl_frag" 
+		confirm="fn_Confirm_HSN_PO" >
+		<!--<StandardListItem  title="{JSHSN>Steuc}" description="{JSHSN>Text1}"/>-->
+			<StandardListItem 
+    title="{= ${JSHSN>Steuc} + ' - ' + ${JSHSN>Text1} }" 
+/>
+	</SelectDialog>
+</core:FragmentDefinition>

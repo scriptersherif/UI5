@@ -1,0 +1,1639 @@
+{
+    "resources": [
+        {
+            "name": "Component-preload.js",
+            "merged": true
+        },
+        {
+            "name": ".user.project.json"
+        },
+        {
+            "name": "resources.json",
+            "merged": true
+        },
+        {
+            "name": "Component.js"
+        },
+        {
+            "name": "css/style.css"
+        },
+        {
+            "name": "Images/tabstripwb.svg"
+        },
+        {
+            "name": "Images/admin_green1.svg"
+        },
+        {
+            "name": "Images/total_dasbrd.svg"
+        },
+        {
+            "name": "Images/calander.svg"
+        },
+        {
+            "name": "Images/arrowin.svg"
+        },
+        {
+            "name": "Images/comment_black.svg"
+        },
+        {
+            "name": "Images/rejblue.svg"
+        },
+        {
+            "name": "Images/inProgress.svg"
+        },
+        {
+            "name": "Images/mylistwhite.svg"
+        },
+        {
+            "name": "Images/adoptcan.svg"
+        },
+        {
+            "name": "Images/admin_green.svg"
+        },
+        {
+            "name": "Images/advanced.svg"
+        },
+        {
+            "name": "Images/Parked.svg"
+        },
+        {
+            "name": "Images/hold1.svg"
+        },
+        {
+            "name": "Images/add_deviation_icon.svg"
+        },
+        {
+            "name": "Images/post.svg"
+        },
+        {
+            "name": "Images/invoice-clock-outline.svg"
+        },
+        {
+            "name": "Images/restore_recall.svg"
+        },
+        {
+            "name": "Images/postsim.svg"
+        },
+        {
+            "name": "Images/correcticon.svg"
+        },
+        {
+            "name": "Images/simpost.svg"
+        },
+        {
+            "name": "Images/post_btn.svg"
+        },
+        {
+            "name": "Images/refresh_icon.svg"
+        },
+        {
+            "name": "Images/rejected.svg"
+        },
+        {
+            "name": "Images/paid_green4.svg"
+        },
+        {
+            "name": "Images/bellbutton.svg"
+        },
+        {
+            "name": "Images/check_green.svg"
+        },
+        {
+            "name": "Images/triggerStarted.svg"
+        },
+        {
+            "name": "Images/window-outline.svg"
+        },
+        {
+            "name": "Images/reject.svg"
+        },
+        {
+            "name": "Images/chart-box-outline.svg"
+        },
+        {
+            "name": "Images/pdftop.svg"
+        },
+        {
+            "name": "Images/cancel_black.svg"
+        },
+        {
+            "name": "Images/deleteC.svg"
+        },
+        {
+            "name": "Images/pendscan.svg"
+        },
+        {
+            "name": "Images/inprog.svg"
+        },
+        {
+            "name": "Images/indexed.svg"
+        },
+        {
+            "name": "Images/scannew.svg"
+        },
+        {
+            "name": "Images/hold_img.svg"
+        },
+        {
+            "name": "Images/glacc.svg"
+        },
+        {
+            "name": "Images/save-outline.svg"
+        },
+        {
+            "name": "Images/approved_white.svg"
+        },
+        {
+            "name": "Images/calendar-ses.svg"
+        },
+        {
+            "name": "Images/allphy_tra_icon.svg"
+        },
+        {
+            "name": "Images/backgroundwb.png"
+        },
+        {
+            "name": "Images/nonpoIndexer.svg"
+        },
+        {
+            "name": "Images/Posted.svg"
+        },
+        {
+            "name": "Images/Recurringbill.svg"
+        },
+        {
+            "name": "Images/restore_black.svg"
+        },
+        {
+            "name": "Images/fulfillment.svg"
+        },
+        {
+            "name": "Images/rejected_white.svg"
+        },
+        {
+            "name": "Images/overview.svg"
+        },
+        {
+            "name": "Images/indexer.svg"
+        },
+        {
+            "name": "Images/nav.png"
+        },
+        {
+            "name": "Images/arrow-collapse-right.svg"
+        },
+        {
+            "name": "Images/basicblack.svg"
+        },
+        {
+            "name": "Images/capture.png"
+        },
+        {
+            "name": "Images/plus.svg"
+        },
+        {
+            "name": "Images/tune.svg"
+        },
+        {
+            "name": "Images/worldcard.svg"
+        },
+        {
+            "name": "Images/eyedropper.svg"
+        },
+        {
+            "name": "Images/popup.svg"
+        },
+        {
+            "name": "Images/capture.svg"
+        },
+        {
+            "name": "Images/event_img.svg"
+        },
+        {
+            "name": "Images/whtblue.svg"
+        },
+        {
+            "name": "Images/ses_side.svg"
+        },
+        {
+            "name": "Images/fulfillment.png"
+        },
+        {
+            "name": "Images/cash_sidebar.svg"
+        },
+        {
+            "name": "Images/paid_green.svg"
+        },
+        {
+            "name": "Images/hold.svg"
+        },
+        {
+            "name": "Images/scanned_img.svg"
+        },
+        {
+            "name": "Images/minus.svg"
+        },
+        {
+            "name": "Images/pendscanpink.svg"
+        },
+        {
+            "name": "Images/commented.svg"
+        },
+        {
+            "name": "Images/barcode.png"
+        },
+        {
+            "name": "Images/tabstripright.svg"
+        },
+        {
+            "name": "Images/account.svg"
+        },
+        {
+            "name": "Images/vendor.svg"
+        },
+        {
+            "name": "Images/admin.svg"
+        },
+        {
+            "name": "Images/Deletephytra.png"
+        },
+        {
+            "name": "Images/serhelp.svg"
+        },
+        {
+            "name": "Images/account-circle.svg"
+        },
+        {
+            "name": "Images/timer-check-outline.svg"
+        },
+        {
+            "name": "Images/multi.svg"
+        },
+        {
+            "name": "Images/update.svg"
+        },
+        {
+            "name": "Images/arrow-right.svg"
+        },
+        {
+            "name": "Images/cancelbtn.svg"
+        },
+        {
+            "name": "Images/error.svg"
+        },
+        {
+            "name": "Images/scan_barcode.svg"
+        },
+        {
+            "name": "Images/account-group-outline.svg"
+        },
+        {
+            "name": "Images/Workflow.svg"
+        },
+        {
+            "name": "Images/arrow-down.svg"
+        },
+        {
+            "name": "Images/file-document-check-outline.svg"
+        },
+        {
+            "name": "Images/refresh.svg"
+        },
+        {
+            "name": "Images/searchab.svg"
+        },
+        {
+            "name": "Images/workbench.svg"
+        },
+        {
+            "name": "Images/Section.svg"
+        },
+        {
+            "name": "Images/barcode.svg"
+        },
+        {
+            "name": "Images/downloadin.svg"
+        },
+        {
+            "name": "Images/clock.svg"
+        },
+        {
+            "name": "Images/adoptbox.svg"
+        },
+        {
+            "name": "Images/restore.svg"
+        },
+        {
+            "name": "Images/contactless.svg"
+        },
+        {
+            "name": "Images/cash.svg"
+        },
+        {
+            "name": "Images/holdnew.svg"
+        },
+        {
+            "name": "Images/pagetip.png"
+        },
+        {
+            "name": "Images/autoparkf.svg"
+        },
+        {
+            "name": "Images/histblack.svg"
+        },
+        {
+            "name": "Images/holdw.svg"
+        },
+        {
+            "name": "Images/check_black1.svg"
+        },
+        {
+            "name": "Images/key-variant.svg"
+        },
+        {
+            "name": "Images/FSCNXT_logo.svg"
+        },
+        {
+            "name": "Images/Exalcalogo.png"
+        },
+        {
+            "name": "Images/file-document-white.svg"
+        },
+        {
+            "name": "Images/flash-outline.svg"
+        },
+        {
+            "name": "Images/fileUpload.svg"
+        },
+        {
+            "name": "Images/check_green1.svg"
+        },
+        {
+            "name": "Images/dateicon_recbill.svg"
+        },
+        {
+            "name": "Images/worka.svg"
+        },
+        {
+            "name": "Images/po_collapse_btn.svg"
+        },
+        {
+            "name": "Images/scan_account.svg"
+        },
+        {
+            "name": "Images/Input.svg"
+        },
+        {
+            "name": "Images/plus-circle-recurringbill.svg"
+        },
+        {
+            "name": "Images/porefblack.svg"
+        },
+        {
+            "name": "Images/pagetip.svg"
+        },
+        {
+            "name": "Images/rocket.svg"
+        },
+        {
+            "name": "Images/autopark.svg"
+        },
+        {
+            "name": "Images/balance.svg"
+        },
+        {
+            "name": "Images/pending_dasbrd.svg"
+        },
+        {
+            "name": "Images/create_btn.svg"
+        },
+        {
+            "name": "Images/setting.svg"
+        },
+        {
+            "name": "Images/basicbg.png"
+        },
+        {
+            "name": "Images/list-box-outline.svg"
+        },
+        {
+            "name": "Images/paid.svg"
+        },
+        {
+            "name": "Images/pendap.svg"
+        },
+        {
+            "name": "Images/file-document-outline.svg"
+        },
+        {
+            "name": "Images/mylist.svg"
+        },
+        {
+            "name": "Images/wrap.svg"
+        },
+        {
+            "name": "Images/remadopt.svg"
+        },
+        {
+            "name": "Images/payment.svg"
+        },
+        {
+            "name": "Images/rows-highlight.png"
+        },
+        {
+            "name": "Images/pendscanpink1.svg"
+        },
+        {
+            "name": "Images/logout.png"
+        },
+        {
+            "name": "Images/filter.svg"
+        },
+        {
+            "name": "Images/check.svg"
+        },
+        {
+            "name": "Images/plus_white.svg"
+        },
+        {
+            "name": "Images/print.svg"
+        },
+        {
+            "name": "Images/flash-outlineff.svg"
+        },
+        {
+            "name": "Images/advanceapp.svg"
+        },
+        {
+            "name": "Images/FSC.png"
+        },
+        {
+            "name": "Images/pdf_img.svg"
+        },
+        {
+            "name": "Images/setting.png"
+        },
+        {
+            "name": "Images/list-box-outline.png"
+        },
+        {
+            "name": "Images/approval.svg"
+        },
+        {
+            "name": "Images/Group9001.svg"
+        },
+        {
+            "name": "Images/payblue.svg"
+        },
+        {
+            "name": "Images/cardgrid.svg"
+        },
+        {
+            "name": "Images/simnew.svg"
+        },
+        {
+            "name": "Images/manual_img.svg"
+        },
+        {
+            "name": "Images/logout.svg"
+        },
+        {
+            "name": "Images/success.svg"
+        },
+        {
+            "name": "Images/approveblack.svg"
+        },
+        {
+            "name": "Images/errorinv.svg"
+        },
+        {
+            "name": "Images/account-circle-outline.svg"
+        },
+        {
+            "name": "Images/summaryblack1.svg"
+        },
+        {
+            "name": "Images/360.png"
+        },
+        {
+            "name": "Images/currdrop.svg"
+        },
+        {
+            "name": "Images/tax.svg"
+        },
+        {
+            "name": "Images/arrow-collapse-left.svg"
+        },
+        {
+            "name": "Images/sub.svg"
+        },
+        {
+            "name": "Images/arrow-up.svg"
+        },
+        {
+            "name": "Images/collapse_btn.svg"
+        },
+        {
+            "name": "Images/list_img1.svg"
+        },
+        {
+            "name": "Images/chevron-up.svg"
+        },
+        {
+            "name": "Images/fileDoc.svg"
+        },
+        {
+            "name": "Images/map.svg"
+        },
+        {
+            "name": "Images/refreshbtn.png"
+        },
+        {
+            "name": "Images/cancel.svg"
+        },
+        {
+            "name": "Images/selection.svg"
+        },
+        {
+            "name": "Images/amtsplitwhite.svg"
+        },
+        {
+            "name": "Images/amtsplit.svg"
+        },
+        {
+            "name": "Images/approval_reject.svg"
+        },
+        {
+            "name": "Images/msmeinvoice.svg"
+        },
+        {
+            "name": "Images/menu.svg"
+        },
+        {
+            "name": "Images/download_mail.svg"
+        },
+        {
+            "name": "Images/paid_black4.svg"
+        },
+        {
+            "name": "Images/subsumab.svg"
+        },
+        {
+            "name": "Images/xmark.svg"
+        },
+        {
+            "name": "Images/finance_phy_tra_icon.svg"
+        },
+        {
+            "name": "Images/reviewed.svg"
+        },
+        {
+            "name": "Images/incomeexpensecharticon.svg"
+        },
+        {
+            "name": "Images/admin_black1.svg"
+        },
+        {
+            "name": "Images/open-in-new.svg"
+        },
+        {
+            "name": "Images/calendar-today-outline.svg"
+        },
+        {
+            "name": "Images/material.svg"
+        },
+        {
+            "name": "Images/togglearrow.png"
+        },
+        {
+            "name": "Images/bellbtn.png"
+        },
+        {
+            "name": "Images/incomeexpensetableicon.svg"
+        },
+        {
+            "name": "Images/pdficon_recall.svg"
+        },
+        {
+            "name": "Images/down_btn.svg"
+        },
+        {
+            "name": "Images/magnify_black.svg"
+        },
+        {
+            "name": "Images/parkg.svg"
+        },
+        {
+            "name": "Images/approved.svg"
+        },
+        {
+            "name": "Images/dashboard.svg"
+        },
+        {
+            "name": "Images/history.svg"
+        },
+        {
+            "name": "Images/hideshowicon.svg"
+        },
+        {
+            "name": "Images/adoptsub.svg"
+        },
+        {
+            "name": "Images/window-close.svg"
+        },
+        {
+            "name": "Images/upload_recall.svg"
+        },
+        {
+            "name": "Images/cloud-upload-outline.svg"
+        },
+        {
+            "name": "Images/trash_btn.svg"
+        },
+        {
+            "name": "Images/rejblack.svg"
+        },
+        {
+            "name": "Images/plu_fragment.svg"
+        },
+        {
+            "name": "Images/taxblue.svg"
+        },
+        {
+            "name": "Images/invoiceno.svg"
+        },
+        {
+            "name": "Images/goodsitem.svg"
+        },
+        {
+            "name": "Images/mylistblack.svg"
+        },
+        {
+            "name": "Images/input1.svg"
+        },
+        {
+            "name": "Images/invoice-clock-orange.svg"
+        },
+        {
+            "name": "Images/spend.svg"
+        },
+        {
+            "name": "Images/download_phy.svg"
+        },
+        {
+            "name": "Images/watchlater.svg"
+        },
+        {
+            "name": "Images/matblue.svg"
+        },
+        {
+            "name": "Images/chevron-down.svg"
+        },
+        {
+            "name": "Images/vendoron.svg"
+        },
+        {
+            "name": "Images/overdue_card.svg"
+        },
+        {
+            "name": "Images/summarywhite.svg"
+        },
+        {
+            "name": "Images/indexing_phy_tra_icon.svg"
+        },
+        {
+            "name": "Images/invoice-ses.svg"
+        },
+        {
+            "name": "Images/list_img.svg"
+        },
+        {
+            "name": "Images/inprocess.svg"
+        },
+        {
+            "name": "Images/dashboard.png"
+        },
+        {
+            "name": "Images/summaryab.svg"
+        },
+        {
+            "name": "Images/attacha.svg"
+        },
+        {
+            "name": "Images/printer.svg"
+        },
+        {
+            "name": "Images/approveblue.svg"
+        },
+        {
+            "name": "Images/status.svg"
+        },
+        {
+            "name": "Images/ubl.svg"
+        },
+        {
+            "name": "Images/basic.svg"
+        },
+        {
+            "name": "Images/adoptw.svg"
+        },
+        {
+            "name": "Images/bgimage.svg"
+        },
+        {
+            "name": "Images/comment-text-multiple-outline.svg"
+        },
+        {
+            "name": "Images/key-variant-green.svg"
+        },
+        {
+            "name": "Images/magnify.svg"
+        },
+        {
+            "name": "Images/regnew.svg"
+        },
+        {
+            "name": "Images/Addphytra.png"
+        },
+        {
+            "name": "Images/pendapp.svg"
+        },
+        {
+            "name": "Images/park.svg"
+        },
+        {
+            "name": "Images/Exalcalogo1.svg"
+        },
+        {
+            "name": "Images/manual_post_dash.svg"
+        },
+        {
+            "name": "Images/scan_date.svg"
+        },
+        {
+            "name": "Images/check-circle-outline.svg"
+        },
+        {
+            "name": "Images/imageab.svg"
+        },
+        {
+            "name": "Images/debit.svg"
+        },
+        {
+            "name": "Images/esclation_image.svg"
+        },
+        {
+            "name": "Images/down_arrow.svg"
+        },
+        {
+            "name": "Images/plus_white1.svg"
+        },
+        {
+            "name": "Images/tabstrip.svg"
+        },
+        {
+            "name": "Images/fileBlueOutline.svg"
+        },
+        {
+            "name": "Images/simulate.svg"
+        },
+        {
+            "name": "Images/successRight.svg"
+        },
+        {
+            "name": "Images/card-1.png"
+        },
+        {
+            "name": "Images/arrow.png"
+        },
+        {
+            "name": "Images/status.png"
+        },
+        {
+            "name": "Images/openpdf.svg"
+        },
+        {
+            "name": "Images/copy_btn.svg"
+        },
+        {
+            "name": "Images/comentbox_fragment.svg"
+        },
+        {
+            "name": "Images/trigger.svg"
+        },
+        {
+            "name": "Images/cancelicon.svg"
+        },
+        {
+            "name": "Images/Gate.svg"
+        },
+        {
+            "name": "Images/summarywhite1.svg"
+        },
+        {
+            "name": "Images/account-check-outline.svg"
+        },
+        {
+            "name": "Images/arrow-left.svg"
+        },
+        {
+            "name": "Images/Fileuploadicon.svg"
+        },
+        {
+            "name": "Images/approval_check.svg"
+        },
+        {
+            "name": "Images/clearab.svg"
+        },
+        {
+            "name": "Images/closepdf.svg"
+        },
+        {
+            "name": "Images/saveC.svg"
+        },
+        {
+            "name": "Images/attached.svg"
+        },
+        {
+            "name": "Images/pdf.svg"
+        },
+        {
+            "name": "Images/dash2.svg"
+        },
+        {
+            "name": "Images/TodayInvoice.svg"
+        },
+        {
+            "name": "Images/spend.png"
+        },
+        {
+            "name": "Images/check_icon.svg"
+        },
+        {
+            "name": "Images/glblue.svg"
+        },
+        {
+            "name": "Images/analytics_image.svg"
+        },
+        {
+            "name": "Images/redocblue.svg"
+        },
+        {
+            "name": "Images/address-card.svg"
+        },
+        {
+            "name": "Images/submit.svg"
+        },
+        {
+            "name": "Images/histwhite.svg"
+        },
+        {
+            "name": "Images/scan_invoice.svg"
+        },
+        {
+            "name": "Images/tabstripleft.svg"
+        },
+        {
+            "name": "Images/toggleicontat.svg"
+        },
+        {
+            "name": "Images/up-arrow.svg"
+        },
+        {
+            "name": "Images/fileBlue.svg"
+        },
+        {
+            "name": "Images/posted_dasbrd.svg"
+        },
+        {
+            "name": "Images/manualnew.svg"
+        },
+        {
+            "name": "Images/addadopt.svg"
+        },
+        {
+            "name": "Images/clearC.svg"
+        },
+        {
+            "name": "Images/custom.svg"
+        },
+        {
+            "name": "Images/checkcnfm1.svg"
+        },
+        {
+            "name": "Images/summaryblack.svg"
+        },
+        {
+            "name": "Images/chip.svg"
+        },
+        {
+            "name": "Images/invoice-text-outline.svg"
+        },
+        {
+            "name": "Images/document.svg"
+        },
+        {
+            "name": "Images/commenta.svg"
+        },
+        {
+            "name": "Images/total_budget_image.svg"
+        },
+        {
+            "name": "Images/wht.svg"
+        },
+        {
+            "name": "Images/comentbox.svg"
+        },
+        {
+            "name": "Images/poreference.svg"
+        },
+        {
+            "name": "Images/upld_btn.svg"
+        },
+        {
+            "name": "Images/searchhelp.svg"
+        },
+        {
+            "name": "Images/historyblue.svg"
+        },
+        {
+            "name": "Images/basic1.svg"
+        },
+        {
+            "name": "Images/factory.svg"
+        },
+        {
+            "name": "Images/TaxCodePoRef.fragment.xml"
+        },
+        {
+            "name": "Images/approve_image.svg"
+        },
+        {
+            "name": "Images/season.svg"
+        },
+        {
+            "name": "Images/deviationerror_indicator.svg"
+        },
+        {
+            "name": "Images/getinvab.svg"
+        },
+        {
+            "name": "Images/redoc.svg"
+        },
+        {
+            "name": "Images/bal.svg"
+        },
+        {
+            "name": "Images/straight_post_dash.svg"
+        },
+        {
+            "name": "Images/trash-can-outline.svg"
+        },
+        {
+            "name": "Images/drop.svg"
+        },
+        {
+            "name": "Images/total_budget_img.svg"
+        },
+        {
+            "name": "Images/Vector.svg"
+        },
+        {
+            "name": "Images/checkcnfm.svg"
+        },
+        {
+            "name": "Images/sesadoptplus.svg"
+        },
+        {
+            "name": "Images/map-marker-outline.svg"
+        },
+        {
+            "name": "Images/group_img.svg"
+        },
+        {
+            "name": "Images/warning.svg"
+        },
+        {
+            "name": "Images/clock_img.svg"
+        },
+        {
+            "name": "Images/closecnfrm.svg"
+        },
+        {
+            "name": "Images/account-arrow-left-outline.svg"
+        },
+        {
+            "name": "Images/vendor_recbill.svg"
+        },
+        {
+            "name": "Images/dots-drag.svg"
+        },
+        {
+            "name": "Images/credit.svg"
+        },
+        {
+            "name": "Images/content-save-phy_tra.svg"
+        },
+        {
+            "name": "Images/pendingff.svg"
+        },
+        {
+            "name": "Images/reject_image1.svg"
+        },
+        {
+            "name": "index.html"
+        },
+        {
+            "name": ".project.json"
+        },
+        {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "model/formatter.js"
+        },
+        {
+            "name": "model/fulfillmentData.json"
+        },
+        {
+            "name": "model/models.js"
+        },
+        {
+            "name": "model/ColumnMetadataModel.json"
+        },
+        {
+            "name": "controller/NonPoIndexer.controller.js"
+        },
+        {
+            "name": "controller/App.controller.js"
+        },
+        {
+            "name": "controller/ApprovalMobile.controller.js"
+        },
+        {
+            "name": "controller/AdvanceApp.controller.js"
+        },
+        {
+            "name": "controller/CaptureCenter.controller.js"
+        },
+        {
+            "name": "controller/History.controller.js"
+        },
+        {
+            "name": "controller/RecurringBill.controller.js"
+        },
+        {
+            "name": "controller/PayWB-Approver.controller.js"
+        },
+        {
+            "name": "controller/Deviation.controller.js"
+        },
+        {
+            "name": "controller/PaymentWorkbench.controller.js"
+        },
+        {
+            "name": "controller/AgentReassign.controller.js"
+        },
+        {
+            "name": "controller/Approval.controller.js"
+        },
+        {
+            "name": "controller/StatusFlow.controller.js"
+        },
+        {
+            "name": "controller/Workbench.controller.js"
+        },
+        {
+            "name": "controller/InvoiceUnblock.controller.js"
+        },
+        {
+            "name": "controller/Recall.controller.js"
+        },
+        {
+            "name": "controller/StatusUpdate.controller.js"
+        },
+        {
+            "name": "controller/PhysicalTracking.controller.js"
+        },
+        {
+            "name": "controller/SES.controller.js"
+        },
+        {
+            "name": "controller/AutoPark.controller.js"
+        },
+        {
+            "name": "controller/Invoice.controller.js"
+        },
+        {
+            "name": "controller/VendorOnboard.controller.js"
+        },
+        {
+            "name": "controller/Barcode.controller.js"
+        },
+        {
+            "name": "controller/Tatanalysis.controller.js"
+        },
+        {
+            "name": "controller/PayWBFinal.controller.js"
+        },
+        {
+            "name": "controller/VendorPWB.fragment.xml"
+        },
+        {
+            "name": "controller/creditNote.controller.js"
+        },
+        {
+            "name": "controller/MSME.controller.js"
+        },
+        {
+            "name": "controller/Fulfilment.controller.js"
+        },
+        {
+            "name": "controller/Dashboard.controller.js"
+        },
+        {
+            "name": "controller/Assigngrn.controller.js"
+        },
+        {
+            "name": "webapp/localService/metadata.xml"
+        },
+        {
+            "name": "fragment/FilterPopover.fragment.xml"
+        },
+        {
+            "name": "fragment/Vendor.fragment.xml"
+        },
+        {
+            "name": "fragment/Paymentblocktab.fragment.xml"
+        },
+        {
+            "name": "fragment/CustomCol.fragment.xml"
+        },
+        {
+            "name": "fragment/ErrorReuse.fragment.xml"
+        },
+        {
+            "name": "fragment/DetailsPDF.fragment.xml"
+        },
+        {
+            "name": "fragment/SuccessAutopark.fragment.xml"
+        },
+        {
+            "name": "fragment/AgentError.fragment.xml"
+        },
+        {
+            "name": "fragment/confirm.fragment.xml"
+        },
+        {
+            "name": "fragment/AdvanceReqPo.fragment.xml"
+        },
+        {
+            "name": "fragment/SGLIndicator.fragment.xml"
+        },
+        {
+            "name": "fragment/Filterautopark.fragment.xml"
+        },
+        {
+            "name": "fragment/Plant.fragment.xml"
+        },
+        {
+            "name": "fragment/ViewDetails.fragment.xml"
+        },
+        {
+            "name": "fragment/HSNCode.fragment.xml"
+        },
+        {
+            "name": "fragment/CreateTemplate_dash.fragment.xml"
+        },
+        {
+            "name": "fragment/upload.fragment.xml"
+        },
+        {
+            "name": "fragment/SESAdopt.fragment.xml"
+        },
+        {
+            "name": "fragment/UserName.fragment.xml"
+        },
+        {
+            "name": "fragment/VendorPWB.fragment.xml"
+        },
+        {
+            "name": "fragment/RemarkDialog.fragment.xml"
+        },
+        {
+            "name": "fragment/Simulate.fragment.xml"
+        },
+        {
+            "name": "fragment/Simulation.Fragment.xml"
+        },
+        {
+            "name": "fragment/InitSuccess.fragment.xml"
+        },
+        {
+            "name": "fragment/VendorOnboard.fragment.xml"
+        },
+        {
+            "name": "fragment/Vedortype.fragment.xml"
+        },
+        {
+            "name": "fragment/barchartTable.fragment.xml"
+        },
+        {
+            "name": "fragment/CommentsNpon.fragment.xml"
+        },
+        {
+            "name": "fragment/ImageBarcode.fragment.xml"
+        },
+        {
+            "name": "fragment/TaxCode.fragment.xml"
+        },
+        {
+            "name": "fragment/Lifnr.fragment.xml"
+        },
+        {
+            "name": "fragment/StatusUpdate.fragment.xml"
+        },
+        {
+            "name": "fragment/getPDF_autopark.fragment.xml"
+        },
+        {
+            "name": "fragment/InvUblerror.fragment.xml"
+        },
+        {
+            "name": "fragment/Mailhold.fragment.xml"
+        },
+        {
+            "name": "fragment/errorvendor.fragment.xml"
+        },
+        {
+            "name": "fragment/Summary.fragment.xml"
+        },
+        {
+            "name": "fragment/Department.fragment.xml"
+        },
+        {
+            "name": "fragment/Advancesearchtat.fragment.xml"
+        },
+        {
+            "name": "fragment/PaymentBlock.fragment.xml"
+        },
+        {
+            "name": "fragment/MailPhyTr.fragment.xml"
+        },
+        {
+            "name": "fragment/AccGrp.fragment.xml"
+        },
+        {
+            "name": "fragment/CreateTemplate.fragment.xml"
+        },
+        {
+            "name": "fragment/SearchFragapk.fragment.xml"
+        },
+        {
+            "name": "fragment/RemarksUTR.fragment.xml"
+        },
+        {
+            "name": "fragment/RemarksPayLoc.fragment.xml"
+        },
+        {
+            "name": "fragment/ConfirmDialog.fragment.xml"
+        },
+        {
+            "name": "fragment/DocumentImg.fragment.xml"
+        },
+        {
+            "name": "fragment/Details.fragment.xml"
+        },
+        {
+            "name": "fragment/TaxcodeMatTab.fragment.xml"
+        },
+        {
+            "name": "fragment/AssignBar.fragment.xml"
+        },
+        {
+            "name": "fragment/BankKey.fragment.xml"
+        },
+        {
+            "name": "fragment/Vendorpdc.fragment.xml"
+        },
+        {
+            "name": "fragment/Remarks.fragment.xml"
+        },
+        {
+            "name": "fragment/InvUblsuccess.fragment.xml"
+        },
+        {
+            "name": "fragment/Captureselect.fragment.xml"
+        },
+        {
+            "name": "fragment/CostCenter.fragment.xml"
+        },
+        {
+            "name": "fragment/Subseqpost.fragment.xml"
+        },
+        {
+            "name": "fragment/FilterPopovers.fragment.xml"
+        },
+        {
+            "name": "fragment/DP_Clearingview.fragment.xml"
+        },
+        {
+            "name": "fragment/CustomCol_Dashboard.fragment.xml"
+        },
+        {
+            "name": "fragment/DP_Clearing.fragment.xml"
+        },
+        {
+            "name": "fragment/HSNCode_PO.fragment.xml"
+        },
+        {
+            "name": "fragment/PaymentMethod.fragment.xml"
+        },
+        {
+            "name": "fragment/GRNList.fragment.xml"
+        },
+        {
+            "name": "fragment/GLAcc.fragment.xml"
+        },
+        {
+            "name": "fragment/Assign.fragment.xml"
+        },
+        {
+            "name": "fragment/Currency.fragment.xml"
+        },
+        {
+            "name": "fragment/DocumentNo.fragment.xml"
+        },
+        {
+            "name": "fragment/TemplatePopover_fullfill.fragment.xml"
+        },
+        {
+            "name": "fragment/Material.fragment.xml"
+        },
+        {
+            "name": "fragment/Confirmation.fragment.xml"
+        },
+        {
+            "name": "fragment/CreateTemplate_fullfill.fragment.xml"
+        },
+        {
+            "name": "fragment/PaymentLoc.fragment.xml"
+        },
+        {
+            "name": "fragment/getComments_autopark.fragment.xml"
+        },
+        {
+            "name": "fragment/Advancefrag.fragment.xml"
+        },
+        {
+            "name": "fragment/HouseBank.fragment.xml"
+        },
+        {
+            "name": "fragment/SearchFrag.fragment.xml"
+        },
+        {
+            "name": "fragment/CustomCol_Autopark.fragment.xml"
+        },
+        {
+            "name": "fragment/CustomCol_Fullfillment.fragment.xml"
+        },
+        {
+            "name": "fragment/ErrorrPayAppr.fragment.xml"
+        },
+        {
+            "name": "fragment/TemplatePopover_dash.fragment.xml"
+        },
+        {
+            "name": "fragment/Lifnrmulti.fragment.xml"
+        },
+        {
+            "name": "fragment/InvoiceNo.fragment.xml"
+        },
+        {
+            "name": "fragment/Reject.fragment.xml"
+        },
+        {
+            "name": "fragment/qidf4help.fragment.xml"
+        },
+        {
+            "name": "fragment/Purchase.fragment.xml"
+        },
+        {
+            "name": "fragment/AddComment.fragment.xml"
+        },
+        {
+            "name": "fragment/Comments.Fragment.xml"
+        },
+        {
+            "name": "fragment/AddSesPo.fragment.xml"
+        },
+        {
+            "name": "fragment/Key.fragment.xml"
+        },
+        {
+            "name": "fragment/Capture.fragment.xml"
+        },
+        {
+            "name": "fragment/success.fragment.xml"
+        },
+        {
+            "name": "fragment/Company.fragment.xml"
+        },
+        {
+            "name": "fragment/GRN.fragment.xml"
+        },
+        {
+            "name": "fragment/TemplatePopover.fragment.xml"
+        },
+        {
+            "name": "fragment/Detail1.fragment.xml"
+        },
+        {
+            "name": "fragment/getPDF.fragment.xml"
+        },
+        {
+            "name": "fragment/AdvanceRequestNPO.fragment.xml"
+        },
+        {
+            "name": "fragment/SearchfragPayment.fragment.xml"
+        },
+        {
+            "name": "fragment/TaxcodeTaxTab.fragment.xml"
+        },
+        {
+            "name": "fragment/PaymentTerm.fragment.xml"
+        },
+        {
+            "name": "fragment/BusinessPlace.fragment.xml"
+        },
+        {
+            "name": "fragment/PurchaseOrder.fragment.xml"
+        },
+        {
+            "name": "fragment/PoTo.fragment.xml"
+        },
+        {
+            "name": "fragment/SuccessReuse.fragment.xml"
+        },
+        {
+            "name": "fragment/Error.fragment.xml"
+        },
+        {
+            "name": "fragment/ViewPDF.fragment.xml"
+        },
+        {
+            "name": "fragment/WarningReuse.fragment.xml"
+        },
+        {
+            "name": "fragment/Section.fragment.xml"
+        },
+        {
+            "name": "fragment/StartWorkflow.fragment.xml"
+        },
+        {
+            "name": "fragment/TATDialog.fragment.xml"
+        },
+        {
+            "name": "fragment/TaxCodePoRef.fragment.xml"
+        },
+        {
+            "name": "fragment/Image.fragment.xml"
+        },
+        {
+            "name": "fragment/AutoParkReversal.fragment.xml"
+        },
+        {
+            "name": "fragment/TemplatePopover_apk.fragment.xml"
+        },
+        {
+            "name": "fragment/AddAttachment.fragment.xml"
+        },
+        {
+            "name": "fragment/Recallerror.fragment.xml"
+        },
+        {
+            "name": "fragment/SuccessPayAppr.fragment.xml"
+        },
+        {
+            "name": "fragment/CommentsNponRej.fragment.xml"
+        },
+        {
+            "name": "fragment/InvUblreject.fragment.xml"
+        },
+        {
+            "name": "fragment/inputError.fragment.xml"
+        },
+        {
+            "name": "fragment/Changegrn.fragment.xml"
+        },
+        {
+            "name": "fragment/Agentsuccess.fragment.xml"
+        },
+        {
+            "name": "fragment/SuccessDialog.fragment.xml"
+        },
+        {
+            "name": "fragment/pick.fragment.xml"
+        },
+        {
+            "name": "fragment/PoNo.fragment.xml"
+        },
+        {
+            "name": "manifest.json"
+        },
+        {
+            "name": "view/App.view.xml"
+        },
+        {
+            "name": "view/Approval.view.xml"
+        },
+        {
+            "name": "view/Invoice.view.xml"
+        },
+        {
+            "name": "view/Recall.view.xml"
+        },
+        {
+            "name": "view/VendorOnboard.view.xml"
+        },
+        {
+            "name": "view/PayWB-Approver.view.xml"
+        },
+        {
+            "name": "view/AutoPark.view.xml"
+        },
+        {
+            "name": "view/StatusFlow.view.xml"
+        },
+        {
+            "name": "view/InvoiceUnblock.view.xml"
+        },
+        {
+            "name": "view/Deviation.view.xml"
+        },
+        {
+            "name": "view/SES.view.xml"
+        },
+        {
+            "name": "view/ApprovalMobile.view.xml"
+        },
+        {
+            "name": "view/PayWBFinal.view.xml"
+        },
+        {
+            "name": "view/Assigngrn.view.xml"
+        },
+        {
+            "name": "view/RecurringBill.view.xml"
+        },
+        {
+            "name": "view/MSME.view.xml"
+        },
+        {
+            "name": "view/AdvanceApp.view.xml"
+        },
+        {
+            "name": "view/Barcode.view.xml"
+        },
+        {
+            "name": "view/NonPoIndexer.view.xml"
+        },
+        {
+            "name": "view/AgentReassign.view.xml"
+        },
+        {
+            "name": "view/History.view.xml"
+        },
+        {
+            "name": "view/PhysicalTracking.view.xml"
+        },
+        {
+            "name": "view/Tatanalysis.view.xml"
+        },
+        {
+            "name": "view/creditNote.view.xml"
+        },
+        {
+            "name": "view/PaymentWorkbench.view.xml"
+        },
+        {
+            "name": "view/Workbench.view.xml"
+        },
+        {
+            "name": "view/Dashboard.view.xml"
+        },
+        {
+            "name": "view/CaptureCenter.view.xml"
+        },
+        {
+            "name": "view/Fulfilment.view.xml"
+        },
+        {
+            "name": "view/StatusUpdate.view.xml"
+        },
+        {
+            "name": "neo-app.json"
+        }
+    ]
+}

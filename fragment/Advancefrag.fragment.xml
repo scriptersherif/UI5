@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Popover class="sapUiContentPadding SettingsPOPCls cl_popad" placement="Top" showHeader="false" modal="false">
+		<content >
+			<VBox alignItems="Start" justifyContent="Start" alignContent="Center">
+				<Button icon="Images/Copy.svg" visible="{jsTab>/Indexer}" iconFirst="true" text="{i18n>MakeasPO}" press="fnMakePo"
+					class=" sapUiSizeCompact cl_makeaspo cl_adfrag_btn "></Button>
+				<!--<Button icon="Images/Copy1.svg" enabled="false" visible="{jsTab>/Workbench}" iconFirst="false" text="{i18n>MakeasPO}"-->
+				<!--	class=" sapUiSizeCompact cl_makeaspo cl_adfrag_btn1 "></Button>-->
+				<Button icon="Images/worka.svg" iconFirst="true" visible="{jsTab>/Workbench}" text="{i18n>StartWorkflow}" press="fn_startworkflow"
+					class=" sapUiSizeCompact cl_query cl_adfrag_btn "></Button>
+				<Button icon="Images/worka.svg" iconFirst="true" visible="{jsTab>/Indexer}" press="fn_startworkflow" enabled="false"
+					text="{i18n>StartWorkflow}" class=" sapUiSizeCompact cl_query cl_adfrag_btn1 "></Button>
+				<!--<Button visible="{jsAdvance>/Visible}" icon="Images/AddImage.svg" press="fn_Image_new" iconFirst="true"-->
+				<!--	text="{i18n>Image}" class=" sapUiSizeCompact cl_img cl_adfrag_btn "></Button>-->
+				<Button  icon="Images/commenta.svg" press="fn_AddComment_frag" iconFirst="true"
+					text="{i18n>AddComment}" class=" sapUiSizeCompact cl_comment cl_adfrag_btn "></Button>
+				<Button  visible="{jsAdvance>/Visible}" icon="Images/attacha.svg" iconFirst="true" press="fn_add_attach_frag"
+					text="{i18n>AddAttachment}" class=" sapUiSizeCompact cl_attach cl_adfrag_btn "></Button>
+			</VBox>
+		</content>
+	</Popover>
+</core:FragmentDefinition>

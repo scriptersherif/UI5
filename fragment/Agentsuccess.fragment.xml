@@ -1,0 +1,24 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc">
+    <Dialog id="customSuccessDialog"
+            showHeader="false"
+            class="cl_successDialog"
+            stretchOnPhone="true"
+            draggable="false"
+            resizable="false">
+
+        <VBox class="cl_successWrapper" alignItems="Center" justifyContent="Start">
+            <VBox class="cl_successTopCurve" alignItems="Center" justifyContent="Center">
+                <Image src="Images/rocket.svg" class="cl_successIcon" />
+            </VBox>
+
+            <VBox class="cl_successContent" alignItems="Center" justifyContent="Center">
+                <Text text="Success" class="cl_successTitle" />
+                <Text text="{successModel>/message}" class="cl_successMessage" />
+                <Button text="✕    Close " type="Emphasized"
+                        class="cl_btn_searchapp cl_btn_searchsuccess"
+                        press=".onCloseSuccessDialog" />
+            </VBox>
+        </VBox>
+
+    </Dialog>
+</core:FragmentDefinition>

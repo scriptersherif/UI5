@@ -1,0 +1,678 @@
+{
+    "_version": "1.7.0",
+    "sap.app": {
+        "id": "FSC360NEW",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "sourceTemplate": {
+            "id": "servicecatalog.connectivityComponent",
+            "version": "0.0.0"
+        },
+        "dataSources": {
+            "PAY_ODATA_V1_SRV": {
+                "uri": "/sap/opu/odata/exl/PAY_ODATA_V1_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/PAY_ODATA_V1_SRV/metadata.xml"
+                }
+            },
+            "FSCNXT360_SRV": {
+                "uri": "/sap/opu/odata/exl/FSCNXT360_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        },
+        "supportedThemes": [
+            "sap_hcb",
+            "sap_belize"
+        ]
+    },
+    "sap.ui5": {
+        "rootView": {
+            "viewName": "FSC360NEW.view.App",
+            "type": "XML"
+        },
+        "dependencies": {
+            "minUI5Version": "1.30.0",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.ui.layout": {},
+                "sap.ushell": {},
+                "sap.collaboration": {},
+                "sap.ui.comp": {},
+                "sap.uxap": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "FSC360NEW.i18n.i18n"
+                }
+            },
+            "jsTab": {
+                "type": "sap.ui.model.json.JSONModel",
+                "settings": {},
+                "preload": false
+            },
+            "jsDet": {
+                "type": "sap.ui.model.json.JSONModel",
+                "settings": {},
+                "preload": false
+            },
+            "MOpenitems": {
+                "type": "sap.ui.model.json.JSONModel",
+                "settings": {},
+                "preload": false
+            },
+            "JComp": {
+                "type": "sap.ui.model.json.JSONModel",
+                "settings": {},
+                "dataSource": "PAY_ODATA_V1_SRV",
+                "preload": false
+            },
+            "": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "OneTime",
+                    "defaultCountMode": "Request"
+                },
+                "dataSource": "FSCNXT360_SRV",
+                "preload": true
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewPath": "FSC360NEW.view",
+                "controlId": "id_app"
+            },
+            "targets": {
+                "Fulfilment": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "Fulfilment",
+                    "viewLevel": 10,
+                    "controlId": "id_app",
+                    "controlAggregation": "pages"
+                },
+                "Dashboard": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "Dashboard",
+                    "viewLevel": 3,
+                    "controlId": "id_app",
+                    "controlAggregation": "pages"
+                },
+                "StatusFlow": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "StatusFlow",
+                    "viewLevel": 4,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "Barcode": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "Barcode",
+                    "viewLevel": 5,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "CaptureCenter": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "CaptureCenter",
+                    "viewLevel": 6,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "SES": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "SES",
+                    "viewLevel": 7,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "Workbench": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "Workbench",
+                    "viewLevel": 8,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "AdvanceApp": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "AdvanceApp",
+                    "viewLevel": 9,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "Approval": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "Approval",
+                    "viewLevel": 10,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "ApprovalMobile": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "ApprovalMobile",
+                    "viewLevel": 10,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "Invoice": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "Invoice",
+                    "viewLevel": 11,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "History": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "History",
+                    "viewLevel": 12,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "Capture": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "Capture",
+                    "viewLevel": 13,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "AutoPark": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "AutoPark",
+                    "viewLevel": 11,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "VendorOnboard": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "VendorOnboard",
+                    "viewLevel": 12,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "Tatanalysis": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "Tatanalysis",
+                    "viewLevel": 8,
+                    "controlId": "id_app",
+                    "controlAggregation": "pages"
+                },
+                "Recall": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "Recall",
+                    "viewLevel": 10,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "InvoiceUnblock": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "InvoiceUnblock",
+                    "viewLevel": 11,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "PhysicalTracking": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "PhysicalTracking",
+                    "viewLevel": 10,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "Deviation": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "Deviation",
+                    "viewLevel": 10,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "MSME": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "MSME",
+                    "viewLevel": 11,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "NonPoIndexer": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "NonPoIndexer",
+                    "viewLevel": 11,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "PaymentWorkbench": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "PaymentWorkbench",
+                    "viewLevel": 12,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "RecurringBill": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "RecurringBill",
+                    "viewLevel": 10,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "PayWB-Approver": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "PayWB-Approver",
+                    "viewLevel": 12,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "PayWBFinal": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "PayWBFinal",
+                    "viewLevel": 12,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "AgentReassign": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "AgentReassign",
+                    "viewLevel": 10,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "StatusUpdate": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "StatusUpdate",
+                    "viewLevel": 10,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "Assigngrn": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "Assigngrn",
+                    "viewLevel": 10,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app"
+                },
+                "creditNote": {
+                    "clearAggregation": true,
+                    "controlAggregation": "pages",
+                    "controlId": "id_app",
+                    "transition": "slide",
+                    "viewLevel": 11,
+                    "viewName": "creditNote",
+                    "viewType": "XML"
+                }
+            },
+            "routes": [
+                {
+                    "name": "Dashboard",
+                    "pattern": "",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Dashboard"
+                    ]
+                },
+                {
+                    "name": "Fulfilment",
+                    "pattern": "Fulfilment/{btnstat}",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Fulfilment"
+                    ]
+                },
+                {
+                    "name": "StatusFlow",
+                    "pattern": "Status",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "StatusFlow"
+                    ]
+                },
+                {
+                    "name": "Barcode",
+                    "pattern": "Barcode",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Barcode"
+                    ]
+                },
+                {
+                    "name": "CaptureCenter",
+                    "pattern": "Capture/{cFlag}",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "CaptureCenter"
+                    ]
+                },
+                {
+                    "name": "SES",
+                    "pattern": "Spend",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "SES"
+                    ]
+                },
+                {
+                    "name": "Workbench",
+                    "pattern": "Wb/{QueueID}/{Bukrs}/{Stats}/{Agent}/{Username}/{UserType}/{NavScreen}/{Flag}/{Type}",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Workbench"
+                    ]
+                },
+                {
+                    "name": "AdvanceApp",
+                    "pattern": "Advance",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "AdvanceApp"
+                    ]
+                },
+                {
+                    "name": "Approval",
+                    "pattern": "Approval",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Approval"
+                    ]
+                },
+                {
+                    "name": "ApprovalMobile",
+                    "pattern": "ApprovalMobile",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "ApprovalMobile"
+                    ]
+                },
+                {
+                    "name": "Invoice",
+                    "pattern": "Invoice/{flagid}/{QueueID}/{Wi_id}",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Invoice"
+                    ]
+                },
+                {
+                    "name": "History",
+                    "pattern": "History",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "History"
+                    ]
+                },
+                {
+                    "name": "Capture",
+                    "pattern": "Capture",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Capture"
+                    ]
+                },
+                {
+                    "name": "AutoPark",
+                    "pattern": "AutoPark",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "AutoPark"
+                    ]
+                },
+                {
+                    "name": "VendorOnboard",
+                    "pattern": "VendorOnboard",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "VendorOnboard"
+                    ]
+                },
+                {
+                    "name": "Tatanalysis",
+                    "pattern": "Tatanalysis",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Tatanalysis"
+                    ]
+                },
+                {
+                    "name": "Recall",
+                    "pattern": "Recall",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Recall"
+                    ]
+                },
+                {
+                    "name": "InvoiceUnblock",
+                    "pattern": "InvoiceUnblock",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "InvoiceUnblock"
+                    ]
+                },
+                {
+                    "name": "PhysicalTracking",
+                    "pattern": "PhysicalTracking",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "PhysicalTracking"
+                    ]
+                },
+                {
+                    "name": "Deviation",
+                    "pattern": "Deviation",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Deviation"
+                    ]
+                },
+                {
+                    "name": "MSME",
+                    "pattern": "MSME",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "MSME"
+                    ]
+                },
+                {
+                    "name": "NonPoIndexer",
+                    "pattern": "NonPoIndexer",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "NonPoIndexer"
+                    ]
+                },
+                {
+                    "name": "PaymentWorkbench",
+                    "pattern": "PaymentWorkbench",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "PaymentWorkbench"
+                    ]
+                },
+                {
+                    "name": "PayWB-Approver",
+                    "pattern": "PayWB-Approver",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "PayWB-Approver"
+                    ]
+                },
+                {
+                    "name": "RecurringBill",
+                    "pattern": "RecurringBill",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "RecurringBill"
+                    ]
+                },
+                {
+                    "name": "PayWBFinal",
+                    "pattern": "PayWBFinal",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "PayWBFinal"
+                    ]
+                },
+                {
+                    "name": "AgentReassign",
+                    "pattern": "AgentReassign",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "AgentReassign"
+                    ]
+                },
+                {
+                    "name": "StatusUpdate",
+                    "pattern": "StatusUpdate",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "StatusUpdate"
+                    ]
+                },
+                {
+                    "name": "Assigngrn",
+                    "pattern": "Assigngrn",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Assigngrn"
+                    ]
+                },
+                {
+                    "name": "creditNote",
+                    "pattern": "creditNote",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "creditNote"
+                    ]
+                }
+            ]
+        }
+    },
+    "sap.platform.abap": {
+        "uri": "/sap/bc/ui5_ui5/exl/fscnxt360",
+        "_version": "1.1.0"
+    }
+}

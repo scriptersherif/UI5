@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m"  xmlns:core="sap.ui.core">
+	<SelectDialog  title="{i18n>Select SGL}" class="cl_frag" liveChange="fn_SGl_LC" items="{JSSGL>/}" 
+		confirm="fn_Head_SGLInd" >
+		<StandardListItem  title="{JSSGL>Koart}" description="{JSSGL>Merkp}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

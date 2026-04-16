@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+	<Dialog id="PDFDialog" showHeader="false" class="cl_dialog">
+		 <HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pdf_dialog_header">
+        <Text text="Invoice Preview" class="sapUiTinyMargin sapMTitle sapMTitleStyleH4"/>
+        	<!--<Button icon="Images/plus.svg" tooltip="Zoom In" press="fn_onZoomIn" type="Transparent"-->
+									<!--	class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn " width="12px" height="12px"/>-->
+									<!--<Button icon="Images/minus.svg" tooltip="Zoom Out" press="fn_onZoomOut" type="Transparent"-->
+									<!--	class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn"/>-->
+									<!--<Button icon="Images/print.svg" tooltip="Print" press="fn_onPrint" type="Transparent"-->
+									<!--	class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn"/>-->
+									<!--<Button icon="Images/downloadin.svg" tooltip="Download PDF" press="fn_onDownload" type="Transparent"-->
+									<!--	class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn"/>-->
+        <Button icon="Images/cancel.svg" type="Transparent" class="sapUiSizeCompact cl_btn_rest cl_btn_rej cl_pdf_close" press="fnfragPDFClose" tooltip="Close"/>
+      </HBox>
+	
+		<VBox class="cl_leftPanell">
+								<ScrollContainer id="id_scrll" width="100%" class="sapUiTinyMargin" visible="false" focusable="true" horizontal="true" vertical="true"></ScrollContainer>
+							</VBox>
+	</Dialog>
+</core:FragmentDefinition>

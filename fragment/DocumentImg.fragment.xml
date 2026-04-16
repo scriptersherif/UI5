@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog title="Document Image" showHeader="false" class="cl_dialogtitle" id="id_dialogimg">
+  	<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pdf_dialog_header">
+  	  <Text text="Invoice Preview" class="sapUiTinyMargin sapMTitle sapMTitleStyleH4"/>
+        <Button icon="Images/cancel.svg" type="Transparent" class="sapUiSizeCompact cl_btn_rest cl_btn_rej cl_pdf_close" press="fn_close_docimg" tooltip="Close"/>
+      </HBox>
+    <VBox alignContent="Center" alignItems="Center" justifyContent="Center" class="cl_blue_background ">
+      <ScrollContainer id="id_scrll" width="100%" class="sapUiTinyMargin" focusable="true" horizontal="true" vertical="true"></ScrollContainer>
+    </VBox>
+    <!--<VBox alignContent="Center" alignItems="Center" justifyContent="Center">-->
+    <!--  <Button text="Close" press="fn_close_docimg" class="sapUiSizeCompact cl_btnsubmit3"></Button>-->
+    <!--</VBox>-->
+  </Dialog>
+</core:FragmentDefinition>
+
+<!--<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">-->
+<!--	<Dialog id="PDFDialog" showHeader="false" class="cl_dialog">-->
+<!--		 <HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pdf_dialog_header">-->
+<!--        <Text text="Invoice Preview" class="sapUiTinyMargin sapMTitle sapMTitleStyleH4"/>-->
+<!--        <Button icon="Images/cancel.svg" type="Transparent" class="sapUiSizeCompact cl_btn_rest cl_btn_rej cl_pdf_close" press="fnfragPDFClose" tooltip="Close"/>-->
+<!--      </HBox>-->
+	
+<!--		<VBox class="cl_leftPanell">-->
+<!--								<ScrollContainer id="id_scrll" width="100%" class="sapUiTinyMargin" visible="false" focusable="true" horizontal="true" vertical="true"></ScrollContainer>-->
+<!--							</VBox>-->
+<!--	</Dialog>-->
+<!--</core:FragmentDefinition>-->

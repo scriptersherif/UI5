@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="{i18n>Reject}" class="APW_DilogClass">
+		<content>
+			<VBox id="id_revreasonBox" visible="false">
+				<Label text="{i18n>Reason for reversal}" class="FSC_Label cl_revreason_lab sapUiTinyMarginBegin sapUiTinyMarginTop"
+					tooltip="{i18n>Reason for reversal}"></Label>
+				<Select items="{JSRevReasons>/}" id="id_SelReversal" width="20rem" change="" selectedKey="1"
+					class="cl_swRevReasonSelect cl_trastype sapUiSizeCompact sapUiTinyMarginBegin">
+					<core:Item key="{JSRevReasons>Stgrd}" text="{JSRevReasons>Txt40}"/>
+				</Select>
+			</VBox>
+			<Text text="{i18n>Comments}" class="sapUiTinyMarginBegin sapUiTinyMarginTop FSC_Label"></Text>
+			<TextArea id="id_Remark_Rejct" class="sapUiTinyMarginBegin textArea" liveChange="fnLiveRemark" width="95%"/>
+			<!--<OverflowToolbar class="barClass sapUiTinyMarginTop">-->
+			<!--	<Button type="Reject" text="{i18n>cancel}" icon="sap-icon://decline" press="fnCloseReject" tooltip="{i18n>cancel}" class="sapUiSizeCompact"/>-->
+			<!--	<ToolbarSpacer/>-->
+			<!--	<Button type="Accept" icon="sap-icon://accept" text="{i18n>Submit}" press="fnRejectRemark" tooltip="{i18n>Submit}" class="sapUiSizeCompact"/>-->
+			<!--</OverflowToolbar>-->
+		</content>
+		<HBox class="sapUiSizeCompact sapUiSmallMargin" alignContent="Cneter" alignItems="Center" justifyContent="Center">
+			<Button type="Reject" text="{i18n>Cancel}" press="fnCloseReject" tooltip="{i18n>cancel}"
+				class="sapUiTinyMarginEnd cl_fragcancelbtn sapUiSizeCompact"/>
+			<Button type="Accept" tooltip="{i18n>Submit for Reject the Queue ID}" press="fnRejectRemark" text="{i18n>Submit}"
+				class="sapUiTinyMarginBegin cl_fragfinalbtn sapUiSizeCompact"/>
+		</HBox>
+	</Dialog>
+</core:FragmentDefinition>

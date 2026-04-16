@@ -1,0 +1,115 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.VendorOnboard"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Title">
+				<customHeader>
+					<Toolbar class="header_bar1 sapUiSmallMarginEnd">
+						<Image id="id_fnback" src="Images/Left.svg" class="cl_back_btn sapUiSmallMarginBegin" visible="false" press="fn_back"></Image>
+						<Text text="Vendor Onboarding" class="cl_bold cl_black_txt cl_heading cl_font sapUiSmallMarginBegin"></Text>
+						<ToolbarSpacer/>
+							<Button icon="Images/refresh.svg" tooltip="Refresh" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbutton.svg" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="cl_username cl_font team_text "></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<VBox class="vboxBackground">
+						<HBox justifyContent="Center" alignItems="Center" class="mainContentHBox">
+							<VBox class="formCardBox">
+								<HBox class="cl_title_fragment_box" alignItems="Center" justifyContent="Center">
+									<Text text="Vendor Details" class="cl_vendorTitle cl_vendortitle1" textAlign="Center"/>
+								</HBox>
+								<VBox class="formCardBoxSub">
+									<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+										<VBox class="formFieldbarcode cl_vendoronboard_comp">
+											<Text text="Company Code" class="cl_textbarcode cl_mandatory_label"/>
+											<HBox class="formInputWithIconbar cl_vendoronboard_comp">
+												<ComboBox id="id_Bukrs" class="cl_combo_transBar cl_combo_transBarbarcode cl_vendoronboard_comp" placeholder="Select Company"
+													selectionChange="fn_liveChange" items="{ path: 'jsCompany>/' }">
+													<core:Item key="{jsCompany>Bukrs}" text="{jsCompany>Bukrs} - {jsCompany>Butxt}"/>
+												</ComboBox>
+											</HBox>
+										</VBox>
+									</HBox>
+									<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+										<VBox class="formFieldbarcode cl_inputbox_vendoronboardcont">
+											<Text text="Department" class="cl_textbarcode"/>
+											<HBox class="formInputWithIconbar">
+												<ComboBox id="id_Department" class="cl_combo_transBar cl_combo_transBarbarcode cl_vendoronboard_comp" placeholder="Select Department"
+													change="fn_liveChange" layoutData="sap.ui.layout.FlexItemData" valueState="None" filterSecondaryValues="true" showSecondaryValues="true">
+													<core:Item key="{JSDept>Dept}" text="{JSDept>Text30}"/>
+												</ComboBox>
+											</HBox>
+										</VBox>
+									</HBox>
+									<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+										<VBox class="formFieldbarcode cl_inputbox_vendoronboardcont">
+											<Text text="Purchase Organization" class="cl_textbarcode"/>
+											<HBox class="formInputWithIconbar">
+												<ComboBox id="id_Purchasegrp" class="cl_combo_transBar cl_combo_transBarbarcode cl_vendoronboard_comp" placeholder="Select Purchasegrp"
+													change="fn_liveChange" layoutData="sap.ui.layout.FlexItemData" valueState="None" filterSecondaryValues="true" showSecondaryValues="true">
+													<core:Item key="{JSPurchaseOrg>Ekorg}" text="{JSPurchaseOrg>Ekotx}"/>
+												</ComboBox>
+											</HBox>
+										</VBox>
+									</HBox>
+									<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+										<VBox class="formFieldbarcode cl_inputbox_vendoronboardcont">
+											<Text text="Account Group" class="cl_textbarcode"/>
+											<HBox class="formInputWithIconbar">
+												<ComboBox id="id_Accgrp" class="cl_combo_transBar cl_combo_transBarbarcode cl_vendoronboard_comp" placeholder="Select Accgrp"
+													change="fn_liveChange" layoutData="sap.ui.layout.FlexItemData" valueState="None" filterSecondaryValues="true" showSecondaryValues="true">
+													<core:Item key="{JSAccGrp>Ktokk}" text="{JSAccGrp>Txt30}"/>
+												</ComboBox>
+											</HBox>
+										</VBox>
+									</HBox>
+									<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+										<VBox class="formFieldbarcode">
+											<Text text="Name" class="cl_textbarcode"/>
+											<HBox class="formInputWithIconbar">
+												<Input id='id_name' class="formInputB2 forminputfragvo" liveChange='fn_liveChange' layoutData="sap.ui.layout.FlexItemData"/>
+											</HBox>
+										</VBox>
+									</HBox>
+									<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+										<VBox class="formFieldbarcode">
+											<Text text="Email Id" class="cl_textbarcode"/>
+											<HBox class="formInputWithIconbar">
+												<Input id='id_email' change='fn_mailCheck' class="formInputB2 forminputfragvo" liveChange='fn_liveChange'
+													layoutData="sap.ui.layout.FlexItemData"/>
+											</HBox>
+										</VBox>
+									</HBox>
+									<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+										<VBox class="formFieldbarcode cl_inputbox_vendoronboardcont">
+											<Text text="Vendor Type" class="cl_textbarcode"/>
+											<HBox class="formInputWithIconbar">
+												<ComboBox id="id_vendorTyp" class="cl_combo_transBar cl_combo_transBarbarcode cl_vendoronboard_comp" placeholder="Select Vendor Type"
+													layoutData="sap.ui.layout.FlexItemData" valueState="None" filterSecondaryValues="true" change="fn_liveChange" showSecondaryValues="true">
+													<core:Item key="{jsVendor>DomvalueL}" text="{jsVendor>Ddtext}"/>
+												</ComboBox>
+											</HBox>
+										</VBox>
+									</HBox>
+								</VBox>
+								<HBox class="cl_title_fragment_box cl_footer_fragment_box" alignItems="Center" justifyContent="Center">
+									<Button text="Clear and Reset" tooltip="Clear and Reset" icon="Images/restore.svg" class="sapUiSizeCompact cl_btn_rest" press='fn_clear'></Button>
+									<Button text="Invite" type="transparent" tooltip="{i18n>Submit}" icon="Images/post_btn.svg" class="sapUiSizeCompact cl_btn_req "
+										press='fn_onSumbit'></Button>
+								</HBox>
+							</VBox>
+							<VBox width="50%" class="rightImageBox" alignItems="Center" justifyContent="Center">
+								<Image src="Images/Group9001.svg" width="85%"/>
+							</VBox>
+						</HBox>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

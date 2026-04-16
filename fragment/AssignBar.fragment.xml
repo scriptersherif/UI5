@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+	<Dialog title="Please Enter Barcode" contentHeight="20rem" contentWidth="28rem" showHeader="true" class="cl_agentDialog">
+		<VBox class="sapUiSmallMargin" height="300px">
+			<!-- Barcode Inputs -->
+			<VBox class="column formField1" height="50px">
+				<Text text="{i18n>Barcode}" tooltip="{i18n>Barcode}" class="cl_bar_text"></Text>
+				<HBox class="">
+					<Input id="id_BarcodePlant" class="formInputA11" editable="false"/>
+					<Input id="id_BarcodeFisc" liveChange="fnChangeState" class="formInputA12" editable="false"/>
+					<Input id="id_BarcodeEdit" liveChange="fnChangeState" class="formInputA13" type="Number" maxLength="6"/>
+				</HBox>
+			</VBox>
+			<!-- Remarks TextArea -->
+			<VBox height="140px">
+			<Label text="Remarks" class="cl_remark_text"/>
+			<TextArea id="id_Remarks" maxLength="255" rows="3" class="cl_remarksInput" liveChange="fnLiveRemark" placeholder="Enter here..."/>
+				
+				</VBox><VBox height="40px">
+				<u:FileUploader id="id_imgUplod" name="myFileUpload" uploadUrl="/sap/opu/odata/EXL/FSCNXT360_SRV/ImageSet"
+			tooltip="Upload your file to the local server" visible="true" class="sapUiSizeCompact sapUiSmallMarginBegin"
+			change="handleUploadCompleteImg" typeMissmatch="handleTypeMissmatch" fileType="pdf" style="Emphasized"
+			placeholder="Choose a file for Upload..."></u:FileUploader></VBox>
+		</VBox>
+		
+		<!-- Footer Buttons -->
+		<!--<beginButton>-->
+		<!--	<Button text="{i18n>Cancel}"  icon="Images/cancel.svg" class="gl_canbtn " press="fnBarcodeImgCancel"></Button>-->
+		<!--</beginButton>-->
+		<!--<endButton>-->
+		<!--	<Button text="{i18n>Get Invoice}" icon="Images/getinvab.svg" class=" gl_subbtn  " press="fnSubmitImgBarcode"></Button>-->
+		<!--</endButton>-->
+		<beginButton>
+			<Button text="Close" icon="Images/cancel.svg" class="gl_canbtn gl_canbtn1" press="fnBarcodeCancel"/>
+		</beginButton>
+		<endButton>
+			<Button text="Submit" icon="Images/submit.svg" class=" gl_subbtn gl_subbtn1 " press="fnSubmitBarcode"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

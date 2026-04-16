@@ -1,0 +1,43 @@
+<!--<core:FragmentDefinition xmlns="sap.m"  xmlns:core="sap.ui.core">-->
+<!--	<SelectDialog  title="{i18n>Select Vendor}" class="cl_frag"  liveChange="fn_Vendor_LC" items="{JSVendor>/}" -->
+<!--		confirm="fn_Vendor_Confrm" >-->
+<!--		<StandardListItem  title="{JSVendor>VendorDesc}" description="{JSVendor>Lifnr}"/>-->
+<!--	</SelectDialog>-->
+<!--</core:FragmentDefinition>-->
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog
+        id="idVendorDialog"
+        title="{i18n>Select Vendor}"
+        class="cl_frag"
+        stretchOnPhone="true"
+        contentHeight="400px"
+        contentWidth="50%">
+        <!-- Search Field -->
+        <SearchField liveChange="fn_Vendor_LC" width="100%" placeholder="Search Vendor" />
+        <!-- Vendor List -->
+        <List
+            id="idVendorList"
+            items="{JSVendor>/}"
+            mode="SingleSelectMaster"
+            selectionChange="onVendorSelect">
+        	<StandardListItem
+    title="{= ${JSVendor>VendorDesc} + ' - ' + ${JSVendor>Lifnr} }" />
+
+            <!--<StandardListItem-->
+            <!--    title="{JSVendor>VendorDesc}"-->
+            <!--    description="{JSVendor>Lifnr}" />-->
+        </List>
+        <!-- Footer Buttons -->
+        <beginButton>
+                 <Button type="Emphasized" class="sapUiSizeCompact gl_subbtn simpost " icon="Images/sub.svg" press="fn_Vendor_Confirm"  text="{i18n>Submit}"/>
+        </beginButton>
+        <endButton>
+           
+                <Button type="Emphasized"  icon="Images/cancel.svg" class="sapUiSizeCompact sapUiSmallMarginEnd gl_canbtn simcan" text="{i18n>Cancel}" press="fn_Vendor_Cancel"/>
+        </endButton>
+        <endButton>
+      
+    </endButton>
+
+    </Dialog>
+</core:FragmentDefinition>

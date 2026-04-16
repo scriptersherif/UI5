@@ -1,0 +1,322 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.StatusUpdate"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:uitable="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="Title" class="cl_stats_updt" id="id_stats_updt">
+				<customHeader>
+					<Toolbar class="header_bar_d">
+						<Title text="{i18n>StatusUpdt}" class="cl_ses_txt" tooltip="{i18n>scanapplication}"/>
+						<ToolbarSpacer/>
+						<Button icon="Images/refreshbtn.png" tooltip="{i18n>refresh}" class="cl_refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbtn.png" tooltip="{i18n>notification}" class="cl_notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<!--<Text text="AP Team" class="team_text"/>-->
+							<Text id="idusername" text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="team_text cl_font"></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<VBox class="cl_full_boxB cl_full_boxstatus cl_full_box_phy_trac1">
+						<VBox class="cl_statusflow_input_cont" id="id_cl_statusflow_input_cont">
+							<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd topbox" justifyContent="SpaceBetween" alignItems="End">
+								<VBox class="columnbarcode formFieldbarcode clscanapplication" width="">
+									<Text text="Company" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_companycode" items="{JSCCode>/Company}" selectedKey="{JSSelected>/Company}" placeholder="{i18n>companyCode}"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" selectionChange="fn_onCompanyChange" tooltip="{i18n>companyCode}">
+											<core:Item key="{JSCCode>Bukrs}" text="{JSCCode>Bukrs}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clscanapplication" width="">
+									<Text text="{i18n>FiscalYear}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<Input id="idfiscalyear" class="formInputB1" width="100%" layoutData="sap.ui.layout.FlexItemData" placeholder="{i18n>FiscalYear}"
+											tooltip="{i18n>FiscalYear}"/>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clscanapplication" width="">
+									<Text text="{i18n>ProfitCenter}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_profit2" items="{MProfitCenter>/}" placeholder="{i18n>ProfitCenter}"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp"  filterSecondaryValues="true"
+											showSecondaryValues="true" tooltip="{i18n>ProfitCenter}">
+											<core:Item text="{MProfitCenter>ProfitCtr}" key="{MProfitCenter>ProfitCtr}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clscanapplication" width="">
+									<Text text="{i18n>Plant}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="idplant" placeholder="{i18n>Plant}" class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp"
+											selectionChange="fn_PlantChange" filterSecondaryValues="true" showSecondaryValues="true" tooltip="{i18n>Plant}">
+											<!--<core:Item key="{JSPlant>Werks}" text="{JSPlant>Werks}"/>-->
+										</ComboBox>
+									</HBox>
+								</VBox>
+							</HBox>
+							<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd" justifyContent="SpaceBetween" alignItems="End">
+								<VBox class="columnbarcode formFieldbarcode clscanapplication">
+									<Text text="{i18n>Vendor}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="idVendor" placeholder="Select Vendor" width="100%" tooltip="{i18n>vendor}" selectionChange="fn_VendorChange"
+											class="formInputB1 cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" filterSecondaryValues="true" showSecondaryValues="true">
+											<core:Item key="{JSVendor>Lifnr}" text="{JSVendor>Mcod1}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clscanapplication" width="">
+									<Text text="{i18n>Transaction Type}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+									<ComboBox id="id_transactiontyp"
+          items="{JSTransType>/}"
+          placeholder="{i18n>transtype}"
+          class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp"
+          tooltip="{i18n>transtype}">
+    <core:Item key="{JSTransType>DomvalueL}" text="{JSTransType>Ddtext}" />
+</ComboBox>
+
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clscanapplication" width="">
+									<Text text="{i18n>Status}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_Statuss" items="{JSStatusList>/}" placeholder="Select Status" change=".fn_onStatusChange" tooltip="{i18n>Status}"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp">
+											<core:Item key="{JSStatusList>StatKey}" text="{JSStatusList>StatText}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="columnbarcode formFieldbarcode clscanapplication" width="">
+									<Text text="{i18n>agent}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_Agent" items="{jsUserName1>/}" placeholder="{i18n>PostingAgentPH}"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" showSecondaryValues="true" tooltip="{i18n>agent}"
+											selectionChange="onAgentChange">
+											<core:ListItem key="{jsUserName1>Bname}" text="{jsUserName1>NameLast}" additionalText="{jsUserName1>NameLast}"/>
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<!--<HBox class="cl_button_cont_recall">-->
+								<!--	<Button id="id_clear" text="{i18n>Clear}" icon="Images/clearab.svg" type="Transparent" press="fnclearbutt"-->
+								<!--		class="sapUiSizeCompact cl_btn_cleara " tooltip="{i18n>clearTooltip}"/>-->
+								<!--	<Button id="id_search" text="{i18n>Search}" icon="Images/searchab.svg" type="Transparent" press="fn_search"-->
+								<!--		class="sapUiSizeCompact cl_btn_searcha " tooltip="{i18n>searchTooltip}"/>-->
+								<!--</HBox>-->
+							</HBox>
+							<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd" justifyContent="SpaceBetween" alignItems="End">
+								<VBox class="columnbarcode formFieldbarcode clscanapplication" width="">
+									<Text text="{i18n>Priority}" class="cl_textbarcode"/>
+									<HBox class="formInputWithIconbar">
+										<ComboBox id="id_priority" items="{PriorityModel>/Priority}"  placeholder="{i18n>Prioritytt}"
+											class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp" showSecondaryValues="true" tooltip="{i18n>PostingAgentTT}"
+											selectionChange="onAgentChange">
+											<core:ListItem key="{PriorityModel>key}" text="{PriorityModel>text}" />
+										</ComboBox>
+									</HBox>
+								</VBox>
+								<VBox class="cl_date_recall " width="23%">
+									<Text text="Date" class="cl_textbarcode cl_textdeviation"/>
+									<HBox alignItems="Center" class="formInputWithIconbar forminputiconrecall">
+										<HBox class="formInputWithIconbar" alignItems="Center">
+											<DatePicker valueFormat="YYYY-MM-dd" readonly="true" icon="sap-icon://calendar" displayFormat="dd/MM/YYYY" placeholder="From"
+												class="formInputB1 forminputtat forminputfirsttat tatdatepick deviationdate deviationdatefirst" id="id_creationdatefrm"
+												change="fn_datevalidation"/>
+										</HBox>
+										<HBox class="formInputWithIconbar" alignItems="Center">
+											<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder="To"
+												class="formInputB1 forminputtat forminputlasttat forminputlastrecall forminputlastdeviation deviationdate deviationdatelast cl_recalldatelast"
+												id="id_creationdateend" change="fn_datevalidation"/>
+										</HBox>
+									</HBox>
+								</VBox>
+								<HBox class="cl_button_cont_recall cl_button_cont_agentreassign ">
+									<Button id="id_clear" text="{i18n>Clear}" icon="Images/clearab.svg" type="Transparent" press="fnclearbutt"
+										class="sapUiSizeCompact cl_btn_cleara " tooltip="{i18n>clearTooltip}"/>
+									<Button id="id_search" text="{i18n>Search}" icon="Images/searchab.svg" type="Transparent" press="fnSearchPress"
+										class="sapUiSizeCompact cl_btn_searcha " tooltip="{i18n>searchTooltip}"/>
+								</HBox>
+							</HBox>
+						</VBox>
+						<Toolbar class="cl_tbr_1 cl_tbr_2">
+							<HBox alignItems="Center" justifyContent="Center" class="filter_icon_recall_cont">
+								<Image src="Images/Filter.svg" press="fnFilterPop" class="sapUiSizeCompact cl_filter_btn cl_filter_btn1" tooltip="{i18n>filter}"/>
+							</HBox>
+							<Text text="{i18n>No.of.Records}" id="idCardTitle" class="cl_Tltxt cl_Tltxt_scan" tooltip="{i18n>alllist}"/>
+							<Text text="0" class="cl_badge_counter" id="LabTabWRATitle"/>
+							<ToolbarSpacer/>
+							<HBox class="cl_search_containerap" alignItems="Center" justifyContent="Start" fitContainer="true">
+								<MultiComboBox id="id_search_fields" selectionChange="onSearchFieldsChange" placeholder="Select fields"
+									class="cl_search_multi cl_searchmulti">
+									<items>
+										<core:Item key="Qid" text="Queue Id"/>
+										<core:Item key="Name1" text="Vendor"/>
+										<core:Item key="Invno" text="Invoice No"/>
+										<core:Item key="Assignedto" text="Assigned"/>
+										<core:Item key="Bukrs" text="Plant"/>
+									</items>
+								</MultiComboBox>
+								<SearchField id="id_search_field" placeholder="Search..." liveChange="fnSearchField" search="fnSearchField"
+									class="cl_search_field sapUiSmallMarginEnd"/>
+							</HBox>
+						
+						</Toolbar>
+						<uitable:Table id="id_reassignTable" rows="{WRL>/WRLLIST}" selectionMode="MultiToggle" enableSelectAll="true" width="100%"
+							class="cl_custom_table cl_custom_tableapk cl_tatreport_table cl_recall_table cl_deviationtable" rowSelectionChange="fn_action"
+							fixedColumnCount="1" visibleRowCount="8" selectionChange="onSelectionChange">
+							<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/1/visible}">
+								<Text text="{FilterTableModel>/1/label}" tooltip="{FilterTableModel>/1/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{WRL>Qid}" tooltip="{WRL>Qid}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="4rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/0/visible}">
+								<Text text="{FilterTableModel>/0/label}" tooltip="{FilterTableModel>/0/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{WRL>Priority}" tooltip="{WRL>Priority}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/2/visible}">
+								<Text text="{FilterTableModel>/2/label}" tooltip="{FilterTableModel>/2/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'WRL>Erdat', formatter :'FSC360NEW.model.formatter.fnDate'}"
+										tooltip="{path:'WRL>Erdat', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/3/visible}">
+								<Text text="{FilterTableModel>/3/label}" tooltip="{FilterTableModel>/3/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{WRL>Lifnr}" tooltip="{WRL>Lifnr}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/4/visible}">
+								<Text text="{FilterTableModel>/4/label}" tooltip="{FilterTableModel>/4/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{WRL>Name1}" tooltip="{WRL>Name1}" class="cl_column_cell cl_nowrap_table" wrapping="false"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5.7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/5/visible}">
+								<Text text="{FilterTableModel>/5/label}" tooltip="{FilterTableModel>/5/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{WRL>Ebeln}" tooltip="{WRL>Ebeln}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/6/visible}">
+								<Text text="{FilterTableModel>/6/label}" tooltip="{FilterTableModel>/6/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{WRL>Grn}" tooltip="{WRL>Grn}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/7/visible}">
+								<Text text="{FilterTableModel>/7/label}" tooltip="{FilterTableModel>/7/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'WRL>Assignedto', formatter :'FSC360NEW.model.formatter.fnCapitalizeFirst'}" tooltip="{WRL>Assignedto}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/8/visible}">
+								<Text text="{FilterTableModel>/8/label}" tooltip="{FilterTableModel>/8/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{WRL>Bname}" tooltip="{WRL>Bname}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/9/visible}">
+								<Text text="{FilterTableModel>/9/label}" tooltip="{FilterTableModel>/9/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{WRL>Invno}" tooltip="{WRL>Invno}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/10/visible}">
+								<Text text="{FilterTableModel>/10/label}" tooltip="{FilterTableModel>/10/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'WRL>Invdt', formatter :'FSC360NEW.model.formatter.fnDate'}"
+										tooltip="{path:'WRL>Invdt', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<!--<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/12/visible}">-->
+							<!--	<Text text="{FilterTableModel>/12/label}" tooltip="{FilterTableModel>/12/label}" class="cl_Tltxt"/>-->
+							<!--	<uitable:template class="cl_column_cell">-->
+							<!--		<HBox alignItems="Center" width="90px">-->
+							<!--			<Button text="{WRL>Sttxt}" icon="sap-icon://circle-task-2" iconFirst="true" type="Transparent" class="cl_status"-->
+							<!--				tooltip="{WRL>Sttxt}">-->
+							<!--				<customData>-->
+							<!--					<core:CustomData key="status" value="{WRL>Sttxt}" writeToDom="true"/>-->
+							<!--				</customData>-->
+							<!--			</Button>-->
+							<!--		</HBox>-->
+							<!--	</uitable:template>-->
+							<!--</uitable:Column>-->
+							<uitable:Column width="6rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/11/visible}">
+								<Text text="{FilterTableModel>/11/label}" tooltip="{FilterTableModel>/11/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{path:'WRL>Ntamt', formatter :'FSC360NEW.model.formatter.fnAmount'}" tooltip="{WRL>Ntamt}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/12/visible}">
+								<Text text="{FilterTableModel>/12/label}" tooltip="{FilterTableModel>/12/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{WRL>Waers}" tooltip="{WRL>Waers}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/13/visible}">
+								<Text text="{FilterTableModel>/13/label}" tooltip="{FilterTableModel>/13/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{WRL>Bukrs}" tooltip="{WRL>Bukrs}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/14/visible}">
+								<Text text="{FilterTableModel>/14/label}" tooltip="{FilterTableModel>/14/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{WRL>Status}" tooltip="{WRL>Status}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/15/visible}">
+								<Text text="{FilterTableModel>/15/label}" tooltip="{FilterTableModel>/15/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{WRL>Prctr}" tooltip="{WRL>Prctr}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/15/visible}">
+								<Text text="{FilterTableModel>/16/label}" tooltip="{FilterTableModel>/15/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{WRL>Ttype}" tooltip="{WRL>Ttype}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/17/visible}">
+								<Text text="{FilterTableModel>/17/label}" tooltip="{FilterTableModel>/17/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{WRL>Gjahr}" tooltip="{WRL>Gjahr}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="5rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/18/visible}">
+								<Text text="{FilterTableModel>/18/label}" tooltip="{FilterTableModel>/18/label}" class="cl_Tltxt"/>
+								<uitable:template>
+									<Text text="{WRL>Werks}" tooltip="{WRL>Werks}" class="cl_column_cell"/>
+								</uitable:template>
+							</uitable:Column>
+						</uitable:Table>
+						<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer cl_pagination_footer_recall cl_pagination_min_height"
+							id="idPaginationFooter">
+							<HBox width="100px" justifyContent="Start">
+								<Button icon="Images/arrow-left.svg" text="Previous" width="100px" class="cl_prev_button" press="fn_onPreviousPage" id="idPrevBtn"/>
+							</HBox>
+							<HBox width="calc(100% - 200px)" id="idPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers">
+								<!-- Page buttons dynamically inserted here -->
+							</HBox>
+							<HBox width="100px" justifyContent="End">
+								<Button text="Next" icon="Images/arrow-right.svg" iconFirst="false" class="cl_next_button" press="fn_onNextPage" id="idNextBtn"/>
+							</HBox>
+						</HBox>
+					</VBox>
+				</content>
+					<footer class="cl_Footer cl_status_change_footer">
+					<OverflowToolbar id="id_FooterTool" class="cl_Footer cl_status_change_footer">
+						<ToolbarSpacer/>
+						<Button icon="Images/rejblack.svg" text="Delete" press="fnDelete" class="blackbtn sapUiTinyMarginEnd" type="Transparent"/>
+								<Button icon="Images/update.svg" id="id_update_btn" text="Update" press="fnupdate" class="bluebtn cl_statuschange_update sapUiTinyMarginEnd" type="Transparent"/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

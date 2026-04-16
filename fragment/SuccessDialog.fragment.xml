@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Dialog
+        id="successDialog"
+        title="Success"
+        type="Message"
+        class="cl_agentDialog"
+        afterClose=".onSuccessDialogClose">
+
+        <Text id="successText" text="Approved Successfully" class="sapUiSmallMarginBottom"/>
+
+        <beginButton>
+            <Button text="OK" type="Accept" press=".onSuccessOkPress"/>
+        </beginButton>
+    </Dialog>
+</core:FragmentDefinition>

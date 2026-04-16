@@ -1,0 +1,202 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:ui="sap.ui.table" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified">
+	<Dialog title="Pick" class="sapUiSizeCompact sapUiSmallMarginBegin cl_frag cl_frag_rightslidecapvo" resizable="true"
+		draggable="false" contentHeight="auto" afterOpen="onAfterSimulateDialogOpen"  modal="false"
+  stretch="false">
+		<content>
+			<HBox class="cl_ses_input_cont" width="" id="idSesInputCont">
+				<VBox class="cl_barcode_input_cont" id="idFormCompact" visible="true">
+	<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End" width="100%">
+	<VBox class="formFieldbarcode" width="50%">
+    <!-- Company Code -->
+    <Text text="{i18n>CompanyCode}" 
+          
+          class="cl_textbarcode"/>
+
+    <HBox class="formInputWithIconbar">
+        <Input id="id_Bukrs" 
+               class="formInputB1 pickinput1" 
+               width="100%" 
+               liveChange="fn_liveChange" 
+               placeholder="" 
+             tooltip="{i18n>CompanyCode}" />
+    </HBox>
+</VBox>
+
+<VBox class="formFieldbarcode" width="50%">
+    <!-- Currency -->
+    <Text text="{i18n>Currency}" 
+         
+          class="cl_textbarcode"/>
+
+    <HBox class="formInputWithIconbar">
+        <!--<Input id="id_curr" -->
+        <!--       class="formInputB1 pickinput1" -->
+        <!--       width="100%" -->
+        <!--       liveChange="fn_liveChange" -->
+        <!--       placeholder="{i18n>EnterCurrency}" -->
+        <!--        tooltip="{i18n>Currency}" />-->
+        <ComboBox id="id_curr" width="3.5rem" selectedKey="{JSInvdethead>Waers}" items="{JSCurrency>/}"
+																					class="cl_combo_transBarw sapUiSizeCompact" editable="{path: 'JSKey>/0/Key'}" showSecondaryValues="true" placeholder="Currency"
+																					tooltip="change currency">
+																					<core:ListItem key="{JSCurrency>Waers}" text="{JSCurrency>Waers}" additionalText="{JSCurrency>Ltext}"/>
+																				</ComboBox>
+    </HBox>
+</VBox>
+	</HBox>
+
+	<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+		<VBox class="formFieldbarcode">
+		<Text text="{i18n>Vendor}" class="cl_textbarcode"/>
+
+<HBox class="formInputWithIconbar">
+    <!--<Input id="id_vendor"  -->
+    <!--       class="formInputB1 forminputfragven " -->
+    <!--       width="100%" -->
+    <!--           change="fn_onVendorChange"-->
+    <!--       liveChange="fn_liveChange"-->
+    <!--       placeholder="{i18n>Vendor}"-->
+    <!--       tooltip="{i18n>Vendor}"/>-->
+    
+    <!--<Image src="Images/popup.svg" -->
+    <!--       width="12px" height="15px" -->
+    <!--       class="inputIcon3" -->
+    <!--       press="fn_onVendorF4"/>-->
+     <MultiComboBox
+    id="id_vendor"
+    maxWidth="100%"
+    class="cl_combo_transBarw cl_combo_transBar_cr cl_mulcomwid "
+    placeholder="{i18n>Vendor}"
+    tooltip="{i18n>Vendor}"
+    items="{
+        path: 'JSVendor>/',
+        sorter: { path: 'Lifnr' } 
+    }"
+    selectionChange="fn_onVendorSelectionChange"
+    filterFunction="fn_filterVendor">
+    <core:Item key="{JSVendor>Lifnr}" text="{= ${JSVendor>Mcod1} + ' - ' + ${JSVendor>Lifnr} }"/>
+</MultiComboBox>
+
+  
+</HBox>
+		</VBox>
+	</HBox>
+	<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+<VBox class="formFieldbarcode">
+    <!-- Invoice Date Label -->
+    <Text text="{i18n>InvoiceDate}" class="cl_textbarcode"/>
+
+    <HBox alignItems="Center" class="formInputWithIconbar">
+
+        <!-- From Date -->
+        <HBox class="formInputWithIconbar" alignItems="Center">
+            <DatePicker valueFormat="YYYY-MM-dd"
+                        displayFormat="dd/MM/YYYY"
+                        readonly="true"
+                        placeholder="{i18n>SelectDate}"
+                        tooltip="{i18n>InvoiceDateFrom}"
+                        class="formInputB1 forminputtat forminputfirsttat tatdatepick"
+                        id="id_creationdatefrm"
+                        change="fn_datevalidation"/>
+        </HBox>
+
+        <!-- TO Label -->
+        <HBox class="cl_to_cont">
+            <Text text="{i18n>To}" class="cl_toLabel" wrapping="False"/>
+        </HBox>
+
+        <!-- To Date -->
+        <HBox class="formInputWithIconbar" alignItems="Center">
+            <DatePicker valueFormat="YYYY-MM-dd"
+                        displayFormat="dd/MM/YYYY"
+                        readonly="true"
+                        placeholder="{i18n>SelectDate}"
+                        tooltip="{i18n>InvoiceDateTo}"
+                        class="formInputB1 forminputtat forminputlasttat"
+                        id="id_creationdateend"
+                        change="fn_datevalidation"/>
+        </HBox>
+
+    </HBox>
+</VBox>
+	</HBox>
+	<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+		<VBox class="formFieldbarcode" width="50%">
+			<Text text="{i18n>InvoiceNumber}" class="cl_textbarcode "/>
+			<HBox class="formInputWithIconbar">
+				<!--<Input id='id_inv' class="formInputB1 pickinput1" width="100%" liveChange='fn_liveChange'  tooltip="{i18n>InvoiceNumber}"/>-->
+				 <MultiInput 
+            id="id_inv"
+            class="formInputB1 pickinput1 clmulborder clmulinvpick"
+            width="100%"
+            showValueHelp="false"
+            placeholder="Invoice numbers"
+            tooltip="{i18n>InvoiceNumber}"
+            tokenUpdate="fn_onInvTokenUpdate"
+            liveChange="fn_liveChange"
+            submit="fn_onInvSubmit"/>
+			</HBox>
+		</VBox>
+			<VBox class="formFieldbarcode" width="50%">
+			<Text text="{i18n>DocumentNumber}" class="cl_textbarcode "/>
+			<HBox class="formInputWithIconbar">
+				<!--<Input id='id_doc' class="formInputB1 pickinput1" width="100%" liveChange='fn_liveChange'  tooltip="{i18n>DocumentNumber}"/>-->
+				 <MultiInput
+        id="id_doc"
+        class="formInputB1 pickinput1 clmuldocpick clmulborder"
+        width="100%"
+        showValueHelp="false"
+        placeholder="Document numbers"
+        tooltip="{i18n>DocumentNumber}"
+        tokenUpdate="fn_onDocTokenUpdate"
+        submit="fn_onDocSubmit"
+        liveChange="fn_liveChange"/>
+			</HBox>
+		</VBox>
+	</HBox>
+
+	<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+			<VBox class="formFieldbarcode" width="50%">
+			<Text text="{i18n>Purchase Order}" class="cl_textbarcode "/>
+			<HBox class="formInputWithIconbar">
+				<!--<Input id='id_po' class="formInputB1 pickinput1" width="100%" liveChange='fn_liveChange'  tooltip="{i18n>PurchaseOrder}"/>-->
+				 <MultiInput
+        id="id_po"
+        class="formInputB1 pickinput1 clmulpo clmulborder"
+        width="100%"
+        showValueHelp="false"
+        placeholder="Purchase Order"
+        tooltip=""
+        tokenUpdate="fn_onPoTokenUpdate"
+        submit="fn_onPoSubmit"
+        liveChange="fn_liveChange"/>
+			</HBox>
+		</VBox>
+			<VBox class="formFieldbarcode" width="50%">
+			<Text text="{i18n>Priority}" class="cl_textbarcode "/>
+			<HBox class="formInputWithIconbar">
+				<Input id='id_PRIO' class="formInputB1 pickinput1" width="100%" liveChange='fn_liveChange' tooltip="{i18n>P_PRIO}"/>
+				
+			</HBox>
+		</VBox>
+	</HBox>
+
+
+
+
+
+
+	
+</VBox>
+			
+			</HBox>
+		</content>
+		<beginButton>
+			<Button text="{i18n>Cancel}" tooltip="{i18n>Cancel}" icon="Images/cancel.svg" class="cl_btn_deletec cl_btn_deletecv" press='fn_onPickCancel'></Button>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>Submit}" tooltip="{i18n>Submit}" icon="Images/check-circle-outline.svg" class=" cl_btn_deletecb "
+				press='fn_onSumbit'></Button>
+		</endButton>
+	
+	</Dialog>
+</core:FragmentDefinition>

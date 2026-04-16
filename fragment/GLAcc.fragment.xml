@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="{i18n>Select GL Account}" liveChange="fn_GLAcc_LC"  items="{JSGLAccount>/}" class="APW_DilogClass cl_frag" 
+		confirm="fn_GLConfrm">
+		<!--<StandardListItem  title="{JSGLAccount>Saknr}" description="{JSGLAccount>Txt50}"/>-->
+	<StandardListItem  
+			title="{= ${JSGLAccount>Saknr} + ' - ' + ${JSGLAccount>Txt50} }"/>
+	</SelectDialog>
+</core:FragmentDefinition>

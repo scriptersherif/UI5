@@ -1,0 +1,87 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Popover class="cl_search_pop sapUiContentPadding SettingsPOPCls"
+             placement="Bottom"
+             showHeader="false"
+             modal="false">
+        <content>
+            <VBox alignContent="Start" justifyContent="Start" alignItems="Start" class="sapUiTinyMargin">
+
+                <HBox>
+                    <CheckBox id="cb_prctr" selected="{SearchConfig>/Prctr}"/>
+                    <Button text="Profit Center" id="id_prctr" class="sapUiSizeCompact cl_searchfrag_btn" />
+                </HBox>
+
+                <HBox>
+                    <CheckBox id="cb_belnr" selected="{SearchConfig>/Belnr}"/>
+                    <Button text="Doc. No." id="id_belnr" class="sapUiSizeCompact cl_searchfrag_btn" />
+                </HBox>
+
+                <HBox>
+                    <CheckBox id="cb_blart" selected="{SearchConfig>/Blart}"/>
+                    <Button text="Doc. Type" id="id_blart" class="sapUiSizeCompact cl_searchfrag_btn" />
+                </HBox>
+
+                <HBox>
+                    <CheckBox id="cb_reindat" selected="{SearchConfig>/Reindat}"/>
+                    <Button text="Posting Date" id="id_reindat" class="sapUiSizeCompact cl_searchfrag_btn" />
+                </HBox>
+
+                <HBox>
+                    <CheckBox id="cb_lifnr" selected="{SearchConfig>/Lifnr}"/>
+                    <Button text="Vendor Code" id="id_lifnr" class="sapUiSizeCompact cl_searchfrag_btn" />
+                </HBox>
+
+                <HBox>
+                    <CheckBox id="cb_name1" selected="{SearchConfig>/Name1}"/>
+                    <Button text="Vendor Name" id="id_name1" class="sapUiSizeCompact cl_searchfrag_btn" />
+                </HBox>
+
+                <HBox>
+                    <CheckBox id="cb_xblnr" selected="{SearchConfig>/Xblnr}"/>
+                    <Button text="Invoice No." id="id_xblnr" class="sapUiSizeCompact cl_searchfrag_btn" />
+                </HBox>
+
+                <HBox>
+                    <CheckBox id="cb_bldat" selected="{SearchConfig>/Bldat}"/>
+                    <Button text="Invoice Date" id="id_bldat" class="sapUiSizeCompact cl_searchfrag_btn" />
+                </HBox>
+
+                <HBox>
+                    <CheckBox id="cb_dmbtr" selected="{SearchConfig>/Dmbtr}"/>
+                    <Button text="Amount" id="id_dmbtr" class="sapUiSizeCompact cl_searchfrag_btn" />
+                </HBox>
+
+                <HBox>
+                    <CheckBox id="cb_netdt" selected="{SearchConfig>/Netdt}"/>
+                    <Button text="Due Date" id="id_netdt" class="sapUiSizeCompact cl_searchfrag_btn" />
+                </HBox>
+
+                <HBox>
+                    <CheckBox id="cb_payamt" selected="{SearchConfig>/PayAmount}"/>
+                    <Button text="Pay Amount" id="id_payamt" class="sapUiSizeCompact cl_searchfrag_btn" />
+                </HBox>
+
+                <HBox>
+                    <CheckBox id="cb_partpaid" selected="{SearchConfig>/PartialPaid}"/>
+                    <Button text="Partial Paid" id="id_partpaid" class="sapUiSizeCompact cl_searchfrag_btn" />
+                </HBox>
+
+                <HBox>
+                    <CheckBox id="cb_waers" selected="{SearchConfig>/Waers}"/>
+                    <Button text="Currency" id="id_waers" class="sapUiSizeCompact cl_searchfrag_btn" />
+                </HBox>
+
+                <HBox>
+                    <CheckBox id="cb_ageing" selected="{SearchConfig>/Ageing}"/>
+                    <Button text="Ageing" id="id_ageing" class="sapUiSizeCompact cl_searchfrag_btn" />
+                </HBox>
+
+                <HBox>
+                    <CheckBox id="cb_shkzg" selected="{SearchConfig>/Shkzg}"/>
+                    <Button text="S/H Indicator" id="id_shkzg" class="sapUiSizeCompact cl_searchfrag_btn" />
+                </HBox>
+
+            </VBox>
+        </content>
+    </Popover>
+</core:FragmentDefinition>

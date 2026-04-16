@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Popover class="sapUiContentPadding SettingsPOPCls cl_filter_pop" id="id_capture" placement="Bottom" showHeader="false" modal="false">
+		<content >
+			<VBox alignContent="Center" justifyContent="Center" alignItems="Center">
+				<Button text="{i18n>PO}"  class=" sapUiSizeCompact cl_pocss" press="fn_poselect"></Button>
+				<Button text="{i18n>Non-PO}" class=" sapUiSizeCompact cl_pocss" press="fn_nonposelect"></Button>
+				<!--	<Button text="{i18n>UnassignedOnly}" class=" sapUiSizeCompact cl_searchfrag_btn"  press="fn_filter_unassign"></Button>-->
+				<!--<Button text="{i18n>AssignedtoOthers}" class=" sapUiSizeCompact cl_searchfrag_btn"  press="fn_filter_Asgn_Othrs"></Button>-->
+			</VBox>
+		</content>
+	</Popover>
+</core:FragmentDefinition>

@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:ui="sap.ui.table" xmlns:core="sap.ui.core">
+	<Dialog title="{i18n>ErrorAnalysis}" showHeader="true"  class="sapUiSizeCompact cl_frag cl_error_dialog" contentWidth="40%"
+		contentHeight="30%" resizable="true" draggable="true">
+		<content>
+			<List items="{JMError>/}" class="sapUiMediumMarginTop sapUiSizeCompact" updateFinished="fnNavDetail">
+				<items>
+					<CustomListItem type="Active" press="onListItemPress" class="sapUiSmallMarginTop APW_MasterListClass">
+						<Toolbar class="cl_toolBar">
+							<Text text="{JMError>Message}" wrapping="false" class="sapUiSmallMarginBegin APW_ErrorMsgTxt"/>
+							<ToolbarSpacer></ToolbarSpacer>
+						</Toolbar>
+					</CustomListItem>
+				</items>
+			</List>
+		</content>
+		<endButton>
+			<Button text="{i18n>Close}" class="APW_CloseErrorBtn" press="fn_Error_frag_close" tooltip="{i18n>Close}"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

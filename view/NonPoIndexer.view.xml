@@ -1,0 +1,623 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.NonPoIndexer"
+	xmlns:u="sap.ui.unified" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:uitable="sap.ui.table">
+	<App>
+		<pages>
+			<Page showHeader="true" class="cl_page">
+				<customHeader>
+					<Toolbar class="header_bar">
+						<Title text="{i18n>Fulfilment}" class="cl_fullfill_txt"/>
+						<HBox id="id_usertype" class="cl_btn_group" alignItems="Center">
+							<Button text="{i18n>Workbench}" icon="Images/workbench.svg" press="fn_onUserTypePress" class="cl_btn_phy_all">
+								<customData>
+									<core:CustomData key="key" value="W"/>
+								</customData>
+							</Button>
+							<Button text="{i18n>Indexer}" icon="Images/indexer.svg" press="fn_onUserTypePress" class="cl_btn_phy_ind">
+								<customData>
+									<core:CustomData key="key" value="I"/>
+								</customData>
+							</Button>
+							<Button text="{i18n>NonPOIndexer}" id="id_nonpoindexer" tooltip="{i18n>NonPOIndexer}" icon="Images/nonpoIndexer.svg" press="fn_onUserTypePress"
+								class="cl_btn_phy_ind">
+								<customData>
+									<core:CustomData key="key" value="N"/>
+								</customData>
+							</Button>
+							<Button text="{i18n>AutoParking}" icon="Images/autoparkf.svg" press="fn_onUserTypePress" class="cl_btn_phy_ind">
+								<customData>
+									<core:CustomData key="key" value="A"/>
+								</customData>
+							</Button>
+								<Button text="{i18n>Hold}" tooltip="{i18n>Hold}" icon="Images/autoparkf.svg" press="fn_onUserTypePress" class="cl_btn_phy_fin">
+								<customData>
+									<core:CustomData key="key" value="H"/>
+								</customData>
+							</Button>
+						</HBox>
+						<ToolbarSpacer/>
+						<Button icon="Images/refreshbtn.png" tooltip="{i18n>Refresh}" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbtn.png" tooltip="{i18n>Notification}" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="team_text cl_font sapUiSmallMarginEnd"/>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+						<VBox width="100%" height="100%" visible="true" id="id_creatorbox">
+						<HBox width="100%" height="100%" fitContainer="true" class="cl_mainContent">
+							<VBox width="27%" class="cl_leftPanel1 cl_leftpanel_nonpo" height="100%" id="pdfPanel">
+								<VBox id="fullbox_before" height="100%">
+									<HBox>
+										<!--<Toolbar>-->
+										<Label text="Attach Invoice" class="sapUiTinyMarginBegin cl_mandatory_label cl_attach_lbl cl_attach_lbl_nonpo"/>
+										<!--<ToolbarSpacer/>-->
+										<!--<Button icon="Images/approve_image.svg" text= enabled="true" class="bluebtn sapUiLargeMarginBegin" type="Transparent"/>-->
+										<!--</Toolbar>-->
+									</HBox>
+									<VBox id="idDragDropBox" width="100%" height="68%" alignItems="Center" dragEnter="onDragEnter" dragOver="onDragOver" drop="onFileDrop"
+										class="cl_dragdrop cl_dragdrop_NonPo">
+										<VBox id="idFileBox" height="97%" justifyContent="Center" alignItems="Center" dragEnter="onDragEnter" dragOver="onDragOver"
+											drop="onFileDrop" class="cl_file_upload cl_file_upload_NonPo" width="97%">
+											<Image src="Images/fileUpload.svg" class="cl_upload_btn"/>
+											<HBox class="uploadTextBox" justifyContent="Center">
+												<Text text="Click to upload" class="uploadText"/>
+												<Text text=" or drag and drop" class="uploadSubText"/>
+											</HBox>
+											<Text text="PDF, PNG, JPG (max. 800x400px)" class="hintText"/>
+											<u:FileUploader width="0.1%" typeMissmatch="handleTypeMissmatch" fileType="pdf,png" change="onFileChange" uploadOnChange="false"
+												id="fileuploader" class="hiddenUploader" buttonText=" "></u:FileUploader>
+										</VBox>
+										<!--<VBox id="idPreviewContainer" class="cl_preview_box" direction="Row"/>-->
+									</VBox>
+								</VBox>
+								<VBox id="fullbox_after" visible="false" height="100%">
+									<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_invoice_nonpo_cont">
+										<Label text="Attach Invoice" class="cl_mandatory_label cl_attach_lbl sapUiTinyMarginEnd"/>
+										<HBox>
+										<Button id="id_delete_upload" text="" icon="Images/deleteC.svg" type="Transparent" press="onClearAll"
+											class="whitebtn sapUiTinyMarginEnd"/>
+										<Button id="id_re_upload" text="" icon="Images/saveC.svg" type="Transparent" press="fn_savedoc"
+											class="bluebtn"/>
+											 </HBox>
+									</HBox>
+									<VBox class="cl_preview_cover">
+										<VBox id="idPreviewContainer" width="100%" height="97%" class="cl_preview_box" direction="Column"></VBox>
+									</VBox>
+								</VBox>
+							</VBox>
+							<VBox width="76%" class="cl_rightPanel cl_rightPanel_nonpo sapUiSmallMarginEnd" height="100%" id="rightPanel">
+								<HBox class="cl_ses_input_cont cl_nonpo_inpit_cont" id="idSesInputCont">
+									<VBox>
+										<HBox>
+											<Image src="Images/ses_side.svg" width="27px" height="27px" visible="false" class="cl_ses_left_open" press="fn_ses_left_open"/>
+											<Text text="Non PO Approver Request Form" class="cl_vendorTitle cl_vendortitle1"></Text>
+										</HBox>
+									</VBox>
+									<HBox class="cl_barcode_input_cont cl_barcode_input_nonpo" id="idFormCompact" visible="true">
+										<HBox width="65.5%">
+											<VBox width="100%">
+												<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+													<VBox class="columnbarcode formFieldbarcode" width="">
+														<Text text="Vendor Number" class="cl_textbarcode"/>
+														<HBox class="formInputWithIconbar">
+															<ComboBox id="id_lifnr" items="{JSVendor>/}" placeholder="Select Vendor" width="100%" tooltip="{i18n>vendor}"
+														selectionChange="fn_VendorChange" filterSecondaryValues="true" showSecondaryValues="true"
+														class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp">
+														<core:Item key="{JSVendor>Lifnr}" text="{JSVendor>Mcod1}"/>
+													</ComboBox>
+															
+														</HBox>
+													</VBox>
+													<VBox class="columnbarcode formFieldbarcode" width="">
+														<Text text="Vendor Name" class="cl_textbarcode"/>
+														<HBox class="formInputWithIconbar">
+															<Input id="id_venname" class="formInputB1" value="" width="100%" layoutData="sap.ui.layout.FlexItemData">
+																<layoutData>
+																	<FlexItemData growFactor="1"/>
+																</layoutData>
+															</Input>
+														</HBox>
+													</VBox>
+												</HBox>
+												<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+													<VBox class="columnbarcode formFieldbarcode" width="">
+														<Text text="Invoice Date" class="cl_textbarcode"/>
+														<HBox class="formInputWithIconbar">
+															<DatePicker id="id_invdate" displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-dd" change="fn_onchangedate" placeholder=" "
+																class="formInputB1 inputhelp">
+																<layoutData>
+																	<FlexItemData growFactor="1"/>
+																</layoutData>
+															</DatePicker>
+														</HBox>
+													</VBox>
+													<VBox class="columnbarcode formFieldbarcode">
+														<Text text="Amount" class="cl_Atextw"/>
+														<HBox class="cl_saleAmountBox1w" alignItems="Center" justifyContent="SpaceBetween" height="22px">
+															<Text text="{path: 'JSInvdethead>/0/Waers', formatter: 'FSC360NEW.model.formatter.fnCurrencySymbol'}" class="cl_currencySymbol"/>
+															<!-- Amount Input -->
+															<Input id="id_amount" value="{formatter :'FSC360NEW.model.formatter.fnAmount'}" liveChange="fn_Head_Amount_Change" change="fnValidateChange"
+																type="Number" class="cl_amountInput" width="130px" editable="{path: 'JSKey>/0/Key'}" placeholder="">
+																<layoutData>
+																	<FlexItemData growFactor="1"/>
+																</layoutData>
+															</Input>
+															<!-- Currency Dropdown Input without default F4 icon -->
+															<HBox alignItems="Center" class="cl_currencyWrapper">
+																<!--<Select id="id_currency" selectedKey="{JSSelectedCurrency>/Waers}" items="{JSCurrency>/CurrencyList}"-->
+																<!--	class="cl_currencyDropdown sapUiSizeCompact" forceSelection="false" placeholder="Currency">-->
+																	<!-- Dropdown: show code + description -->
+																<!--	<core:Item key="{JSCurrency>Waers}" text="{= ${JSCurrency>Waers} + ' - ' + ${JSCurrency>Ltext} }"/>-->
+																<!--</Select>-->
+													<!--				<ComboBox id="id_currency" items="{JSCurrency>/CurrencyList}" selectedKey="{JSSelectedCurrency>/Waers}"  width="100%"-->
+													<!--	 filterSecondaryValues="true" showSecondaryValues="true"-->
+													<!--	class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp cl_currency_nonpo" >-->
+													<!--	<core:Item key="{JSCurrency>Waers}"  text="{JSCurrency>Waers}"/>-->
+													<!--</ComboBox>-->
+														<ComboBox id="id_currency" items="{JSCurrency>/CurrencyList}"  width="100%"
+													
+														class="cl_combo_transBar cl_combo_transtat cl_tat_status_combobox_inp cl_currency_nonpo"  selectedKey="{JSSelectedCurrency>/Waers}" >
+														<core:Item key="{JSCurrency>Waers}"  text="{JSCurrency>Waers}"/>
+													</ComboBox>
+															</HBox>
+														</HBox>
+														<!--</HBox>-->
+													</VBox>
+												</HBox>
+												<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+													<VBox class="columnbarcode formFieldbarcode" width="">
+														<Text text="Comments" class="cl_textbarcode"/>
+														<HBox class="formInputWithIconbar">
+															<Input id="id_comments" editable="{path: 'JSKey>/0/Key'}" class="formInputB1" value="" width="100%" layoutData="sap.ui.layout.FlexItemData">
+																<layoutData>
+																	<FlexItemData growFactor="1"/>
+																</layoutData>
+															</Input>
+															<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+														</HBox>
+													</VBox>
+												</HBox>
+											</VBox>
+										</HBox>
+										<HBox width="34.5%" class="sapUiSmallMarginBegin">
+											<HBox class="cl_barcode_input_row" width="100%" justifyContent="SpaceBetween" alignItems="End">
+												<VBox class="columnbarcode formFieldbarcode comboboxcont" width="">
+													<Text text="Invoice Number" class="cl_textbarcode"/>
+													<HBox class="formInputWithIconbar">
+														<Input id="id_invno" editable="{path: 'JSKey>/0/Key'}" class="formInputB1" value="" width="100%" layoutData="sap.ui.layout.FlexItemData">
+															<layoutData>
+																<FlexItemData growFactor="1"/>
+															</layoutData>
+														</Input>
+														<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+													</HBox>
+												</VBox>
+											</HBox>
+										</HBox>
+									</HBox>
+									<VBox class="cl_barcode_input_cont" visible="false">
+										<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+											<VBox class="columnbarcode formFieldbarcode" width="">
+												<Text text="Vendor" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<Input editable="{path: 'JSKey>/0/Key'}" class="formInputB1" value="" width="100%" layoutData="sap.ui.layout.FlexItemData"/>
+													<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_getVendor"/>
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode formFieldbarcode" width="">
+												<Text text="Posting Date" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder=" " class="formInputB1 inputhelp"/>
+												</HBox>
+											</VBox>
+										</HBox>
+										<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+											<VBox class="columnbarcode formFieldbarcode comboboxcont" width="">
+												<Text text="Purchase Order" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<MultiComboBox items="{path: 'JSPO>/'}" selectionFinish="handleVendorSelectionFinish" maxWidth="100%"
+														class="cl_combo_transBar cl_combo_transBarSes" editable="{path: 'JSKey>/0/Key'}">
+														<core:Item key="{JSVendor>Lifnr}" text="{JSVendor>Lifnr}"/>
+													</MultiComboBox>
+													<Image src="Images/plus.svg" height="1.8rem" class="" press="fnaddPo"></Image>
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode formFieldbarcode comboboxcont" width="">
+												<Text text="Item Number" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<MultiComboBox items="" selectionFinish="handleVendorSelectionFinish" maxWidth="100%" class="cl_combo_transBar arrow_remover"
+														editable="{path: 'JSKey>/0/Key'}">
+														<core:Item key="" text="{JSVendor>Lifnr}"/>
+													</MultiComboBox>
+												</HBox>
+											</VBox>
+										</HBox>
+										<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+											<VBox class="columnbarcode formFieldbarcode" width="">
+												<Text text="Header Text" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar dateremover">
+													<DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder=" " class="formInputB1 inputhelp"/>
+												</HBox>
+											</VBox>
+										</HBox>
+										<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+											<VBox class="columnbarcode formFieldbarcode" width="">
+												<Text text="Invoice Number" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<Input editable="{path: 'JSKey>/0/Key'}" class="forminput3sec" value="" width="100%" layoutData="sap.ui.layout.FlexItemData"
+														id="id_invoiceno1"/>
+													<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode formFieldbarcode" width="">
+												<Text text="Invoice Date" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<DatePicker id="id_invoicedate1" valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" placeholder=" " class="forminput3sec inputhelp"
+														readonly="true"/>
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode formFieldbarcode" width="">
+												<Text text="Total Amount" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<Input editable="{path: 'JSKey>/0/Key'}" class="forminput3sec" value="" width="100%" layoutData="sap.ui.layout.FlexItemData"
+														id="id_totalamount1"/>
+													<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+												</HBox>
+											</VBox>
+										</HBox>
+									</VBox>
+									<uitable:Table id="idtable" selectionMode="None" rows="{JSNonPo>/}" enableCellFilter="true" visibleRowCount="2" height="98%" fixedLayout="false"
+										fixedColumnCount="0" class="cl_nonpoindexer_table cl_approval_table cl_tble cl_custom_table cl_tabinner" rowSelectionChange="action"
+										ariaLabelledBy="title" sort="sortDeliveryDate" layoutData="sap.ui.layout.GridData">
+										<uitable:columns>
+											<uitable:Column hAlign="Center" width="5rem">
+												<Text text="{i18n>Expense Type}" tooltip="{i18n>Expense Type}" class="cl_Tltxt ml-1"/>
+												<uitable:template>
+													<Input  editable="true" tooltip="{JSNonPo>Expty}" class="formInputB1" wrapping="false"/>
+													<ComboBox class="cl_column_cell apinputtext cl_combo_table" value="{JSNonPo>Expty}" items="{JSExpty>/}"
+														selectionChange="fn_numberonly" change="fn_numberonly" showClearIcon="true">
+														<core:Item key="{JSExpty>Expty}" text="{JSExpty>Expty}"/>
+													</ComboBox>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column hAlign="Center" width="7rem">
+												<Text text="{i18n>G/L Account}." tooltip="{i18n>ItemNo}." class="cl_Tltxt"/>
+												<uitable:template>
+													<Input value="{JSNonPo>Hkont}" editable="true" tooltip="{JSNonPo>Hkont}" class="cl_table_det_text" wrapping="false" liveChange="fn_numberonly"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column hAlign="Center" width="6rem">
+												<Text text="{i18n>Short Text}" tooltip="{i18n>Short Text}" class="cl_Tltxt"/>
+												<uitable:template>
+													<Input value="{JSNonPo>KontoTxt}" tooltip="{JSNonPo>KontoTxt}" class="cl_table_det_text" wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column hAlign="Center" width="6rem">
+												<Text text="{i18n>Amount}" tooltip="{i18n>Quantity}" class="cl_Tltxt"/>
+												<uitable:template>
+													<Input value="{JSNonPo>Wrbtr}" tooltip="{JSNonPo>Wrbtr}" class="cl_table_det_text" wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+											<!--<uitable:Column hAlign="Center" width="10%">-->
+											<!--	<Text text="{i18n>Unit}" tooltip="{i18n>Unit}" class="cl_Tltxt"/>-->
+											<!--	<uitable:template>-->
+											<!--		<Text text="{JSNonPo>Meins}" tooltip="{JSNonPo>Meins}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>-->
+											<!--	</uitable:template>-->
+											<!--</uitable:Column>-->
+											<uitable:Column hAlign="Center" width="15%">
+												<Text text="{i18n>Cost Center}" tooltip="{i18n>Amount}" class="cl_Tltxt"/>
+												<uitable:template>
+													<Input value="{JSNonPo>Kostl}" tooltip="{JSNonPo>Kostl}" class="cl_table_det_text" wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column hAlign="Center" width="15%">
+												<Text text="{i18n>Item Text}" tooltip="{i18n>Item Text}" class="cl_Tltxt"/>
+												<uitable:template>
+													<Input value="{JSNonPo>Sgtxt}" tooltip="{JSNonPo>Sgtxt}" class="cl_table_det_text" wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+										</uitable:columns>
+									</uitable:Table>
+									<!--<HBox justifyContent="End" class="cl_post_btn_box">-->
+									<!--	<Button icon="Images/post_btn.svg" text="Submit" press="fn_Ses_post" class="btn-custom btn-post" type="Transparent"/>-->
+									<!--<Button icon="Images/barcode.svg" text="Ses Post" press="fn_Ses_post" id="id_Ses_post" class="btn-custom btn-post" type="Transparent"/>-->
+									<!--</HBox>-->
+									<HBox alignItems="Center" justifyContent="End" class="cl_post_btn_box sapUiTinyMarginBottom">
+										<Button id="id_clear" text="Clear" icon="Images/clearab.svg" type="Transparent" press="onClearAll" class="whitebtn sapUiSmallMarginEnd"/>
+										<Button icon="Images/check-circle-outline.svg" text="Submit" press="fn_submit" enabled="true" class="bluebtn" type="Transparent"/>
+									</HBox>
+								</HBox>
+							</VBox>
+						</HBox>
+					</VBox>
+					<HBox class="cl_ses_whole" visible="false" id="id_approverbox">
+						<VBox width="25%" class="cl_ses_left" id="id_left_panel">
+							<HBox justifyContent="SpaceBetween" class="cl_ses_left_head">
+								<HBox>
+									<Text text="Requested List" id="idCardTitle" class="cl_scan_text"/>
+									<!--<Text id="id_scannedinvoiceno" class="cl_badge_counter_ses"/>-->
+								</HBox>
+								<Image src="Images/arrow-collapse-left.svg" width="16px" height="16px" press="fn_left_panel_collapse" class="cl_ses_left_img"/>
+							</HBox>
+							<VBox class="cl_search_container">
+								<HBox class="customSearchBox" alignItems="Center">
+									<Image src="Images/magnify.svg" class="searchIcon"/>
+									<Input placeholder="Search" class="searchInput" showValueHelp="false" type="Text" liveChange="onQidSearch"/>
+								</HBox>
+							</VBox>
+						<VBox class="cl_scrollContainer">
+						<List id="id_qidList" items="{/NonPoHeadSet}" class="customList customListNonPO" templateShareable="false">
+    <CustomListItem press="fn_ListItemPress" type="Active">
+        <VBox class="listItemBox">
+            <!-- Transaction Id row -->
+            <HBox alignItems="Center">
+                <Text text="Transaction Id :" class="queueid_text"/>
+                <Text text="{Trnsid}" class="queueId_ValText" press="fnTransactionPress"/>
+            </HBox>
+            <!-- Vendor row -->
+            <HBox alignItems="Center" class="vendorBox">
+                <Image src="Images/account.svg" class="iconImage iconImageAccount"/>
+                <Text text="{Lifnr} - {Name1}" class="invoiceText"/>
+            </HBox>
+        </VBox>
+    </CustomListItem>
+</List>
+	</VBox>
+						</VBox>
+						<HBox class="cl_ses_input_cont" id="id_NonpoIndexerForm" width="50%">
+							<VBox>
+								<HBox>
+									<Image src="Images/ses_side.svg" width="27px" height="27px" visible="false" id="id_ses_left_open" class="cl_ses_left_open"
+										press="fn_ses_left_open"/>
+									<Text text="Transaction Id:" class="cl_vendorTitle cl_vendortitle1"></Text>
+								</HBox>
+							</VBox>
+							<HBox class="cl_barcode_input_cont cl_barcode_input_nonpo" visible="true">
+								<HBox width="65.5%">
+									<VBox width="100%">
+										<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" width="100%" alignItems="End">
+											<VBox class="columnbarcode formFieldbarcode" width="">
+												<Text text="Vendor Number" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<Input editable="false" class="formInputB1 clnonpo" value="{HeaderModel>/Lifnr}" width="100%" layoutData="sap.ui.layout.FlexItemData">
+														<layoutData>
+															<FlexItemData growFactor="1"/>
+														</layoutData>
+													</Input>
+													<!--<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+												</HBox>
+											</VBox>
+											<VBox class="columnbarcode formFieldbarcode" width="">
+												<Text text="Vendor Name" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<Input class="formInputB1 clnonpo" value="{HeaderModel>/Name1}" width="100%" layoutData="sap.ui.layout.FlexItemData" editable="false">
+														<layoutData>
+															<FlexItemData growFactor="1"/>
+														</layoutData>
+													</Input>
+												</HBox>
+											</VBox>
+										</HBox>
+										<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" width="100%" alignItems="End">
+											<VBox class="columnbarcode formFieldbarcode" width="">
+												<Text text="Invoice Date" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<DatePicker valueFormat="yyyy-MM-dd" displayFormat="dd/MM/yyyy" change="fn_onchangedate" placeholder=" " class="formInputB1 clnonpo inputhelp"
+														readonly="true" value="{path: 'HeaderModel>/Invdt', formatter :'FSC360NEW.model.formatter.fnDate'}" editable="false">
+														<layoutData>
+															<FlexItemData growFactor="1"/>
+														</layoutData>
+													</DatePicker>
+												</HBox>
+											</VBox>
+										
+											<!--<VBox class="columnbarcode formFieldbarcode">-->
+											<!--	<Text text="Amount" class="cl_btext cl_cc_texts"/>-->
+											<!--	<HBox class="cl_saleAmountBox1" alignItems="Center" justifyContent="SpaceBetween" width="100%" layoutData="sap.ui.layout.FlexItemData"-->
+											<!--		height="26px">-->
+											<!--		<Text text="{path: 'JSSelectedCurrency>/Waers', formatter: 'FSC360NEW.model.formatter.fnCurrencySymbol'}" class="cl_currencySymbol"/>-->
+											<!--		<Input value="{HeaderModel>/Wrbtr}" class="cl_amountInput" width="auto" submit="fnamount"/>-->
+											<!--		<HBox alignItems="Center" class="cl_currencyWrapper">-->
+											<!--			<Select id="id_currency1" selectedKey="{JSSelectedCurrency>/Waers}" items="{JSCurrency>/CurrencyList}"-->
+											<!--				class="cl_currencyDropdown sapUiSizeCompact" forceSelection="false" placeholder="Currency">-->
+															<!-- Dropdown: show code + description -->
+											<!--				<core:Item key="{JSCurrency>Waers}" text="{= ${JSCurrency>Waers} + ' - ' + ${JSCurrency>Ltext} }"/>-->
+											<!--			</Select>-->
+											<!--		</HBox>-->
+											<!--	</HBox>-->
+											<!--</VBox>-->
+												<VBox class="columnbarcode formFieldbarcode" width="">
+												<Text text="Amount" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<Input class="formInputB1 clnonpo" value="{path:'HeaderModel>/Wrbtr', formatter :'FSC360NEW.model.formatter.fnAmount'} - {HeaderModel>/Waers} " editable="false" width="100%" layoutData="sap.ui.layout.FlexItemData">
+														<layoutData>
+															<FlexItemData growFactor="1"/>
+														</layoutData>
+													</Input>
+												</HBox>
+											</VBox>
+										</HBox>
+										<HBox class="cl_barcode_input_row" justifyContent="SpaceBetween" alignItems="End">
+											<VBox class="columnbarcode formFieldbarcode" width="">
+												<Text text="Comments" class="cl_textbarcode"/>
+												<HBox class="formInputWithIconbar">
+													<Input editable="false" class="formInputB1 clnonpo" value="{HeaderModel>/WfComments}" width="100%" layoutData="sap.ui.layout.FlexItemData">
+														<layoutData>
+															<FlexItemData growFactor="1"/>
+														</layoutData>
+													</Input>
+													<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+												</HBox>
+											</VBox>
+										</HBox>
+									</VBox>
+								</HBox>
+								<HBox width="34.5%" class="sapUiSmallMarginBegin">
+									<HBox class="cl_barcode_input_row" width="100%" justifyContent="SpaceBetween" alignItems="End">
+										<VBox class="columnbarcode formFieldbarcode comboboxcont" width="">
+											<Text text="Invoice Number" class="cl_textbarcode"/>
+											<HBox class="formInputWithIconbar">
+												<Input editable="false" class="formInputB1 clnonpo" value="{HeaderModel>/Invno}" width="100%" layoutData="sap.ui.layout.FlexItemData">
+													<layoutData>
+														<FlexItemData growFactor="1"/>
+													</layoutData>
+												</Input>
+												<!--<Image src="" width="12px" height="15px" class="inputIcon3" press="fn_getvendorcode"/>-->
+											</HBox>
+										</VBox>
+									</HBox>
+								</HBox>
+							</HBox>
+							<!--<uitable:Table selectionMode="None" rows="{JSSesDet>/}" enableCellFilter="true" visibleRowCount="2" height="" fixedLayout="false"-->
+							<!--	fixedColumnCount="0" class="cl_nonpoindexer_table cl_approval_table cl_tble cl_custom_table" rowSelectionChange="action"-->
+							<!--	ariaLabelledBy="title" sort="sortDeliveryDate" layoutData="sap.ui.layout.GridData">-->
+							<!--	<uitable:columns>-->
+							<!--		<uitable:Column hAlign="Center" width="7rem">-->
+							<!--			<Text text="{i18n>Expense Type}" tooltip="{i18n>Pono}" class="cl_Tltxt ml-1"/>-->
+							<!--			<uitable:template>-->
+							<!--				<Text text="{JSSesDet>Ebeln}" tooltip="{JSSesDet>Ebeln}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>-->
+							<!--			</uitable:template>-->
+							<!--		</uitable:Column>-->
+							<!--		<uitable:Column hAlign="Center" width="7rem">-->
+							<!--			<Text text="{i18n>G/L Account}." tooltip="{i18n>ItemNo}." class="cl_Tltxt"/>-->
+							<!--			<uitable:template>-->
+							<!--				<Text text="{path: 'JSSesDet>Ebelp', formatter :'FSC_WB_AP.model.formatter.fnLeadingZero'}"-->
+							<!--					tooltip="{path: 'JSSesDet>Ebelp', formatter :'FSC_WB_AP.model.formatter.fnLeadingZero'}" press="fn_nav_to_wb" class="cl_table_det_text"-->
+							<!--					wrapping="false"/>-->
+							<!--			</uitable:template>-->
+							<!--		</uitable:Column>-->
+							<!--		<uitable:Column hAlign="Center" width="6rem">-->
+							<!--			<Text text="{i18n>Short Text}" tooltip="{i18n>ServiceDescription}" class="cl_Tltxt"/>-->
+							<!--			<uitable:template>-->
+							<!--				<Text text="{JSSesDet>Ktext1}" tooltip="{JSSesDet>Ktext1}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>-->
+							<!--			</uitable:template>-->
+							<!--		</uitable:Column>-->
+							<!--		<uitable:Column hAlign="Center" width="4rem">-->
+							<!--			<Text text="{i18n>Amount}" tooltip="{i18n>Quantity}" class="cl_Tltxt"/>-->
+							<!--			<uitable:template>-->
+							<!--				<Text text="{JSSesDet>Menge}" tooltip="{JSSesDet>Menge}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>-->
+							<!--			</uitable:template>-->
+							<!--		</uitable:Column>-->
+							<!--		<uitable:Column hAlign="Center" width="10%">-->
+							<!--			<Text text="{i18n>Unit}" tooltip="{i18n>Unit}" class="cl_Tltxt"/>-->
+							<!--			<uitable:template>-->
+							<!--				<Text text="{JSSesDet>Meins}" tooltip="{JSSesDet>Meins}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>-->
+							<!--			</uitable:template>-->
+							<!--		</uitable:Column>-->
+							<!--		<uitable:Column hAlign="Center" width="20%">-->
+							<!--			<Text text="{i18n>Cost Center}" tooltip="{i18n>Amount}" class="cl_Tltxt"/>-->
+							<!--			<uitable:template>-->
+							<!--				<Text text="{JSSesDet>Netwr}" tooltip="{JSSesDet>Netwr}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>-->
+							<!--			</uitable:template>-->
+							<!--		</uitable:Column>-->
+							<!--		<uitable:Column hAlign="Center" width="15%">-->
+							<!--			<Text text="{i18n>Item Text}" tooltip="{i18n>Currency}" class="cl_Tltxt"/>-->
+							<!--			<uitable:template>-->
+							<!--				<Text text="{JSSesDet>Waers}" tooltip="{JSSesDet>Waers}" press="fn_nav_to_wb" class="cl_table_det_text" wrapping="false"/>-->
+							<!--			</uitable:template>-->
+							<!--		</uitable:Column>-->
+							<!--	</uitable:columns>-->
+							<!--</uitable:Table>-->
+							<uitable:Table 
+							id="idItemsTable"
+    selectionMode="None" 
+    rows="{ItemsModel>/items}" 
+    enableCellFilter="true" 
+    visibleRowCount="5" 
+    fixedLayout="false"
+    class="cl_nonpoindexer_table cl_approval_table cl_tble cl_custom_table"
+    ariaLabelledBy="title">
+
+    <uitable:columns>
+        <!-- Expense Type -->
+        <uitable:Column hAlign="Center" width="7rem">
+            <Text text="Expense Type" class="cl_Tltxt ml-1"/>
+            <uitable:template>
+                <Text text="{ItemsModel>Expty}" 
+                      tooltip="{ItemsModel>Expty}" 
+                      class="cl_table_det_text" 
+                      wrapping="false"/>
+            </uitable:template>
+        </uitable:Column>
+
+        <!-- G/L Account -->
+        <uitable:Column hAlign="Center" width="6rem">
+            <Text text="G/L Account" class="cl_Tltxt"/>
+            <uitable:template>
+                <Text text="{ItemsModel>Hkont}" 
+                      tooltip="{ItemsModel>Hkont}" 
+                      class="cl_table_det_text" 
+                      wrapping="false"/>
+            </uitable:template>
+        </uitable:Column>
+
+        <!-- Short Text -->
+        <uitable:Column hAlign="Center" width="6rem">
+            <Text text="Short Text" class="cl_Tltxt"/>
+            <uitable:template>
+                <Text text="{ItemsModel>KontoTxt}" 
+                      tooltip="{ItemsModel>KontoTxt}" 
+                      class="cl_table_det_text" 
+                      wrapping="false"/>
+            </uitable:template>
+        </uitable:Column>
+
+        <!-- Amount -->
+        <uitable:Column hAlign="Center" width="5.5rem">
+            <Text text="Amount" class="cl_Tltxt"/>
+            <uitable:template>
+                <Text text="{path:'ItemsModel>Wrbtr' , formatter :'FSC360NEW.model.formatter.fnAmount'}" 
+                      tooltip="{ItemsModel>Wrbtr}" 
+                      class="cl_table_det_text" 
+                      wrapping="false"/>
+            </uitable:template>
+        </uitable:Column>
+
+      
+
+        <!-- Cost Center -->
+        <uitable:Column hAlign="Center" width="6rem">
+            <Text text="Cost Center" class="cl_Tltxt"/>
+            <uitable:template>
+                <Text text="{ItemsModel>Kostl}" 
+                      tooltip="{ItemsModel>Kostl}" 
+                      class="cl_table_det_text" 
+                      wrapping="false"/>
+            </uitable:template>
+        </uitable:Column>
+
+        <!-- Currency -->
+        <uitable:Column hAlign="Center" width="5rem">
+            <Text text="Currency" class="cl_Tltxt"/>
+            <uitable:template>
+                <Text text="{ItemsModel>Waers}" 
+                      tooltip="{ItemsModel>Waers}" 
+                      class="cl_table_det_text" 
+                      wrapping="false"/>
+            </uitable:template>
+        </uitable:Column>
+    </uitable:columns>
+</uitable:Table>
+							<HBox alignItems="Center" justifyContent="End" class="cl_post_btn_box">
+								<Button icon="Images/reject_image1.svg" text="Reject" press="fnReject" class="redbtn" type="Transparent"/>
+								<!--<Button icon="Images/post_btn.svg"    class="btn-custom btn-post" type="Transparent"/>-->
+								<Button icon="Images/approve_image.svg" text="Approve" enabled="true" class="bluebtn" type="Transparent" press="fnApprove"/>
+								<!--<Button icon="Images/barcode.svg" text="Ses Post" press="fn_Ses_post" id="id_Ses_post" class="btn-custom btn-post" type="Transparent"/>-->
+							</HBox>
+						</HBox>
+						<VBox width="27%" id="id_3rd_vbx" class="sapUiTinyMarginBegin cl_leftPanel1 cl_leftPanel2">
+							<HBox alignItems="Center" justifyContent="SpaceBetween" height="50px" class="cl_pdfHeader1">
+								<Text text="View Invoice" class="cl_pdfTitle1"/>
+							</HBox>
+							<VBox class="cl_leftPanel">
+								<ScrollContainer tooltip="Invoice" id="id_scrllnpon" class="cl_pdfScroll" width="100%" height="100%" focusable="false" horizontal="false"
+									vertical="true"></ScrollContainer>
+							</VBox>
+						</VBox>
+					</HBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<core:FragmentDefinition xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <Dialog title="{i18n>PleaseEnterBarcode}" class="cl_agentDialog">
+    <content>
+      <!-- <Label text="{i18n>Reamrk} :" /> -->
+      <VBox class="column formField">
+			<Text text="{i18n>Barcode}" tooltip="{i18n>Barcode}" class="cl_dialogLabel cl_barcodesp"></Text>
+			<HBox class="">
+				<Input  id="id_barcodeimgno" maxLength="14" liveChange="fnChangeState" class="formInputA1 cl_barcodeinp" enabled="true"/>
+			
+			</HBox>
+		</VBox>
+      <!--<Toolbar class="toolBarClass ">-->
+      <!--  <Label text="{i18n>Barcode}" tooltip="{i18n>Barcode}" class="lblAlignRCFr sapUiTinyMarginBottom" width="4rem"/>-->
+      <!--  <Input  id="id_barcodeimgno" liveChange="fnChangeState" visible="true" maxLength="14" class="sapUiSizeCompact sapUiTinyMarginTop sapUiMediumMarginBegin" enabled="true"  width="10rem"/>-->
+      <!--</Toolbar>-->
+
+      <!--<OverflowToolbar class="barClass sapUiTinyMarginTop">-->
+      <!--  <Button type="Emphasized" text="{i18n>Getinv}" icon="sap-icon://accept" press="fnSubmitImgBarcode" class="sapUiSizeCompact"/>-->
+        
+      <!--  <ToolbarSpacer />-->
+      <!--  <Button type="Reject" text="{i18n>Cancel}" icon="sap-icon://decline" press="fnBarcodeImgCancel" class="sapUiSizeCompact"/>-->
+      <!--</OverflowToolbar>-->
+    
+    </content>
+      	<beginButton>
+			<Button text="{i18n>Cancel}"  icon="Images/cancel.svg" class="gl_canbtn" press="fnBarcodeImgCancel"></Button>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>Get Invoice}" icon="Images/getinvab.svg" class="gl_subbtn cl_subbtnbrcd" press="fnSubmitImgBarcode"></Button>
+		</endButton>
+  </Dialog>
+</core:FragmentDefinition>

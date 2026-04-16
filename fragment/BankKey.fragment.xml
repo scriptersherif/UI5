@@ -1,0 +1,38 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog showHeader="true" title="Banking Key" class="cl_detailhead" id="id_bankkey">
+    <VBox class="cl_black">
+      <List id="id_list2" items="{MFinalven>/}">
+        <items>
+          <CustomListItem id="id_custom2" type="Active" press="OnPressCustomList">
+            <VBox class="cl_black">
+              <Toolbar class="cl_customvtool sapUiTinyMargin sapUiSmallMarginBegin" width="93%" height="50px">
+                <core:Icon src="sap-icon://account" class="sapUiTinyMarginBegin sapUiTinyMarginTopBottom" color="#8875E7" press="">
+                  <core:layoutData>
+                    <FlexItemData growFactor="1"/>
+                  </core:layoutData>
+                </core:Icon>
+                <VBox>
+                  <Text text="{MFinalven>Ven}" class="sapUiSmallMarginBegin cl_textdet"/>
+                  <Text text="{MFinalven>Name}" class="sapUiSmallMarginBegin cl_textdet"/>
+                </VBox>
+                <ToolbarSpacer/>
+                <ToolbarSpacer/>
+                <core:Icon src="sap-icon://key" class="sapUiTinyMarginBegin sapUiTinyMarginTopBottom" color="#8875E7">
+                  <core:layoutData>
+                    <FlexItemData growFactor="1"/>
+                  </core:layoutData>
+                </core:Icon>
+                <Text text="{MFinalven>Final_Key}" class="sapUiTinyMarginEnd sapUiTinyMarginTopBottom cl_textdet"/>
+              </Toolbar>
+            </VBox>
+          </CustomListItem>
+        </items>
+      </List>
+    </VBox>
+    <HBox alignContent="Center" alignItems="Center" justifyContent="Center" class="sapUiSmallMargin">
+      <Button text="Submit" class="sapUiSizeCompact cl_approve" icon="sap-icon://accept" id="id_ok"
+        press="fn_closebank"></Button>
+      <!--<Button text="Submit" class="sapUiSizeCompact cl_approve" icon="sap-icon://accept" id="id_approve" press="fn_submitdetail"></Button>-->
+    </HBox>
+  </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,28 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog showHeader="true" title="PDF Viewer" class="cl_detailhead" id="id_dialogdetail">
+    <VBox class="">
+      <List id="id_list1" items="{MVen>/}">
+        <CustomListItem id="id_custom1">
+          <VBox class="">
+            <Toolbar class="cl_customvtool sapUiTinyMargin sapUiSmallMarginBegin" width="93%" height="50px">
+              <VBox>
+                <Text text="{MVen>Ven}" class="sapUiSmallMarginBegin cl_textdet"/>
+                <Text text="{MVen>Name}" class="sapUiSmallMarginBegin cl_textdet"/>
+              </VBox>
+              <ToolbarSpacer/>
+              <Button icon="sap-icon://pdf-attachment" text="Attachment" class="sapUiSizeCompact sapUiTinyMarginBeginEnd cl_approve" press="onOpenPDF"></Button>
+            </Toolbar>
+          </VBox>
+        </CustomListItem>
+      </List>
+        <Toolbar>
+          <Button text="Close" class="sapUiSizeCompact sapUiSmallMarginBeginEnd cl_reject" icon="sap-icon://decline" id="id_reject1"
+          press="fn_closedetail1"></Button>
+          <ToolbarSpacer/>
+           <Button icon="sap-icon://form" text="Payment Advice PDF" class="sapUiSizeCompact sapUiTinyMarginBeginEnd cl_approve" press="onOpenPDF1"></Button>
+          <!--<CheckBox text="" selected="false" id="id_smartformcheck1" class="sapUiSizeCompact sapUiTinyMarginTop" select="true"/>-->
+          <!--<Text text="SM PDF" class="sapUiTinyMarginBottom sapUiSmallMarginEnd"/>-->
+        </Toolbar>
+    </VBox>
+  </Dialog>
+</core:FragmentDefinition>

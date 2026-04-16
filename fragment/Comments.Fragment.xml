@@ -1,0 +1,54 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog
+    id="id_dialogcomment"
+    title="Comments"
+    class="cl_agentDialog"
+    stretch="{device>/system/phone}"  
+    horizontalScrolling="false"
+    verticalScrolling="false"
+    escapeHandler=".fn_closecomment" 
+    showHeader="false"            
+    draggable="false"
+    resizable="false">
+	<VBox class="comment_box">
+    <VBox alignItems="Center" justifyContent="Center" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom sapUiSmallMarginEnd">
+<List id="id_listComments" width="100%" class="cl_listComments" showSeparators="None" items="{CommentModel>/comments}" >
+      <CustomListItem class="sapUiTinyMarginBottom">
+        <HBox class="timelineItem1">
+          <VBox class="timelineIconBox">
+            <Image src="Images/commented.svg" class="lineitemsimgCss1_appr"/>
+            <!--<VBox class="cl_Vline_clr" visible="false"></VBox>-->
+            <!--<VBox class="cl_Vline_white" visible="{CommentModel>showLine}"></VBox>-->
+
+          </VBox>
+          <VBox class="timelineContent">
+            <Text text="{CommentModel>title}" class="timelineTitle"/>
+            <Text text="{CommentModel>message}" class="timelineSub"/>
+          </VBox>
+        </HBox>
+      </CustomListItem>
+    </List>
+      <!-- Timeline Layout -->
+      <!--<HBox class="timelineItem1">-->
+      <!--  <VBox class="timelineIconBox">-->
+      <!--    <Image src="Images/commented.svg" class="lineitemsimgCss1_appr"/>-->
+      <!--    <VBox class="cl_Vline_white" visible="{JMInvComment>VBoxWhite}"></VBox>-->
+      <!--  </VBox>-->
+
+      <!--  <VBox class="timelineContent">-->
+      <!--    <Text text="" id="id_comment" class="timelineTitle"/>-->
+      <!--     <Text text="" id="id_messageText" class="timelineSub"/>-->
+      <!--  </VBox>-->
+      <!--</HBox>-->
+
+      <!-- Close Button (Optional) -->
+      <!--<Button-->
+      <!--  text="Close"-->
+      <!--  icon="Images/approve_image.svg"-->
+      <!--  id="id_okay"-->
+      <!--  press=".fn_closecomment"-->
+      <!--  class="bluebtn" />-->
+    </VBox>
+    </VBox>
+  </Dialog>
+</core:FragmentDefinition>

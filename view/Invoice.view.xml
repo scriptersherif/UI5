@@ -1,0 +1,218 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.Invoice"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Title" showHeader="false" class="cl_invpage">
+		<content>
+			<VBox class="cl_invtoolvbox">
+				<HBox class="cl_gradient_bg" justifyContent="SpaceBetween" alignItems="Center">
+					<HBox class="leftIcons" alignItems="Center" width="30%">
+						<Image src="Images/Menu.svg" class="cl_arrima"/>
+					</HBox>
+					<HBox class="centerLogo" alignItems="Center" width="40%" justifyContent="Center">
+						<Image src="Images/FSCNXT_logo.svg" class="cl_logo"/>
+					</HBox>
+					<HBox class="rightIcons" alignItems="Center" width="30%" justifyContent="End">
+						<Image src="Images/input1.svg" class="team_image1"/>
+					</HBox>
+				</HBox>
+				<!--<ScrollContainer vertical="true" >-->
+				<!--	<VBox class="list_box">-->
+				<List items="{JMInvdet>/}" class="list_box">
+					<CustomListItem>
+						<VBox class="cl_approv_invoice_cont1" width="100%">
+							<VBox class="ApprovercontainerBox" width="100%">
+								<!-- Header Row -->
+								<HBox class="headerBox1" alignItems="Center">
+									<Image src="Images/account-circle-outline.svg" class="cl_appr_account"/>
+									<Text text="{JMInvdet>Name1}" class="cl_vendorTitle cl_vendortitle1"/>
+								</HBox>
+								<!-- Invoice Info -->
+								<VBox class="detailBox1">
+									<HBox justifyContent="SpaceBetween" width="100%">
+										<HBox class="">
+											<Image src="Images/invoice-text-outline.svg" class="cl_appr_icon"/>
+											<Text text="#INV-{JMInvdet>Invno}" class="invoiceText"/>
+										</HBox>
+										<HBox>
+											<Image src="Images/calendar-today-outline.svg" class="cl_appr_icon"/>
+											<Text text="{path: 'JMInvdet>Scandate',formatter :'FSC360NEW.model.formatter.fnDate'}" class="dateText"/>
+										</HBox>
+									</HBox>
+								</VBox>
+								<!-- Vendor Address -->
+								<HBox alignItems="end" class="vendoraddress1">
+									<Image src="Images/map-marker-outline.svg" class="cl_appr_icon"/>
+									<Text text="{JMInvdet>VendAddr}" class="invoiceText"/>
+								</HBox>
+								<!-- Amount -->
+								<!--<HBox class="sapUiSmallMarginTop">-->
+								<!--	<Text text="Amount:" class="cl_appmar"/>-->
+								<!--	<Text text="Rs.{JMInvdet>Ntamt}" class="cl_listtxt3 sapUiTinyMarginBegin"/>-->
+								<!--</HBox>-->
+								<!-- Attachment Box -->
+								<HBox class="attachmentBox1" alignItems="Center" justifyContent="SpaceBetween">
+									<HBox>
+										<HBox justifyContent="Center">
+											<Image src="Images/Fileuploadicon.svg" class="cl_appr_pdf"/>
+										</HBox>
+										<HBox class="cl_approval_pdf">
+											<HBox>
+												<Text text="Attachment-1" class="fileText"/>
+											</HBox>
+										</HBox>
+									</HBox>
+									<HBox>
+										<Image src="Images/open-in-new.svg" press="fn_pdf" class="cl_appr_view"/>
+									</HBox>
+								</HBox>
+								<!-- Action Buttons -->
+								<!--<HBox alignItems="Center" justifyContent="Center" class="sapUiSmallMarginTop">-->
+								<!--	<Button id="id_reject" text="{i18n>reject}" visible="{JMFlag>/0/flag}" class="cl_rejbutton sapUiSizeCompact sapUiTinyMarginEnd"/>-->
+								<!--	<Button id="id_accept" text="{i18n>accept}" visible="{JMFlag>/0/flag}" press="fn_accept" class="cl_accepbutton sapUiSizeCompact sapUiSmallMarginEnd"/>-->
+								<!--</HBox>-->
+								<!-- Invoice Added Date -->
+								<!--<HBox class="sapUiTinyMarginTop">-->
+								<!--	<Text text="{i18n>invoiceadd}" class="cl_Apptext"/>-->
+								<!--	<Text text="{path: 'JMInvdet>Scandate', formatter: 'Invoice_Approval.model.Formatter.fnDatetime'}" class="cl_dashtxt sapUiTinyMarginBegin"/>-->
+								<!--</HBox>-->
+							</VBox>
+						</VBox>
+					</CustomListItem>
+				</List>
+				<!--	</VBox>-->
+				<!--</ScrollContainer>-->
+				<!--<VBox class="cl_approv_invoice_cont" id="idFormCompact" visible="true">-->
+				<!--				<VBox class="ApprovercontainerBox" width="100%">-->
+				<!-- Header Row -->
+				<!--					<HBox class="headerBox" justifyContent="" alignItems="Center">-->
+				<!--						<Image src="Images/account-circle-outline.svg" width="" class="cl_appr_account"/>-->
+				<!--						<Text text=" " class="cl_vendorTitle cl_vendortitle1" id="idvendorname"/>-->
+				<!--					</HBox>-->
+				<!-- Invoice  -->
+				<!--					<VBox class="detailBox">-->
+				<!--						<HBox justifyContent="space-between" class="">-->
+				<!--							<HBox class="cl_invoice_section">-->
+				<!--								<Image src="Images/invoice-text-outline.svg" class="cl_appr_icon"/>-->
+				<!--								<Text text="" class="invoiceText" id="idinvoiceno"/>-->
+				<!--							</HBox>-->
+				<!--							<HBox>-->
+				<!--								<Image src="Images/calendar-today-outline.svg" width="" class="cl_appr_icon"/>-->
+				<!--								<Text text="" class="iddate" id="idDateText"/>-->
+				<!--							</HBox>-->
+				<!--						</HBox>-->
+				<!--					</VBox>-->
+				<!--vendor address-->
+				<!--					<HBox alignItems="end" class="vendoraddress">-->
+				<!--						<Image src="Images/map-marker-outline.svg" width="" class="cl_appr_icon"/>-->
+				<!--						<Text text="{}" class="addressText" id="idvendaddress"/>-->
+				<!--					</HBox>-->
+				<!-- Attachment Box -->
+				<!--					<HBox class="attachmentBox" alignItems="Center" justifyContent="SpaceBetween">-->
+				<!--						<HBox class="">-->
+				<!--							<HBox justifyContent="Center">-->
+				<!--								<Image src="Images/Fileuploadicon.svg" class="cl_appr_pdf"/>-->
+				<!--							</HBox>-->
+				<!--							<HBox alignItems="" class="cl_approval_pdf">-->
+				<!--								<HBox>-->
+				<!--									<Text text="Attachment-1" class="fileText"/>-->
+				<!--								</HBox>-->
+				<!--<HBox><Text text="16 MB" class="fileSizeText"/></HBox>-->
+				<!--							</HBox>-->
+				<!--						</HBox>-->
+				<!--						<HBox>-->
+				<!--							<Image src="Images/open-in-new.svg" press="fn_pdf" class="cl_appr_view"/>-->
+				<!--						</HBox>-->
+				<!--					</HBox>-->
+				<!--				</VBox>-->
+				<!--			</VBox>-->
+				<VBox class="cl_materialdetails_header sapUiSmallMarginBottom">
+    <HBox alignItems="Center">
+        <Image src="Images/material_icon.png" class="cl_header_icon"/>
+        <Text text="Material Details" class="cl_panel_title sapUiSmallMarginBegin"/>
+    </HBox>
+</VBox>
+
+			<List id="id_polist" items="{JMItemdetPO>/}" class="cl_list">
+	<CustomListItem>
+		<VBox class="materialCard sapUiTinyMarginBottom">
+			<Text text="{JMItemdetPO>Purchaseorder} / {JMItemdetPO>Ebelp}" class="materialHeader"/>
+			
+		
+			
+			<VBox>
+				<HBox>
+					<Text text="Material" class="labelText"/>
+					<Text text=": " class="labelSeparator"/>
+					<Text text="{JMItemdetPO>Potext} - {JMItemdetPO>Material}" class="valueText"/>
+				</HBox>
+				<HBox>
+					<Text text="Tax Code" class="labelText"/>
+					<Text text=": " class="labelSeparator"/>
+					<Text text="{JMItemdetPO>Taxcode}" class="valueText"/>
+				</HBox>
+				<HBox>
+					<Text text="Amount" class="labelText"/>
+					<Text text=": " class="labelSeparator"/>
+					<Text text="₹ {JMItemdetPO>Amount}" class="valueText"/>
+				</HBox>
+			</VBox>
+		</VBox>
+	</CustomListItem>
+</List>
+
+				<List id="id_nonpolist" items="{JMItemdet>/}" class="cl_list">
+					<CustomListItem class="custom">
+						<HBox class="cl_invvbox sapUiSmallMarginTop" alignContent="Center" alignItems="Center" justifyContent="Center">
+							<Text text="{JMItemdet>Saknr} / {JMItemdet>Item}" class="cl_invtxt sapUiSmallMarginBegin"></Text>
+						</HBox>
+						<HBox width="100%">
+							<VBox width="26%" class="sapUiSmallMarginBegin">
+								<Text text="{i18n>profit}" class="cl_Apptext sapUiSmallMarginTop"></Text>
+								<Text text="{i18n>cost}" class="cl_Apptext sapUiTinyMarginTop"></Text>
+								<Text text="{i18n>currency}" class="cl_Apptext sapUiTinyMarginTop"></Text>
+							</VBox>
+							<VBox width="3%">
+								<Text text="{i18n>:}" class="cl_Apptext sapUiSmallMarginTop"></Text>
+								<Text text="{i18n>:}" class="cl_Apptext sapUiTinyMarginTop"></Text>
+								<Text text="{i18n>:}" class="cl_Apptext sapUiTinyMarginTop"></Text>
+							</VBox>
+							<VBox width="37%">
+								<Text text="{JMItemdet>Prctr}" class="cl_dashtxt sapUiSmallMarginTop"></Text>
+								<Text text="{JMItemdet>Kostl}" class="cl_dashtxt sapUiTinyMarginTop"></Text>
+								<Text text="{path: 'JMInvdet>/0/Waers'}" class="cl_dashtxt sapUiTinyMarginTop"></Text>
+							</VBox>
+							<VBox width="45%" class="cl_invvbox1 sapUiSmallMarginEnd" alignContent="End" alignItems="End" justifyContent="End">
+								<HBox>
+									<Text text="{i18n>tax}" class="cl_Apptext sapUiSmallMarginTop"></Text>
+									<Text text="{JMItemdet>Mwskz}" class="cl_dashtxt sapUiSmallMarginTop"></Text>
+								</HBox>
+								<HBox>
+									<Text text="{i18n>amount}" class="cl_Apptext sapUiMediumMarginTop"></Text>
+									<Text text="Rs.{JMItemdet>Netpr}" class="cl_dashtxt sapUiTinyMarginBegin sapUiMediumMarginTop"></Text>
+								</HBox>
+							</VBox>
+						</HBox>
+					</CustomListItem>
+				</List>
+				<VBox class="cl_invvline sapUiSmallMarginTop"></VBox>
+				<Text text="{i18n>comments}" class="cl_Apptext sapUiSmallMarginBegin sapUiSmallMarginTop"></Text>
+				<List id="id_list" items="{JMInvComment>/}" class="cl_list sapUiSmallMarginTop">
+					<CustomListItem class="custom">
+						<HBox id="id_hbox" class="cl_invuservbox">
+							<HBox width="69%" alignContent="Start" alignItems="Start" justifyContent="Start">
+								<Image src="Images/User_dp2.png" class="cl_userima sapUiSmallMarginBegin sapUiSmallMarginTop"></Image>
+								<VBox>
+									<Text text="{JMInvComment>From}" class="cl_Apptext sapUiSmallMarginBegin sapUiSmallMarginTop"></Text>
+									<Text text="{JMInvComment>Comment}" class="cl_Apptext sapUiSmallMarginBegin"></Text>
+								</VBox>
+							</HBox>
+							<HBox width="28%" class="cl_invhbox sapUiLargeMarginTop" alignContent="End" alignItems="End" justifyContent="End">
+								<Image src="Images/Time.png"></Image>
+								<Text text="{JMInvComment>Time}" class="cl_dashtxt cl_space sapUiTinyMarginBegin sapUiTinyMarginBottom"></Text>
+							</HBox>
+						</HBox>
+					</CustomListItem>
+				</List>
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>

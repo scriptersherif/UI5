@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m"  xmlns:core="sap.ui.core">
+	<SelectDialog  title="{i18n>SelectMaterial}" class="cl_frag"  liveChange="fn_Material_LC" items="{JSMaterial>/}" 
+		confirm="fn_Material_Confrm" >
+		<!--<StandardListItem  title="{JSMaterial>Matnr}" description="{JSMaterial>Maktg}"/>-->
+	     
+        <StandardListItem  
+            title="{parts: ['JSMaterial>Matnr', 'JSMaterial>Maktg'], formatter: '.formatMaterial'}"
+            description=""
+        />
+	</SelectDialog>
+</core:FragmentDefinition>

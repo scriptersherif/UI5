@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="{i18n>Select Cost Center}" liveChange="fn_CostCntr_LC"  items="{JSCostCenter>/}" class="APW_DilogClass cl_frag"  
+		confirm="fnCostConfrm_"  >
+		<!--<StandardListItem  title="{JSCostCenter>Kostl}" description="{JSCostCenter>Ktext}"/>-->
+		<StandardListItem  
+			title="{= ${JSCostCenter>Kostl} + ' - ' + ${JSCostCenter>Ktext} }"/>
+	</SelectDialog>
+</core:FragmentDefinition>

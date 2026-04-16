@@ -1,0 +1,347 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="advancedSearchDialog" draggable="true" resizable="true" contentHeight="auto" class="advancesearch_dialog" showHeader="false">
+		<VBox class="cl_full_boxB cl_full_boxstatus cl_full_boxstatus1 cl_full_boxB1 cl_full_box_tatfrag_cont">
+			<VBox class="cl_statusflow_input_cont" id="id_cl_statusflow_input_cont">
+				<!--first row-->
+				<HBox class="cl_barcode_input_row sapUiSmallMarginBegin topbox cl_row_input_frag" justifyContent="SpaceBetween" alignItems="End">
+					<VBox class="formFieldbarcode cltatapplicationfrag" width="">
+						<Text text="{i18n>queueId}" tooltip="{i18n>queueIdTooltip}" class="cl_textbarcode"/>
+						<HBox alignItems="Center" class="formInputWithIconbar">
+							<HBox class="formInputWithIconbar" alignItems="Center">
+								<Input id="idQueueFromfrag" placeholder="{i18n>queueIdFrom}" class="formInputB1 forminputtat forminputfirsttat"
+									tooltip="{i18n>queueIdFromTooltip}"/>
+								<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat" press="fn_onFromIconPress"
+									tooltip="{i18n>queueIdSelect}"/>
+							</HBox>
+							<HBox class="cl_to_cont">
+								<Text text="{i18n>to}" tooltip="{i18n>toTooltip}" class="cl_toLabel" wrapping="False"/>
+							</HBox>
+							<HBox class="formInputWithIconbar" alignItems="Center">
+								<Input id="idQueueTofrag" placeholder="{i18n>queueIdTo}" class="formInputB1 forminputtat formlastinputtatfrag"
+									tooltip="{i18n>queueIdToTooltip}"/>
+								<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat input_icon_tat_last" press="fn_onFromIconPress"
+									tooltip="{i18n>queueIdSelect}"/>
+							</HBox>
+						</HBox>
+					</VBox>
+					<VBox class="formFieldbarcode cltatapplicationfrag" width="">
+						<Text text="{i18n>createdDate}" tooltip="{i18n>createdDateTooltip}" class="cl_textbarcode"/>
+						<HBox alignItems="Center" class="formInputWithIconbar">
+							<HBox class="formInputWithIconbar" alignItems="Center">
+								<DatePicker valueFormat="YYYY-MM-dd" readonly="true" id="id_creationdatefrm" displayFormat="dd/MM/YYYY" placeholder="{i18n>dateFrom}"
+									class="formInputB1 forminputtat forminputfirsttat tatdatepick" change="fn_datevalidation" tooltip="{i18n>dateFromTooltip}"/>
+							</HBox>
+							<HBox class="cl_to_cont">
+								<Text text="{i18n>to}" tooltip="{i18n>toTooltip}" class="cl_toLabel" wrapping="False"/>
+							</HBox>
+							<HBox class="formInputWithIconbar" alignItems="Center">
+								<DatePicker id="id_creationdateend" valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" placeholder="{i18n>dateTo}"
+									class="formInputB1 forminputtat formlastinputtatfrag" change="fn_datevalidation" tooltip="{i18n>dateToTooltip}"/>
+							</HBox>
+						</HBox>
+					</VBox>
+					<VBox class="formFieldbarcode cltatapplicationfrag" width="">
+						<Text text="{i18n>companyCode}" tooltip="{i18n>companyCodeTooltip}" class="cl_textbarcode"/>
+							<HBox class="formInputWithIconbar">
+										<!--<MultiComboBox id="idCCode" items="{path: 'JSCCode>/Company/results'}" change="fnCompChange" selectionFinish="handleSelectionFinish"-->
+										<!--	maxWidth="100%" class="cl_combo_transBar cl_companycode_scan" editable="{path: 'JSKey>/0/Key'}" tooltip="{i18n>companycode}"  selectedKeys="{JSKey>/SelectedBukrs}">-->
+										<!--	<core:Item text="{= ${JSCCode>Bukrs} + ' - ' + ${JSCCode>Butxt} }" key="{JSCCode>Bukrs}" />-->
+										<!--</MultiComboBox>-->
+										<MultiComboBox
+										    id="idCCodefrag"
+										    items="{path: 'CompanyModel>/Company'}"
+										    selectionFinish="handleSelectionFinish"
+										    maxWidth="100%"
+										     tooltip="{i18n>companycode}"
+										    class="cl_combo_transBar cl_companycode_scan" 
+										    selectedKeys="{CompanyModel>/SelectedBukrs}">
+										
+										    <core:Item 
+										        text="{= ${CompanyModel>Bukrs} + ' - ' + ${CompanyModel>Butxt} }"
+										        key="{CompanyModel>Bukrs}" />
+										</MultiComboBox>
+
+									</HBox>
+						<!--<HBox alignItems="Center" class="formInputWithIconbar">-->
+						<!--	<HBox class="formInputWithIconbar" alignItems="Center">-->
+						<!--		<Input id="idCompcodeFrom" placeholder="{i18n>compFrom}" class="formInputB1 forminputtat forminputfirsttat" tooltip="{i18n>compFromTooltip}"/>-->
+						<!--		<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat" press="fn_LoadCC" tooltip="{i18n>compFromSelect}"/>-->
+						<!--	</HBox>-->
+						<!--	<HBox class="cl_to_cont">-->
+						<!--		<Text text="{i18n>to}" tooltip="{i18n>toTooltip}" class="cl_toLabel" wrapping="False"/>-->
+						<!--	</HBox>-->
+						<!--	<HBox class="formInputWithIconbar" alignItems="Center">-->
+						<!--		<Input id="idCompCodeTo" placeholder="{i18n>compTo}" class="formInputB1 forminputtat formlastinputtatfrag" tooltip="{i18n>compToTooltip}"/>-->
+						<!--		<Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat input_icon_tat_last" press="fn_LoadCC"-->
+						<!--			tooltip="{i18n>compToSelect}"/>-->
+						<!--	</HBox>-->
+						<!--</HBox>-->
+					</VBox>
+					<VBox class="columnbarcode3 formFieldbarcode comboboxcont columbarcodetat" width="">
+						<Text text="{i18n>status}" tooltip="{i18n>statusTooltip}" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<ComboBox id="id_Status" items="{JSStatusList>/}" selectedKey="{viewModel>/selectedTemplate}" placeholder="{i18n>statusPlaceholder}"
+								class="cl_combo_transBar cl_combo_transtat cl_combo_transtatfrag cl_tat_status_combobox_inp cl_tat_status_combobox_inp_frag"
+								tooltip="{i18n>statusTooltip}">
+								<core:Item key="{JSStatusList>StatKey}" text="{JSStatusList>StatText}"/>
+							</ComboBox>
+						</HBox>
+					</VBox>
+				</HBox>
+				<!--second row-->
+				<HBox class="cl_barcode_input_row sapUiSmallMarginBegin topbox cl_row_input_frag" justifyContent="SpaceBetween" alignItems="End">
+					<VBox class="columnbarcode formFieldbarcode comboboxcont columbarcodetat" width="">
+						<Text text="{i18n>plant}" tooltip="{i18n>plantTooltip}" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<Input id="id_plant" class="formInputB1" width="100%" layoutData="sap.ui.layout.FlexItemData" placeholder="{i18n>plant}"
+								tooltip="{i18n>plantTooltip}"/>
+						</HBox>
+					</VBox>
+					<VBox class="columnbarcode formFieldbarcode comboboxcont columbarcodetat" width="">
+						<Text text="{i18n>purchaseGroup}" tooltip="{i18n>purchaseGroupTooltip}" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<Input id="id_pur_grp" class="formInputB1" width="100%" layoutData="sap.ui.layout.FlexItemData" placeholder="{i18n>purchaseGroup}"
+								tooltip="{i18n>purchaseGroupTooltip}"/>
+						</HBox>
+					</VBox>
+					<VBox class="columnbarcode3 formFieldbarcode comboboxcont columbarcodetat" width="">
+						<Text text="{i18n>expenseTypes}" tooltip="{i18n>expenseTypesTooltip}" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<ComboBox id="id_expensetyp" items="{JSStatusList>/}" selectedKey="{viewModel>/selectedTemplate}" placeholder="{i18n>expensePlaceholder}"
+								tooltip="{i18n>expenseTypesTooltip}"
+								class="cl_combo_transBar cl_combo_transtat cl_combo_transtatfrag cl_tat_status_combobox_inp cl_tat_status_combobox_inp_frag">
+								<core:Item key="{JSStatusList>StatKey}" text="{JSStatusList>StatText}"/>
+							</ComboBox>
+						</HBox>
+					</VBox>
+					<VBox class="columnbarcode3 formFieldbarcode comboboxcont columbarcodetat" width="">
+						<Text text="{i18n>invoiceType}" tooltip="{i18n>invoiceTypeTooltip}" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<ComboBox id="id_invoicetyp" items="{JSStatusList>/}" selectedKey="{viewModel>/selectedTemplate}" placeholder="{i18n>invoiceType}"
+								tooltip="{i18n>invoiceTypeTooltip}"
+								class="cl_combo_transBar cl_combo_transtat cl_combo_transtatfrag cl_tat_status_combobox_inp cl_tat_status_combobox_inp_frag">
+								<core:Item key="{JSStatusList>StatKey}" text="{JSStatusList>StatText}"/>
+							</ComboBox>
+						</HBox>
+					</VBox>
+				</HBox>
+				<!--third row-->
+			<HBox class="cl_barcode_input_row sapUiSmallMarginBegin topbox cl_row_input_frag"
+      justifyContent="SpaceBetween" alignItems="End">
+
+    <!-- Sub Status -->
+    <VBox class="columnbarcode3 formFieldbarcode comboboxcont columbarcodetat">
+        <Text text="{i18n>subStatus}" tooltip="{i18n>subStatusTT}" class="cl_textbarcode"/>
+        <HBox class="formInputWithIconbar">
+            <ComboBox id="id_Sub_Status"
+                      items="{JSStatusList>/}"
+                      selectedKey="{viewModel>/selectedTemplate}"
+                      placeholder="{i18n>subStatusTooltip}"
+                      tooltip="{i18n>subStatus}"
+                      class="cl_combo_transBar cl_combo_transtat cl_combo_transtatfrag cl_tat_status_combobox_inp cl_tat_status_combobox_inp_frag">
+                <core:Item key="{JSStatusList>StatKey}" text="{JSStatusList>StatText}"/>
+            </ComboBox>
+        </HBox>
+    </VBox>
+
+    <!-- Vendor Number -->
+    <VBox class="formFieldbarcode cltatapplicationfrag">
+        <Text text="{i18n>vendorNumber}" tooltip="{i18n>vendorNumberTooltip}" class="cl_textbarcode"/>
+        <HBox alignItems="Center" class="formInputWithIconbar">
+            <!-- From Input -->
+            <HBox class="formInputWithIconbar" alignItems="Center">
+                <Input id="idvendorfrom"
+                       placeholder="{i18n>vendorFrom}"
+                       tooltip="{i18n>vendorFrom}"
+                       class="formInputB1 forminputtat forminputfirsttat"/>
+                <Image src="Images/popup.svg" width="12px" height="15px"
+                       class="inputIcon3 inputicontat" press="fn_getVendor"
+                       />
+            </HBox>
+            <!-- TO Label -->
+            <HBox class="cl_to_cont">
+                <Text text="{i18n>to}" tooltip="{i18n>toLabelTT}" class="cl_toLabel" wrapping="False"/>
+            </HBox>
+            <!-- To Input -->
+            <HBox class="formInputWithIconbar" alignItems="Center">
+                <Input id="idvendorto"
+                       placeholder="{i18n>vendorTo}"
+                       tooltip="{i18n>vendorTo}"
+                       class="formInputB1 forminputtat formlastinputtatfrag"/>
+                <Image src="Images/popup.svg" width="12px" height="15px"
+                       class="inputIcon3 inputicontat input_icon_tat_last" press="fn_getVendor"
+                       />
+            </HBox>
+        </HBox>
+    </VBox>
+
+    <!-- Invoice Number -->
+    <VBox class="formFieldbarcode cltatapplicationfrag thirdsection">
+        <Text text="{i18n>invoiceNumber}" tooltip="{i18n>invoiceNumberTT}" class="cl_textbarcode"/>
+        <HBox alignItems="Center" class="formInputWithIconbar">
+            <!-- From Input -->
+            <HBox class="formInputWithIconbar" alignItems="Center">
+                <Input placeholder="{i18n>invoicePHFrom}"
+                       tooltip="{i18n>invoiceTTFrom}"
+                       class="formInputB1 forminputtat forminputfirsttat"/>
+                <Image src="Images/popup.svg" width="12px" height="15px"
+                       class="inputIcon3 inputicontat"
+                       tooltip="{i18n>invoicePopupTT}"/>
+            </HBox>
+            <!-- TO Label -->
+            <HBox class="cl_to_cont">
+                <Text text="{i18n>to}" tooltip="{i18n>toLabelTT}" class="cl_toLabel" wrapping="False"/>
+            </HBox>
+            <!-- To Input -->
+            <HBox class="formInputWithIconbar" alignItems="Center">
+                <Input id="idinvnoto"
+                       placeholder="{i18n>invoicePHTo}"
+                       tooltip="{i18n>invoiceTTTo}"
+                       class="formInputB1 forminputtat formlastinputtatfrag"/>
+                <Image src="Images/popup.svg" width="12px" height="15px"
+                       class="inputIcon3 inputicontat input_icon_tat_last"
+                       tooltip="{i18n>invoicePopupTT}"/>
+            </HBox>
+        </HBox>
+    </VBox>
+
+    <!-- Purchase Order -->
+    <VBox class="formFieldbarcode cltatapplicationfrag">
+        <Text text="{i18n>purchaseOrder}" tooltip="{i18n>purchaseOrderTT}" class="cl_textbarcode"/>
+        <HBox alignItems="Center" class="formInputWithIconbar">
+            <!-- From Input -->
+            <HBox class="formInputWithIconbar" alignItems="Center">
+                <Input placeholder="{i18n>poPHFrom}"
+                       tooltip="{i18n>poTTFrom}"
+                       class="formInputB1 forminputtat forminputfirsttat"/>
+                <Image src="Images/popup.svg" width="12px" height="15px"
+                       class="inputIcon3 inputicontat"
+                       tooltip="{i18n>poPopupTT}"/>
+            </HBox>
+            <!-- TO Label -->
+            <HBox class="cl_to_cont">
+                <Text text="{i18n>toLabel}" tooltip="{i18n>toLabelTT}" class="cl_toLabel" wrapping="False"/>
+            </HBox>
+            <!-- To Input -->
+            <HBox class="formInputWithIconbar" alignItems="Center">
+                <Input placeholder="{i18n>poPHTo}"
+                       tooltip="{i18n>poTTTo}"
+                       class="formInputB1 forminputtat formlastinputtatfrag"/>
+                <Image src="Images/popup.svg" width="12px" height="15px"
+                       class="inputIcon3 inputicontat input_icon_tat_last"
+                       tooltip="{i18n>poPopupTT}"/>
+            </HBox>
+        </HBox>
+    </VBox>
+</HBox>
+
+				<!--fourth row-->
+			<HBox class="cl_barcode_input_row sapUiSmallMarginBegin topbox cl_row_input_frag" justifyContent="SpaceBetween" alignItems="End">
+    <!-- GRN / Entry Sheet -->
+    <VBox class="formFieldbarcode cltatapplicationfrag" width="">
+        <Text text="{i18n>grnEntrySheet}" tooltip="{i18n>grnTooltip}" class="cl_textbarcode"/>
+        <HBox alignItems="Center" class="formInputWithIconbar">
+            <!-- From Input -->
+            <HBox class="formInputWithIconbar" alignItems="Center">
+                <Input width="" placeholder="{i18n>grnEntrySheet}" tooltip="{i18n>grnTooltip}" class="formInputB1 forminputtat forminputfirsttat"/>
+                <Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat" press=""/>
+            </HBox>
+            <!-- TO Label -->
+            <HBox class="cl_to_cont">
+                <Text text="{i18n>toLabel}" class="cl_toLabel" wrapping="False"/>
+            </HBox>
+            <!-- To Input -->
+            <HBox class="formInputWithIconbar" alignItems="Center">
+                <Input width="" placeholder="{i18n>grnEntrySheet}" tooltip="{i18n>grnTooltip}" class="formInputB1 forminputtat formlastinputtatfrag"/>
+                <Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat input_icon_tat_last" press=""/>
+            </HBox>
+        </HBox>
+    </VBox>
+
+    <!-- Posting Date -->
+    <VBox class="formFieldbarcode cltatapplicationfrag" width="">
+        <Text text="{i18n>postingDate}" tooltip="{i18n>postingDateTooltip}" class="cl_textbarcode"/>
+        <HBox alignItems="Center" class="formInputWithIconbar">
+            <!-- From Input -->
+            <HBox class="formInputWithIconbar" alignItems="Center">
+                <DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" 
+                    placeholder="{i18n>postingDate}" tooltip="{i18n>postingDateTooltip}"
+                    class="formInputB1 forminputtat forminputfirsttat tatdatepick" change="fn_datevalidation"/>
+            </HBox>
+            <!-- TO Label -->
+            <HBox class="cl_to_cont">
+                <Text text="{i18n>toLabel}" class="cl_toLabel" wrapping="False"/>
+            </HBox>
+            <!-- To Input -->
+            <HBox class="formInputWithIconbar" alignItems="Center">
+                <DatePicker valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY" 
+                    placeholder="{i18n>postingDate}" tooltip="{i18n>postingDateTooltip}"
+                    class="formInputB1 forminputtat formlastinputtatfrag" change="fn_datevalidation"/>
+            </HBox>
+        </HBox>
+    </VBox>
+
+    <!-- Serial Number -->
+    <VBox class="formFieldbarcode cltatapplicationfrag" width="">
+        <Text text="{i18n>serialNumber}" tooltip="{i18n>serialNumberTooltip}" class="cl_textbarcode"/>
+        <HBox alignItems="Center" class="formInputWithIconbar">
+            <HBox class="formInputWithIconbar" alignItems="Center">
+                <Input width="" placeholder="{i18n>serialNumber}" tooltip="{i18n>serialNumberTooltip}" class="formInputB1 forminputtat forminputfirsttat"/>
+                <Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat" press=""/>
+            </HBox>
+            <HBox class="cl_to_cont">
+                <Text text="{i18n>toLabel}" class="cl_toLabel" wrapping="False"/>
+            </HBox>
+            <HBox class="formInputWithIconbar" alignItems="Center">
+                <Input width="" placeholder="{i18n>serialNumber}" tooltip="{i18n>serialNumberTooltip}" class="formInputB1 forminputtat formlastinputtatfrag"/>
+                <Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat input_icon_tat_last" press=""/>
+            </HBox>
+        </HBox>
+    </VBox>
+
+    <!-- Barcode -->
+    <VBox class="formFieldbarcode cltatapplicationfrag" width="">
+        <Text text="{i18n>barcode}" tooltip="{i18n>barcodeTooltip}" class="cl_textbarcode"/>
+        <HBox alignItems="Center" class="formInputWithIconbar">
+            <HBox class="formInputWithIconbar" alignItems="Center">
+                <Input width="" placeholder="{i18n>barcode}" tooltip="{i18n>barcodeTooltip}" class="formInputB1 forminputtat forminputfirsttat"/>
+                <Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat" press=""/>
+            </HBox>
+            <HBox class="cl_to_cont">
+                <Text text="{i18n>toLabel}" class="cl_toLabel" wrapping="False"/>
+            </HBox>
+            <HBox class="formInputWithIconbar" alignItems="Center">
+                <Input width="" placeholder="{i18n>barcode}" tooltip="{i18n>barcodeTooltip}" class="formInputB1 forminputtat formlastinputtatfrag"/>
+                <Image src="Images/popup.svg" width="12px" height="15px" class="inputIcon3 inputicontat input_icon_tat_last" press=""/>
+            </HBox>
+        </HBox>
+    </VBox>
+</HBox>
+
+				<!--fifth row-->
+				<HBox class="cl_barcode_input_row sapUiSmallMarginBegin topbox cl_row_input_frag" justifyContent="SpaceBetween" alignItems="End">
+					<VBox class="columnbarcode formFieldbarcode comboboxcont columbarcodetat columbarcodetatwb" width="">
+						<Text text="{i18n>wbAgent}" class="cl_textbarcode"/>
+						<HBox class="formInputWithIconbar">
+							<Input id="id_wbagnt" class="formInputB1" width="100%" layoutData="sap.ui.layout.FlexItemData" placeholder="{i18n>wbAgent}" tooltip="{i18n>wbAgentTooltip}"/>
+						</HBox>
+					</VBox>
+				</HBox>
+			</VBox>
+			<Toolbar class="cl_tbr_1 cl_tbr_2">
+				<ToolbarSpacer/>
+				<HBox class="cl_hide_show_search_cont" id="show_hide_search">
+					<Image src="Images/hideshowicon.svg" id="qidSortIcon" width="14px" height="12px" class="cl_header_icon cl_status_hidetoggle"
+						press="fn_onCancelPress" tooltip="{i18n>hideAdvanceSearchTooltip}"/>
+					<Text text="{i18n>hideAdvanceSearch}" tooltip="{i18n>hideAdvanceSearchTooltip}" class="cl_Tltxt cl_Tltxt1" id="hiddenshowtxt"/>
+				</HBox>
+				<HBox class="cl_button_cont_hideshow">
+					<Button id="id_clear_frag_btn" text="{i18n>clear}" icon="Images/clearab.svg" type="Transparent" press=".fn_onCancelPress_frag"
+						class="sapUiSizeCompact cl_btn_cleara" tooltip="{i18n>clearTooltip}"/>
+					<Button id="id_search_frag_btn" text="{i18n>search}" icon="Images/searchab.svg" type="Transparent" press="fn_search_frag_adv"
+						class="sapUiSizeCompact cl_btn_searcha" tooltip="{i18n>searchTooltip}"/>
+				</HBox>
+			</Toolbar>
+		</VBox>
+	</Dialog>
+</core:FragmentDefinition>

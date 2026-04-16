@@ -1,0 +1,49 @@
+<!--<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc">-->
+<!--	<Dialog title="Warning !" showHeader='false' class=''>-->
+<!--			<VBox alignContent="Center" alignItems="Center" justifyContent="Center" class='sapUiSmallMargin'>-->
+<!--				<VBox class='cl_errorDialog' alignContent="Center" alignItems="Center" justifyContent="Center">-->
+<!--					<Image src="images/acpt.png" class='sapUiSmallMarginTop'></Image>-->
+<!--					<Text id='id_successText' class="cl_errorText"></Text>-->
+					<!--<Button text="Okay" class=" sapUiSmallMarginEnd cl_truckAddBtn" press="fn_closeSuccess"></Button>-->
+<!--				</VBox>-->
+<!--			</VBox>-->
+<!--				<VBox alignContent="Center" alignItems="Center" justifyContent="Center">-->
+<!--					<Button text="Okay" class="sapUiSizeCompact cl_truckAddBtn" press="fn_closeSuccess"></Button>-->
+<!--				</VBox>-->
+				
+<!--	</Dialog>-->
+<!--</core:FragmentDefinition>-->
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc">
+    <Dialog id="successDialog"
+            showHeader="false"
+            class="cl_successDialog"
+            stretchOnPhone="true"
+            draggable="false"
+            resizable="false">
+        
+        <VBox class="cl_successWrapper" alignItems="Center" justifyContent="Start">
+            <VBox class="cl_successTopCurve" alignItems="Center" justifyContent="Center">
+                <Image src="Images/success.svg" class="cl_successIcon" />
+            </VBox>
+            
+            <VBox class="cl_successContent" alignItems="Center" justifyContent="Center">
+                <Text text="Vendor Requested" class="cl_successTitle" />
+                <Text id="id_successText" class="cl_successMessage" />
+                <Button text="✕    Close " type="Emphasized"
+                        class="cl_btn_searchapp cl_btn_searchsuccess "
+                        press="fn_closeSuccess" />
+            </VBox>
+        </VBox>
+
+    </Dialog>
+</core:FragmentDefinition>
+<!--<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc">-->
+<!--    <Dialog id="successDialog" showHeader="false" class="cl_successDialog" stretchOnPhone="true" draggable="false" resizable="false">-->
+<!--        <VBox class="cl_successCard sapUiSmallMargin" alignItems="Center" justifyContent="Center">-->
+<!--            <Image src="images/success.svg" class="cl_successIcon" />-->
+<!--            <Text text="Vendor Requested" class="cl_successTitle" />-->
+<!--            <Text id="id_successText" class="cl_successMessage" />-->
+<!--            <Button text="✕ Close (3)" type="Emphasized" class="cl_successCloseBtn" press="fn_closeSuccess" />-->
+<!--        </VBox>-->
+<!--    </Dialog>-->
+<!--</core:FragmentDefinition>-->

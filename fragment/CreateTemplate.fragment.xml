@@ -1,0 +1,56 @@
+<!--<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">-->
+<!--  <Dialog title="Create New Template" class="sapUiContentPadding">-->
+<!--    <VBox class="sapUiSmallMargin">-->
+<!--      <Label text="Template Name"/>-->
+<!--      <Input id="idNewTemplateName" placeholder="Enter name" />-->
+
+<!--      <List id="idNewFieldList" items="{ColumnMetadataModel>/}">-->
+<!--        <CustomListItem>-->
+<!--          <HBox>-->
+<!--            <CheckBox selected="{ColumnMetadataModel>visible}" text="{ColumnMetadataModel>label}" />-->
+<!--          </HBox>-->
+<!--        </CustomListItem>-->
+<!--      </List>-->
+<!--    </VBox>-->
+
+<!--    <endButton>-->
+<!--      <Button text="Save" press="onSaveNewTemplate"/>-->
+<!--    </endButton>-->
+<!--    <beginButton>-->
+<!--      <Button text="Cancel" press="onCancelCreateTemplate"/>-->
+<!--    </beginButton>-->
+<!--  </Dialog>-->
+<!--</core:FragmentDefinition>-->
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Popover
+    title="Create New Template"
+    placement="Bottom"
+    class="sapUiContentPadding clcustomizecreatetemppop"
+    id="idCreateTemplatePopover"
+  >
+    <VBox class="sapUiSmallMargin">
+      <Label text="Template Name"/>
+      <Input id="idNewTemplateName" placeholder="Enter name" />
+
+      <List id="idNewFieldList" items="{ColumnMetadataModel>/}" class="noListBorder" >
+        <CustomListItem>
+          <HBox alignItems="Center" class="clListItemStyled customCheckWrapper">
+          		<Image src="Images/dots-drag.svg" class=""/>
+            <CheckBox
+              selected="{ColumnMetadataModel>visible}"
+            
+              width="100%"
+            />
+             <Text  text="{ColumnMetadataModel>label}" class="sapUiTinyMarginEnd popuptext" />
+          </HBox>
+        </CustomListItem>
+      </List>
+      
+
+      <HBox justifyContent="End" class="sapUiSmallMarginTop">
+        <Button text="Cancel" press="onCancelCreateTemplate" type="Transparent" />
+        <Button text="Save" press="onSaveNewTemplate" type="Emphasized" class="sapUiTinyMarginBegin"/>
+      </HBox>
+    </VBox>
+  </Popover>
+</core:FragmentDefinition>

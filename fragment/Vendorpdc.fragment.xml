@@ -1,0 +1,72 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:ui="sap.ui.table">
+
+    <Dialog
+        id="idVendorPdcDialog"
+        title="Vendor Selection"
+        contentWidth="60%"
+        draggable="true"
+        class="sapUiSizeCompact APW_SimulatHeader clfrag cl_agentDialog cl_agentDialogadopt" 
+        resizable="true">
+
+        <content>
+            <ui:Table
+                id="id_vendorpdc_table"
+                rows="{JSVendorPdc>/}"
+                class="sapUiTinyMarginTop FSC_Table FSC_Table1 FSC_Tabletax"
+                selectionMode="MultiToggle" enableSelectAll="true"
+                visibleRowCountMode="Auto"
+                noData="No Vendor Data">
+
+                <ui:columns>
+
+                    <ui:Column width="10%">
+                        <Label text="Vendor"/>
+                        <ui:template>
+                            <Input value="{JSVendorPdc>Lifnr}" editable="false"/>
+                        </ui:template>
+                    </ui:Column>
+
+                    <ui:Column width="30%">
+                        <Label text="Vendor Name"/>
+                        <ui:template>
+                            <Input value="{JSVendorPdc>Name1}" editable="false"/>
+                        </ui:template>
+                    </ui:Column>
+
+                    <ui:Column width="10%">
+                        <Label text="PO Number"/>
+                        <ui:template>
+                            <Input value="{JSVendorPdc>Ebeln}" editable="false"/>
+                        </ui:template>
+                    </ui:Column>
+
+                    <!--<ui:Column width="10%" hAlign="Center">-->
+                    <!--    <Label text="Select"/>-->
+                    <!--    <ui:template>-->
+                    <!--        <RadioButton-->
+                    <!--            selected="{= ${JSVendorPdc>Selec} === 'X' }"-->
+                    <!--            groupName="VendorPdcGroup"-->
+                    <!--            select=".onVendorPdcSelect"/>-->
+                    <!--    </ui:template>-->
+                    <!--</ui:Column>-->
+
+                </ui:columns>
+            </ui:Table>
+        </content>
+
+  	<beginButton>
+			<Button text="Cancel"   press="onCloseVendorPdc" class="cl_canbtn gl_canbtn gl_canbtn1 cl_canbtnadop "/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>Submit}"  press="fn_submitvendorpdc" class=" gl_subbtn gl_subbtn1 cl_adopsubmit "/>
+		</endButton>
+        	 <!--<Button text="submit" press=".fn_submitvendorpdc"/>-->
+          <!--  <Button text="Close" press=".onCloseVendorPdc"/>-->
+      
+
+    </Dialog>
+
+</core:FragmentDefinition>

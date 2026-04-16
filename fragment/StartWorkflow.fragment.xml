@@ -1,0 +1,158 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:ui="sap.ui.table" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Dialog title="{i18n>Start Workflow Process}" class="sapUiSizeCompact cl_frag " contentWidth="42%" contentHeight="72%" resizable="true"
+		draggable="true">
+		<content>
+			<VBox>
+			
+						<HBox class="cl_barcode_input_row sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginTop" justifyContent="SpaceBetween" alignItems="End">
+																
+																	<!-- GST Partner -->
+																	<VBox class="columnbarcode formFieldbarcode" >
+																		<Text tooltip="{i18n>Queue ID}"  text="{i18n>Queue ID}" class="cl_textw"/>
+																		
+																		<HBox class="formInputWithIconbar " id="id_QueueIDHBox">
+																			<Input id="id_QueueID"  class="formInputB" showValueHelp="false" 
+																				/>
+																		</HBox>
+																	</VBox>
+															
+																	<VBox class="columnbarcode formFieldbarcode">
+																		<Text tooltip="{i18n>Trigger Type}"  text="{i18n>Trigger Type}" class="cl_textw"/>
+																		<HBox class="formInputWithIconbar ">
+																				<Select items="{JSTriggerType>/}" id="id_SelTrigger"  change="" selectedKey="1"
+							class="cl_combo_transBar clselect cl_trigsel">
+							<core:Item key="{JSTriggerType>Triggerid}" text="{JSTriggerType>Text}"/>
+						</Select>
+																		</HBox>
+																	</VBox>
+																</HBox>
+				
+				
+	
+						<!--<Panel class="">-->
+						<!--	<ui:Table id="Id_TbAgents" rows="{JSAgents>/}" class=" cl_UiTableHeader UiTableHeader" selectionMode="None" visibleRowCount="3"-->
+						<!--		paste="onPaste">-->
+						<!--		<ui:extension>-->
+						<!--			<OverflowToolbar id="Id_TbAgentsToolbar">-->
+						<!--				<Text text="{i18n>Agents}" class="Cl_Table_Label"></Text>-->
+						<!--				<ToolbarSpacer></ToolbarSpacer>-->
+						<!--				<Button class="sapUiSizeCompact " icon="sap-icon://sys-add" press="fnAddAgents" id="id_addAgent"></Button>-->
+						<!--				<Button class="sapUiSizeCompact " icon="sap-icon://sys-minus" press="fnDeleteAgents" id="id_deleteAgent"></Button>-->
+						<!--			</OverflowToolbar>-->
+						<!--		</ui:extension>-->
+						<!--		<ui:columns >-->
+						<!--			<ui:Column width="5%">-->
+						<!--				<Label text="{i18n>User ID}" tooltip="{i18n>User ID}"/>-->
+						<!--				<ui:template>-->
+						<!--					<Input value="{JSAgents>UserID}" change="fn_useridvalid" class="cl_tableinput"></Input>-->
+						<!--				</ui:template>-->
+						<!--			</ui:Column>-->
+						<!--			<ui:Column width="15%">-->
+						<!--				<Label text="{i18n>Full Name}" tooltip="{i18n>Full Name}"/>-->
+						<!--				<ui:template>-->
+						<!--					<Input value="{JSAgents>Username}" class="cl_tableinput"></Input>-->
+						<!--				</ui:template>-->
+						<!--			</ui:Column>-->
+						<!--		</ui:columns>-->
+						<!--	</ui:Table>-->
+						
+						<!--</Panel>-->
+						<Panel class="cl_agentPanel" >
+								<VBox class="cl_approv_invoice_cont2" width="100%">
+								<HBox class="headerBox2" justifyContent="" alignItems="Center">
+						
+									<Text text="Agents" class="clamtap sapUiTinyMarginBegin"/>
+								</HBox>
+								<VBox class="comment_box">
+    <!--<VBox width="100%" class="cl_agentsVBox" renderType="Bare">-->
+        <items>
+            <VBox id="id_agentsContainer" width="100%" class="cl_agentsRows" items="{JSAgents>/}">
+                <items>
+                    <HBox class="cl_agentRow" justifyContent="SpaceBetween" width="100%">
+                        <Input value="{JSAgents>UserID}" change="fn_useridvalid" placeholder="User ID"  class="formInputB1"/>
+                        <Input value="{JSAgents>Username}" placeholder="Full Name"  class="formInputB1 sapUiTinyMarginBegin"/>
+                        <Button icon="Images/cancelbtn.svg" press="fnDeleteAgents" class=" clbtn sapUiTinyMarginBegin"/>
+                    </HBox>
+                </items>
+            </VBox>
+            <Button text="+ Add More" press="fnAddAgents" class="whitebtn"/>
+        </items>
+    </VBox>
+     </VBox>
+</Panel>
+<Panel class="cl_agentPanel cl_agentPanel1"  >
+    <VBox class=" cl_approv_invoice_cont2" width="100%">
+        <HBox class="headerBox2" alignItems="Center">
+            <Text text="Email Address" class="clamtap sapUiTinyMarginBegin"/>
+        </HBox>
+
+        <VBox class="comment_box">
+            <items>
+                <VBox id="id_mailContainer" width="100%" class="cl_agentsRows" items="{JSAgents>/}">
+                    <items>
+                        <HBox class="cl_agentRow" justifyContent="SpaceBetween" width="100%">
+                            <Input value="{JSAgents>EMail}" placeholder="Email ID" class="formInputB1"/>
+                            <Button icon="Images/cancelbtn.svg" press="fnDeleteMailID" class="clbtn"/>
+                        </HBox>
+                    </items>
+                </VBox>
+
+                <Button text="+ Add More" press="fnAddMailID" class="whitebtn"/>
+            </items>
+        </VBox>
+    </VBox>
+</Panel>
+						<!--<Panel >-->
+						<!--	<ui:Table id="Id_TbMailID" rows="{JSMailIDs>/}" class=" cl_UiTableHeader UiTableHeader" selectionMode="None" visibleRowCount="3"-->
+						<!--		paste="onPaste">-->
+						<!--		<ui:extension>-->
+						<!--			<OverflowToolbar id="Id_TbMailIDToolbar">-->
+						<!--				<Text text="{i18n>Email Address}" class="Cl_Table_Label"></Text>-->
+						<!--				<ToolbarSpacer></ToolbarSpacer>-->
+						<!--				<Button class="sapUiSizeCompact " icon="sap-icon://sys-add" press="fnAddMailID" id="id_addMailID"></Button>-->
+						<!--				<Button class="sapUiSizeCompact " icon="sap-icon://sys-minus" press="fnDeleteMailID" id="id_deleteMailID"></Button>-->
+						<!--			</OverflowToolbar>-->
+						<!--		</ui:extension>-->
+						<!--		<ui:columns >-->
+						<!--			<ui:Column width="10%">-->
+						<!--				<Label text="{i18n>Email ID}" tooltip="{i18n>User ID}"/>-->
+						<!--				<ui:template>-->
+						<!--					<Input value="{JSMailIDs>EmailID}" class="cl_tableinput"></Input>-->
+						<!--				</ui:template>-->
+						<!--			</ui:Column>-->
+						<!--		</ui:columns>-->
+						<!--	</ui:Table>-->
+							
+						<!--</Panel>-->
+					<!--</l:content>-->
+				<!--</l:Grid>-->
+				<!--<VBox>-->
+				<!--	<Text text="{i18n>Comments}" class="sapUiMediumMarginBegin FSC_Label"></Text>-->
+				<!--	<TextArea id="id_SWComments" class="sapUiMediumMarginBegin cl_tableinput cl_SWCommentsCLS"></TextArea>-->
+				<!--</VBox>-->
+				
+	<HBox class="cl_barcode_input_row sapUiSmallMarginBegin"  alignItems="End">
+		<VBox class="formFieldbarcode">
+			<Text text="{i18n>Comments}"  class="cl_textbarcode"/>
+			<HBox class="formInputWithIconbar">
+				<Input id="id_SWComments"   class="formInputB1 forminputfragvo"  width="100%"/>
+				
+			</HBox>
+		</VBox>
+	</HBox>
+			</VBox>
+		</content>
+	
+		<!--<HBox class="sapUiSizeCompact sapUiSmallMargin" alignContent="Cneter" alignItems="Center" justifyContent="Center">-->
+		<!--	<Button text="{i18n>Cancel}" press="fn_StartW_frag_close" class="sapUiTinyMarginEnd  cl_fragcancelbtn" tooltip="{i18n>Cancel}"/>-->
+		<!--	<Button text="{i18n>Submit}" id="id_SWSubmit_btn" tooltip="{i18n>Submit}" class="sapUiTinyMarginBegin  cl_fragfinalbtn"-->
+		<!--		press="fn_StartWorkflow_final"/>-->
+		<!--</HBox>-->
+		<beginButton>
+			<Button  text="{i18n>Cancel}" tooltip="{i18n>Cancel}" icon="Images/cancel.svg" class="gl_canbtn simcan " press="fn_StartW_frag_close"></Button>
+		</beginButton>
+		<endButton>
+			<Button  id="id_SWSubmit_btn" text="{i18n>Submit}" tooltip="{i18n>Submit}" icon="Images/postsim.svg" class=" gl_subbtn simpost " press="fn_StartWorkflow_final"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

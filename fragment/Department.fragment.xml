@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <SelectDialog
+        noDataText="No Data Found"
+        title="{i18n>SelectDepartment}"  
+       
+       class="sapUiPopupWithPadding sapUiSizeCompact cl_plantFrag"
+        confirm="fn_confirmDept"
+        cancel="fn_confirmDept"
+        liveChange="fn_DeptSearch"
+        serach="fn_DeptSearch"
+        items="{JSDept>/}" >
+        <StandardListItem
+            title="{JSDept>Dept}"
+            description="{JSDept>Text30}"
+      icon="sap-icon://map"
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active" />
+    </SelectDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,41 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Popover
+    title="Create New Template"
+    placement="Bottom"
+    class="sapUiContentPadding clcustomizecreatetemppop"
+    id="idCreateTemplatePopover">
+
+    <!-- Main Content -->
+    <VBox class="customcol_padding">
+      <Label text="Template Name" class="popup_subheading" />
+      <Input id="idNewTemplateName" placeholder="Enter Name" class="templateSelectWrapper" />
+
+      <List id="idNewFieldList" items="{FilterTableModel>/}" class="noListBorder">
+        <CustomListItem>
+          <HBox alignItems="Center" class="clListItemStyled customCheckWrapper">
+            <Image src="Images/dots-drag.svg" class="dots-drag"/>
+            <CheckBox selected="{FilterTableModel>visible}" width="100%"/>
+            <Text text="{FilterTableModel>label}" class="sapUiTinyMarginEnd popuptext"/>
+          </HBox>
+        </CustomListItem>
+      </List>
+    </VBox>
+
+    <!-- Footer Section -->
+    <footer>
+      <Bar design="Footer" class="grey_background">
+        <contentRight>
+          <Button text="{i18n>Cancel}" 
+                  type="Transparent" 
+                  class="whitebtn bluebtnfragment"
+                  press="fn_onCancelCreateTemplate"/>
+          <Button text="Save" 
+                  type="Emphasized" 
+                  class="bluebtn bluebtnfragment bluebtngap"
+                  press="fn_onSaveNewTemplate"/>
+        </contentRight>
+      </Bar>
+    </footer>
+    
+  </Popover>
+</core:FragmentDefinition>

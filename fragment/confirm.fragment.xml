@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc">
+	<Dialog title="Confirmation" showHeader='false' class='cl_dialog'>
+		<VBox alignContent="Center" alignItems="Center" justifyContent="Center">
+			<VBox class='cl_errorDialog' alignContent="Center" alignItems="Center" justifyContent="Center">
+				<Image src="images/confirm.png" class='sapUiSmallMarginTop'></Image>
+				<Text id='id_confirm' text='Do you want to continue?' class="cl_errorText"></Text>
+				<!--<Button text="Okay" class=" sapUiSmallMarginEnd cl_truckAddBtn" press="fn_closeSuccess"></Button>-->
+			</VBox>
+		</VBox>
+		<Toolbar class='cl_remBtmTool'>
+			<Button text="Cancel" class=" sapUiSmallMarginBegin sapUiSizeCompact cl_truckCancelBtn" press="fn_closeConfirm"></Button>
+			<ToolbarSpacer/>
+			<Button text="Continue" class=" sapUiSmallMarginEnd sapUiSizeCompact cl_truckAddBtn" press="fn_continueInit"></Button>
+			<!--<ToolbarSpacer/>-->
+		</Toolbar>
+	</Dialog>
+</core:FragmentDefinition>

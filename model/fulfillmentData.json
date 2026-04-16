@@ -1,0 +1,137 @@
+{
+  "jsDet": [
+    {
+      "Qid": "6000012345",
+      "Date": "2025-06-01",
+      "Time": "10:30 AM",
+      "Invoice": "INV001",
+      "InvoiceNumber": "INV001",
+      "InvoiceType": "Standard",
+      "Vendor": "Continental Automative",
+      "PoNumber": "PLT001",
+      "Currency": "USD",
+      "Status": "Assigned"
+    },
+    {
+      "Qid": "6000012346",
+      "Date": "2025-06-01",
+      "Time": "11:00 AM",
+      "Invoice": "INV002",
+      "InvoiceNumber": "INV002",
+      "InvoiceType": "Credit Note",
+      "Vendor": "Continental Automative",
+      "PoNumber": "PLT002",
+      "Currency": "EUR",
+     "Status": "Assigned"
+    },
+    {
+      "Qid": "6000012347",
+      "Date": "2025-06-01",
+      "Time": "11:30 AM",
+      "Invoice": "INV003",
+      "InvoiceNumber": "INV003",
+      "InvoiceType": "Advance",
+      "Vendor": "Continental Automative",
+      "PoNumber": "PLT003",
+      "Currency": "INR",
+      "Status": "Assigned"
+    },
+     {
+      "Qid": "6000012348",
+      "Date": "2025-06-01",
+      "Time": "11:30 AM",
+      "Invoice": "INV003",
+      "InvoiceNumber": "INV003",
+      "InvoiceType": "Advance",
+      "Vendor": "Vendor C",
+      "PoNumber": "PLT003",
+      "Currency": "INR",
+     "Status": "Assigned"
+    },
+     {
+      "Qid": "6000012397",
+      "Date": "2025-06-01",
+      "Time": "11:30 AM",
+      "Invoice": "INV003",
+      "InvoiceNumber": "INV003",
+      "InvoiceType": "Advance",
+      "Vendor": "Continental Automative",
+      "PoNumber": "PLT003",
+      "Currency": "INR",
+      "Status": "Assigned"
+    },
+     {
+      "Qid": "6000012743",
+      "Date": "2025-06-01",
+      "Time": "11:30 AM",
+      "Invoice": "INV003",
+      "InvoiceNumber": "INV003",
+      "InvoiceType": "Advance",
+      "Vendor": "Vendor C",
+      "PoNumber": "PLT003",
+      "Currency": "INR",
+      "Status": "Assigned"
+    },
+     {
+      "Qid": "6000012389",
+      "Date": "2025-06-01",
+      "Time": "11:30 AM",
+      "Invoice": "INV003",
+      "InvoiceNumber": "INV003",
+      "InvoiceType": "Advance",
+      "Vendor": "Continental Automative",
+      "PoNumber": "PLT003",
+      "Currency": "INR",
+      "Status": "Assigned"
+    },
+     {
+      "Qid": "6000012334",
+      "Date": "2025-06-01",
+      "Time": "11:30 AM",
+      "Invoice": "INV003",
+      "InvoiceNumber": "INV003",
+      "InvoiceType": "Advance",
+      "Vendor": "Vendor C",
+      "PoNumber": "PLT003",
+      "Currency": "INR",
+      "Status": "Assigned"
+    },
+     {
+      "Qid": "6000012390",
+      "Date": "2025-06-01",
+      "Time": "11:30 AM",
+      "Invoice": "INV003",
+      "InvoiceNumber": "INV003",
+      "InvoiceType": "Advance",
+      "Vendor": "Continental Automative",
+      "PoNumber": "PLT003",
+      "Currency": "INR",
+      "Status": "Assigned"
+    },
+     {
+      "Qid": "6000012567",
+      "Date": "2025-06-01",
+      "Time": "11:30 AM",
+      "Invoice": "INV003",
+      "InvoiceNumber": "INV003",
+      "InvoiceType": "Advance",
+      "Vendor": "Vendor C",
+      "PoNumber": "PLT003",
+      "Currency": "INR",
+      "Status": "Assigned"
+    },
+    
+     {
+      "Qid": "6000012768",
+      "Date": "2025-06-01",
+      "Time": "11:30 AM",
+      "Invoice": "INV003",
+      "InvoiceNumber": "INV003",
+      "InvoiceType": "Advance",
+      "Vendor": "Continental Automative",
+      "PoNumber": "PLT003",
+      "Currency": "INR",
+      "Status": "Assigned"
+    }
+  ]
+}

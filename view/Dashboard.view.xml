@@ -1,0 +1,1261 @@
+<mvc:View controllerName="FSC360NEW.controller.Dashboard" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data" xmlns:viz="sap.viz.ui5.controls" displayBlock="true"
+	xmlns:uitable="sap.ui.table" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:table="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="Dashboard" class="cl_page">
+				<customHeader>
+					<Toolbar class="header_bar_d">
+						<Title text="Dashboard" class="cl_dashboard_txt"/>
+						<ToolbarSpacer/>
+						<HBox class="cl_dropdown_filter_wrapper">
+							<Select id="idFilterSelect" selectedKey="thisMonth" width="150px" change="onFilterChange" class="cl_filter_dropdown">
+								<items>
+									<core:Item key="thisMonth" text="This Month"/>
+									<core:Item key="lastMonth" text="Last Month"/>
+									<core:Item key="last6Months" text="Last 6 Months"/>
+									<core:Item key="last1Year" text="Last 1 Year"/>
+									<core:Item key="custom" text="Custom Filter"/>
+								</items>
+							</Select>
+							<HBox class="formInputWithIconbar" id="fromDateBox" visible="false">
+								<DatePicker id="id_fromdate" change="onToDateSelected" valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY"
+									placeholder="From Date " class="formInputB1 formInputDashboard inputhelp inputhelpDashboard"/>
+							</HBox>
+							<HBox class="formInputWithIconbar" id="toDateBox" visible="false">
+								<DatePicker id="id_todate" change="onToDateSelected" valueFormat="YYYY-MM-dd" readonly="true" displayFormat="dd/MM/YYYY"
+									placeholder="To Date " class="formInputB1 formInputDashboard inputhelp inputhelpDashboard"/>
+							</HBox>
+						</HBox>
+						<Button icon="Images/refresh.svg" tooltip="Refresh" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbutton.svg" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<!--<Text text="AP Team" class="team_text"/>-->
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="team_text cl_font"></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<HBox id="idCustomSegmentGroup" class="cl_segmentGroupNew sapUiSmallMarginBottom">
+						<!--<VBox>-->
+							<Toolbar class="cl_toolbargroup"></Toolbar>
+							<Button text="Overview" press="onSegmentPress" class="clSegmentBtnImg cl_segmentBtnSelected">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+								<customData>
+									<core:CustomData key="value" value="W"/>
+								</customData>
+							</Button>
+						<!--</VBox>-->
+						<Button text="Spend Analysis" press="onSegmentPress" class="cl_segmentBtnUnselected">
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+							<customData>
+								<core:CustomData key="value" value="I"/>
+							</customData>
+						</Button>
+						<Button text="Invoice Comparison" press="onSegmentPress" class="cl_segmentBtnUnselected">
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+							<customData>
+								<core:CustomData key="value" value="incomExp"/>
+							</customData>
+						</Button>
+						<Button text="Expense Comparison" press="onSegmentPress" class="cl_segmentBtnUnselected">
+							<layoutData>
+								<FlexItemData growFactor="1"/>
+							</layoutData>
+							<customData>
+								<core:CustomData key="value" value="E"/>
+							</customData>
+						</Button>
+							<Button text="AP Performance" press="onSegmentPress" class="cl_segmentBtnUnselected">
+								<layoutData>
+									<FlexItemData growFactor="1"/>
+								</layoutData>
+								<customData>
+									<core:CustomData key="value" value="AP"/>
+								</customData>
+							</Button>
+					</HBox>
+					<VBox id="idOverviewVBox">
+						<HBox alignItems="Center" justifyContent="Start" class="dashboardSection">
+							<VBox id="idCardContainer" width="{= ${appState>/sidebarCollapsed} ? '42%' : '52%'}" height="100%">
+								<HBox class="cl_card_cont_head_d" width="100%">
+									<HBox class="cl_container_d total_card" width="50%" id="idCardTotal">
+										<HBox class="cl_cont_right">
+											<HBox>
+												<Text text="In Progress" class="cl_card_info"/>
+											</HBox>
+											<HBox>
+												<Text text="" id="id_inProgress" class="cl_card_number"/>
+											</HBox>
+											<HBox>
+												<Text text="" id="id_inProgressAmt" class="cl_card_invamt"/>
+											</HBox>
+										</HBox>
+										<VBox class="iconBackgroundBlue">
+											<Image src="Images/inprog.svg" class="icon" width="18px" height="18px"/>
+										</VBox>
+									</HBox>
+									<HBox class="cl_container_d card4 unassign1" width="50%" id="idCardUnassign">
+										<HBox class="cl_cont_right">
+											<HBox>
+												<Text text="Pending With Approvers" class="cl_card_info"/>
+											</HBox>
+											<HBox>
+												<Text text="" id="id_pendingApprover" class="cl_card_number"/>
+											</HBox>
+											<HBox>
+												<Text text="" id="id_pendingApproverAmt" class="cl_card_pendingamt"/>
+											</HBox>
+										</HBox>
+										<VBox class="iconBackgroundorange1">
+											<Image src="Images/pendapp.svg" class="icon" width="18px" height="18px"/>
+										</VBox>
+									</HBox>
+								</HBox>
+								<HBox class="cl_card_cont_head_d1" width="100%">
+									<HBox class="cl_container_d card5 ontime1" width="50%" id="idCardOntime">
+										<HBox class="cl_cont_right">
+											<HBox>
+												<Text text="Parked" class="cl_card_info"/>
+											</HBox>
+											<HBox>
+												<Text text="" id="id_parked" class="cl_card_number"/>
+											</HBox>
+											<HBox>
+												<Text text="" id="id_parkedAmt" class="cl_card_tdypostamt"/>
+											</HBox>
+										</HBox>
+										<VBox class="iconBackgroundgreen1">
+											<Image src="Images/parkg.svg" class="icon" width="18px" height="18px"/>
+										</VBox>
+									</HBox>
+									<HBox class="cl_container_d card2 with_you" width="50%" id="idCardWithYou">
+										<HBox class="cl_cont_right">
+											<HBox>
+												<Text text="Pending for Scanning" class="cl_card_info"/>
+											</HBox>
+											<HBox>
+												<Text text="" id="id_pendingScan" class="cl_card_number"/>
+											</HBox>
+											<HBox>
+												<Text text="" id="id_pendingScanAmt" class="cl_card_postscanamt"/>
+											</HBox>
+										</HBox>
+										<VBox class="iconBackgroundpink">
+											<Image src="Images/pendscanpink1.svg" class="icon" width="18px" height="18px"/>
+										</VBox>
+									</HBox>
+								</HBox>
+							</VBox>
+							<VBox class="cl_chart_container " width="{= ${appState>/sidebarCollapsed} ? '58%' : '48%'}" height="180px">
+								<VBox class="cl_chart_container1 " width="95%" height="180px">
+									<core:HTML
+										content=" &lt;div style='display: flex; align-items: center; padding: 0px 0px; margin-top: 16px; margin-bottom: -20px; background: linear-gradient(90deg, rgba(138, 139, 245, 0.2) 0%, rgba(138, 139, 245, 0) 40%); border-radius: 4px;'&gt; &lt;div style='display: flex; align-items: center;'&gt; &lt;div style='width: 4px; height: 24px; background-color: #25009D; margin-right: 8px; border-radius: 2px;'&gt;&lt;/div&gt; &lt;div id='chart-title' style='font-family: Geist; font-weight: 500; font-size: 14px; line-height: 100%; letter-spacing: 1%; color: #202124;'&gt; Agents Performance &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;div id='chart_div'&gt;&lt;/div&gt; "/>
+								</VBox>
+							</VBox>
+						</HBox>
+						<HBox class="cl_chart_wrapper sapUiTinyMarginTop">
+							<VBox class="overdueBox_material clickableVBox cl_shadow cl_white_box cl_vb1_spend1" width="32%" height="218px">
+								<HBox class="titleBarWrapper sapUiSmallMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd" alignItems="Center" width="100%">
+									<HBox class="cl_textHeaderBox cl_textHeaderBox_pay">
+										<Text text=" Ageing By Scan Date" class="cl_dashboardTitleGradient_payment"/>
+									</HBox>
+								</HBox>
+								<core:HTML id="htmlAgeingChart"
+									content=' &lt;div style=&quot;display: flex; flex-direction: column; align-items: center; font-family: Geist; width: 107%;&quot;&gt; &lt;!-- Top label --&gt; &lt;div style=&quot;font-size: 12px; color: #202124; margin-bottom: 4px;&quot;&gt; &lt;/div&gt; &lt;!-- Chart container --&gt; &lt;div id=&quot;ageingChart&quot; class=&quot;cl_apex_chart_cont3&quot; style=&quot;height: 160px; width: 100%; padding: 0 10px;&quot;&gt; &lt;/div&gt; &lt;/div&gt; '/>
+							</VBox>
+							<VBox class="ageingchart clickableVBox cl_shadow cl_white_box cl_vb1_spend1 " width="32%" height="218px">
+								<HBox class="titleBarWrapper sapUiSmallMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd" alignItems="Center" width="100%">
+									<HBox class="cl_textHeaderBox cl_textHeaderBox_pay">
+										<Text text="Ageing By Pending Days" class="cl_dashboardTitleGradient_payment"/>
+									</HBox>
+								</HBox>
+								<!-- Apex Chart -->
+								<core:HTML id="htmlPendingAgeingChart"
+									content=' &lt;div style=&quot;display:flex; flex-direction:column; align-items:center; font-family:Geist; width:107%;&quot;&gt; &lt;div id=&quot;pendingAgeingChart&quot; class=&quot;cl_apex_chart_cont_pending&quot; style=&quot;height:160px; width:100%; padding:0 10px;&quot;&gt; &lt;/div&gt; &lt;/div&gt; '/>
+							</VBox>
+							<VBox class="ageingchart clickableVBox cl_shadow cl_white_box cl_vb1_spend1" height="218px" width="32%">
+								<!--Header -->
+								<HBox class="titleBarWrapper sapUiSmallMarginBegin sapUiSmallMarginTop sapUiSmallMarginEnd" alignItems="Center" width="100%">
+									<HBox class="cl_textHeaderBoxage">
+										<Text text="Location Wise Age Scanning" class="cl_dashboardTitleGradient_payment"/>
+									</HBox>
+								</HBox>
+								<!--Apex Chart -->
+								<core:HTML id="htmlLocationAgeChart"
+									content=' &lt;div style=&quot;display:flex; flex-direction:column; align-items:center; font-family:Geist; width:100%;&quot;&gt; &lt;div id=&quot;locationAgeChart&quot; class=&quot;cl_apex_chart_cont_location&quot; style=&quot;height:200px; width:100%; padding:0 10px;&quot;&gt; &lt;/div&gt; &lt;/div&gt; '/>
+							</VBox>
+						</HBox>
+						<HBox id="id_2nd_content" class="cl_grey_box sapUiTinyMarginTop " height="32%" width="100%">
+							<HBox class="donut_cont_pay" id="id_payBlockBox">
+								<VBox class="sapUiSmallMargin cl_payment_box" width="100%">
+									<!-- Title Bar -->
+									<HBox class="titleBarWrapper" alignItems="Center" width="100%">
+										<HBox class="cl_textHeaderBox cl_textHeaderBox_pay">
+											<Text text="Payment Blocked Invoices" class="cl_dashboardTitleGradient_payment"/>
+										</HBox>
+									</HBox>
+									<!-- Chart container -->
+									<HBox class="halfDonutWrapper">
+										<VBox class="halfDonutContainer" width="300px" alignItems="Center">
+											<core:HTML
+												content="&lt;div style='position: relative; height: 180px;'&gt; &lt;div id='donut-center-text' style='position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); text-align: center;'&gt;&lt;/div&gt; &lt;/div&gt;"/>
+										</VBox>
+									</HBox>
+									<HBox class="cl_customLegend" width="100%" style="margin-top: 0.3rem;">
+										<HBox alignItems="Center" style="margin-right: 0.8rem;">
+											<core:HTML
+												content="&lt;span style='display:inline-block; width:8px; height:8px; background:#1E0D94; border-radius:50%; margin-left:-12px; margin-right:4px;'&gt;&lt;/span&gt;"/>
+											<Text text="Payment Block" style="font-size: 10px;color: #202124;"/>
+										</HBox>
+										<HBox alignItems="Center">
+											<core:HTML
+												content="&lt;span style='display:inline-block; width:8px; height:8px; background:#4CB150; border-radius:50%; margin-left:9px; margin-right:4px;'&gt;&lt;/span&gt;"/>
+											<Text text="Overdue Pay. Block" style="font-size: 10px;"/>
+										</HBox>
+									</HBox>
+								</VBox>
+							</HBox>
+							<HBox class="donut_cont" id="tat_analysis_donut" width="31.5%">
+								<VBox class="donutContainer">
+									<VBox class="vizWrapper">
+										<HBox class="cl_textHeaderBox">
+											<Text text="TAT Analysis" class="cl_dashboardTitleGradient"/>
+										</HBox>
+										<html:canvas id="donutChart" width="350" height="144" class="cl_donutCanvas"
+											style="display: block; box-sizing: border-box; height: 144px; width: 350px; margin-top: 2px;"/>
+										<!--<Text id="idCenterValue" text="" class="centerText"/>-->
+									</VBox>
+									<!-- Center Text Over Donut -->
+								</VBox>
+								<!-- Legend -->
+								<!--<VBox class="legendBox" id="idLegendBox">-->
+								<!--	<HBox justifyContent="SpaceBetween">-->
+								<!--		<HBox>-->
+								<!--			<Text text="●" class="dotText halfhour"/>-->
+								<!--			<Text text="Half an hour" class="labelText commonLabel"/>-->
+								<!--		</HBox>-->
+								<!--		<Text text="{path: 'DonutChartModel>/chartData/0/Count'}" class="numberText commonLabel"/>-->
+								<!--	</HBox>-->
+								<!--	<HBox justifyContent="SpaceBetween">-->
+								<!--		<HBox>-->
+								<!--			<Text text="●" class="dotText withinhour"/>-->
+								<!--			<Text text="Within hour" class="labelText commonLabel"/>-->
+								<!--		</HBox>-->
+								<!--		<Text text="{path: 'DonutChartModel>/chartData/1/Count'}" class="numberText commonLabel"/>-->
+								<!--	</HBox>-->
+								<!--	<HBox justifyContent="SpaceBetween">-->
+								<!--		<HBox>-->
+								<!--			<Text text="●" class="dotText within4hrs"/>-->
+								<!--			<Text text="within 4 hours" class="labelText commonLabel"/>-->
+								<!--		</HBox>-->
+								<!--		<Text text="{path: 'DonutChartModel>/chartData/2/Count'}" class="numberText commonLabel"/>-->
+								<!--	</HBox>-->
+								<!--	<HBox justifyContent="SpaceBetween">-->
+								<!--		<HBox>-->
+								<!--			<Text text="●" class="dotText within8hrs"/>-->
+								<!--			<Text text="8 hours" class="labelText commonLabel"/>-->
+								<!--		</HBox>-->
+								<!--		<Text text="{path: 'DonutChartModel>/chartData/3/Count'}" class="numberText commonLabel"/>-->
+								<!--	</HBox>-->
+								<!--	<HBox justifyContent="SpaceBetween">-->
+								<!--		<HBox>-->
+								<!--			<Text text="●" class="dotText weeks"/>-->
+								<!--			<Text text="No.of.days" class="labelText commonLabel"/>-->
+								<!--		</HBox>-->
+								<!--		<Text text="{path: 'DonutChartModel>/chartData/4/Count'}" class="numberText commonLabel"/>-->
+								<!--	</HBox>-->
+								<!--	<HBox justifyContent="SpaceBetween">-->
+								<!--		<HBox>-->
+								<!--			<Text text="●" class="dotText noofdays"/>-->
+								<!--			<Text text="Weeks" class="labelText commonLabel"/>-->
+								<!--		</HBox>-->
+								<!--		<Text text="{path: 'DonutChartModel>/chartData/5/Count'}" class="numberText commonLabel"/>-->
+								<!--	</HBox>-->
+								<!--	<HBox justifyContent="SpaceBetween">-->
+								<!--		<HBox>-->
+								<!--			<Text text="●" class="dotText others"/>-->
+								<!--			<Text text="Others" class="labelText commonLabel"/>-->
+								<!--		</HBox>-->
+								<!--		<Text text="{path: 'DonutChartModel>/chartData/6/Count'}" class="numberText commonLabel"/>-->
+								<!--	</HBox>-->
+								<!--</VBox>-->
+							</HBox>
+							<!-- Wrap Text and Chart inside a VBox with border class -->
+							<VBox class="cl_barchart_info_count" width="43%" id="barchart_info">
+								<HBox class="cl_barchart_count_box" height="110px" width="100%">
+									<HBox class="cl_barchart_count_text" width="50%">
+										<Image src="Images/manualnew.svg" class="cl_barchart_count_img" height="30px" width="30px"></Image>
+										<VBox>
+											<HBox class="cl_barchart_count" height="20px">
+												<Text id="id_manual_total" text=" " class="cl_card_number1"/>
+												<HBox>
+													<Text id="id_manPosAmnt" text=" " class="cl_card_man_post"/>
+												</HBox>
+											</HBox>
+											<Text text="Manually Posted" class="cl_card_info1"/>
+										</VBox>
+									</HBox>
+									<HBox class="cl_barchart_count_text" width="50%">
+										<Image src="Images/scannew.svg" class="cl_barchart_count_img" height="30px" width="30px"></Image>
+										<VBox>
+											<HBox class="cl_barchart_count" height="20px">
+												<Text id="id_scanned_total" text=" " class="cl_card_number1"/>
+												<HBox>
+													<Text id="id_scanAmnt" text="" class="cl_card_scan"/>
+												</HBox>
+											</HBox>
+											<Text text="Scanned invoices" class="cl_card_info1"/>
+										</VBox>
+									</HBox>
+								</HBox>
+								<VBox class="vizBorderBox ">
+									<core:HTML content="&lt;canvas id=&quot;myBarChart&quot; style=&quot;width:90%;height:130px;&quot;&gt;&lt;/canvas&gt;"/>
+								</VBox>
+							</VBox>
+						</HBox>
+						<HBox>
+							<VBox id="id_pdf_slide" class="cl_full_box cl_full_box2" height="">
+								<Toolbar class="cl_tbr_1 ">
+									<Text text="All Queue IDs" id="idCardTitle" class="cl_Tltxt sapUiSmallMarginBegin"/>
+									<Text text="10" class="cl_badge_counter" id="id_total_1"/>
+									<ToolbarSpacer/>
+									<HBox class="cl_hbx_sf cl_hbx_sf1">
+										<Button icon="sap-icon://navigation-down-arrow" class="cl_arrow sapUiSizeCompact sapUiMediumMarginBegin" press="fnSearchPop"></Button>
+										<SearchField placeholder="Search by Qid" id="id_search_field" class="cl_search_field_ff sapUiTinyMarginTop sapUiSizeCompact "
+											liveChange="fnSearchField" search="fnSearchField"></SearchField>
+										<Button icon="Images/plus_white.svg" text="New" press="fn_newbutton" class="bluebtn bluebtnNew" type="Transparent"/>
+									</HBox>
+								</Toolbar>
+								<VBox class="scrollContainer" id="id_vbox_table" width="100%">
+									<uitable:Table id="id_table_width" rows="{jsDet>/}" visibleRowCount="4" visibleRowCountMode="Fixed" navigationMode="Paginator"
+										enableColumnReordering="true" columnHeaderVisible="true" class="cl_tble cl_custom_table" enableCellFilter="false" ariaLabelledBy="title"
+										selectionMode="None" width="{= ${appState>/sidebarCollapsed} ? '100%' : '120%'}">
+										<uitable:columns>
+											<uitable:Column width="4%">
+												<Image src="Images/Filter.svg" press="fnFilterPop" class="sapUiSizeCompact" height="13px" width="13px"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{path:'jsDet>Qiddat', formatter :'FSC360NEW1.model.formatter.fnDate'}" class="cl_table_det_text" wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="8.42%" visible="{FilterTableModel>/0/visible}" hAlign="Center" class="cl_column_header">
+												<HBox alignItems="Center">
+													<Text text="{headerModel>/col1}" class="cl_Tltxt"/>
+													<Image src="Images/arrow-down.svg" id="qidSortIcon" width="14px" height="14px" class="cl_header_icon" press="fn_sortByQueid"/>
+												</HBox>
+												<uitable:template class="cl_column_cell">
+													<!--<Text text="{path:'jsDet>Qid'}" class="cl_qid_sel cl_table_det_text"/>-->
+													<Link text="{path:'jsDet>Qid', formatter :'FSC360NEW.model.formatter.fnZero'}" press="fn_nav_to_wb" class="cl_qid_sel cl_table_det_text"
+														wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="8.65%" visible="{FilterTableModel>/1/visible}" hAlign="Center" class="cl_column_header">
+												<Text text="{headerModel>/col2}" class="cl_Tltxt "/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{path:'jsDet>Qiddate', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_table_det_text" wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="8.25%" visible="{FilterTableModel>/2/visible}" hAlign="Center" class="cl_column_header">
+												<Text text="{headerModel>/col3}" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{path:'jsDet>Qiddate', formatter :'FSC360NEW.model.formatter.fnTime'}" class="cl_table_det_text" wrapping="false"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="6.34%" hAlign="Center" class="cl_column_header"
+												visible="{parts:[ {path:'FilterTableModel>/3/visible'}, {path:'headerModel>/showInvoiceIcon'} ], formatter: 'FSC360NEW.model.formatter.fnColumnVisibleCombined'}">
+												<Text text="{headerModel>/col4}" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Button icon="Images/document.svg" press="fn_pdf" class="cl_invoice_btn" type="Transparent" tooltip="View Invoice"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="8%" visible="{FilterTableModel>/4/visible}" hAlign="Center" class="cl_column_header">
+												<Text text="{headerModel>/col5}" class="cl_Tltxt "/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{jsDet>Invno}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="10%" visible="{FilterTableModel>/5/visible}" hAlign="Center" class="cl_column_header">
+												<Text text="{headerModel>/col6}" class="cl_Tltxt "/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{path: 'jsDet>Invdesc'}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="12%" visible="{FilterTableModel>/6/visible}" hAlign="Center" class="cl_column_header">
+												<Text text="{headerModel>/col7}" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{jsDet>Name1}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="6.63%" visible="{FilterTableModel>/7/visible}" hAlign="Center" class="cl_column_header">
+												<Text text="Company Code" class="cl_Tltxt "/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{jsDet>Bukrs}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="11%" hAlign="Center" class="cl_column_header_tf"
+												visible="{parts:[ {path:'FilterTableModel>/8/visible'}, {path:'headerModel>/showAgent'} ], formatter: 'FSC360NEW.model.formatter.fnColumnVisibleCombined'}">
+												<Text text="{headerModel>/col9}" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{path:'jsDet>Username'}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<!-- Amount -->
+											<uitable:Column width="8%" visible="{FilterTableModel>/9/visible}" hAlign="Center" class="cl_column_header">
+												<Text text="Amount" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{path:'jsDet>Ntamt', formatter:'FSC360NEW.model.formatter.fnAmount'}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<!-- Currency -->
+											<uitable:Column width="6%" visible="{FilterTableModel>/10/visible}" hAlign="Center" class="cl_column_header">
+												<Text text="Currency" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{jsDet>Waers}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<!-- Tax Code -->
+											<uitable:Column width="6%" visible="{FilterTableModel>/11/visible}" hAlign="Center" class="cl_column_header">
+												<Text text="Tax Code" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{jsDet>Mwskz}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<!-- Business Place -->
+											<uitable:Column width="8%" visible="{FilterTableModel>/12/visible}" hAlign="Center" class="cl_column_header">
+												<Text text="Business Place" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{jsDet>Bupla}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<!-- Section Code -->
+											<uitable:Column width="8%" visible="{FilterTableModel>/13/visible}" hAlign="Center" class="cl_column_header">
+												<Text text="Section Code" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{jsDet>Secco}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<!-- Vendor Code -->
+											<uitable:Column width="8%" visible="{FilterTableModel>/14/visible}" hAlign="Center" class="cl_column_header">
+												<Text text="Vendor Code" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{jsDet>Lifnr}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<!-- Plant -->
+											<uitable:Column width="6%" visible="{FilterTableModel>/15/visible}" hAlign="Center" class="cl_column_header">
+												<Text text="Plant" class="cl_Tltxt"/>
+												<uitable:template class="cl_column_cell">
+													<Text text="{jsDet>Werks}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<!--{appState>/sidebarCollapsed} -->
+											<uitable:Column id="id_status_column" visible="{FilterTableModel>/16/visible}" width="11%" hAlign="Center" class="cl_column_header">
+												<HBox alignItems="Center">
+													<Text text="{headerModel>/col10}" class="cl_Tltxt"/>
+													<Image src="Images/arrow-down.svg" id="statusSortIcon" width="14px" height="14px" class="cl_header_icon" press="onSortByStatus"/>
+												</HBox>
+												<uitable:template class="cl_column_cell">
+													<HBox alignItems="Center" width="90px">
+														<Button id="statusBtn" text="{jsDet>DisplayStatus}" icon="sap-icon://circle-task-2" iconFirst="true" type="Transparent" class="cl_status">
+															<customData>
+																<core:CustomData key="status" value="{jsDet>DisplayStatus}" writeToDom="true"/>
+															</customData>
+														</Button>
+													</HBox>
+												</uitable:template>
+											</uitable:Column>
+										</uitable:columns>
+									</uitable:Table>
+								</VBox>
+								<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer cl_pagination_footer1">
+									<!-- Left Slot: Previous Button -->
+									<HBox width="100px" justifyContent="Start">
+										<Button icon="Images/arrow-left.svg" text="Previous" id="previous" class="cl_prev_button" press="onPreviousPage" visible="true"/>
+									</HBox>
+									<!-- Center Slot: Page Numbers (Always Centered) -->
+									<HBox width="calc(100% - 200px)" id="idPageNumbersBox" justifyContent="Center" alignItems="Center" class="cl_page_numbers">
+										<!-- Page buttons dynamically inserted here -->
+									</HBox>
+									<!-- Right Slot: Next Button -->
+									<HBox width="100px" justifyContent="End">
+										<Button text="Next" icon="Images/arrow-right.svg" id="next" iconFirst="false" class="cl_next_button" press="onNextPage" visible="true"/>
+									</HBox>
+								</HBox>
+							</VBox>
+							<VBox class="cl_leftPanell1 cl_leftPanel_dash" height="283px" visible="{JsScrl>/0/Key}">
+								<HBox alignItems="Center" justifyContent="SpaceBetween" class="cl_pdfHeader">
+									<HBox alignItems="Center" gap="0.5rem">
+										<Text text="View Invoice" class="cl_pdfTitle"/>
+										<!--<Button icon="Images/plus.svg" tooltip="Zoom In" press="fn_onZoomIn" type="Transparent"-->
+										<!--	class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn " width="12px" height="12px"/>-->
+										<!--<Button icon="Images/minus.svg" tooltip="Zoom Out" press="fn_onZoomOut" type="Transparent"-->
+										<!--	class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn"/>-->
+										<Button icon="Images/print.svg" tooltip="Print" press="fn_onPrint" type="Transparent"
+											class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn"/>
+										<Button icon="Images/downloadin.svg" tooltip="Download PDF" press="fn_onDownload" type="Transparent"
+											class=" sapUiSizeCompact sapUiTinyMarginEnd cl_filter_btn"/>
+									</HBox>
+									<Image src="Images/window-close.svg" class="cl_pdfIconBtn" press="fn_close_pdf"/>
+								</HBox>
+								<VBox class="cl_leftPanell">
+									<ScrollContainer id="id_scrll" width="100%" class="cl_pdfScroll" visible="{JsScrl>/0/Key}" focusable="true" horizontal="true"
+										vertical="true"></ScrollContainer>
+								</VBox>
+							</VBox>
+						</HBox>
+					</VBox>
+					<VBox id="idSpendVBox" width="100%" visible="false">
+						<HBox alignItems="Center" width="100%">
+							<VBox width="23%" class="sapUiSmallMarginBegin">
+								<HBox class="expenseContainer" width="100%">
+									<VBox width="57%">
+										<HBox class="cl_textHeaderBox cl_textHeaderBoxGL">
+											<Text text="Top 5 Expenses G/L Wise" class="cl_dashboardTitleGradientSpend"/>
+										</HBox>
+										<core:HTML id="glDonutChartHTML" content="&lt;div id='glDonutChart' style='height:110px; width:130px;'&gt;&lt;/div&gt;"
+											afterRendering="onDonutChartHTMLRendered"/>
+									</VBox>
+									<VBox class="legendBoxgl" id="idLegendBoxGL" width="48%">
+										<HBox id="id_glLegend1">
+											<Text text="●" class="dotText gl1"/>
+											<Text id="id_labelText1" class="labelTextwp"/>
+										</HBox>
+										<HBox id="id_glLegend2">
+											<Text text="●" class="dotText gl2"/>
+											<Text id="id_labelText2" class="labelTextwp"/>
+										</HBox>
+										<HBox id="id_glLegend3">
+											<Text text="●" class="dotText gl3"/>
+											<Text id="id_labelText3" class="labelTextwp"/>
+										</HBox>
+										<HBox id="id_glLegend4">
+											<Text text="●" class="dotText gl4"/>
+											<Text id="id_labelText4" class="labelTextwp"/>
+										</HBox>
+										<HBox id="id_glLegend5">
+											<Text text="●" class="dotText gl5"/>
+											<Text id="id_labelText5" class="labelTextwp"/>
+										</HBox>
+										<!-- Responsive Popover -->
+										<dependents>
+											<ResponsivePopover id="glPopover" placement="Bottom" showHeader="false">
+												<content>
+													<VBox>
+														<Text id="gl_pop_name" text="" class="sapUiTinyMargin"/>
+														<Text id="gl_pop_number" text="" class="sapUiTinyMargin"/>
+														<Text id="gl_pop_amount" text="" class="sapUiTinyMargin"/>
+													</VBox>
+												</content>
+											</ResponsivePopover>
+										</dependents>
+									</VBox>
+								</HBox>
+							</VBox>
+							<VBox class="cl_vendor_card_container" width="24%">
+								<!-- Title Bar -->
+								<HBox class="cl_textHeaderBox cl_textHeaderpayable">
+									<Text text="Top Payable Vendors" class="cl_dashboardTitleGradientSpend"/>
+								</HBox>
+								<!--<HBox class="cl_chart_title_wrapper" alignItems="Center" justifyContent="Start">-->
+								<!--	<Text text="Top Payable Vendors" class="cl_dashboardTitleGradient_pay"/>-->
+								<!--</HBox>-->
+								<!-- Chart Area -->
+								<!--<core:HTML id="idChartContainer" content="&lt;canvas id='myChart' class='cl_chart_canvas'&gt;&lt;/canvas&gt;"/>-->
+								<!--<core:HTML id="idChartContainer"-->
+								<!--	content="&lt;canvas id='myChart' style='display: block; margin-left: -12px; box-sizing: border-box; height: 135px;'&gt;&lt;/canvas&gt;"/>-->
+								<core:HTML id="idChartContainer" content="&lt;canvas id='myChart'&gt;&lt;/canvas&gt;"/>
+								<Text text="Vendor Code" class="cl_vendorcode"/>
+							</VBox>
+							<VBox id="id_overduevb" class="overdueBox " width="24%" height='180px'>
+								<HBox class=" cl_textHeaderoverdue">
+									<Text text="Top 5 Overdue Vendors" class="cl_dashboardTitleGradientSpend"/>
+								</HBox>
+								<core:HTML content="&lt;div id='duechart'&gt;&lt;/div&gt;"/>
+								<Text text="Vendor Code" class="cl_vendornames"/>
+							</VBox>
+							<!--<VBox id="id_housebank" class="overdueBox sapUiSmallMarginEnd clickableVBox cl_shadow cl_white_box cl_vb1_spend1" width="25%"-->
+							<!--	height='180px'>-->
+							<!--	<core:HTML-->
+							<!--		content="&lt;div style='display: flex; align-items: center; padding: 0px 0px; margin-top: 10px;margin-left: 15px; margin-bottom: 10px; background: linear-gradient(90deg, rgba(138, 139, 245, 0.2) 0%, rgba(138, 139, 245, 0) 40%); border-radius: 4px;'&gt; &lt;div style='display: flex; align-items: center;'&gt; &lt;div style='width: 4px; height: 20px; background-color: #25009D; margin-right: 8px; border-radius: 2px;'&gt;&lt;/div&gt; &lt;div id='chart-title' style='font-family: Geist; font-weight: 500; font-size: 16px; line-height: 100%; letter-spacing: 1%; color: #202124;'&gt;Cash by House Bank Account&lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;div id='houseBankChart' style='margin: 0px 0px 0px 0px; '&gt;&lt;/div&gt;"/>-->
+							<!--</VBox>-->
+							<VBox id="houseBankChart" class="cl_vendor_card_container " width="24%" height='180px'>
+								<HBox class="cl_textHeaderBox cl_textHeaderpayable">
+									<Text text="{i18n>Advance to vendors}" class="cl_dashboardTitleGradientSpend"/>
+								</HBox>
+								<!--<HBox class="cl_chart_title_wrapper1" alignItems="Center" justifyContent="Start">-->
+								<!--	<Text text="{i18n>Advance to vendors}" class="cl_dashboardTitleGradient_adv"/>-->
+								<!--</HBox>-->
+								<HBox class="cl_advamnt_cont cl_advamnt_cont1" alignItems="Center">
+									<Text text="{i18n>Total Advance Paid}" class="cl_advmnt_des"/>
+									<HBox class="cl_advmnt_indicator">
+										<Text id="idTotalAmountText" class="cl_advmnt_amnt"/>
+									</HBox>
+								</HBox>
+								<Text text="Vendor Code" class="cl_advancevendor"/>
+								<VBox id="houseBankChartWrapper" class="housebank_container" width="95%" height="125px"></VBox>
+								<!--<Text text="plant" class=""/>-->
+								<!--<VBox id="id_housebank" class="overdueBox sapUiSmallMarginEnd  " width="23%" height='180px'>-->
+								<!--<core:HTML-->
+								<!--content="&lt;div style='display: flex; align-items: center; padding: 0px 0px; margin-top: 10px;margin-left: 15px; margin-bottom: 10px; background: linear-gradient(90deg, rgba(138, 139, 245, 0.2) 0%, rgba(138, 139, 245, 0) 40%); border-radius: 4px;'&gt; &lt;div style='display: flex; align-items: center;'&gt; &lt;div style='width: 4px; height: 20px; background-color: #25009D; margin-right: 8px; border-radius: 2px;'&gt;&lt;/div&gt; &lt;div id='chart-title' style='font-family: Geist; font-weight: 500; font-size: 16px; line-height: 100%; letter-spacing: 1%; color: #202124;'&gt;Cash by House Bank Account&lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;div id='houseBankChartWrapper' style='height: 140px; margin-top: 8px'&gt;&lt;/div&gt;" />-->
+							</VBox>
+						</HBox>
+						<HBox class="cl_chart_wrapper sapUiTinyMarginTop" id="">
+							<!--<VBox id="id_materialwise" class="overdueBox_material clickableVBox cl_shadow cl_white_box cl_vb1_spend1" width="33.4%">-->
+							<!--	<core:HTML-->
+							<!--		content=" &lt;div style='display: flex; align-items: center; padding: 0px 0px; margin-top: 10px;margin-left: 15px; margin-bottom: 10px; background: linear-gradient(90deg, rgba(138, 139, 245, 0.2) 0%, rgba(138, 139, 245, 0) 40%); border-radius: 4px;'&gt; &lt;div style='display: flex; align-items: center;'&gt; &lt;div style='width: 4px; height: 20px; background-color: #25009D; margin-right: 8px; margin-left: 0px; border-radius: 2px;'&gt;&lt;/div&gt; &lt;div id='chart-title' style='font-family: Geist; font-weight: 500; font-size: 16px; line-height: 100%; letter-spacing: 1%; color: #202124;'&gt; Material Wise Spend &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;div id='materialChart'&gt;&lt;/div&gt;"/>-->
+							<!--</VBox>-->
+							<VBox id="id_materialwise" class="overdueBox_material clickableVBox cl_shadow cl_white_box cl_vb1_spend1" width="34%">
+								<HBox class=" cl_textHeadermaterial">
+									<Text text="Material Wise Spend" class="cl_dashboardTitleGradientSpend"/>
+								</HBox>
+								<core:HTML content="&lt;div id='materialChart'&gt;&lt;/div&gt;"/>
+							</VBox>
+							<VBox class="cl_location_card_container " width="32%">
+								<!-- Title Bar -->
+								<HBox class=" cl_textHLocation">
+									<Text text="Location Wise Spend" class="cl_dashboardTitleGradientSpend"/>
+								</HBox>
+								<core:HTML id="html_location_chart" content="&lt;div id=&apos;locationChart&apos; class=&apos;cl_apex_chart_container&apos;&gt;&lt;/div&gt;"/>
+								<Text text="Plant Code" class="cl_plant_description"/>
+							</VBox>
+							<VBox class="cl_location_card_container sapUiSmallMarginEnd" width="32%">
+								<!-- Title Bar -->
+								<HBox class=" cl_textHLocation">
+									<Text text="Advance On PO's" class="cl_dashboardTitleGradientSpend"/>
+								</HBox>
+								<HBox class="cl_advamnt_contPo" alignItems="Center">
+									<Text text="{i18n>Total Advance}" class="cl_advmnt_des"/>
+									<HBox class="cl_advmnt_indicator">
+										<Text id="idAdvancePOTotal" class="cl_advmnt_amnt"/>
+									</HBox>
+								</HBox>
+								<Text text="Vendor" class="cl_graph_description"/>
+								<!-- Chart Area -->
+								<core:HTML id="advanceChartContainer" content="&lt;div id='advanceBarChart' style='width:100%;height:180px;'&gt;&lt;/div&gt;"/>
+								<!--<core:HTML id="chartContainer" content="&lt;div id='lineChart' class='cl_apex_chart_container'&gt;&lt;/div&gt;"/>-->
+							</VBox>
+						</HBox>
+						<HBox class="cl_chart_wrapper sapUiTinyMarginTop" width="100%">
+							<VBox class="cl_customer_card_container" width="33%" height="205px">
+								<HBox class=" cl_textHLocation">
+									<Text text="Top 5 Collections" class="cl_dashboardTitleGradientSpend"/>
+								</HBox>
+								<core:HTML id="chartContainer" content="&lt;div id='lineChart' class='cl_apex_chart_container'&gt;&lt;/div&gt;"/>
+								<Text text="Customer Code" class="cl_customer_description"/>
+							</VBox>
+							<HBox class="cl_chart_container_expense " height="205px" width="65%">
+								<VBox class="cl_chart_container1 " width="46%">
+									<!-- Title Bar -->
+									<HBox class=" cl_textHLocation">
+										<Text text="All Expenses" class="cl_dashboardTitleGradientSpend"/>
+									</HBox>
+									<core:HTML id="idChartHtmlExpense" content=""/>
+								</VBox>
+								<VBox width="2%">
+									<!-- Separator Line -->
+									<VBox class="cl_vertical_separator"/>
+								</VBox>
+								<VBox class="cl_chart_container2 " width="46%">
+									<HBox class="" alignItems="Center" justifyContent="Start">
+										<Text text="" class="cl_dashboardTitleGradient_pay"/>
+									</HBox>
+									<!--<core:HTML id="htmlYTDChart" content="&lt;div id='ytdChart' class='cl_apex_chart_container'&gt;&lt;/div&gt;" />-->
+									<core:HTML id="htmlYTDChart"
+										content=' &lt;div style=&quot;display: flex; flex-direction: column; align-items: center; font-family: Geist; width: 100%;&quot;&gt; &lt;!-- Top label --&gt; &lt;div style=&quot;font-size: 12px; color: #202124; margin-bottom: 2px;&quot;&gt; Year to Date &lt;/div&gt; &lt;!-- Main three blocks row --&gt; &lt;div style=&quot;display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0 10px; padding-bottom: 5px;&quot;&gt; &lt;!-- Left Block: Current Year --&gt; &lt;div style=&quot;display: flex; flex-direction: column;&quot;&gt; &lt;div style=&quot;display: flex; align-items: center; margin-bottom: 2px; gap: 6px; font-size: 12px; color: #202124;&quot;&gt; &lt;span&gt;2026&lt;/span&gt; &lt;span style=&quot;border: 1px solid #ccc; border-radius: 10px; padding: 2px 6px; font-size: 9px; color: #5F6369;&quot;&gt; Current Year &lt;/span&gt; &lt;/div&gt; &lt;div style=&quot;font-size: 15px; font-weight: 600; margin-top: 0px;&quot; id=&quot;ytdCurrentAmount&quot;&gt;0 Cr&lt;/div&gt; &lt;/div&gt; &lt;!-- Center: VS and vertical lines --&gt; &lt;div style=&quot;display: flex; flex-direction: column; align-items: center; margin: 0 10px;&quot;&gt; &lt;div style=&quot;height: 10px; width: 1px; background-color: #ccc;&quot;&gt;&lt;/div&gt; &lt;div style=&quot;border: 1px solid #ddd; border-radius: 50px; padding: 4px 5px; font-size: 12px; font-weight: 600; margin-top: 0px; margin-bottom: 0px;&quot;&gt;VS&lt;/div&gt; &lt;div style=&quot;height: 10px; width: 1px; background-color: #ccc;&quot;&gt;&lt;/div&gt; &lt;/div&gt; &lt;!-- Right Block: Last Year --&gt; &lt;div style=&quot;display: flex; flex-direction: column; text-align: right;&quot;&gt; &lt;div style=&quot;display: flex; justify-content: flex-end; align-items: center; margin-bottom: 2px; gap: 6px; font-size: 12px; color: #202124;&quot;&gt; &lt;span style=&quot;border: 1px solid #ccc; border-radius: 10px; padding: 2px 6px; font-size: 9px; color: #5F6369;&quot;&gt; Last Year &lt;/span&gt; &lt;span&gt;2025&lt;/span&gt; &lt;/div&gt; &lt;div style=&quot;font-size: 15px; font-weight: 600; margin-top: 0px;&quot; id=&quot;ytdPreviousAmount&quot;&gt;0 Cr&lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;!-- Chart container --&gt; &lt;div id=&quot;ytdChart&quot; class=&quot;cl_apex_chart_container1&quot; style=&quot;height: 140px; width: 100%; padding: 0 10px;&quot;&gt;&lt;/div&gt; &lt;/div&gt; '/>
+								</VBox>
+							</HBox>
+						</HBox>
+						<HBox width="100%">
+							<VBox id="id_weekpayvb" class="cl_full_boxwp">
+								<!-- Header Section -->
+								<HBox justifyContent="SpaceBetween" alignItems="Center">
+									<HBox class="cl_textHeaderBoxwp" justifyContent="SpaceBetween" alignItems="Center" style="padding-right: 1rem;">
+										<Text text="Week Payable Vendor" class="cl_dashboardTitleGradient"/>
+									</HBox>
+									<HBox class="cl_text_week">
+										<HBox class="formInputWithIconbar formInputWithIconbarWeek" style="margin-left: 1rem;">
+											<ComboBox id="idNextWeekDays" items="{NextWeekDropDown>/}" selectedKey="" change="onNextWeekDayChange"
+												class="cl_combo_transBar cl_combo_week cl_combo_transBarWeek" editable="{path: 'JSKey>/0/Key'}" width="195px">
+												<core:Item text="{NextWeekDropDown>label}" key="{NextWeekDropDown>key}"/>
+											</ComboBox>
+										</HBox>
+										<!-- TODAY -->
+										<VBox alignItems="Center" id="idCardToday" class="dateBoxText dateBoxTextSelected dateBoxTextToday">
+											<Text text="Today" class="dateBoxLabel"/>
+											<Text text="({DateModel>/todayLabel})" class="dateText"/>
+										</VBox>
+										<!-- THIS WEEK -->
+										<VBox alignItems="Center" id="idCardThisWeek" class="dateBoxText ">
+											<Text text="This Week" class="dateBoxLabel"/>
+											<Text text="({DateModel>/thisWeekLabel})" class="dateText"/>
+										</VBox>
+										<VBox alignItems="Center" id="idCardNextWeek" class="dateBoxText ">
+											<Text text="Next Week" class="dateBoxLabel"/>
+											<Text text="({DateModel>/nextWeekLabel})" class="dateText"/>
+										</VBox>
+									</HBox>
+								</HBox>
+								<!-- Table Section -->
+								<HBox width="100%" class="sapUiTinyMarginTop">
+									<uitable:Table id="id_table" rows="{jsvenline>/}" selectionMode="MultiToggle" columnHeaderVisible="true" class="cl_tble cl_custom_table"
+										width="100%">
+										<uitable:columns>
+											<uitable:Column width="14%" hAlign="Center">
+												<Text text="Vendor Code" class="cl_Tltxt"/>
+												<uitable:template>
+													<Link text="{jsvenline>LIFNR}" class="cl_qid_sel cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="15%" hAlign="Center">
+												<Text text="Vendor Name" class="cl_Tltxt"/>
+												<uitable:template>
+													<Text text="{jsvenline>NAME1}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="15%" hAlign="Center">
+												<Text text="Invoice Number" class="cl_Tltxt"/>
+												<uitable:template>
+													<Text text="{jsvenline>BELNR}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="12%" hAlign="Center">
+												<Text text="Amount" class="cl_Tltxt"/>
+												<uitable:template>
+													<Text text="{path: 'jsvenline>DMBTR', formatter: 'FSC360NEW.model.formatter.formatAmountUnit'}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="12%" hAlign="Center">
+												<Text text="Due On" class="cl_Tltxt"/>
+												<uitable:template>
+													<Text text="{path:'jsvenline>BLDAT', formatter :'FSC360NEW.model.formatter.fnDate'}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+											<uitable:Column width="14%" hAlign="Center">
+												<Text text="Payment Terms" class="cl_Tltxt"/>
+												<uitable:template>
+													<Text text="{jsvenline>ZTERM}" class="cl_table_det_text"/>
+												</uitable:template>
+											</uitable:Column>
+										</uitable:columns>
+									</uitable:Table>
+								</HBox>
+							</VBox>
+						</HBox>
+					</VBox>
+					<VBox id="idIncomeExpense" class="cl_inc_exp_cont" visible="false">
+						<HBox class="cl_textHeaderBox cl_textHeaderBoxGL cl_postedinv">
+							<Text text="Posted Invoices" class="cl_dashboardTitleGradientSpend"/>
+						</HBox>
+						<HBox class="cl_inc_exp_chart_cont cl_inc_exp_chart_cont_left" width="100%">
+							<!-- Left Block: Year / Chart -->
+							<VBox class="cl_ytd_block cl_ytd_blockleft" width="45%">
+								<HBox class="cl_ytd_block_header cl_ytd_block_header_left" alignItems="Center" gap="6px">
+									<Text text="2026" class="cl_ytd_year"/>
+									<Text text="Current Year" class="cl_ytd_tag"/>
+									<Text id="id_total_amount" text="Total 60K = 14Cr" class="cl_ytd_tag cl_amnt_inc_exp"/>
+								</HBox>
+								<HBox class="cl_incexp_amnt_block cl_incexp_amnt_block_month">
+									<HBox class="cl_incexp_amnt_cont" alignItems="Center">
+										<VBox class="cl_incexp_amnt_section">
+											<HBox>
+												<Text text="PO = " class="cl_ytd_year cl_ytd_po cl_invtypcard"/>
+												<Text id="id_po_count" text="30k" class="cl_ytd_year cl_ytd_po cl_invtypcard"/>
+											</HBox>
+											<Text id="id_po_amount" class="cl_ytd_year cl_invtypcard"/>
+										</VBox>
+									</HBox>
+									<HBox class="cl_incexp_amnt_contnpo" alignItems="Center">
+										<VBox class="cl_incexp_amnt_section">
+											<HBox>
+												<Text text="Non PO = " class="cl_ytd_year cl_ytd_po cl_ytd_nonpo cl_invtypcard"/>
+												<Text id="id_nonpo_count" text="10K" class="cl_ytd_year cl_ytd_po cl_ytd_nonpo cl_invtypcard"/>
+											</HBox>
+											<Text id="id_nonpo_amount" class="cl_ytd_year cl_invtypcard"/>
+										</VBox>
+									</HBox>
+									<HBox class="cl_incexp_amnt_cont" alignItems="Center">
+										<VBox class="cl_incexp_amnt_section">
+											<HBox>
+												<Text text="Services = " class="cl_ytd_year cl_ytd_po cl_ytd_ser cl_invtypcard"/>
+												<Text id="id_service_count" text="20k" class="cl_ytd_year cl_ytd_po cl_ytd_ser cl_invtypcard"/>
+											</HBox>
+											<Text id="id_service_amount" class="cl_ytd_year cl_invtypcard"/>
+										</VBox>
+									</HBox>
+								</HBox>
+								<HBox class="cl_inc_exp_chart_sec" width="100%">
+									<core:HTML width="100%" id="chartContainerPoNonPo" content="&lt;div id='barChart' class='cl_inc_exp_chart_container'&gt;&lt;/div&gt;"/>
+								</HBox>
+							</VBox>
+							<!--center vs comparison -->
+							<VBox width="7%" alignItems="Center">
+								<Text text="Year to Date" class="cl_ytd_label"/>
+								<VBox class="cl_ytd_vs_block">
+									<Text class="cl_ytd_vs_line"/>
+									<Text text="VS" class="cl_ytd_vs_circle"/>
+									<Text class="cl_ytd_vs_line"/>
+								</VBox>
+							</VBox>
+							<!-- Right Block: Posted Invoice -->
+							<VBox width="45%">
+								<HBox class="cl_ytd_block_header cl_ytd_block_header_right" alignItems="End" gap="6px">
+									<Text id="id_total_amount_prev" text="Total 60K = 14Cr" class="cl_ytd_tag cl_amnt_inc_exp"/>
+									<Text text="Last Year" class="cl_ytd_tag"/>
+									<Text id="id_year_prev" text="2025" class="cl_ytd_year"/>
+								</HBox>
+								<HBox class="cl_incexp_amnt_block">
+									<HBox class="cl_incexp_amnt_cont" alignItems="Center">
+										<VBox class="cl_incexp_amnt_section">
+											<HBox>
+												<Text text="PO = " class="cl_ytd_year cl_ytd_po cl_invtypcard"/>
+												<Text id="id_po_count_prev" text="30k" class="cl_ytd_year cl_ytd_po cl_invtypcard"/>
+											</HBox>
+											<Text id="id_po_amount_prev" text="7 Cr" class="cl_ytd_year cl_invtypcard"/>
+										</VBox>
+									</HBox>
+									<HBox class="cl_incexp_amnt_contnpo" alignItems="Center">
+										<VBox class="cl_incexp_amnt_section">
+											<HBox>
+												<Text text="Non PO = " class="cl_ytd_year cl_ytd_po cl_ytd_nonpo cl_invtypcard"/>
+												<Text id="id_nonpo_count_prev" text="10k" class="cl_ytd_year cl_ytd_po cl_ytd_nonpo cl_invtypcard"/>
+											</HBox>
+											<Text id="id_nonpo_amount_prev" text="3 Cr" class="cl_ytd_year cl_invtypcard"/>
+										</VBox>
+									</HBox>
+									<HBox class="cl_incexp_amnt_cont" alignItems="Center">
+										<VBox class="cl_incexp_amnt_section">
+											<HBox>
+												<Text text="Services = " class="cl_ytd_year cl_ytd_po cl_ytd_ser cl_invtypcard"/>
+												<Text id="id_service_count_prev" text="20k" class="cl_ytd_year cl_ytd_po cl_ytd_ser cl_invtypcard"/>
+											</HBox>
+											<Text id="id_service_amount_prev" text="4 Cr" class="cl_ytd_year cl_invtypcard"/>
+										</VBox>
+									</HBox>
+								</HBox>
+								<HBox class="cl_inc_exp_chart_sec cl_inc_exp_chart_sec_right" width="100%">
+									<core:HTML width="100%" content="&lt;div id='incexpenseprev' class='cl_inc_exp_chart_container'&gt;&lt;/div&gt;"/>
+								</HBox>
+							</VBox>
+						</HBox>
+						<HBox alignItems="Center" justifyContent="Center" class="cl_graphtable_toggle">
+							<Text text="For the Month" class="cl_inc_exp_text_month"/>
+							<HBox id="id_fnGraphTable" class="cl_incexpsegmentgrp">
+								<Button icon="Images/incomeexpensecharticon.svg" press="fnGraphTable" class="cl_segmentBtnSelected_incexp cl_overview cl_incexp_btn">
+									<layoutData>
+										<FlexItemData growFactor="1"/>
+									</layoutData>
+									<customData>
+										<core:CustomData key="value" value="W"/>
+									</customData>
+								</Button>
+								<Button icon="Images/incomeexpensetableicon.svg" press="fnGraphTable" class="cl_segmentBtnUnSelected_incexp">
+									<layoutData>
+										<FlexItemData growFactor="1"/>
+									</layoutData>
+									<customData>
+										<core:CustomData key="value" value="I"/>
+									</customData>
+								</Button>
+							</HBox>
+						</HBox>
+						<VBox id="tableContainer" width="97%" visible="false" class="cl_table_incexp_cont"></VBox>
+						<VBox id="tableContainerprev" width="97%" visible="false" class="cl_table_incexp_cont"></VBox>
+						<!--Month chart container-->
+						<HBox width="100%" id="cl_mont_exp_cont" visible="true">
+							<HBox width="50%" class="cl_incexp_month_grap_cont" alignItems="Start" justifyContent="SpaceBetween">
+								<!--LEFT SIDE (Amounts + Chart) -->
+								<VBox class="cl_ytd_block cl_ytd_blockleft cl_incomeexpense_chart_monthchart_left cl_incomeexpense_chart_monthchart_left1">
+									<HBox class="cl_ytd_block_header cl_ytd_block_header_left" alignItems="Center" gap="6px">
+										<Text id="idYtdYear" text="" class="cl_ytd_year"/>
+										<Text id="idYtdTag" text="Current Year Month" class="cl_ytd_tag"/>
+										<Text id="idYtdTotal" text="Total 0 = 0" class="cl_ytd_tag cl_amnt_inc_exp"/>
+									</HBox>
+									<HBox class="cl_incexp_amnt_block cl_incexp_amnt_block_month">
+										<!-- PO Section -->
+										<HBox class="cl_incexp_amnt_cont" alignItems="Center">
+											<VBox class="cl_incexp_amnt_section">
+												<HBox>
+													<Text text="PO = " class="cl_ytd_year cl_ytd_po cl_invtypcard"/>
+													<Text id="idYtdPoCount" text="0" class="cl_ytd_year cl_ytd_po cl_invtypcard"/>
+												</HBox>
+												<Text id="idYtdPoAmount" text="0" class="cl_ytd_year cl_invtypcard"/>
+											</VBox>
+										</HBox>
+										<!-- Non PO Section -->
+										<HBox class="cl_incexp_amnt_contnpo" alignItems="Center">
+											<VBox class="cl_incexp_amnt_section">
+												<HBox>
+													<Text text="Non PO = " class="cl_ytd_year cl_ytd_nonpo cl_invtypcard"/>
+													<Text id="idYtdNonPoCount" text="0" class="cl_ytd_year cl_ytd_nonpo cl_invtypcard"/>
+												</HBox>
+												<Text id="idYtdNonPoAmount" text="0" class="cl_ytd_year cl_invtypcard"/>
+											</VBox>
+										</HBox>
+										<!-- Services Section -->
+										<HBox class="cl_incexp_amnt_cont" alignItems="Center">
+											<VBox class="cl_incexp_amnt_section">
+												<HBox>
+													<Text text="Services = " class="cl_ytd_year cl_ytd_ser cl_invtypcard"/>
+													<Text id="idYtdServiceCount" text="0" class="cl_ytd_year cl_ytd_ser cl_invtypcard"/>
+												</HBox>
+												<Text id="idYtdServiceAmount" text="0" class="cl_ytd_year cl_invtypcard"/>
+											</VBox>
+										</HBox>
+									</HBox>
+									<!--Chart -->
+									<HBox class="cl_inc_exp_mon_chart_wrapper" width="105%">
+										<core:HTML id="idChartHtmlExpense1" content="&lt;canvas id='daily_chart_canvas1' class='cl_inc_exp_mon_chart'&gt;&lt;/canvas&gt;"/>
+									</HBox>
+								</VBox>
+							</HBox>
+							<VBox width="8%" alignItems="Center">
+								<!--<Text text="Year to Date" class="cl_ytd_label"/>-->
+								<VBox class="cl_ytd_vs_block">
+									<Text class="cl_ytd_vs_line"/>
+									<Text text="VS" class="cl_ytd_vs_circle"/>
+									<Text class="cl_ytd_vs_line"/>
+								</VBox>
+							</VBox>
+							<HBox width="50%" class="cl_incexp_month_grap_cont" alignItems="Start" justifyContent="SpaceBetween">
+								<!--Right SIDE (Amounts + Chart) -->
+								<VBox class="cl_ytd_block cl_ytd_blockleft cl_incomeexpense_chart_monthchart_left">
+									<HBox class="cl_ytd_block_header cl_ytd_block_header_right" alignItems="End" gap="6px">
+										<Text id="idPrevYearTotal" text="Total 60K = 14Cr" class="cl_ytd_tag cl_amnt_inc_exp"/>
+										<Text text="Last Year Month" class="cl_ytd_tag"/>
+										<Text id="idPrevYear" text="" class="cl_ytd_year"/>
+									</HBox>
+									<HBox class="cl_incexp_amnt_block cl_incexp_amnt_block_month">
+										<HBox class="cl_incexp_amnt_cont" alignItems="Center">
+											<VBox class="cl_incexp_amnt_section">
+												<HBox>
+													<Text text="PO = " class="cl_ytd_year cl_ytd_po cl_invtypcard"/>
+													<Text id="idPrevPoCount" text="30k" class="cl_ytd_year cl_ytd_po cl_invtypcard"/>
+												</HBox>
+												<Text id="idPrevPoAmount" text="7 Cr" class="cl_ytd_year cl_invtypcard"/>
+											</VBox>
+										</HBox>
+										<HBox class="cl_incexp_amnt_contnpo" alignItems="Center">
+											<VBox class="cl_incexp_amnt_section">
+												<HBox>
+													<Text text="Non PO = " class="cl_ytd_year cl_ytd_po cl_ytd_nonpo cl_invtypcard"/>
+													<Text id="idPrevNonPoCount" text="10k" class="cl_ytd_year cl_ytd_po cl_ytd_nonpo cl_invtypcard"/>
+												</HBox>
+												<Text id="idPrevNonPoAmount" text="3 Cr" class="cl_ytd_year cl_invtypcard"/>
+											</VBox>
+										</HBox>
+										<HBox class="cl_incexp_amnt_cont" alignItems="Center">
+											<VBox class="cl_incexp_amnt_section">
+												<HBox>
+													<Text text="Services = " class="cl_ytd_year cl_ytd_po cl_ytd_ser cl_invtypcard"/>
+													<Text id="idPrevServiceCount" text="20k" class="cl_ytd_year cl_ytd_po cl_ytd_ser cl_invtypcard"/>
+												</HBox>
+												<Text id="idPrevServiceAmount" text="4 Cr" class="cl_ytd_year cl_invtypcard"/>
+											</VBox>
+										</HBox>
+									</HBox>
+									<!--Chart -->
+									<HBox class="cl_inc_exp_mon_chart_wrapper cl_inc_exp_mon_chart_wrapper1" width="100%">
+										<core:HTML id="idChartHtmlExpense2" content="&lt;canvas id='daily_chart_canvas2' class='cl_inc_exp_mon_chart'&gt;&lt;/canvas&gt;"/>
+									</HBox>
+								</VBox>
+							</HBox>
+						</HBox>
+					</VBox>
+					<VBox id="idExpComp" width="100%" class="sapUiSmallMarginEnd" visible="false">
+						<HBox class="cl_chart_container_expense">
+							<!-- Left Material Expenses Block -->
+							<VBox width="49%">
+								<HBox class="cl_textHLocation sapUiSmallMarginBegin cl_textHLocation_expn">
+									<Text text="Material Expenses" class="cl_dashboardTitleGradientSpend cl_expensecomp_matexp"/>
+								</HBox>
+								<HBox width="100%" justifyContent="SpaceBetween" alignItems="Center" class="cl_monthCompareRow ">
+									<!-- Left Block -->
+									<VBox alignItems="Start">
+										<VBox alignItems="Start" class="cl_monthCompareLeftRow sapUiMediumMarginTop">
+											<Text text="2026" class="cl_monthLabel"/>
+											<Text text="Current Year" class="cl_monthChip"/>
+										</VBox>
+										<Text text="{formattedCurr}" class="cl_monthValue"/>
+									</VBox>
+									<!-- Center VS -->
+									<VBox alignItems="Center" class="cl_monthCompareVS">
+										<Text text="Year To Date" class="cl_monthLabel"/>
+										<core:HTML content="&lt;div class='cl_vsLine'&gt;&lt;/div&gt;"/>
+										<Text text="VS" class="cl_vsChip"/>
+										<core:HTML content="&lt;div class='cl_vsLine'&gt;&lt;/div&gt;"/>
+									</VBox>
+									<!-- Right Block -->
+									<VBox alignItems="End">
+										<VBox alignItems="End" class="cl_monthCompareRightRow sapUiMediumMarginTop">
+											<Text text="2025" class="cl_monthLabel"/>
+											<Text text="Last Year" class="cl_monthChip"/>
+										</VBox>
+										<Text text="{formattedPrev}" class="cl_monthValue"/>
+									</VBox>
+								</HBox>
+								<HBox width="100%">
+									<HBox width="50%" class="cl_exp_year_mat_cont">
+										<core:HTML content="&lt;div id='materialCurrentExpenses' class='cl_exp_year_mat' style='width:100%;height:100%'&gt;&lt;/div&gt;"/>
+									</HBox>
+									<HBox width="50%" class="cl_exp_year_mat_cont1">
+										<core:HTML content="&lt;div id='materialLastExpenses' class='cl_exp_year_mat1' style='width:100%;height:100%'&gt;&lt;/div&gt;"/>
+									</HBox>
+								</HBox>
+							</VBox>
+							<!-- Vertical Separator -->
+							<VBox width="0%">
+								<VBox class="cl_vertical_separator"/>
+							</VBox>
+							<!-- Right Material Month Comparison Block -->
+							<VBox width="49%" class="cl_materialmonth_cont">
+								<HBox class="cl_emptyHLocation sapUiSmallMarginBegin"></HBox>
+								<HBox width="100%" justifyContent="SpaceBetween" alignItems="Center" class="cl_monthCompareRowMaterial">
+									<!-- Left Block -->
+									<VBox alignItems="Start">
+										<VBox alignItems="Start" class="cl_monthCompareLeftRow sapUiMediumMarginTop">
+											<Text text="2026" class="cl_monthLabel"/>
+											<Text text="Current Year Month" class="cl_monthChip"/>
+										</VBox>
+										<Text text="{formattedCurr}" class="cl_monthValue"/>
+									</VBox>
+									<!-- Center VS -->
+									<VBox alignItems="Center" class="cl_monthCompareVS">
+										<Text text="For the Month" class="cl_monthLabel"/>
+										<core:HTML content="&lt;div class='cl_vsLine'&gt;&lt;/div&gt;"/>
+										<Text text="VS" class="cl_vsChip"/>
+										<core:HTML content="&lt;div class='cl_vsLine'&gt;&lt;/div&gt;"/>
+									</VBox>
+									<!-- Right Block -->
+									<VBox alignItems="End">
+										<VBox alignItems="End" class="cl_monthCompareRightRow sapUiMediumMarginTop">
+											<Text text="2025" class="cl_monthLabel"/>
+											<Text text="Last Year Month" class="cl_monthChip"/>
+										</VBox>
+										<Text text="{formattedPrev}" class="cl_monthValue"/>
+									</VBox>
+								</HBox>
+								<HBox height="152px" width="104%" class="cl_materialMonthRight">
+									<HBox width="50%" class="cl_exp_year_mat_cont2">
+										<core:HTML content="&lt;div id='materialMonthCurrentExpenses' class='cl_exp_year_mat2'&gt;&lt;/div&gt;"/>
+									</HBox>
+									<HBox width="50%" class="cl_exp_year_mat_cont3">
+										<core:HTML content="&lt;div id='materialMonthLastExpenses' class='cl_exp_year_mat3'&gt;&lt;/div&gt;"/>
+									</HBox>
+								</HBox>
+							</VBox>
+						</HBox>
+						<!-- Accounts Group Expenses -->
+						<VBox class="cl_chart_container_expense sapUiTinyMarginTop">
+							<HBox class="cl_textHLocation sapUiSmallMarginBegin">
+								<Text text="Accounts Group Expenses" class="cl_dashboardTitleGradientSpend cl_expensecomp_accgrp"/>
+							</HBox>
+							<HBox width="100%" justifyContent="SpaceBetween" alignItems="Center" class="cl_monthCompareRow cl_exp_accgrp_right">
+								<!-- Left Block -->
+								<VBox alignItems="Start" width="44%">
+									<VBox alignItems="Start" class="cl_monthCompareLeftRow sapUiMediumMarginTop">
+										<Text class="cl_monthLabel" id="id_txtYear_accgrpcurrent"/>
+										<HBox>
+											<Text text="Current Year" class="cl_monthChip sapUiTinyMarginEnd"/>
+											<Text class="cl_amountChip" id="id_txtAmount_accgrpcurrent"/>
+										</HBox>
+									</VBox>
+									<Text text="{formattedCurr}" class="cl_monthValue"/>
+								</VBox>
+								<!-- Center VS -->
+								<VBox alignItems="Center" width="8%" class="cl_monthCompareVS">
+									<Text text="Year To Date" class="cl_monthLabel"/>
+									<core:HTML content="&lt;div class='cl_vsLine'&gt;&lt;/div&gt;"/>
+									<Text text="VS" class="cl_vsChip"/>
+									<core:HTML content="&lt;div class='cl_vsLine'&gt;&lt;/div&gt;"/>
+								</VBox>
+								<!-- Right Block -->
+								<VBox alignItems="End" width="46%">
+									<VBox alignItems="End" class="cl_monthCompareRightRow sapUiMediumMarginTop">
+										<Text class="cl_monthLabel" id="id_txtYear_accgrpPrev"/>
+										<HBox>
+											<Text class="cl_amountChip sapUiTinyMarginEnd" id="id_txtAmount_accgrpPrev"/>
+											<Text text="Last Year" class="cl_monthChip "/>
+										</HBox>
+									</VBox>
+									<Text text="{formattedCurr}" class="cl_monthValue"/>
+								</VBox>
+							</HBox>
+							<HBox height="150px">
+								<VBox width="50%">
+									<core:HTML content="&lt;div id='accountsGroupCurrent'&gt;&lt;/div&gt;"/>
+								</VBox>
+								<VBox width="50%">
+									<core:HTML content="&lt;div id='accountsGroupLast'&gt;&lt;/div&gt;"/>
+								</VBox>
+							</HBox>
+						</VBox>
+					</VBox>
+					 <VBox id="idAPPer" width="100%" class="sapUiSmallMarginEnd" visible="false">
+           	    <HBox class="cl_chart_wrapper sapUiTinyMarginTop">
+           	    	<VBox class="cl_apper_card_container" width="32%">
+                 <!--Title Bar -->
+                <HBox class=" cl_textHLocation">
+                  <Text text="Exalca Volume By CC" class="cl_dashboardTitleGradientSpend"/>
+                </HBox>
+
+                <!--<Text text="Vendor" class="cl_graph_description"/>-->
+                 <!--Chart Area -->
+                <core:HTML id="exalcaChartContainer"
+    content="&lt;div id='exalcaStackedChart' style='width:100%;height:190px;'&gt;&lt;/div&gt; class=&quot;cl_apex_chart_cont_location&quot;"/>
+              </VBox>
+              	<VBox class="cl_apper_card_container " width="32%">
+                 <HBox class=" cl_textHLocation">
+                  <Text text="Scan To Post TAT" class="cl_dashboardTitleGradientSpend"/>
+                </HBox>
+           <core:HTML
+    id="tatApexChartContainer"
+    content="&lt;div id='tatApexChart' style='width:100%;height:190px;'&gt;&lt;/div&gt;"
+    class="cl_apex_chart_cont_scantat"/>
+
+              	</VBox>
+              	<VBox class="cl_apper_card_container sapUiSmallMarginEnd" width="32%" visible="false">
+              		 <HBox class=" cl_textHLocation1">
+                  <Text text="Invoice to Post - Avg Days" class="cl_dashboardTitleGradientSpend"/>
+                </HBox>
+                <core:HTML
+    id="avgDaysApexChartContainer"
+    content="&lt;div id='avgDaysApexChart' style='width:100%;height:190px;'&gt;&lt;/div&gt;"
+    class="cl_apex_chart_cont_location"/>
+
+              	</VBox>
+              <VBox class="cl_apper_card_container" width="32%">
+    <HBox class="cl_textHLocation1fil sapUiSmallMarginBottom" justifyContent="SpaceBetween" alignItems="Center">
+        <Text text="Posting - Turn Around Time" class="cl_dashboardTitleGradientSpend"/>
+       
+        <Select change="onPostingTATMonthChange" selectedKey="1" width="120px"  class ="cl_filter_dropdown">
+    <core:Item key="1" text="January"/>
+    <core:Item key="2" text="February"/>
+    <core:Item key="3" text="March"/>
+    <core:Item key="4" text="April"/>
+    <core:Item key="5" text="May"/>
+    <core:Item key="6" text="June"/>
+    <core:Item key="7" text="July"/>
+    <core:Item key="8" text="August"/>
+    <core:Item key="9" text="September"/>
+    <core:Item key="10" text="October"/>
+    <core:Item key="11" text="November"/>
+    <core:Item key="12" text="December"/>
+</Select>
+
+    </HBox>
+
+    <core:HTML
+        id="postingTATDonutChartContainer"
+        content="&lt;div id='postingTATDonutChart' style='width:100%;height:185px;'&gt;&lt;/div&gt;"
+        class="cl_apex_chart_cont_location"/>
+</VBox>
+              
+           	    </HBox>
+           	    <HBox class="cl_chart_wrapper sapUiTinyMarginTop">
+           	     		<VBox class="cl_apper_card_container" width="32%"  visible="false">
+           	     			<HBox class=" cl_textHLocation">
+                  <Text text="Scan to Post - Avg Days" class="cl_dashboardTitleGradientSpend"/>
+                </HBox>
+           	     			<core:HTML
+    id="scanToPostAvgStackedChartContainer"
+    content="&lt;div id='scanToPostAvgStackedChart' style='width:100%;height:160px;'&gt;&lt;/div&gt;"
+    class="cl_apex_chart_cont_location"/>
+
+           	     			</VBox>
+           	     				 	<VBox class="cl_apper_card_container" width="50%" >
+              			<HBox class="cl_textHLocation1filap"
+      width="100%"
+      justifyContent="SpaceBetween"
+      alignItems="Center">
+                  <Text text="Parking - Turn Around Time" class="cl_dashboardTitleGradientSpend"/>
+                      <Select
+        id="idParkTurnQuarter"
+        width="100px"
+        selectedKey="Q1"
+        class ="cl_filter_dropdownq sapUiSmallMarginEnd"
+        change=".onParkTurnQuarterChange"
+        >
+
+        <core:Item key="Q1" text="Q1" />
+        <core:Item key="Q2" text="Q2" />
+        <core:Item key="Q3" text="Q3" />
+        <core:Item key="Q4" text="Q4" />
+
+    </Select>
+                </HBox>
+                    	          <!--<HBox justifyContent="End" class="sapUiTinyMarginBottom">-->
+
+<!--</HBox>-->
+
+               <core:HTML
+    id="parkingTurnAroundChartContainer"
+    content="&lt;div id='parkingTurnAroundChart' style='width:100%;height:190px;'&gt;&lt;/div&gt;"
+    class="cl_apex_chart_cont_location"/>
+
+
+              	</VBox>
+              	<VBox class="cl_apper_card_container sapUiSmallMarginEnd" width="50%">
+    	<HBox class="cl_textHLocation1filap"
+      width="100%"
+      justifyContent="SpaceBetween"
+      alignItems="Center">
+        <Text text="Work Queue > 2 days" class="cl_dashboardTitleGradientSpend"/>
+          <Select
+        id="idMore2DaysHalf"
+        width="120px"
+        selectedKey="H1"
+            class ="cl_filter_dropdown sapUiSmallMarginEnd"
+        change=".onMore2DaysHalfChange">
+
+        <core:Item key="H1" text="First 6 Months" />
+        <core:Item key="H2" text="Last 6 Months" />
+
+    </Select>
+    </HBox>
+
+    <core:HTML
+        id="idWorkQueueMore2DaysChart"
+        content="&lt;div id='workQueueMore2DaysChart' style='width:100%;height:190px;'&gt;&lt;/div&gt;"
+        class="cl_apex_chart_cont_scantat"/>
+</VBox>
+
+
+           	     </HBox>
+           	     <HBox class="cl_chart_wrapper sapUiTinyMarginTop">
+           	      	<VBox class="cl_apper_card_container" width="50%"  visible="false">
+     <HBox class="cl_textHLocation1filap sapUiSmallMarginBottom" justifyContent="SpaceBetween" width="100%" alignItems="Center">
+        <Text text="Work Queue - by Scan Ageing" class="cl_dashboardTitleGradientSpend"/>
+          <Select
+        id="idScanAgeHalf"
+        width="120px"
+        selectedKey="H1"
+            class ="cl_filter_dropdown sapUiSmallMarginEnd"
+        change=".onScanAgeHalfChange">
+
+        <core:Item key="H1" text="First 6 Months" />
+        <core:Item key="H2" text="Last 6 Months" />
+
+    </Select>
+    </HBox>
+
+    <core:HTML
+        id="idScanAgeingChart"
+        content="&lt;div id='scanAgeingApexChart' style='width:100%;height:160px;'&gt;&lt;/div&gt;"
+        class="cl_apex_chart_cont_scantat"/>
+</VBox>
+
+
+           	      </HBox>
+           </VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

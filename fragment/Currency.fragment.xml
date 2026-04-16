@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="{i18n>Select Currency}"  items="{JSCurrency>/}" class="APW_DilogClass cl_frag" liveChange="fn_Currency_LC" search="fnCurrSearch"
+		confirm="fn_Head_Currency" >
+		<StandardListItem  title="{JSCurrency>Waers}" description="{JSCurrency>Ltext}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

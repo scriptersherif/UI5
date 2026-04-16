@@ -1,0 +1,32 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+	<Dialog showHeader="false" contentWidth="402px" class="cl_frag_rightslidedetpdf" resizable="true" draggable="false" contentHeight="auto"
+		afterOpen="fn_AfterGetCommentsOpen">
+		<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pdf_dialog_header cl_comments_dialog_header">
+			<Text text="View PDF List" class="sapUiTinyMargin sapMTitle cl_dialog_text"/>
+			<Button icon="Images/cancel.svg" type="Transparent" class="sapUiSizeCompact cl_btn_rest cl_btn_rej cl_pdf_close" press="fn_closedetail"
+				tooltip="{i18n>closeButtonTooltip}"/>
+		</HBox>
+		<VBox class="cl_details_block">
+			<List id="id_list_pdf" items="{MVen>/}">
+				<items>
+					<CustomListItem  class="cl_details_list" type="Active" press="OnPressList">
+						<VBox class="cl_black">
+							<Toolbar class="cl_customvtool" width="100%" height="50px">
+								<VBox>
+									<Text text="{MVen>Ven}" class=" cl_text_code"/>
+									<Text text="{MVen>Name}" class=" cl_textdet"/>
+								</VBox>
+								<ToolbarSpacer/>
+							
+								<HBox class="cl_attached_recall_cont" >
+									<Image src="Images/pdficon_recall.svg" press="onOpenPDF" class="cl_recall_pdf_icon" tooltip="{i18n>Attachment}"/>
+									<Text text="Attached" class="cl_attach_recall cl_attached_recall_text"/>
+								</HBox>
+							</Toolbar>
+						</VBox>
+					</CustomListItem>
+				</items>
+			</List>
+		</VBox>
+	</Dialog>
+</core:FragmentDefinition>

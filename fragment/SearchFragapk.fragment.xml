@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+<Popover class="cl_search_pop sapUiContentPadding SettingsPOPCls " placement="Bottom" showHeader="false" modal="false">
+<content>
+<VBox alignContent="Start" justifyContent="Start" alignItems="Start" class="sapUiTinyMargin">
+<HBox>
+<CheckBox id="cb_docid" select="onCheckDocId"/>
+<Button text="{i18n>Queue Id}" press="fn_Docid_Search" id="id_docid" class="sapUiSizeCompact cl_searchfrag_btn" />
+</HBox>
+ 
+				<HBox>
+<CheckBox id="cb_vendor" select="onCheckVendor"/>
+<Button text="{i18n>Vendors}" press="fn_Vendor_Search" id="id_vendor" class="sapUiSizeCompact cl_searchfrag_btn" />
+</HBox>
+ 
+				<HBox>
+<CheckBox id="cb_invoice" select="onCheckInvoice"/>
+<Button text="{i18n>Invoice}" press="fn_Invo_Search" id="id_invo" class="sapUiSizeCompact cl_searchfrag_btn" />
+</HBox>
+ 
+				<HBox>
+<CheckBox id="cb_comp" select="onCheckAgent"/>
+<Button text="{i18n>Miro Doc.No}" press="fn_agent_Search" id="id_docno" class="sapUiSizeCompact cl_searchfrag_btn" />
+</HBox>
+ 
+				<HBox>
+<CheckBox id="cb_plant" select="onCheckPlant"/>
+<Button text="{i18n>Plant}" press="fn_Plant_Search" id="id_plant" class="sapUiSizeCompact cl_searchfrag_btn" />
+</HBox>
+ 
+			</VBox>
+</content>
+</Popover>
+</core:FragmentDefinition>

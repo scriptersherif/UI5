@@ -1,0 +1,109 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.ApprovalMobile"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Title" showHeader="false" showFooter="true">
+		<content>
+			<VBox class="cl_toolvbox">
+				<HBox class="cl_gradient_bg" justifyContent="SpaceBetween" alignItems="Center">
+					<HBox class="leftIcons" alignItems="Center" width="30%">
+						<Image src="Images/Menu.svg" class="cl_arrima"/>
+					</HBox>
+					<HBox class="centerLogo" alignItems="Center" width="40%" justifyContent="Center">
+						<Image src="Images/FSCNXT_logo.svg" class="cl_logo"/>
+					</HBox>
+					<HBox class="rightIcons" alignItems="Center" width="30%" justifyContent="End">
+						<Image src="Images/input1.svg" class="team_image1"/>
+					</HBox>
+				</HBox>
+				<VBox class="cl_search_container">
+					<HBox class="customSearchBox" alignItems="Center" justifyContent="SpaceBetween" width="100%">
+						<HBox alignItems="Center" class="searchLeft" width="100%">
+							<Image src="Images/magnify.svg" class="searchIcon"/>
+							<Input placeholder="Search" class="searchInput" showValueHelp="false" type="Text" width="100%"/>
+						</HBox>
+						<Text text="⌘ K" class="shortcutHint"/>
+					</HBox>
+				</VBox>
+				<ScrollContainer vertical="true" class="scrollContainerFixedHeight" >
+					<VBox class="list_box">
+						<List items="{JMQidlist>/}" id="id_qidList" class="customList1">
+							<CustomListItem press="fn_viewdet" type="Active">
+								<HBox alignItems="Center" class="name1_box">
+									<Image src="Images/account-circle.svg" class="name1_icon"/>
+									<Text text="{JMQidlist>Name1}" class="name1_text"/>
+								</HBox>
+								<HBox class="listItemBox1" width="100%">
+									<VBox width="60%">
+										<HBox alignItems="Center" class="dateBox">
+											<Image src="Images/invoice-ses.svg" class="iconImage"/>
+											<Text text="{JMQidlist>Invno}" class="invoiceText"/>
+										</HBox>
+										<HBox alignItems="Center" class="dateBox">
+											<Image src="Images/calendar-ses.svg" class="iconImage"/>
+											<Text text="{path: 'JMQidlist>Scandate',formatter :'FSC360NEW.model.formatter.fnDate'}" class="dateText"/>
+										</HBox>
+									</VBox>
+									<VBox width="40%">
+										<HBox alignItems="Center">
+											<Text text="" class=""/>
+										</HBox>
+										<HBox justifyContent="End">
+											<Text text="{JMQidlist>Ntamt} {JMQidlist>Waers}" class="clamtap"/>
+										</HBox>
+									</VBox>
+								</HBox>
+							</CustomListItem>
+						</List>
+					</VBox>
+				</ScrollContainer>
+				<!--<List items="{JMQidlist>/}" class="cl_list">-->
+				<!--	<CustomListItem class="custom">-->
+				<!--		<VBox class="cl_listvbox sapUiTinyMarginBegin sapUiTinyMarginTop sapUiTinyMarginEnd">-->
+				<!--			<Toolbar class="cl_noborder sapUiTinyMarginTop">-->
+				<!--				<HBox>-->
+				<!--					<Text text="{JMQidlist>Name1}" class="cl_listtxt cl_listmar sapUiSmallMarginBegin"></Text>-->
+				<!--					<Image src="Images/Truck.png" visible="{JMQidlist>PO}" class="cl_truckima sapUiTinyMarginBegin"></Image>-->
+				<!--	<Image src="Images/salary.svg" visible="{JMQidlist>NPO}" class="cl_salaryima sapUiTinyMarginBegin"></Image>-->
+				<!--					<Image src="Images/give-money.png" visible="{JMQidlist>NPO}" class="cl_salaryima sapUiTinyMarginBegin"></Image>-->
+				<!--				</HBox>-->
+				<!--				<ToolbarSpacer></ToolbarSpacer>-->
+				<!--				<Text text="{JMQidlist>Ntamt} {JMQidlist>Waers}" class="cl_listtxt sapUiSmallMarginEnd"></Text>-->
+				<!--			</Toolbar>-->
+				<!--			<Toolbar class="cl_noborder">-->
+				<!--				<HBox class="cl_pdfvbox cl_listmar sapUiSmallMarginBegin" alignContent="Center" alignItems="Center" justifyContent="Center">-->
+				<!--					<Text text="#INV-{JMQidlist>Invno}" class="cl_listtxt1 "></Text>-->
+				<!--					<Image src="Images/pdf_.png" press="fn_pdf" class="sapUiTinyMarginBegin cl_pdfima"></Image>-->
+				<!--				</HBox>-->
+				<!--				<ToolbarSpacer></ToolbarSpacer>-->
+				<!--				<HBox>-->
+				<!--					<Text text="{path: 'JMQidlist>Scandate',formatter : 'Invoice_Approval.model.Formatter.fnDate'}" class="cl_listtxt1 "></Text>-->
+				<!--					<Image src="Images/Calender.png" class="cl_calenima sapUiTinyMarginBegin "></Image>-->
+				<!--				</HBox>-->
+				<!--			</Toolbar>-->
+				<!--		</VBox>-->
+				<!--	</CustomListItem>-->
+				<!--</List>-->
+			</VBox>
+		
+				<VBox class="customFooterContainer">
+				<HBox class="footerWaveBackground" justifyContent="Center" alignItems="Start">
+					<HBox class="footerWave" justifyContent="Center" alignItems="Start">
+						<VBox class="fabWrapper" alignItems="Center">
+							<VBox class="fabButton">
+								<Image src="Images/check_icon.svg" press="fn_pdf" class="fabButton1"></Image>
+							</VBox>
+							<Text text="My List" class="fabLabel"/>
+						</VBox>
+						<VBox class="footerRightIcon">
+							<Image src="Images/refresh_icon.svg" press="fn_navHistory" class="fabButton1"></Image>
+						</VBox>
+					</HBox>
+				</HBox>
+			</VBox>
+		</content>
+			<!--<footer>-->
+			<!--	<Toolbar>-->
+				
+			<!--	</Toolbar>-->
+			<!--</footer>-->
+	</Page>
+</mvc:View>

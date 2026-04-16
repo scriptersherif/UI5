@@ -1,0 +1,473 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="FSC360NEW.controller.AutoPark"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:uitable="sap.ui.table">
+	<App>
+		<pages>
+			<Page title="Auto Parking">
+				<customHeader>
+					<Toolbar class="header_bar1 sapUiSmallMarginEnd">
+						<Image id="id_fnback" src="Images/Left.svg" class="cl_back_btn sapUiSmallMarginBegin" visible="false" press="fn_back"></Image>
+						<Text text="{i18n>Fulfilment}" class="cl_bold cl_black_txt cl_heading cl_font sapUiSmallMarginBegin"></Text>
+						<HBox id="id_usertypeauto" class="cl_btn_group" alignItems="Center">
+							<Button text="Workbench" icon="Images/workbench.svg" press="fn_onUserTypePress" class="cl_btn_phy_all">
+								<customData>
+									<core:CustomData key="key" value="W"/>
+								</customData>
+							</Button>
+							<Button text="Indexer" icon="Images/indexer.svg" press="fn_onUserTypePress" class="cl_btn_phy_ind">
+								<customData>
+									<core:CustomData key="key" value="I"/>
+								</customData>
+							</Button>
+							<Button text="{i18n>NonPOIndexer}" tooltip="{i18n>NonPOIndexer}" icon="Images/nonpoIndexer.svg" press="fn_onUserTypePress"
+								class="cl_btn_phy_ind">
+								<customData>
+									<core:CustomData key="key" value="N"/>
+								</customData>
+							</Button>
+							<Button text="Auto Parking" icon="Images/autoparkf.svg" press="fn_onUserTypePress" class="cl_btn_phy_ind">
+								<customData>
+									<core:CustomData key="key" value="A"/>
+								</customData>
+							</Button>
+								<Button text="{i18n>Hold}" tooltip="{i18n>Hold}" icon="Images/autoparkf.svg" press="fn_onUserTypePress" class="cl_btn_phy_fin">
+								<customData>
+									<core:CustomData key="key" value="H"/>
+								</customData>
+							</Button>
+						</HBox>
+						<ToolbarSpacer/>
+						<Button icon="Images/refreshbtn.png" tooltip="Refresh" class="refresh_btn" press="fn_fulfillrefresh"/>
+						<Button icon="Images/bellbtn.png" tooltip="Notification" class="notifi_btn"/>
+						<HBox class="team_account" alignItems="Center" justifyContent="SpaceBetween">
+							<Text text="{path: 'JSusername>/UserName', formatter :'FSC360NEW.model.formatter.fnName'}" class="cl_username cl_font team_text "></Text>
+							<Image src="Images/Input.svg" class="team_image"/>
+						</HBox>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<HBox height="95%">
+						<!--<VBox class="cl_full_boxapk ">-->
+						<VBox class="cl_table_wrapper cl_table_wrapperapk" id="id_pdf_slideap">
+							<Toolbar class="cl_tbr_1 ">
+								<Image src="Images/Filter.svg" press="fnFilterPopup" class=" sapUiSizeCompact cl_filter_btn"></Image>
+								<Text text="All Invoices" id="idCardTitle" class="cl_Tltxt sapUiSmallMarginBegin"/>
+								<Text text="" class="cl_badge_counter" id="id_tot"/>
+									<RadioButtonGroup id="id_radBtnGrp" selectedIndex="0" columns="2" select="fn_onRadioSelect" class="smallRadioGroup cl_radiogrp_rec_bill cl_radiogrp_autopark">
+									<buttons>
+										<RadioButton text="Open" class="smallRadioButton smallRadioButton1 cl_radiobtn_autopark"/>
+										<RadioButton text="Posted" class="smallRadioButton smallRadioButton2 cl_radiobtn_autopark"/>
+									</buttons>
+								</RadioButtonGroup>
+								<ToolbarSpacer/>
+								<HBox class="cl_search_containerap" alignItems="Center" justifyContent="Start" fitContainer="true">
+									<MultiComboBox id="id_search_fields" selectionChange="onSearchFieldsChange" placeholder="Select fields"
+										class="cl_search_multi cl_searchmulti">
+										<items>
+											<core:Item key="Qid" text="Queue Id"/>
+											<core:Item key="Name1" text="Vendor"/>
+											<core:Item key="Invno" text="Invoice No"/>
+											<core:Item key="Documentnumber" text="Miro Doc.No"/>
+											<core:Item key="Bukrs" text="Plant"/>
+										</items>
+									</MultiComboBox>
+									<SearchField id="id_search_field" placeholder="Search..." liveChange="fnSearchField" search="fnSearchField"
+										class="cl_search_field sapUiSmallMarginEnd"/>
+								</HBox>
+							
+								<Button icon="Images/fileBlueOutline.svg" text="View details" press="fnViewdetails" class="whitebtn sapUiTinyMarginEnd" type="Transparent"/>
+								<Button icon="Images/update.svg" id="id_update_btn" text="Update" press="fnupdate" class="bluebtn sapUiTinyMarginEnd" type="Transparent"/>
+							</Toolbar>
+							<!--<VBox class="cl_table_wrapper" width="97%">-->
+							<VBox class="scrollContainer" id="id_vbox_tableapk" width="100%">
+								<uitable:Table id="idTable" rows="{AutoParkModel>/}" visibleRowCount="11" width="100%" class="cl_custom_table cl_custom_tableapk"
+									selectionMode="MultiToggle" fixedColumnCount="1">
+									<uitable:columns>
+										<!-- Queue ID -->
+										<uitable:Column width="7rem" hAlign="Center" class="cl_column_header" visible="{FilterTableModel>/0/visible}">
+											<Text text="Queue Id" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Qid}" class="cl_column_cell clque"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Scanned -->
+										<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/1/visible}">
+											<Text text="Scanned" class="cl_Tltxt"/>
+											<uitable:template>
+												<Button icon="Images/document.svg" press="fn_pdf" class="cl_invoice_btn" type="Transparent" tooltip="View Invoice"/>
+												<!--<Text text="{VendorAdv>Scanned}" class="cl_column_cell"/>-->
+											</uitable:template>
+										</uitable:Column>
+										<!-- Plant Code -->
+										<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/2/visible}">
+											<Text text="Plant Code" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Scancenter}" class="cl_column_cell"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Vendor code -->
+										<uitable:Column width="10rem" hAlign="Center" visible="{FilterTableModel>/3/visible}">
+											<Text text="Vendor Number" class="cl_Tltxt"/>
+											<uitable:template>
+												<HBox width="100%" height="100%">
+													<Text text="{AutoParkModel>Lifnr}" wrapping="{viewModel1>/wrapText}" class="cl_column_cell">
+														<customData>
+															<core:CustomData key="name1Color" value="{path: 'AutoParkModel>MsmeType', formatter: 'FSC360NEW.model.formatter.formatInvoiceDateColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+												</HBox>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Vendor Name -->
+										<uitable:Column width="10rem" hAlign="Center" visible="{FilterTableModel>/4/visible}">
+											<Text text="Vendor Name" class="cl_Tltxt"/>
+											<uitable:template>
+												<HBox >
+													<Text text="{AutoParkModel>Name1}" wrapping="{viewModel1>/wrapText}" class="cl_column_cell">
+														<customData>
+															<core:CustomData key="name1Color" value="{path: 'AutoParkModel>MsmeType', formatter: 'FSC360NEW.model.formatter.formatInvoiceDateColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+												</HBox>
+											</uitable:template>
+										</uitable:Column>
+										<!-- MSME -->
+										<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/5/visible}">
+											<Text text="MSME" class="cl_Tltxt"/>
+											<uitable:template>
+												<HBox width="100%" height="100%">
+													<Text text="{AutoParkModel>MsmeType}" wrapping="{viewModel1>/wrapText}" class="cl_column_cell">
+														<customData>
+															<core:CustomData key="name1Color" value="{path: 'AutoParkModel>MsmeType', formatter: 'FSC360NEW.model.formatter.formatInvoiceDateColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+												</HBox>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/6/visible}">
+											<Text text="Invoice Date" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{path: 'AutoParkModel>Invdt', formatter: 'FSC360NEW.model.formatter.Date'}" wrapping="{viewModel1>/wrapText}"
+													class="cl_column_cell">
+													<customData>
+														<core:CustomData key="name1Color" value="{path: 'AutoParkModel>InvdtMatch', formatter: 'FSC360NEW.model.formatter.formatInvoiceDateColor'}"
+															writeToDom="true"/>
+													</customData>
+												</Text>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/7/visible}">
+											<Text text="Invoice Number" class="cl_Tltxt"/>
+											<uitable:template>
+												<HBox width="100%" height="100%">
+													<Text text="{AutoParkModel>Invno}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}">
+														<customData>
+															<core:CustomData key="name1Color" value="{path: 'AutoParkModel>InvnoMatch', formatter: 'FSC360NEW.model.formatter.formatInvoiceDateColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+												</HBox>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="10rem" hAlign="Center" visible="{FilterTableModel>/8/visible}">
+											<Text text="Invoice Amt." class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Invoiceamt}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}">
+													<customData>
+														<core:CustomData key="name1Color" value="{path: 'AutoParkModel>InvnoMatch', formatter: 'FSC360NEW.model.formatter.formatInvoiceDateColor'}"
+															writeToDom="true"/>
+													</customData>
+												</Text>
+											</uitable:template>
+										</uitable:Column>
+										<!-- With Tax Code -->
+										<uitable:Column width="10rem" hAlign="Center" visible="{FilterTableModel>/9/visible}">
+											<Text text="With Tax Code" class="cl_Tltxt"/>
+											<uitable:template>
+												<Input value="{AutoParkModel>WtWithcd}" class="cl_table_det_text apinputtext" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- With Tax Amt. -->
+										<uitable:Column width="10rem" hAlign="Center" visible="{FilterTableModel>/10/visible}">
+											<Text text="With Tax Amt." class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>WtQsshb}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Advance Amt. -->
+										<uitable:Column width="10rem" hAlign="Center" visible="{FilterTableModel>/11/visible}">
+											<Text text="Advance Amt." class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Wrbtr}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+											<!--Non PO Advance Amt. -->
+										<uitable:Column width="10rem" hAlign="Center" visible="{FilterTableModel>/11/visible}">
+											<Text text="NonPo Adv Amt." class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>WrbtrNon}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Tax Amt. -->
+										<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/12/visible}">
+											<Text text="Tax Amt." class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Intax}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Net Amt. -->
+										<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/13/visible}">
+											<Text text="Net Amt." class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Ntamt}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Gross Amt. -->
+										<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/14/visible}">
+											<Text text="Gross Amt." class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Invoiceamt}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Curr. -->
+										<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/15/visible}">
+											<Text text="Curr." class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Waers}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Buss. Place -->
+										<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/16/visible}">
+											<Text text="Buss. Place" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Bupla}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+									<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/17/visible}">
+											<Text text="Sec. Code" class="cl_Tltxt"/>
+											<uitable:template>
+												<ComboBox id="idSectionCode" class="cl_column_cell apinputtext cl_combo_table" value="{AutoParkModel>Secco}" items="{JSSectionCode>/}"
+													selectionChange="onSectionChange" liveChange="onSectionCodeChange" showClearIcon="true">
+													<core:Item key="{JSSectionCode>Seccode}" text="{JSSectionCode>Seccode}"/>
+												</ComboBox>
+													</uitable:template>
+										</uitable:Column>
+										<!-- Psting date  -->
+										<uitable:Column width="10rem" hAlign="Center" visible="{FilterTableModel>/18/visible}">
+											<Text text="Posting Date" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{path: 'AutoParkModel>Erdat', formatter: 'FSC360NEW.model.formatter.Date'}" wrapping="{viewModel1>/wrapText}"
+													class="cl_column_cell"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- PO POsting date  -->
+										<uitable:Column width="11rem" hAlign="Center" visible="{FilterTableModel>/19/visible}">
+											<Text text="PO Posting Date" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{path: 'AutoParkModel>Bedat', formatter: 'FSC360NEW.model.formatter.Date'}" wrapping="{viewModel1>/wrapText}"
+													class="cl_column_cell"/>
+											</uitable:template>
+										</uitable:Column>
+										<!--GRN  Psting date  -->
+										<uitable:Column width="11rem" hAlign="Center" visible="{FilterTableModel>/20/visible}">
+											<Text text="GRN Posting Date" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{path: 'AutoParkModel>Budat', formatter: 'FSC360NEW.model.formatter.Date'}" wrapping="{viewModel1>/wrapText}"
+													class="cl_column_cell"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- MIRO Doc -->
+										<uitable:Column width="11rem" hAlign="Center" visible="{FilterTableModel>/21/visible}">
+											<Text text="MIRO Doc.No" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Documentnumber}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- sap Doc -->
+										<uitable:Column width="9rem" hAlign="Center" visible="{FilterTableModel>/22/visible}">
+											<Text text="Sap Doc.No" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel> AccDoc}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- MIRO Doc -->
+										<uitable:Column width="9rem" hAlign="Center" visible="{FilterTableModel>/23/visible}">
+											<Text text="GRNDoc.No" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>GrnDoc}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Auto Text -->
+										<uitable:Column width="9rem" hAlign="Center" visible="{FilterTableModel>/24/visible}">
+											<Text text="Auto Text" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Autotext}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="12rem" hAlign="Center" visible="{FilterTableModel>/25/visible}">
+											<Text text="Bank Account Number" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Bankn}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}">
+													<customData>
+														<core:CustomData key="accColor" value="{path: 'AutoParkModel>AccMatch', formatter: 'FSC360NEW.model.formatter.formatAccMatchColor'}"
+															writeToDom="true"/>
+													</customData>
+												</Text>
+											</uitable:template>
+										</uitable:Column>
+										<!-- bank IFSC code. -->
+										<uitable:Column width="12rem" hAlign="Center" visible="{FilterTableModel>/26/visible}">
+											<Text text="Bank IFSC code." class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Bankl}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Bank Name -->
+										<uitable:Column width="12rem" hAlign="Center" visible="{FilterTableModel>/27/visible}">
+											<Text text="Bank Name" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Banka}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- GST No. -->
+										<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/28/visible}">
+											<Text text="GST No." class="cl_Tltxt"/>
+											<uitable:template>
+												<HBox width="100%" height="100%">
+													<Text text="{AutoParkModel>Gstno}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}">
+														<customData>
+															<core:CustomData key="name1Color" value="{path: 'AutoParkModel>GstMatch', formatter: 'FSC360NEW.model.formatter.formatInvoiceDateColor'}"
+																writeToDom="true"/>
+														</customData>
+													</Text>
+												</HBox>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/29/visible}">
+											<Text text="HSN code" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>HsnSac}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}">
+													<customData>
+														<core:CustomData key="name1Color" value="{path: 'AutoParkModel>HsnFlag', formatter: 'FSC360NEW.model.formatter.formatInvoiceDateColor'}"
+															writeToDom="true"/>
+													</customData>
+												</Text>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="8rem" hAlign="Center" visible="{FilterTableModel>/30/visible}">
+											<Text text="GL Account" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Hkont}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- GL Desc -->
+										<uitable:Column width="15rem" hAlign="Center" visible="{FilterTableModel>/31/visible}">
+											<Text text="GL Desc" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Gldesc}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- TRANS TYPE -->
+										<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/32/visible}">
+											<Text text="Transtype" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Transtype}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- PO Number -->
+										<uitable:Column width="6rem" hAlign="Center" visible="{FilterTableModel>/33/visible}">
+											<Text text="PO Number" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Ebeln}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- PO Item -->
+										<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/34/visible}">
+											<Text text="PO Item" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Ebelp}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<!-- Company code -->
+										<uitable:Column width="5rem" hAlign="Center" visible="{FilterTableModel>/35/visible}">
+											<Text text="Company" class="cl_Tltxt"/>
+											<uitable:template>
+												<Text text="{AutoParkModel>Bukrs}" class="cl_column_cell" wrapping="{viewModel1>/wrapText}"/>
+											</uitable:template>
+										</uitable:Column>
+										<uitable:Column width="7rem" hAlign="Center" visible="{FilterTableModel>/36/visible}">
+											<Text text="Trans history" class="cl_Tltxt"/>
+											<uitable:template>
+												<Button icon="Images/comentbox.svg" press="fn_transhis" wrapping="{viewModel1>/wrapText}" class="cl_btn_comment" type="Transparent"
+													tooltip="View Invoice"/>
+											</uitable:template>
+										</uitable:Column>
+									</uitable:columns>
+								</uitable:Table>
+							</VBox>
+							<HBox justifyContent="SpaceBetween" alignItems="Center" class="cl_pagination_footer" width="100%" id="fultab">
+								<HBox width="100px" justifyContent="Start">
+									<Button icon="Images/arrow-left.svg" text="Previous" id="idPrevButtonap" class="cl_prev_button" press="onPreviousPage" visible="true"/>
+								</HBox>
+								<!-- Center Slot: Page Numbers (Always Centered) -->
+								<HBox width="calc(100% - 200px)" id="idPageNumbersBoxap" justifyContent="Center" alignItems="Center" class="cl_page_numbers">
+									<!-- Page buttons dynamically inserted here -->
+								</HBox>
+								<!-- Right Slot: Next Button -->
+								<HBox width="100px" justifyContent="End">
+									<Button text="Next" icon="Images/arrow-right.svg" id="idNextButtonap" iconFirst="false" class="cl_next_button" press="onNextPage"
+										visible="true"/>
+								</HBox>
+							</HBox>
+						</VBox>
+						<VBox class="cl_leftPanell1 cl_leftPanell1ap" height="100%" visible="{JsScrl>/0/Key}">
+							<!-- PDF Header -->
+							<HBox alignItems="Center" justifyContent="SpaceBetween" class="cl_pdfHeader" visible="{= !${viewState>/showHistory} }">
+								<HBox alignItems="Center" gap="0.5rem">
+									<Text text="View Invoice" class="cl_pdfTitle"/>
+									<!--<Button icon="Images/plus.svg" tooltip="Zoom In" press="fn_onZoomIn" type="Transparent"-->
+									<!--	class=" sapUiSizeCompact sapUiMediumMarginEnd cl_filter_btn " width="12px" height="12px"/>-->
+									<!--<Button icon="Images/minus.svg" tooltip="Zoom Out" press="fn_onZoomOut" type="Transparent"-->
+									<!--	class=" sapUiSizeCompact sapUiMediumMarginEnd cl_filter_btn"/>-->
+									<Button icon="Images/print.svg" tooltip="Print" press="fn_onPrint" type="Transparent"
+										class=" sapUiSizeCompact sapUiMediumMarginEnd cl_filter_btn"/>
+									<Button icon="Images/downloadin.svg" tooltip="Download PDF" press="fn_onDownload" type="Transparent"
+										class=" sapUiSizeCompact sapUiMediumMarginEnd cl_filter_btn"/>
+								</HBox>
+								<Image src="Images/window-close.svg" class="cl_pdfIconBtn" press="fn_close_pdf"/>
+							</HBox>
+							<!-- Body -->
+							<VBox class="cl_leftPanelltrans">
+								<ScrollContainer id="id_scrllap" width="100%" class="cl_pdfScroll" visible="{= !${viewState>/showHistory} }" focusable="true"
+									horizontal="true" vertical="true"></ScrollContainer>
+								<HBox id="idTransHistory" class="cl_transHistory cl_transHeader" visible="{viewState>/showHistory}" alignItems="Start"
+									justifyContent="SpaceBetween">
+									<HBox alignItems="Center" gap="0.5rem">
+										<Text text="Transaction History" class="cl_Tltxt"/>
+									</HBox>
+									<Image src="Images/window-close.svg" class="cl_pdfIconBtn" press="fn_close_pdf"/>
+								</HBox>
+								<VBox class="cl_leftPanell" visible="{viewState>/showHistory}">
+									<List items="{oComment>/}" width="100%">
+										<StandardListItem title="{oComment>Tdline}" info="{oComment>Tdformat}" class="cltranslist"/>
+									</List>
+								</VBox>
+							</VBox>
+						</VBox>
+						
+					</HBox>
+				</content>
+				<footer class="cl_Footer">
+					<OverflowToolbar id="id_FooterTool" class="cl_Footer">
+						<ToolbarSpacer/>
+							<Button text="{i18n>Reverse}" icon="Images/cancel.svg" class="cl_btn_deletec cl_btn_deletec_deviation"
+				press="fnReverse" tooltip="{i18n>Reverse}"></Button>
+						<Button id="id_post" text="Post" icon="Images/post_btn.svg" type="transparent" press="fnpost" class="sapUiSizeCompact cl_btn_save"/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
