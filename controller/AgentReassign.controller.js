@@ -30,8 +30,8 @@ sap.ui.define([
 
 		onInit: function() {
 
-			this.fn_LoadData();
-			this.fn_loadCompanyCodes();
+			// this.fn_LoadData();
+			// this.fn_loadCompanyCodes();
 			this.fn_getPlant();
 			this.fn_getVendor();
 			this.fn_status();
